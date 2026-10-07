@@ -1,0 +1,25 @@
+{
+  "mode": "paper",
+  "confirm_live": false,
+  "kill": false,
+
+  "signal_symbol": "SPY",
+  "trade_symbol": "SPY",
+  "universe": ["SPY"],
+  "long_only": true,
+  "entry_threshold": 0.0,
+
+  "max_position_frac": 0.5,
+  "stop_loss_pct": 0.01,
+  "daily_loss_cap_pct": 0.02,
+  "drawdown_halt_pct": 0.10,
+  "min_order_notional": 1.0,
+  "max_order_notional": 500.0,
+
+  "entry_minutes_before_close": 30,
+  "exit_minutes_before_close": 10,
+  "latest_entry_minutes_before_close": 18,
+  "poll_seconds": 20,
+
+  "no_overlay_risk_dial": "normal"
+}
