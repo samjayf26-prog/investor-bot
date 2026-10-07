@@ -1,4 +1,14 @@
 {
+  "2026-10-07-1420-PENG": {
+    "action": "buy",
+    "broker_symbol": "PENG",
+    "entry_date": "2026-10-07",
+    "expiry": null,
+    "id": "2026-10-07-1420-PENG",
+    "max_hold_days": 7,
+    "stop_pct": 0.08,
+    "target_pct": 0.15
+  },
   "2026-10-07-CEG": {
     "action": "buy",
     "broker_symbol": "CEG",
