@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-07T17:25:00Z",
+  "generated_at": "2026-10-07T17:13:00Z",
   "expires_at": "2026-10-07T19:30:00Z",
   "picks": [
     {"id": "2026-10-07-CEG", "symbol": "CEG", "action": "buy", "conviction": 1,
