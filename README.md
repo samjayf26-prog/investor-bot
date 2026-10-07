@@ -1,4 +1,4 @@
-# investing-bot
+# investor-bot
 
 Claude researches the market each morning and picks trades; a bot on GitHub Actions
 executes them on Alpaca with hard limits. Started from the plan in the "Investing Bot
