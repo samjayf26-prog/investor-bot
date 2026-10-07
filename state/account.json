@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-10-07T17:14:10.227435+00:00",
+  "mode": "paper",
+  "equity": "100000",
+  "cash": "99970.02",
+  "positions": [
+    {
+      "symbol": "CEG",
+      "qty": "0.050356763",
+      "avg_entry_price": "297.676",
+      "current_price": "297.69",
+      "unrealized_pl": "0.000705",
+      "unrealized_plpc": "0.00005"
+    },
+    {
+      "symbol": "SH",
+      "qty": "0.470968958",
+      "avg_entry_price": "31.828",
+      "current_price": "31.825",
+      "unrealized_pl": "-0.001413",
+      "unrealized_plpc": "-0.00009"
+    }
+  ]
+}

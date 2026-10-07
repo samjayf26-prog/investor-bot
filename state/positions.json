@@ -1,0 +1,22 @@
+{
+  "2026-10-07-CEG": {
+    "action": "buy",
+    "broker_symbol": "CEG",
+    "entry_date": "2026-10-07",
+    "expiry": null,
+    "id": "2026-10-07-CEG",
+    "max_hold_days": 5,
+    "stop_pct": 0.06,
+    "target_pct": 0.12
+  },
+  "2026-10-07-SH": {
+    "action": "buy",
+    "broker_symbol": "SH",
+    "entry_date": "2026-10-07",
+    "expiry": null,
+    "id": "2026-10-07-SH",
+    "max_hold_days": 5,
+    "stop_pct": 0.03,
+    "target_pct": 0.05
+  }
+}
