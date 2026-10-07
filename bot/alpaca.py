@@ -92,9 +92,26 @@ class Alpaca:
     def close_position(self, symbol):
         return self._req("DELETE", f"{self.base}/v2/positions/{symbol}", retries=1)
 
+    def asset(self, symbol):
+        try:
+            return self._req("GET", f"{self.base}/v2/assets/{symbol}")
+        except AlpacaError as e:
+            if e.status == 404:
+                return None
+            raise
+
+    def put_contracts(self, underlying, exp_from, exp_to):
+        out = self._req("GET", f"{self.base}/v2/options/contracts",
+                        {"underlying_symbols": underlying, "type": "put", "status": "active",
+                         "expiration_date_gte": exp_from, "expiration_date_lte": exp_to, "limit": 1000})
+        return out.get("option_contracts") or []
+
     # market data
-    def bars(self, symbol, timeframe, start, end):
-        out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/bars",
-                        {"timeframe": timeframe, "start": start, "end": end,
-                         "feed": "sip", "adjustment": "raw", "limit": 1000})
-        return out.get("bars") or []
+    def last_price(self, symbol):
+        out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", {"feed": "iex"})
+        return float(out["trade"]["p"])
+
+    def option_quotes(self, symbols):
+        out = self._req("GET", f"{DATA_URL}/v1beta1/options/quotes/latest",
+                        {"symbols": ",".join(symbols), "feed": "indicative"})
+        return out.get("quotes") or {}

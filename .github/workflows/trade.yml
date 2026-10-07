@@ -2,17 +2,13 @@ name: trade
 
 on:
   schedule:
-    # GitHub cron is UTC. Two entries cover both daylight-saving seasons; the bot
-    # exits at once from whichever one lands too early. Main run: ~15:07 ET.
-    - cron: "7 19 * * 1-5"
-    - cron: "7 20 * * 1-5"
-    # Backstop: ~09:47 ET, closes anything left open overnight.
-    - cron: "47 13 * * 1-5"
-    - cron: "47 14 * * 1-5"
+    # GitHub cron is UTC: :50 past each hour, 13:50-20:50 UTC, covers 9:50-15:50 ET in both
+    # daylight-saving seasons. The bot exits at once when the market is closed.
+    - cron: "50 13-20 * * 1-5"
   workflow_dispatch:
     inputs:
       command:
-        description: "day, flatten or status"
+        description: "cycle, flatten or status"
         default: status
 
 concurrency:
@@ -25,7 +21,7 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 80
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -35,15 +31,12 @@ jobs:
         id: cmd
         env:
           EVENT: ${{ github.event_name }}
-          SCHEDULE: ${{ github.event.schedule }}
           INPUT_COMMAND: ${{ inputs.command }}
         run: |
           if [ "$EVENT" = "workflow_dispatch" ]; then
-            case "$INPUT_COMMAND" in day|flatten|status) echo "command=$INPUT_COMMAND" >> "$GITHUB_OUTPUT" ;; *) exit 1 ;; esac
-          elif [ "$SCHEDULE" = "47 13 * * 1-5" ] || [ "$SCHEDULE" = "47 14 * * 1-5" ]; then
-            echo "command=backstop" >> "$GITHUB_OUTPUT"
+            case "$INPUT_COMMAND" in cycle|flatten|status) echo "command=$INPUT_COMMAND" >> "$GITHUB_OUTPUT" ;; *) exit 1 ;; esac
           else
-            echo "command=day" >> "$GITHUB_OUTPUT"
+            echo "command=cycle" >> "$GITHUB_OUTPUT"
           fi
       - name: Run bot
         env:
@@ -52,10 +45,13 @@ jobs:
           ALPACA_LIVE_KEY_ID: ${{ secrets.ALPACA_LIVE_KEY_ID }}
           ALPACA_LIVE_SECRET: ${{ secrets.ALPACA_LIVE_SECRET }}
         run: python -m bot.trader "${{ steps.cmd.outputs.command }}"
-      - name: Save trade log
+      - name: Save state and trade log
         if: always()
         run: |
           git config user.name "trading-bot"
           git config user.email "trading-bot@users.noreply.github.com"
-          git add ledger/ || true
-          git diff --cached --quiet || (git commit -m "ledger: $(date -u +%F)" && git push)
+          git add ledger/ state/ || true
+          git diff --cached --quiet && exit 0
+          git commit -m "bot state $(date -u +%FT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1

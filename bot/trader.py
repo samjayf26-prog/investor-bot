@@ -1,10 +1,11 @@
-"""Daily lifecycle of the SPY intraday momentum bot.
+"""Executes Claude's research picks on Alpaca, with hard limits.
 
-    python -m bot.trader day       # one trading day: check, maybe enter, exit before close
+    python -m bot.trader cycle     # one pass: exits, then new entries from picks/latest.json
     python -m bot.trader flatten   # cancel all orders and close all positions
     python -m bot.trader status    # print account and positions (setup check)
 
-Runs from GitHub Actions. Exits non-zero on anything unexpected so GitHub emails Sam.
+Runs from GitHub Actions about once an hour while the market is open. Exits non-zero
+on anything unexpected so GitHub emails Sam.
 """
 import csv
 import json
@@ -15,11 +16,12 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from . import overlay, risk
+from . import picks, risk
 from .alpaca import Alpaca
 
 ET = ZoneInfo("America/New_York")
 ROOT = Path(__file__).resolve().parent.parent
+PENDING = {"new", "accepted", "pending_new", "partially_filled", "accepted_for_bidding", "held"}
 
 
 def log(msg):
@@ -37,31 +39,45 @@ def load_config(path=ROOT / "config.json"):
 
 
 def make_client(cfg):
+    if cfg["mode"] not in ("live", "paper"):
+        raise SystemExit(f"unknown mode {cfg['mode']!r}")
     live = cfg["mode"] == "live"
     if live and cfg.get("confirm_live") is not True:
         raise SystemExit("mode is live but confirm_live is not true; refusing to start")
-    if cfg["mode"] not in ("live", "paper"):
-        raise SystemExit(f"unknown mode {cfg['mode']!r}")
     return Alpaca.from_env(live)
 
 
 class Trader:
-    def __init__(self, api, cfg, now=lambda: datetime.now(timezone.utc), sleep=time.sleep,
-                 overlay_path=ROOT / "overlay" / "latest.json", ledger_path=ROOT / "ledger" / "trades.csv"):
+    def __init__(self, api, cfg, now=lambda: datetime.now(timezone.utc), sleep=time.sleep, root=ROOT):
         self.api, self.cfg, self.now, self.sleep = api, cfg, now, sleep
-        self.overlay_path, self.ledger_path = overlay_path, ledger_path
-        self.symbol = cfg["trade_symbol"]
+        self.picks_path = root / "picks" / "latest.json"
+        self.state_path = root / "state" / "positions.json"
+        self.ledger_path = root / "ledger" / "trades.csv"
+        self.snapshot_path = root / "state" / "account.json"
 
-    # helpers
-    def sleep_until(self, when):
-        while True:
-            left = (when - self.now()).total_seconds()
-            if left <= 0:
-                return
-            self.sleep(min(left, 60))
+    # persistence
+    def load_state(self):
+        try:
+            return json.loads(self.state_path.read_text())
+        except FileNotFoundError:
+            return {}
 
+    def save_state(self, state):
+        self.state_path.parent.mkdir(exist_ok=True)
+        self.state_path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n")
+
+    def record(self, row):
+        self.ledger_path.parent.mkdir(exist_ok=True)
+        new = not self.ledger_path.exists()
+        with open(self.ledger_path, "a", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(row))
+            if new:
+                w.writeheader()
+            w.writerow(row)
+
+    # actions
     def flatten(self, why):
-        log(f"Flattening: {why}")
+        log(f"Flattening everything: {why}")
         self.api.cancel_all_orders()
         for p in self.api.positions():
             self.api.close_position(p["symbol"])
@@ -73,168 +89,190 @@ class Trader:
             self.sleep(5)
         raise RuntimeError("positions still open after flatten; close them in the Alpaca app")
 
-    def position(self):
-        return next((p for p in self.api.positions() if p["symbol"] == self.symbol), None)
-
     def peak_equity(self, equity):
         hist = self.api.portfolio_history() or {}
-        vals = [v for v in (hist.get("equity") or []) if v]
-        return max(vals + [equity])
+        return max([v for v in (hist.get("equity") or []) if v] + [equity])
 
-    def signal_inputs(self, today, cal):
-        """Previous trading day's close and the price at 10:00 ET today (SIP bars)."""
-        days = [d["date"] for d in cal if d["date"] < today.isoformat()]
-        if not days:
-            return None, None
-        prev = days[-1]
-        sig = self.cfg["signal_symbol"]
-        daily = self.api.bars(sig, "1Day", prev, prev)
-        prev_close = daily[-1]["c"] if daily else None
-        ten = datetime.combine(today, datetime.min.time(), ET).replace(hour=10)
-        mins = self.api.bars(sig, "1Min", (ten - timedelta(minutes=5)).astimezone(timezone.utc).isoformat(),
-                             (ten - timedelta(seconds=1)).astimezone(timezone.utc).isoformat())
-        price_at_10 = mins[-1]["c"] if mins else None
-        return prev_close, price_at_10
+    def close(self, entry, pos, reason, today):
+        self.api.close_position(pos["symbol"])
+        pl = float(pos.get("unrealized_pl") or 0)
+        log(f"Sold {pos['symbol']} ({entry['id']}): {reason}, approx P&L ${pl:.2f}")
+        self.record({"closed": today.isoformat(), "id": entry["id"], "symbol": pos["symbol"],
+                     "action": entry["action"], "opened": entry["entry_date"],
+                     "cost": pos.get("cost_basis", ""), "pnl_approx": round(pl, 2),
+                     "pnl_pct": round(float(pos.get("unrealized_plpc") or 0), 4),
+                     "reason": reason, "mode": self.cfg["mode"]})
 
-    def record(self, row):
-        self.ledger_path.parent.mkdir(exist_ok=True)
-        new = not self.ledger_path.exists()
-        with open(self.ledger_path, "a", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=list(row))
-            if new:
-                w.writeheader()
-            w.writerow(row)
-
-    # the day
-    def day(self):
+    def cycle(self):
         cfg = self.cfg
         log(f"Mode: {cfg['mode'].upper()}")
         if cfg.get("kill"):
             self.flatten("kill switch is on in config.json")
             return "killed"
-
-        clock = self.api.clock()
-        if not clock["is_open"]:
-            log("Market closed today/now; nothing to do.")
+        if not self.api.clock()["is_open"]:
+            log("Market is closed; nothing to do.")
             return "closed"
 
-        now_et = self.now().astimezone(ET)
-        today = now_et.date()
-        cal = self.api.calendar((today - timedelta(days=10)).isoformat(), today.isoformat())
-        today_cal = next((d for d in cal if d["date"] == today.isoformat()), None)
-        if not today_cal or today_cal["close"][:5] != "16:00":
-            log(f"Not a normal full trading day (close {today_cal and today_cal['close']}); skipping.")
-            return "skip-halfday"
-        close = datetime.combine(today, datetime.min.time(), ET).replace(hour=16)
-        entry_at = close - timedelta(minutes=cfg["entry_minutes_before_close"])
-        latest_entry = close - timedelta(minutes=cfg["latest_entry_minutes_before_close"])
-        exit_at = close - timedelta(minutes=cfg["exit_minutes_before_close"])
+        now = self.now()
+        today = now.astimezone(ET).date()
+        state = self.load_state()
+        entries, close_ids, notes = picks.load(self.picks_path, now, cfg)
+        for n in notes:
+            log(f"Picks: {n}")
 
-        if now_et < entry_at - timedelta(minutes=45):
-            log("Too early (this is the off-season cron run); exiting.")
-            return "too-early"
+        # Unfilled orders from earlier runs are stale; the reconcile below drops them.
+        self.api.cancel_all_orders()
+        positions = {p["symbol"]: p for p in self.api.positions()}
 
-        if self.api.positions():
-            self.flatten("leftover position from an earlier run")
+        # reconcile our records with the broker, which is the source of truth
+        for pid, e in list(state.items()):
+            if e["broker_symbol"] in positions:
+                continue
+            order = self.api.order_by_client_id(f"{pid}-entry")
+            status = order["status"] if order else "missing"
+            if status in PENDING:
+                continue
+            if float((order or {}).get("filled_qty") or 0) == 0:
+                log(f"Entry for {pid} never filled ({status}); dropping it.")
+            else:
+                log(f"{pid} is no longer held (closed outside the bot).")
+                self.record({"closed": today.isoformat(), "id": pid, "symbol": e["broker_symbol"],
+                             "action": e["action"], "opened": e["entry_date"], "cost": "",
+                             "pnl_approx": "", "pnl_pct": "", "reason": "closed outside the bot",
+                             "mode": cfg["mode"]})
+            del state[pid]
+        known = {e["broker_symbol"] for e in state.values()}
+        for sym, p in positions.items():
+            if sym not in known:
+                log(f"Adopting unknown position {sym} with default exits.")
+                state[f"adopted-{today.isoformat()}-{sym}"] = {
+                    "id": f"adopted-{sym}", "broker_symbol": sym, "action": "buy", "entry_date": today.isoformat(),
+                    "stop_pct": 0.10, "target_pct": 0.20, "max_hold_days": 5, "expiry": None}
 
-        entry_id = f"{today.isoformat()}-mom-{self.symbol}-entry"
-        if self.api.order_by_client_id(entry_id):
-            log("Already entered today (rerun); not trading again.")
-            return "already-traded"
+        # exits
+        for pid, e in list(state.items()):
+            pos = positions.get(e["broker_symbol"])
+            if not pos:
+                continue
+            dte = (date.fromisoformat(e["expiry"]) - today).days if e.get("expiry") else None
+            reason = risk.exit_reason(float(pos["unrealized_plpc"]), e["stop_pct"], e["target_pct"],
+                                      (today - date.fromisoformat(e["entry_date"])).days,
+                                      e["max_hold_days"], pid in close_ids, dte)
+            if reason:
+                self.close(e, pos, reason, today)
+                del state[pid]
+                positions.pop(e["broker_symbol"])
 
+        # entries
+        result = "managed"
         acct = self.api.account()
         if acct.get("trading_blocked") or acct.get("account_blocked"):
+            self.save_state(state)
             raise RuntimeError("Alpaca says the account is blocked from trading")
-        equity, start_eq, cash = float(acct["equity"]), float(acct["last_equity"]), float(acct["cash"])
-        log(f"Equity ${equity:.2f}, cash ${cash:.2f}")
-
-        for ok, why in (risk.daily_loss_ok(equity, start_eq, cfg["daily_loss_cap_pct"]),
-                        risk.drawdown_ok(equity, self.peak_equity(equity), cfg["drawdown_halt_pct"]),
-                        risk.symbol_allowed(self.symbol, cfg["universe"])):
-            if not ok:
-                raise RuntimeError(f"Risk halt: {why}")
-
-        mult, blocked, note = overlay.load(self.overlay_path, self.now(), cfg["no_overlay_risk_dial"], self.symbol)
-        log(f"Overlay: {note}")
-        if blocked:
-            log(f"No trade today: {blocked}")
-            return "overlay-blocked"
-
-        prev_close, p10 = self.signal_inputs(today, cal)
-        direction = risk.entry_signal(prev_close, p10, cfg["entry_threshold"], cfg["long_only"])
-        log(f"Signal: prev close {prev_close}, 10:00 price {p10} -> {direction or 'no trade'}")
-        if direction != "long":
-            # Shorting is off: a cash account under $2k can't short and fractional shares can't be shorted.
-            return "no-signal"
-
-        notional = risk.position_notional(equity, cash, cfg["max_position_frac"], mult,
-                                          cfg["max_order_notional"], cfg["min_order_notional"])
-        if notional <= 0:
-            log("Position size is below the broker minimum; skipping.")
-            return "too-small"
-
-        self.sleep_until(entry_at)
-        if self.now() > latest_entry:
-            log("Started too late to enter safely; skipping today.")
-            return "too-late"
-
-        order = self.api.submit_order(symbol=self.symbol, notional=f"{notional:.2f}", side="buy",
-                                      type="market", time_in_force="day", client_order_id=entry_id)
-        log(f"Bought ${notional:.2f} of {self.symbol} (order {order['id']})")
-        for _ in range(12):
-            order = self.api.order_by_client_id(entry_id)
-            if order["status"] == "filled":
+        equity, cash = float(acct["equity"]), float(acct["cash"])
+        cutoff = datetime.combine(today, datetime.strptime(cfg["no_entries_after_et"], "%H:%M").time(), ET)
+        halts = [why for ok, why in (risk.daily_loss_ok(equity, float(acct["last_equity"]), cfg["daily_loss_cap_pct"]),
+                                     risk.drawdown_ok(equity, self.peak_equity(equity), cfg["drawdown_halt_pct"])) if not ok]
+        if halts:
+            log(f"No new entries: {'; '.join(halts)}")
+            entries, result = [], "halted"
+        elif now > cutoff:
+            entries = []
+        for pick in entries:
+            if len(state) >= cfg["max_open_positions"]:
+                log("At the open-position limit; remaining picks wait.")
                 break
-            self.sleep(5)
-        else:
-            self.flatten(f"entry not filled (status {order['status']})")
-            raise RuntimeError("entry order did not fill")
-        entry_price = float(order["filled_avg_price"])
-        log(f"Filled {order['filled_qty']} @ ${entry_price:.2f}")
+            if pick["id"] in state or self.api.order_by_client_id(f"{pick['id']}-entry"):
+                continue
+            budget = risk.pick_budget(equity, cash, pick["conviction"], cfg["max_order_notional"],
+                                      cfg["min_order_notional"])
+            if budget <= 0:
+                log(f"Skip {pick['id']}: not enough cash.")
+                continue
+            entry = self.enter(pick, budget, acct, today)
+            if entry:
+                state[pick["id"]] = entry
+                result = "traded"
+                acct = self.api.account()
+                cash = float(acct["cash"])
 
-        exit_reason = "end of day"
-        while self.now() < exit_at:
-            pos = self.position()
-            if pos is None:
-                exit_reason = "position disappeared (closed outside the bot)"
-                break
-            if risk.stop_hit(float(pos["unrealized_plpc"]), cfg["stop_loss_pct"]):
-                exit_reason = f"stop loss ({float(pos['unrealized_plpc']):.2%})"
-                break
-            self.sleep(cfg["poll_seconds"])
+        self.save_state(state)
+        self.snapshot_path.write_text(json.dumps({
+            "as_of": now.isoformat(), "mode": cfg["mode"], "equity": acct["equity"], "cash": acct["cash"],
+            "positions": [{k: p.get(k) for k in ("symbol", "qty", "avg_entry_price", "current_price",
+                                                  "unrealized_pl", "unrealized_plpc")}
+                          for p in self.api.positions()]}, indent=2) + "\n")
+        log(f"Equity ${float(acct['equity']):.2f}, cash ${float(acct['cash']):.2f}, open positions {len(state)}")
+        return result
 
-        pos = self.position()
-        exit_price = float(pos["current_price"]) if pos else None
-        self.flatten(exit_reason)
-        pnl = (exit_price - entry_price) * float(order["filled_qty"]) if exit_price else None
-        log(f"Exit ~${exit_price}, approx P&L ${pnl:.2f}" if pnl is not None else "Exit price unknown")
-        self.record({"date": today.isoformat(), "mode": cfg["mode"], "symbol": self.symbol,
-                     "notional": notional, "qty": order["filled_qty"], "entry": entry_price,
-                     "exit_approx": exit_price, "pnl_approx": round(pnl, 4) if pnl is not None else "",
-                     "exit_reason": exit_reason, "overlay": note[:80]})
-        return "traded"
+    def enter(self, pick, budget, acct, today):
+        sym, cid = pick["symbol"], f"{pick['id']}-entry"
+        asset = self.api.asset(sym)
+        if not asset or not asset.get("tradable") or asset.get("status") != "active" \
+                or asset.get("class") != "us_equity" or asset.get("exchange") == "OTC":
+            log(f"Skip {pick['id']}: {sym} is not a tradable listed US stock on Alpaca.")
+            return None
+        price = self.api.last_price(sym)
+        base = {"id": pick["id"], "action": pick["action"], "entry_date": today.isoformat(),
+                "stop_pct": pick["stop_pct"], "target_pct": pick["target_pct"],
+                "max_hold_days": pick["max_hold_days"], "expiry": None}
+
+        if pick["action"] == "buy":
+            if price < self.cfg["min_stock_price"]:
+                log(f"Skip {pick['id']}: {sym} at ${price} is below the minimum price.")
+                return None
+            if pick["max_entry_price"] and price > pick["max_entry_price"]:
+                log(f"Skip {pick['id']}: {sym} at ${price} is above Claude's max entry ${pick['max_entry_price']}.")
+                return None
+            if asset.get("fractionable"):
+                order = dict(notional=f"{budget:.2f}")
+            else:
+                qty = risk.whole_shares(budget, price)
+                if qty < 1:
+                    log(f"Skip {pick['id']}: one share of {sym} (${price}) costs more than ${budget}.")
+                    return None
+                order = dict(qty=str(qty))
+            self.api.submit_order(symbol=sym, side="buy", type="market", time_in_force="day",
+                                  client_order_id=cid, **order)
+            log(f"Bought {sym} ({order}) for pick {pick['id']}")
+            return {**base, "broker_symbol": sym}
+
+        # buy_put: the bearish trade available to a small cash account (shorting needs $2k+)
+        if not self.cfg["options_enabled"] or int(acct.get("options_trading_level") or 0) < 2:
+            log(f"Skip {pick['id']}: account is not approved to buy options (level 2).")
+            return None
+        contracts = self.api.put_contracts(sym, (today + timedelta(days=10)).isoformat(),
+                                           (today + timedelta(days=45)).isoformat())
+        contracts = sorted(contracts, key=lambda c: abs(float(c["strike_price"]) - price))[:100]
+        if not contracts:
+            log(f"Skip {pick['id']}: no listed puts on {sym}.")
+            return None
+        contract, ask = risk.choose_put(contracts, self.api.option_quotes([c["symbol"] for c in contracts]),
+                                        price, budget, today)
+        if not contract:
+            log(f"Skip {pick['id']}: no liquid put on {sym} fits ${budget:.2f}.")
+            return None
+        self.api.submit_order(symbol=contract["symbol"], qty="1", side="buy", type="limit",
+                              limit_price=f"{ask:.2f}", time_in_force="day", client_order_id=cid)
+        log(f"Bought 1 put {contract['symbol']} at ${ask:.2f} (${ask * 100:.0f}) for pick {pick['id']}")
+        return {**base, "broker_symbol": contract["symbol"], "expiry": contract["expiration_date"]}
 
     def status(self):
         acct = self.api.account()
-        log(f"Mode {self.cfg['mode']}: equity ${acct['equity']}, cash ${acct['cash']}, "
-            f"status {acct['status']}, blocked {acct.get('trading_blocked')}")
+        log(f"Mode {self.cfg['mode']}: equity ${acct['equity']}, cash ${acct['cash']}, status {acct['status']}, "
+            f"options level {acct.get('options_trading_level')}, blocked {acct.get('trading_blocked')}")
         log(f"Positions: {[(p['symbol'], p['qty']) for p in self.api.positions()] or 'none'}")
         log(f"Market open now: {self.api.clock()['is_open']}")
 
 
 def main(argv):
-    cmd = argv[1] if len(argv) > 1 else "day"
+    cmd = argv[1] if len(argv) > 1 else "cycle"
     cfg = load_config()
     t = Trader(make_client(cfg), cfg)
-    if cmd == "day":
-        log(f"Result: {t.day()}")
-    elif cmd == "backstop":
-        if cfg.get("kill") or (t.api.clock()["is_open"] and t.api.positions()):
-            t.flatten("backstop: kill switch on or position left open")
-        else:
-            log("Backstop: nothing open.")
+    if cmd == "cycle":
+        log(f"Result: {t.cycle()}")
     elif cmd == "flatten":
-        t.flatten("manual or backstop run")
+        t.flatten("manual run")
     elif cmd == "status":
         t.status()
     else:

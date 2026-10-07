@@ -1,18 +1,8 @@
-"""Risk limits as pure functions. Each returns (ok, reason) or a number; no I/O."""
+"""Risk limits and trade math as pure functions; no I/O."""
 import math
+from datetime import date
 
-RISK_DIAL = {"normal": 1.0, "reduced": 0.5, "off": 0.0}
-
-
-def dial_multiplier(dial):
-    """Unknown dial values count as 'off': garbage can only make the bot trade less."""
-    return RISK_DIAL.get(dial, 0.0)
-
-
-def symbol_allowed(symbol, universe):
-    if symbol not in universe:
-        return False, f"{symbol} is not in the universe {universe}"
-    return True, ""
+CONVICTION_FRAC = {1: 0.15, 2: 0.25, 3: 0.40}
 
 
 def daily_loss_ok(equity, start_of_day_equity, cap_pct):
@@ -36,29 +26,51 @@ def drawdown_ok(equity, peak_equity, halt_pct):
     return True, ""
 
 
-def position_notional(equity, cash, max_frac, multiplier, max_notional, min_notional):
-    """Dollar size of the entry: never more than max_frac of equity, the cash on hand
-    (no leverage), or the hard ceiling. Returns 0.0 when below the broker minimum."""
+def pick_budget(equity, cash, conviction, max_notional, min_notional):
+    """Dollars for one pick: a share of equity set by conviction, never more than the
+    cash on hand (no leverage) or the hard ceiling. 0.0 when below the broker minimum."""
     if equity <= 0 or cash <= 0:
         return 0.0
-    size = min(equity * max_frac * min(max(multiplier, 0.0), 1.0), cash * 0.98, max_notional)
+    size = min(equity * CONVICTION_FRAC.get(conviction, 0.15), cash * 0.98, max_notional)
     size = math.floor(size * 100) / 100
     return size if size >= min_notional else 0.0
 
 
-def stop_hit(unrealized_plpc, stop_pct):
-    """unrealized_plpc is the position's return as a fraction (Alpaca's field)."""
-    return unrealized_plpc <= -stop_pct
+def whole_shares(budget, price):
+    return int(budget // price) if price > 0 else 0
 
 
-def entry_signal(prev_close, price_at_10, threshold, long_only):
-    """Intraday momentum: the move from yesterday's close to 10:00 ET picks the direction
-    for the last half hour. Returns 'long', 'short' or None."""
-    if not prev_close or not price_at_10 or prev_close <= 0:
-        return None
-    r1 = price_at_10 / prev_close - 1
-    if r1 > threshold:
-        return "long"
-    if r1 < -threshold and not long_only:
-        return "short"
+def exit_reason(plpc, stop_pct, target_pct, held_days, max_hold_days, close_requested,
+                days_to_expiry=None, min_days_to_expiry=2):
+    """Why a position should be closed now, or None to keep it."""
+    if plpc <= -stop_pct:
+        return f"stop loss ({plpc:.1%})"
+    if plpc >= target_pct:
+        return f"profit target ({plpc:.1%})"
+    if close_requested:
+        return "Claude asked to close"
+    if held_days >= max_hold_days:
+        return f"max hold of {max_hold_days} days"
+    if days_to_expiry is not None and days_to_expiry <= min_days_to_expiry:
+        return "option near expiry"
     return None
+
+
+def choose_put(contracts, quotes, underlying_price, budget, today, min_days=10, max_days=45):
+    """Pick the put closest to at-the-money whose ask fits the budget for one contract,
+    expiring min_days..max_days out. Returns (contract, ask) or (None, None)."""
+    best = None
+    for c in contracts:
+        if not c.get("tradable", True):
+            continue
+        days = (date.fromisoformat(c["expiration_date"]) - today).days
+        q = quotes.get(c["symbol"]) or {}
+        ask, bid = float(q.get("ap") or 0), float(q.get("bp") or 0)
+        if not (min_days <= days <= max_days) or ask <= 0 or ask * 100 > budget:
+            continue
+        if bid <= 0 or (ask - bid) / ask > 0.35:  # skip illiquid contracts with huge spreads
+            continue
+        score = (abs(float(c["strike_price"]) - underlying_price), days)
+        if best is None or score < best[0]:
+            best = (score, c, ask)
+    return (best[1], best[2]) if best else (None, None)
