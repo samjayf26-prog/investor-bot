@@ -36,6 +36,12 @@ def pick_budget(equity, cash, conviction, max_notional, min_notional):
     return size if size >= min_notional else 0.0
 
 
+def sizing_view(equity, cash, positions_value, cap):
+    """Size as if the account held at most `cap` dollars, so a big paper account trades
+    like the real $100 one. Returns (equity, cash) to size with."""
+    return min(equity, cap), max(0.0, min(cash, cap - positions_value))
+
+
 def whole_shares(budget, price):
     return int(budget // price) if price > 0 else 0
 

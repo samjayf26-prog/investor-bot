@@ -13,5 +13,6 @@
   "daily_loss_cap_pct": 0.25,
   "drawdown_halt_pct": 0.60,
   "min_order_notional": 1.0,
-  "max_order_notional": 500.0
+  "max_order_notional": 500.0,
+  "sizing_equity_cap": 100.0
 }

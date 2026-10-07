@@ -31,6 +31,12 @@ def test_budget():
     assert risk.pick_budget(100, 0.5, 3, 500, 1) == 0.0
 
 
+def test_sizing_cap_makes_paper_trade_like_100_dollars():
+    assert risk.sizing_view(100_000, 100_000, 0, 100) == (100, 100)
+    assert risk.sizing_view(100_000, 100_000, 70, 100) == (100, 30)
+    assert risk.sizing_view(80, 80, 0, 100) == (80, 80)
+
+
 def test_exit_reasons():
     assert risk.exit_reason(-0.09, 0.08, 0.15, 0, 5, False).startswith("stop")
     assert risk.exit_reason(0.16, 0.08, 0.15, 0, 5, False).startswith("profit")

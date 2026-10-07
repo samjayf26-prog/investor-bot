@@ -184,7 +184,9 @@ class Trader:
                 break
             if pick["id"] in state or self.api.order_by_client_id(f"{pick['id']}-entry"):
                 continue
-            budget = risk.pick_budget(equity, cash, pick["conviction"], cfg["max_order_notional"],
+            held = sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions())
+            size_eq, size_cash = risk.sizing_view(equity, cash, held, cfg["sizing_equity_cap"])
+            budget = risk.pick_budget(size_eq, size_cash, pick["conviction"], cfg["max_order_notional"],
                                       cfg["min_order_notional"])
             if budget <= 0:
                 log(f"Skip {pick['id']}: not enough cash.")
