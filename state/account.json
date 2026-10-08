@@ -1,32 +1,32 @@
 {
-  "as_of": "2026-10-07T19:56:00.038917+00:00",
+  "as_of": "2026-10-08T13:59:50.578905+00:00",
   "mode": "paper",
-  "equity": "99999.99",
-  "cash": "99945.03",
+  "equity": "100000.7",
+  "cash": "99945.02",
   "positions": [
     {
       "symbol": "CEG",
       "qty": "0.050356763",
       "avg_entry_price": "297.676",
-      "current_price": "299.43",
-      "unrealized_pl": "0.088326",
-      "unrealized_plpc": "0.00589"
+      "current_price": "303",
+      "unrealized_pl": "0.268099",
+      "unrealized_plpc": "0.01789"
     },
     {
       "symbol": "PENG",
       "qty": "0.342385049",
       "avg_entry_price": "72.988",
-      "current_price": "72.715",
-      "unrealized_pl": "-0.093471",
-      "unrealized_plpc": "-0.00374"
+      "current_price": "74.1725",
+      "unrealized_pl": "0.405555",
+      "unrealized_plpc": "0.01623"
     },
     {
       "symbol": "SH",
       "qty": "0.470968958",
       "avg_entry_price": "31.828",
-      "current_price": "31.8197",
-      "unrealized_pl": "-0.003909",
-      "unrealized_plpc": "-0.00026"
+      "current_price": "31.905",
+      "unrealized_pl": "0.036265",
+      "unrealized_plpc": "0.00242"
     }
   ]
 }
