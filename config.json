@@ -22,7 +22,7 @@
     "bull_symbols": ["SPY", "QQQ", "TQQQ"],
     "bear_symbols": ["SQQQ"],
     "start_et": "09:35",
-    "minutes": 70,
+    "minutes": 340,
     "trade_notional": 20.0,
     "max_open": 2,
     "take_profit_pct": 0.003,

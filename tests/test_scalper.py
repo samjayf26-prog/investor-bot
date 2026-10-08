@@ -128,3 +128,16 @@ def test_off_bias_does_nothing(tmp_path):
     api = FakeAlpaca(clock)
     assert scalper.Scalper(api, CFG, now=clock.now, sleep=clock.sleep, root=tmp_path).run() == "bias-off"
     assert not api.orders
+
+
+def test_bias_change_midsession_switches_symbols(tmp_path):
+    (tmp_path / "picks").mkdir()
+    picks = tmp_path / "picks" / "latest.json"
+    picks.write_text(json.dumps({"expires_at": "2026-10-08T19:30:00Z", "scalp_bias": "bull"}))
+    clock = Clock(START)
+    api = FakeAlpaca(clock)
+    s = scalper.Scalper(api, CFG, now=clock.now, sleep=clock.sleep, root=tmp_path)
+    s.refresh_repo = lambda: picks.write_text(json.dumps({"expires_at": "2026-10-08T19:30:00Z", "scalp_bias": "off"}))
+    s.run()
+    assert all(t["symbol"] != "SQQQ" for t in s.trips)
+    assert not api.pos
