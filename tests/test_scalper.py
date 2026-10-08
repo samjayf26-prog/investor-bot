@@ -111,12 +111,14 @@ def test_session_trades_many_times_and_ends_flat(tmp_path):
 def test_loss_cap_stops_session(tmp_path):
     clock = Clock(START)
     api = FakeAlpaca(clock)
-    cfg = {**CFG, "scalper": {**SC, "daily_loss_cap": 0.0001}}
+    cfg = {**CFG, "scalper": {**SC, "daily_loss_cap": 0.0001, "take_profit_pct": 0.003,
+                               "stop_pct": 0.002, "max_hold_minutes": 10}}
     s = scalper.Scalper(api, cfg, now=clock.now, sleep=clock.sleep, root=tmp_path)
     s.run()
     first_loss = next(i for i, t in enumerate(s.trips) if t["pnl"] < 0)
+    sc = cfg["scalper"]
     # Open trades are closed at the end, so at most max_open extra trips follow the first loss.
-    assert len(s.trips) <= first_loss + 1 + SC["max_open"]
+    assert len(s.trips) <= first_loss + 1 + sc["max_open"]
     assert not api.pos
 
 
