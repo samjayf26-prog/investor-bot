@@ -18,3 +18,7 @@ Overnight: futures down (S&P -0.5 to -0.6%, Nasdaq -0.7 to -0.9%); crude +4.6% t
 - Keep **PENG**: risk-off may hit high-beta AI names; stop 8% protects. Watch at 11:20.
 - Standby **APLD buy (conviction 2)**: revenue ~3x estimates. Only fills if a slot frees today. Wrong if it fades below yesterday's close.
 Skipped: PEP (cut EPS growth outlook) as a put; too expensive for the budget. WOLF (surged on $1.5B loan) already gapped; chasing.
+
+## 2026-10-08 11:20 ET refresh (paper)
+Since 8:50: S&P and Nasdaq lower as oil rises; jobless claims fell (layoffs low); Fed's Waller said more hikes are needed (hawkish). Positions: CEG flat, PENG +0.2%, SH +0.3%. All theses intact; SH benefits from the hawkish tone. No slot free, so APLD stays on standby (same id, won't double-buy).
+Sources: https://www.cnbc.com/2026/10/08/us-treasury-yields-30-year-bond-auction.html, https://money.usnews.com/investing/news/articles/2026-10-08/us-weekly-jobless-claims-fall-as-layoffs-remain-low
