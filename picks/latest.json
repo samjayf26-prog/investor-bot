@@ -1,21 +1,23 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-08T15:21:00Z",
+  "generated_at": "2026-10-08T18:22:08Z",
   "expires_at": "2026-10-08T19:30:00Z",
   "picks": [
     {
-      "id": "2026-10-08-APLD",
-      "symbol": "APLD",
+      "id": "2026-10-08-1420-SOXS",
+      "symbol": "SOXS",
       "action": "buy",
-      "conviction": 2,
-      "stop_pct": 0.1,
-      "target_pct": 0.2,
-      "max_hold_days": 7,
-      "thesis": "Q1 revenue 341.9M vs 116.3M expected and adj EPS -0.01 vs -0.30 est; a beat this large on AI data-center demand tends to keep re-rating for days. Only bought if a position slot frees up.",
+      "conviction": 1,
+      "stop_pct": 0.08,
+      "target_pct": 0.15,
+      "max_hold_days": 3,
+      "thesis": "FT report that OpenAI's annualized revenue is ~$20B below investor estimates hit chip stocks (Nvidia, Micron, Intel) with the Nasdaq -1.6% and yields near multidecade highs; AI-capex repricing like this has run for several days before. 3x inverse semis, small size.",
       "sources": [
-        "https://investrade.com/morning-preview-october-08-2026/"
+        "https://finance.yahoo.com/technology/article/openais-annualized-revenue-20-billion-lower-than-prior-investor-estimates-174058048.html",
+        "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html"
       ]
     }
   ],
-  "close": []
+  "close": ["2026-10-07-CEG"],
+  "scalp_bias": "bear"
 }

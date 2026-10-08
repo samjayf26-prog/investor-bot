@@ -22,3 +22,12 @@ Skipped: PEP (cut EPS growth outlook) as a put; too expensive for the budget. WO
 ## 2026-10-08 11:20 ET refresh (paper)
 Since 8:50: S&P and Nasdaq lower as oil rises; jobless claims fell (layoffs low); Fed's Waller said more hikes are needed (hawkish). Positions: CEG flat, PENG +0.2%, SH +0.3%. All theses intact; SH benefits from the hawkish tone. No slot free, so APLD stays on standby (same id, won't double-buy).
 Sources: https://www.cnbc.com/2026/10/08/us-treasury-yields-30-year-bond-auction.html, https://money.usnews.com/investing/news/articles/2026-10-08/us-weekly-jobless-claims-fall-as-layoffs-remain-low
+
+## 2026-10-08 14:20 ET refresh (paper)
+Since 11:20: FT reported OpenAI's annualized revenue is ~$20B below investor estimates; chips sold off (NVDA, MU, INTC). Nasdaq -1.6%, S&P -0.7%; 10-year 5.29%. Oil eased after Trump said no Iran strike before the midterms. Positions: CEG -4.9%, PENG -1.6%, SH +0.7%.
+- **Close CEG.** It has given back a large part of its deal gap, and the AI-power demand story behind it just took a hit. Lesson: chasing a +12% gap on a single unconfirmed source was weak.
+- Keep **PENG** (8% stop protects; recheck at 8:50 with the AI news digested). Keep **SH**.
+- **Drop APLD standby.** AI data-center sentiment is turning; it would have filled into CEG's slot.
+- **SOXS buy (conviction 1).** Thesis: the OpenAI revenue reality check plus record yields keep pressure on semis for a few days. Wrong if chips recover today's losses tomorrow; 8% stop, 3-day hold.
+- Scalper bias set to **bear** (SQQQ only) for the rest of the session.
+Sources: https://finance.yahoo.com/technology/article/openais-annualized-revenue-20-billion-lower-than-prior-investor-estimates-174058048.html, https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html
