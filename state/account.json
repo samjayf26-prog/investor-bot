@@ -1,40 +1,32 @@
 {
-  "as_of": "2026-10-08T19:01:07.875381+00:00",
+  "as_of": "2026-10-08T19:58:15.926835+00:00",
   "mode": "paper",
-  "equity": "99999",
-  "cash": "99924.33",
+  "equity": "99998.6",
+  "cash": "99944.23",
   "positions": [
     {
       "symbol": "PENG",
       "qty": "0.342385049",
       "avg_entry_price": "72.988",
-      "current_price": "71.86",
-      "unrealized_pl": "-0.38621",
-      "unrealized_plpc": "-0.01545"
+      "current_price": "71.65",
+      "unrealized_pl": "-0.458111",
+      "unrealized_plpc": "-0.01833"
     },
     {
       "symbol": "SH",
       "qty": "0.470968958",
       "avg_entry_price": "31.828",
-      "current_price": "32.0101",
-      "unrealized_pl": "0.085763",
-      "unrealized_plpc": "0.00572"
+      "current_price": "31.97",
+      "unrealized_pl": "0.066878",
+      "unrealized_plpc": "0.00446"
     },
     {
       "symbol": "SOXS",
       "qty": "0.437689792",
       "avg_entry_price": "34.248",
-      "current_price": "34.2499",
-      "unrealized_pl": "0.000832",
-      "unrealized_plpc": "0.00006"
-    },
-    {
-      "symbol": "SQQQ",
-      "qty": "0.596395966",
-      "avg_entry_price": "33.518",
-      "current_price": "33.535",
-      "unrealized_pl": "0.010139",
-      "unrealized_plpc": "0.00051"
+      "current_price": "33.76",
+      "unrealized_pl": "-0.213593",
+      "unrealized_plpc": "-0.01425"
     }
   ]
 }
