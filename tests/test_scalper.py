@@ -143,3 +143,23 @@ def test_bias_change_midsession_switches_symbols(tmp_path):
     s.run()
     assert all(t["symbol"] != "SQQQ" for t in s.trips)
     assert not api.pos
+
+
+def test_refused_order_does_not_stop_session(tmp_path):
+    from bot.alpaca import AlpacaError
+
+    clock = Clock(START)
+    api = FakeAlpaca(clock)
+    real_submit, calls = api.submit_order, []
+
+    def flaky_submit(**o):
+        calls.append(o["client_order_id"])
+        if len(calls) == 1:
+            raise AlpacaError(422, "client_order_id must be unique")
+        return real_submit(**o)
+
+    api.submit_order = flaky_submit
+    s = scalper.Scalper(api, CFG, now=clock.now, sleep=clock.sleep, root=tmp_path)
+    assert s.run() == "done"
+    assert len(s.trips) >= 1 and not api.pos
+    assert all("-093500-" in c for c in calls)  # session start time is part of every order id

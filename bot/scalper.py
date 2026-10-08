@@ -15,6 +15,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from .alpaca import AlpacaError
 from .trader import ET, ROOT, load_config, log, make_client
 
 BIASES = ("bull", "bear", "neutral", "off")
@@ -141,51 +142,59 @@ class Scalper:
                 log(f"Closed leftover scalper position {p['symbol']}")
 
         self.sleep_until(start)
-        n, next_refresh = 0, self.now() + timedelta(minutes=15)
-        while self.now() < end:
-            if self.now() >= next_refresh:  # pick up Claude's midday research refreshes
-                next_refresh = self.now() + timedelta(minutes=15)
-                self.refresh_repo()
-                new_bias = read_bias(self.root / "picks" / "latest.json", self.now())
-                if new_bias != bias:
-                    bias, symbols = new_bias, active_symbols(sc, new_bias)
-                    log(f"Claude bias changed to {bias}: now scalping {symbols}")
-            if len(self.trips) >= sc["max_round_trips"] or self.realized() <= -sc["daily_loss_cap"]:
-                log(f"Stopping: {len(self.trips)} round trips, realized ${self.realized():.2f}")
-                break
-            held = {p["symbol"]: p for p in self.api.positions() if p["symbol"] in self.open}
+        session = self.now().astimezone(ET).strftime("%H%M%S")  # keeps order ids unique across sessions
+        try:
+            n, next_refresh = 0, self.now() + timedelta(minutes=15)
+            while self.now() < end:
+                if self.now() >= next_refresh:  # pick up Claude's midday research refreshes
+                    next_refresh = self.now() + timedelta(minutes=15)
+                    self.refresh_repo()
+                    new_bias = read_bias(self.root / "picks" / "latest.json", self.now())
+                    if new_bias != bias:
+                        bias, symbols = new_bias, active_symbols(sc, new_bias)
+                        log(f"Claude bias changed to {bias}: now scalping {symbols}")
+                if len(self.trips) >= sc["max_round_trips"] or self.realized() <= -sc["daily_loss_cap"]:
+                    log(f"Stopping: {len(self.trips)} round trips, realized ${self.realized():.2f}")
+                    break
+                held = {p["symbol"]: p for p in self.api.positions() if p["symbol"] in self.open}
+                for sym in list(self.open):
+                    pos = held.get(sym)
+                    if pos is None:
+                        self.open.pop(sym)
+                        continue
+                    minutes = (self.now() - self.open[sym]["at"]).total_seconds() / 60
+                    reason = scalp_exit(float(pos["unrealized_plpc"]), minutes, sc)
+                    if reason:
+                        self.close(sym, reason)
+                for sym in symbols:
+                    if sym in self.open or len(self.open) >= sc["max_open"]:
+                        continue
+                    bars = self.api.bars(sym, "1Min", (self.now() - timedelta(minutes=40)).isoformat())
+                    if not bars or bars[-1]["t"] == self.last_bar.get(sym):
+                        continue
+                    self.last_bar[sym] = bars[-1]["t"]
+                    if cross_up([b["c"] for b in bars], sc["ema_fast"], sc["ema_slow"]):
+                        n += 1
+                        cid = f"scalp-{today.isoformat()}-{session}-{sym}-{n}"
+                        try:
+                            order = self.api.submit_order(symbol=sym, notional=f"{sc['trade_notional']:.2f}",
+                                                          side="buy", type="market", time_in_force="day",
+                                                          client_order_id=cid)
+                        except AlpacaError as e:
+                            log(f"Order for {sym} refused, skipping: {e}")
+                            continue
+                        price, qty = self.fill(order["id"])
+                        if price:
+                            self.open[sym] = {"entry": price, "qty": qty, "at": self.now(), "cid": cid}
+                self.sleep(sc["poll_seconds"])
+        finally:
+            # Even if something unexpected breaks the loop, never leave scalps open or unlogged.
             for sym in list(self.open):
-                pos = held.get(sym)
-                if pos is None:
-                    self.open.pop(sym)
-                    continue
-                minutes = (self.now() - self.open[sym]["at"]).total_seconds() / 60
-                reason = scalp_exit(float(pos["unrealized_plpc"]), minutes, sc)
-                if reason:
-                    self.close(sym, reason)
-            for sym in symbols:
-                if sym in self.open or len(self.open) >= sc["max_open"]:
-                    continue
-                bars = self.api.bars(sym, "1Min", (self.now() - timedelta(minutes=40)).isoformat())
-                if not bars or bars[-1]["t"] == self.last_bar.get(sym):
-                    continue
-                self.last_bar[sym] = bars[-1]["t"]
-                if cross_up([b["c"] for b in bars], sc["ema_fast"], sc["ema_slow"]):
-                    n += 1
-                    cid = f"scalp-{today.isoformat()}-{sym}-{n}"
-                    order = self.api.submit_order(symbol=sym, notional=f"{sc['trade_notional']:.2f}", side="buy",
-                                                  type="market", time_in_force="day", client_order_id=cid)
-                    price, qty = self.fill(order["id"])
-                    if price:
-                        self.open[sym] = {"entry": price, "qty": qty, "at": self.now(), "cid": cid}
-            self.sleep(sc["poll_seconds"])
-
-        for sym in list(self.open):
-            self.close(sym, "end of session")
+                self.close(sym, "end of session")
+            self.save()
         wins = sum(1 for t in self.trips if t["pnl"] > 0)
         log(f"Session done: {len(self.trips)} round trips ({2 * len(self.trips)} orders), "
             f"{wins} winners, realized P&L ${self.realized():.2f}")
-        self.save()
         return "done"
 
     def refresh_repo(self):
