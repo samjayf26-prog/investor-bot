@@ -1,0 +1,50 @@
+name: scalp
+
+on:
+  schedule:
+    # 13:35 and 14:35 UTC cover 9:35 ET in both daylight-saving seasons; the
+    # scalper exits at once from the run that lands outside its window.
+    - cron: "35 13,14 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Minutes to scalp, starting now"
+        default: "30"
+
+concurrency:
+  group: scalper
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  scalp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Scalp
+        env:
+          ALPACA_PAPER_KEY_ID: ${{ secrets.ALPACA_PAPER_KEY_ID }}
+          ALPACA_PAPER_SECRET: ${{ secrets.ALPACA_PAPER_SECRET }}
+          ALPACA_LIVE_KEY_ID: ${{ secrets.ALPACA_LIVE_KEY_ID }}
+          ALPACA_LIVE_SECRET: ${{ secrets.ALPACA_LIVE_SECRET }}
+          SCALP_START_NOW: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
+          SCALP_MINUTES: ${{ inputs.minutes }}
+        run: |
+          git pull -q origin main
+          python -m bot.scalper
+      - name: Save scalp log
+        if: always()
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "trading-bot@users.noreply.github.com"
+          git add ledger/ || true
+          git diff --cached --quiet && exit 0
+          git commit -m "scalps $(date -u +%FT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1

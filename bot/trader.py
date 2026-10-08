@@ -120,9 +120,13 @@ class Trader:
         for n in notes:
             log(f"Picks: {n}")
 
-        # Unfilled orders from earlier runs are stale; the reconcile below drops them.
-        self.api.cancel_all_orders()
-        positions = {p["symbol"]: p for p in self.api.positions()}
+        # Our unfilled entries from earlier runs are stale; the reconcile below drops them.
+        # Orders and positions of the scalper (its own symbols) are left alone.
+        scalp = set(cfg.get("scalper", {}).get("symbols", []))
+        for o in self.api.open_orders():
+            if o.get("client_order_id", "").endswith("-entry") and o["symbol"] not in scalp:
+                self.api.cancel_order(o["id"])
+        positions = {p["symbol"]: p for p in self.api.positions() if p["symbol"] not in scalp}
 
         # reconcile our records with the broker, which is the source of truth
         for pid, e in list(state.items()):
@@ -184,7 +188,11 @@ class Trader:
                 break
             if pick["id"] in state or self.api.order_by_client_id(f"{pick['id']}-entry"):
                 continue
-            held = sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions())
+            if pick["symbol"] in scalp:
+                log(f"Skip {pick['id']}: {pick['symbol']} is reserved for the scalper.")
+                continue
+            held = sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions()
+                       if p["symbol"] not in scalp)
             size_eq, size_cash = risk.sizing_view(equity, cash, held, cfg["sizing_equity_cap"])
             budget = risk.pick_budget(size_eq, size_cash, pick["conviction"], cfg["max_order_notional"],
                                       cfg["min_order_notional"])

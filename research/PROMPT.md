@@ -53,9 +53,13 @@ picks that can be held for days.
      "max_entry_price": 190, "stop_pct": 0.07, "target_pct": 0.15, "max_hold_days": 3,
      "thesis": "...", "sources": ["https://..."]}
   ],
-  "close": ["2026-10-06-AMD"]
+  "close": ["2026-10-06-AMD"],
+  "scalp_bias": "neutral"
 }
 ```
 - ids must be new each day (date prefix). expires_at = 15:30 ET today in UTC.
 - conviction 1/2/3 = 15%/25%/40% of equity. Stops: stock 2-25%, put 2-60%.
 - max_hold_days up to 10 (calendar days).
+- scalp_bias steers the fast scalper (bot/scalper.py, 9:35-10:45 ET on SPY/QQQ/TQQQ/SQQQ):
+  "bull" = only long SPY/QQQ/TQQQ, "bear" = only SQQQ, "neutral" = all four, "off" = no
+  scalping (e.g. ahead of CPI or a Fed decision). Pick it from the morning's tone.

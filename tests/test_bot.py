@@ -133,6 +133,9 @@ class FakeAlpaca:
     def cancel_all_orders(self):
         pass
 
+    def open_orders(self):
+        return []
+
     def asset(self, sym):
         if sym == "OTCX":
             return {"tradable": True, "status": "active", "class": "us_equity", "exchange": "OTC"}

@@ -86,6 +86,15 @@ class Alpaca:
     def submit_order(self, **order):
         return self._req("POST", f"{self.base}/v2/orders", body=order, retries=1)
 
+    def open_orders(self):
+        return self._req("GET", f"{self.base}/v2/orders", {"status": "open", "limit": 500})
+
+    def order(self, order_id):
+        return self._req("GET", f"{self.base}/v2/orders/{order_id}")
+
+    def cancel_order(self, order_id):
+        return self._req("DELETE", f"{self.base}/v2/orders/{order_id}", retries=1)
+
     def cancel_all_orders(self):
         return self._req("DELETE", f"{self.base}/v2/orders")
 
@@ -107,6 +116,11 @@ class Alpaca:
         return out.get("option_contracts") or []
 
     # market data
+    def bars(self, symbol, timeframe, start, feed="iex"):
+        out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/bars",
+                        {"timeframe": timeframe, "start": start, "feed": feed, "limit": 1000})
+        return out.get("bars") or []
+
     def last_price(self, symbol):
         out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", {"feed": "iex"})
         return float(out["trade"]["p"])

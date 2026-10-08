@@ -14,5 +14,24 @@
   "drawdown_halt_pct": 0.60,
   "min_order_notional": 1.0,
   "max_order_notional": 500.0,
-  "sizing_equity_cap": 100.0
+  "sizing_equity_cap": 100.0,
+
+  "scalper": {
+    "enabled": true,
+    "symbols": ["SPY", "QQQ", "TQQQ", "SQQQ"],
+    "bull_symbols": ["SPY", "QQQ", "TQQQ"],
+    "bear_symbols": ["SQQQ"],
+    "start_et": "09:35",
+    "minutes": 70,
+    "trade_notional": 20.0,
+    "max_open": 2,
+    "take_profit_pct": 0.003,
+    "stop_pct": 0.002,
+    "max_hold_minutes": 10,
+    "ema_fast": 3,
+    "ema_slow": 9,
+    "daily_loss_cap": 5.0,
+    "max_round_trips": 300,
+    "poll_seconds": 10
+  }
 }
