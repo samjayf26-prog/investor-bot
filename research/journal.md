@@ -49,3 +49,11 @@ Since 8:50: S&P +0.2%, Nasdaq +0.3% on the tech rebound; 10-year ~5.25%; Brent s
 - No new pick. DAL puts don't fit a ~$25 budget; nothing else clear.
 - Scalper stays **bull**.
 Sources: https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html, https://www.gurufocus.com/news/9116935/hum-upgraded-by-baird-price-target-raised-to-596
+
+## 2026-10-09 14:20 ET refresh (paper)
+Since 11:20: S&P +0.4%, Nasdaq +0.5% at midday; UMich sentiment fell to 46.3 (fifth straight drop; gas prices, borrowing costs); 10-year 5.26%. HUM is up ~13% on the day but has sat ~2% under our $441 fill since the morning. PENG +0.8%.
+- **Close HUM.** I said at 11:20 I'd close it if it was still below the open now, and it is. The thesis (estimate upgrades) may still play out, but I'm sticking to the rule I wrote. Lesson: the 9:50 hourly check buys gap-ups near the morning high; future gap picks need a max_entry_price.
+- Keep **PENG** (back above entry; 8% stop).
+- No new picks into the weekend; nothing with a clear multi-day edge.
+- Scalper stays **bull**.
+Source: https://finance.yahoo.com/markets/stocks/articles/stock-market-midday-oct-9-164448471.html
