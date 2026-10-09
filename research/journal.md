@@ -41,3 +41,11 @@ Overnight: Nasdaq futures +0.7%, S&P +0.4% as AI names rebound; a follow-up repo
 - Scalper bias **bull** (tech rebound).
 Skipped: puts on UNH/CVS (star ratings expected to fall) because their puts don't fit a ~$25 budget; LITE (+3-5% on "sold out through 2029") because I couldn't find a reliable source.
 Sources: https://invezz.com/nz/news/2026/10/09/nasdaq-futures-surge-220-points-5-things-to-know-before-wall-street-opens-on-oct-9/, https://www.investing.com/news/stock-market-news/humana-surges-after-emerging-as-top-beneficiary-of-2027-medicare-star-ratings-4940796
+
+## 2026-10-09 11:20 ET refresh (paper)
+Since 8:50: S&P +0.2%, Nasdaq +0.3% on the tech rebound; 10-year ~5.25%; Brent still above $100. Delta missed (adj EPS $1.72 vs $1.82) and cut guidance on a ~$6B higher fuel bill. Closed SH (+$0.03) and SOXS (-$0.11). Bought HUM at $441; now -2%. PENG -1.8%.
+- Keep **HUM** (same id; already held so no rebuy). Baird upgraded it with a $596 target this morning. My kill rule was "below the opening price"; it is about 2% under its open, which is normal after a 15% gap. I'll close it at 14:20 if it's still below the open then.
+- Keep **PENG** (8% stop).
+- No new pick. DAL puts don't fit a ~$25 budget; nothing else clear.
+- Scalper stays **bull**.
+Sources: https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html, https://www.gurufocus.com/news/9116935/hum-upgraded-by-baird-price-target-raised-to-596

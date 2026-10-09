@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-09T12:53:13Z",
+  "generated_at": "2026-10-09T15:22:49Z",
   "expires_at": "2026-10-09T19:30:00Z",
   "picks": [
     {
@@ -14,10 +14,11 @@
       "thesis": "Humana says 95% of its Medicare Advantage members will be in 4+ star plans for 2027, up from 20% in 2026 and far above J.P. Morgan's 60-70% estimate, while UNH and CVS are expected to slip. Star bonuses are worth billions, so analysts will likely raise estimates over the next days.",
       "sources": [
         "https://stockhouse.com/news/press-releases/2026/10/09/humana-announces-improved-cms-star-ratings-with-95-percent-of-medicare-advantage",
-        "https://www.investing.com/news/stock-market-news/humana-surges-after-emerging-as-top-beneficiary-of-2027-medicare-star-ratings-4940796"
+        "https://www.investing.com/news/stock-market-news/humana-surges-after-emerging-as-top-beneficiary-of-2027-medicare-star-ratings-4940796",
+        "https://www.gurufocus.com/news/9116935/hum-upgraded-by-baird-price-target-raised-to-596"
       ]
     }
   ],
-  "close": ["2026-10-08-1420-SOXS", "2026-10-07-SH"],
+  "close": [],
   "scalp_bias": "bull"
 }
