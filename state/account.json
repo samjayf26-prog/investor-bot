@@ -1,32 +1,48 @@
 {
-  "as_of": "2026-10-08T19:58:15.926835+00:00",
+  "as_of": "2026-10-09T14:00:22.495918+00:00",
   "mode": "paper",
-  "equity": "99998.6",
-  "cash": "99944.23",
+  "equity": "99998.97",
+  "cash": "99889.16",
   "positions": [
+    {
+      "symbol": "HUM",
+      "qty": "0.056664353",
+      "avg_entry_price": "441.018",
+      "current_price": "439.92",
+      "unrealized_pl": "-0.062218",
+      "unrealized_plpc": "-0.00249"
+    },
     {
       "symbol": "PENG",
       "qty": "0.342385049",
       "avg_entry_price": "72.988",
-      "current_price": "71.65",
-      "unrealized_pl": "-0.458111",
-      "unrealized_plpc": "-0.01833"
+      "current_price": "72.7401",
+      "unrealized_pl": "-0.084877",
+      "unrealized_plpc": "-0.0034"
     },
     {
-      "symbol": "SH",
-      "qty": "0.470968958",
-      "avg_entry_price": "31.828",
-      "current_price": "31.97",
-      "unrealized_pl": "0.066878",
-      "unrealized_plpc": "0.00446"
+      "symbol": "QQQ",
+      "qty": "0.026672751",
+      "avg_entry_price": "749.454",
+      "current_price": "749.52",
+      "unrealized_pl": "0.00176",
+      "unrealized_plpc": "0.00009"
     },
     {
-      "symbol": "SOXS",
-      "qty": "0.437689792",
-      "avg_entry_price": "34.248",
-      "current_price": "33.76",
-      "unrealized_pl": "-0.213593",
-      "unrealized_plpc": "-0.01425"
+      "symbol": "SPY",
+      "qty": "0.02576084",
+      "avg_entry_price": "775.984",
+      "current_price": "776",
+      "unrealized_pl": "0.000412",
+      "unrealized_plpc": "0.00002"
+    },
+    {
+      "symbol": "TQQQ",
+      "qty": "0.247683005",
+      "avg_entry_price": "80.708",
+      "current_price": "80.7387",
+      "unrealized_pl": "0.007604",
+      "unrealized_plpc": "0.00038"
     }
   ]
 }

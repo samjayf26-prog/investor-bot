@@ -1,2 +1,4 @@
 closed,id,symbol,action,opened,cost,pnl_approx,pnl_pct,reason,mode
 2026-10-08,2026-10-07-CEG,CEG,buy,2026-10-07,14.99,-0.74,-0.0497,Claude asked to close,paper
+2026-10-09,2026-10-07-SH,SH,buy,2026-10-07,14.99,0.03,0.0023,Claude asked to close,paper
+2026-10-09,2026-10-08-1420-SOXS,SOXS,buy,2026-10-08,14.99,-0.11,-0.0072,Claude asked to close,paper

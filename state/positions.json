@@ -9,24 +9,14 @@
     "stop_pct": 0.08,
     "target_pct": 0.15
   },
-  "2026-10-07-SH": {
+  "2026-10-09-HUM": {
     "action": "buy",
-    "broker_symbol": "SH",
-    "entry_date": "2026-10-07",
+    "broker_symbol": "HUM",
+    "entry_date": "2026-10-09",
     "expiry": null,
-    "id": "2026-10-07-SH",
-    "max_hold_days": 5,
-    "stop_pct": 0.03,
-    "target_pct": 0.05
-  },
-  "2026-10-08-1420-SOXS": {
-    "action": "buy",
-    "broker_symbol": "SOXS",
-    "entry_date": "2026-10-08",
-    "expiry": null,
-    "id": "2026-10-08-1420-SOXS",
-    "max_hold_days": 3,
-    "stop_pct": 0.08,
+    "id": "2026-10-09-HUM",
+    "max_hold_days": 7,
+    "stop_pct": 0.07,
     "target_pct": 0.15
   }
 }
