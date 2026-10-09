@@ -1,24 +1,24 @@
 {
-  "as_of": "2026-10-09T15:59:28.421457+00:00",
+  "as_of": "2026-10-09T16:59:23.130061+00:00",
   "mode": "paper",
-  "equity": "99998.69",
-  "cash": "99949",
+  "equity": "99999.08",
+  "cash": "99949.06",
   "positions": [
     {
       "symbol": "HUM",
       "qty": "0.056664353",
       "avg_entry_price": "441.018",
-      "current_price": "436.095",
-      "unrealized_pl": "-0.278959",
-      "unrealized_plpc": "-0.01116"
+      "current_price": "434.89",
+      "unrealized_pl": "-0.34724",
+      "unrealized_plpc": "-0.0139"
     },
     {
       "symbol": "PENG",
       "qty": "0.342385049",
       "avg_entry_price": "72.988",
-      "current_price": "72.96",
-      "unrealized_pl": "-0.009587",
-      "unrealized_plpc": "-0.00038"
+      "current_price": "74.1297",
+      "unrealized_pl": "0.390901",
+      "unrealized_plpc": "0.01564"
     }
   ]
 }
