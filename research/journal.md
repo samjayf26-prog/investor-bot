@@ -31,3 +31,13 @@ Since 11:20: FT reported OpenAI's annualized revenue is ~$20B below investor est
 - **SOXS buy (conviction 1).** Thesis: the OpenAI revenue reality check plus record yields keep pressure on semis for a few days. Wrong if chips recover today's losses tomorrow; 8% stop, 3-day hold.
 - Scalper bias set to **bear** (SQQQ only) for the rest of the session.
 Sources: https://finance.yahoo.com/technology/article/openais-annualized-revenue-20-billion-lower-than-prior-investor-estimates-174058048.html, https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html
+
+## 2026-10-09 08:50 ET (paper)
+Overnight: Nasdaq futures +0.7%, S&P +0.4% as AI names rebound; a follow-up report says OpenAI still expects a $70B run rate by year-end. Brent ~$103 (-1%), 10-year ~5.25%. UMich sentiment 10:00. Yesterday's close: PENG -1.8%, SH +0.4%, SOXS -1.4%. Scalper day 1: 16 trips, -$0.06.
+- **Close SOXS.** Its stated kill condition (chips recover) is happening premarket.
+- **Close SH.** Oil and yields eased and futures are up; two days flat, the slot is better used elsewhere.
+- Keep **PENG** (AI rebound helps; 8% stop).
+- **HUM buy (conviction 2).** Thesis: 95% of members in 4+ star plans for 2027 vs 20% this year and a 60-70% street estimate; star bonuses are worth billions, so estimates should rise for days. Wrong if it fades below the opening price or gives back half the gap. Lesson from CEG applied: two sources incl. the company release, and a fundamental change, not just a deal headline.
+- Scalper bias **bull** (tech rebound).
+Skipped: puts on UNH/CVS (star ratings expected to fall) because their puts don't fit a ~$25 budget; LITE (+3-5% on "sold out through 2029") because I couldn't find a reliable source.
+Sources: https://invezz.com/nz/news/2026/10/09/nasdaq-futures-surge-220-points-5-things-to-know-before-wall-street-opens-on-oct-9/, https://www.investing.com/news/stock-market-news/humana-surges-after-emerging-as-top-beneficiary-of-2027-medicare-star-ratings-4940796
