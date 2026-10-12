@@ -64,3 +64,10 @@ Weekend: S&P and Nasdaq closed last week at records. Futures flat (S&P +0.1%); B
 - **CRM buy (conviction 2, max entry $240).** Thesis: BofA double upgrade to Buy, target $285 vs ~$228; reversals from a bear tend to drift for days. Wrong if it closes below Friday's close. Max entry price set so the 9:50 check doesn't chase a spike (HUM lesson).
 - Scalper **neutral** (flat futures, macro data later in the week).
 Skipped: FSLR (Truist upgrade, $270 target) and BIIB (JPM upgrade) since one upgrade pick is enough exposure to the same effect.
+
+## 2026-10-12 11:20 ET refresh (paper)
+Since 8:50: indexes near flat; Brent ~$106 on Houthi attacks and tanker strikes. AI-infrastructure and memory names selling off (LITE -7%, SNDK -7%, BE -7%). CPI is Wednesday, PPI Thursday, big banks Tuesday. CRM filled at $235.26 (under the $240 cap), now flat. PENG +7.4%, holding up despite the AI selloff.
+- Keep **CRM** (same id; held) and **PENG** (target +15%, hold limit 10-14).
+- No new pick. CCC (+10% on buyout talks) is a merger-arb setup with little upside left.
+- Scalper stays **neutral**. Plan: set it **off** for Wednesday's CPI morning.
+Source: https://www.thestreet.com/stock-market-today/stock-market-today-oct-12-2026-dow-futures-climb-as-wall-street-gears-up-for-busy-week
