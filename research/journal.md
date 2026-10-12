@@ -57,3 +57,10 @@ Since 11:20: S&P +0.4%, Nasdaq +0.5% at midday; UMich sentiment fell to 46.3 (fi
 - No new picks into the weekend; nothing with a clear multi-day edge.
 - Scalper stays **bull**.
 Source: https://finance.yahoo.com/markets/stocks/articles/stock-market-midday-oct-9-164448471.html
+
+## 2026-10-12 08:50 ET (paper)
+Weekend: S&P and Nasdaq closed last week at records. Futures flat (S&P +0.1%); Brent ~$103; 10-year ~5.24%. Bank earnings Tuesday (JPM, GS, C); inflation and retail sales Wed/Thu. Houthi attack on Saudi airport; Trump floated joining strikes. Friday: closed HUM (-$0.32), scalper 60 trips -$0.01 (33 winners). PENG +4.6%.
+- Keep **PENG** (thesis working; hold limit ends 10-14).
+- **CRM buy (conviction 2, max entry $240).** Thesis: BofA double upgrade to Buy, target $285 vs ~$228; reversals from a bear tend to drift for days. Wrong if it closes below Friday's close. Max entry price set so the 9:50 check doesn't chase a spike (HUM lesson).
+- Scalper **neutral** (flat futures, macro data later in the week).
+Skipped: FSLR (Truist upgrade, $270 target) and BIIB (JPM upgrade) since one upgrade pick is enough exposure to the same effect.
