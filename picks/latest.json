@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-12T15:22:03Z",
+  "generated_at": "2026-10-12T18:21:16Z",
   "expires_at": "2026-10-12T19:30:00Z",
   "picks": [
     {
@@ -15,7 +15,8 @@
       "thesis": "Bank of America double-upgraded Salesforce from Underperform to Buy (target $285 from $160, ~25% above Friday's ~$228 close), arguing AI deepens customer dependence rather than disrupting it. A full reversal from a major bear tends to pull in follow-on buying for days.",
       "sources": [
         "https://247wallst.com/investing/2026/10/12/here-are-mondays-top-wall-street-analyst-research-calls-adobe-biogen-first-solar-godaddy-hubspot-palantir-technologies-robinhood-markets-snowflake-terawulf-t-mobile-us-and-more/",
-        "https://www.zetik.com/news/article/story_id-p008-223467"
+        "https://www.zetik.com/news/article/story_id-p008-223467",
+        "https://www.fool.com/coverage/stock-market-today/2026/10/12/stock-market-midday-oct-12-dow-edges-higher-as-investors-rotate-into-value-stocks/"
       ]
     }
   ],

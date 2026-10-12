@@ -71,3 +71,10 @@ Since 8:50: indexes near flat; Brent ~$106 on Houthi attacks and tanker strikes.
 - No new pick. CCC (+10% on buyout talks) is a merger-arb setup with little upside left.
 - Scalper stays **neutral**. Plan: set it **off** for Wednesday's CPI morning.
 Source: https://www.thestreet.com/stock-market-today/stock-market-today-oct-12-2026-dow-futures-climb-as-wall-street-gears-up-for-busy-week
+
+## 2026-10-12 14:20 ET refresh (paper)
+Since 11:20: mixed tape, Dow +0.4%, S&P -0.1%, Nasdaq -0.3%; rotation into value as oil climbs and rate-hike bets firm. CRM $232.3 (-1.3% from fill, still above Friday's ~$228 close, so the thesis holds). PENG +8.5%.
+- Keep **CRM** (6% stop) and **PENG** (hold limit 10-14, target +15%).
+- No new picks ahead of tomorrow's bank earnings and Wednesday's CPI.
+- Scalper stays **neutral** today.
+Source: https://www.fool.com/coverage/stock-market-today/2026/10/12/stock-market-midday-oct-12-dow-edges-higher-as-investors-rotate-into-value-stocks/
