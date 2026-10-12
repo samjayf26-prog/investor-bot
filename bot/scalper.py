@@ -15,6 +15,7 @@ import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from . import tuning
 from .alpaca import AlpacaError
 from .trader import ET, ROOT, load_config, log, make_client
 
@@ -48,13 +49,14 @@ def scalp_exit(plpc, held_minutes, sc):
 
 
 def active_symbols(sc, bias):
+    allowed = sc.get("enabled_symbols") or sc["symbols"]  # the learning step may drop losers
     if bias == "off":
         return []
     if bias == "bull":
-        return [s for s in sc["bull_symbols"] if s in sc["symbols"]]
+        return [s for s in sc["bull_symbols"] if s in allowed]
     if bias == "bear":
-        return [s for s in sc["bear_symbols"] if s in sc["symbols"]]
-    return list(sc["symbols"])
+        return [s for s in sc["bear_symbols"] if s in allowed]
+    return list(allowed)
 
 
 def read_bias(path, now):
@@ -221,6 +223,11 @@ class Scalper:
 
 def main():
     cfg = load_config()
+    cfg = {**cfg, "scalper": tuning.scalper_config(cfg)}
+    sc = cfg["scalper"]
+    log(f"Settings: take profit {sc['take_profit_pct']:.2%}, stop {sc['stop_pct']:.2%}, "
+        f"max hold {sc['max_hold_minutes']} min, EMA {sc['ema_fast']}/{sc['ema_slow']}, "
+        f"symbols {sc.get('enabled_symbols') or sc['symbols']}")
     log(f"Result: {Scalper(make_client(cfg), cfg).run()}")
 
 

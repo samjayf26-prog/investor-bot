@@ -17,6 +17,17 @@ Feasibility Study" project, reworked so Claude picks trades.
   from the peak.
 - Every run commits state/ (account snapshot) and ledger/trades.csv. Errors fail the job and GitHub emails you.
 
+## Learning (after each close)
+- 4:15pm ET, the learn workflow (bot/learn.py) writes research/scorecard.md (how scalps and
+  picks did) and replays the scalper's rules over the last 10 sessions of 1-minute bars with
+  300 setting combinations (take profit, stop, max hold, EMA pair, which ETFs). If one beats
+  the current settings in both halves of that window after trading costs, it goes into
+  tuning.json and each change is logged with its reason in research/tuning_log.csv.
+- 4:45pm ET, a Claude review reads the scorecard and journal and rewrites
+  research/lessons.md, the rules the morning research must follow.
+- Learning never touches the safety limits. Undo: revert tuning.json. Freeze: set
+  `"learning": false` in config.json.
+
 ## Kill switch
 - Fastest: close positions in the Alpaca app.
 - Stop the bot: edit config.json in the GitHub app, set `"kill": true`. The next run sells everything and does nothing else.

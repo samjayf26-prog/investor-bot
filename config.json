@@ -2,6 +2,7 @@
   "mode": "paper",
   "confirm_live": false,
   "kill": false,
+  "learning": true,
 
   "max_picks_per_run": 3,
   "max_open_positions": 3,

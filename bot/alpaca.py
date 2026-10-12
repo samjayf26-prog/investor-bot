@@ -121,6 +121,19 @@ class Alpaca:
                         {"timeframe": timeframe, "start": start, "feed": feed, "limit": 1000})
         return out.get("bars") or []
 
+    def bars_between(self, symbol, timeframe, start, end, feed="iex"):
+        """All bars in [start, end], following Alpaca's page tokens."""
+        out, token = [], None
+        while True:
+            params = {"timeframe": timeframe, "start": start, "end": end, "feed": feed, "limit": 10000}
+            if token:
+                params["page_token"] = token
+            page = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/bars", params)
+            out += page.get("bars") or []
+            token = page.get("next_page_token")
+            if not token:
+                return out
+
     def last_price(self, symbol):
         out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", {"feed": "iex"})
         return float(out["trade"]["p"])
