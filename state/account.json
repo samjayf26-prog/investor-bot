@@ -1,24 +1,24 @@
 {
-  "as_of": "2026-10-12T19:02:01.506781+00:00",
+  "as_of": "2026-10-12T19:58:17.054159+00:00",
   "mode": "paper",
-  "equity": "100000.54",
+  "equity": "100000.61",
   "cash": "99948.74",
   "positions": [
     {
       "symbol": "CRM",
       "qty": "0.106221999",
       "avg_entry_price": "235.262",
-      "current_price": "232.31",
-      "unrealized_pl": "-0.313567",
-      "unrealized_plpc": "-0.01255"
+      "current_price": "233.655",
+      "unrealized_pl": "-0.170699",
+      "unrealized_plpc": "-0.00683"
     },
     {
       "symbol": "PENG",
       "qty": "0.342385049",
       "avg_entry_price": "72.988",
-      "current_price": "79.21",
-      "unrealized_pl": "2.13032",
-      "unrealized_plpc": "0.08525"
+      "current_price": "79.02",
+      "unrealized_pl": "2.065267",
+      "unrealized_plpc": "0.08264"
     }
   ]
 }
