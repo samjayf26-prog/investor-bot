@@ -195,6 +195,38 @@ def score_direction(api, today, root=ROOT):
     return lines
 
 
+# the bot vs the S&P 500
+def benchmark(api, cfg, today, root=ROOT):
+    """Compare the account with the same money put in SPY when the bot went live.
+    Logs one row per day to research/benchmark.csv; returns the scorecard lines."""
+    b = cfg.get("benchmark") or {}
+    if not b.get("since") or not b.get("start_equity"):
+        return []
+    path = root / "research" / "benchmark.csv"
+    rows = [r for r in read_csv(path) if r["date"] != today.isoformat()]
+    since = datetime.fromisoformat(b["since"].replace("Z", "+00:00"))
+    start_bars = api.bars_between("SPY", "1Min", since.isoformat(), (since + timedelta(minutes=30)).isoformat())
+    if not start_bars:
+        return ["", "## Bot vs S&P 500", "No SPY price found for the start date."]
+    start, spy_start = float(b["start_equity"]), start_bars[0]["o"]
+    equity, spy_now = float(api.account()["equity"]), api.last_price("SPY")
+    spy_value = start * spy_now / spy_start
+    rows.append({"date": today.isoformat(), "bot": f"{equity:.2f}", "sp500": f"{spy_value:.2f}"})
+    rows.sort(key=lambda r: r["date"])
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["date", "bot", "sp500"])
+        w.writeheader()
+        w.writerows(rows)
+    lines = ["", f"## Bot vs S&P 500 (${start:.0f} since {since.astimezone(ET):%Y-%m-%d %H:%M} ET)",
+             f"**Bot ${equity:.2f} ({equity / start - 1:+.2%}) vs S&P 500 ${spy_value:.2f} "
+             f"({spy_value / start - 1:+.2%}): the bot is {'ahead' if equity >= spy_value else 'behind'} "
+             f"by ${abs(equity - spy_value):.2f}.**",
+             "", "| day | bot $ | $ in S&P 500 (SPY) |", "|---|---|---|"]
+    lines += [f"| {r['date']} | {r['bot']} | {r['sp500']} |" for r in rows[-10:]]
+    lines.append("(Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)")
+    return lines
+
+
 # run
 def load_sessions(api, symbols, start_et, today):
     """Last LOOKBACK full sessions of 1-minute bars per symbol, from start_et to 15:50 ET."""
@@ -234,7 +266,8 @@ def run(api, cfg, today, root=ROOT):
     if tuned.get("updated") == today.isoformat():
         log("Already learned today.")
         return "already-done"
-    lines = scorecard(today.isoformat(), root)
+    lines = [*scorecard(today.isoformat(), root)[:1], *benchmark(api, cfg, today, root),
+             *scorecard(today.isoformat(), root)[1:]]
     lines += score_direction(api, today, root)
     lines += ["", "## Tuner"]
     if not cfg.get("learning", True):

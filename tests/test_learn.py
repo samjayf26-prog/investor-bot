@@ -91,6 +91,12 @@ class FakeData:
     def bars_between(self, sym, tf, start, end):
         return wave_day()
 
+    def account(self):
+        return {"equity": "80.00"}
+
+    def last_price(self, sym):
+        return 110.0
+
 
 def setup_root(tmp_path, bias="bull"):
     (tmp_path / "picks").mkdir()
@@ -135,3 +141,14 @@ def test_direction_call_is_scored_once_per_day(tmp_path):
     assert len(rows) == 1 and rows[0]["bias"] == "bear"
     assert rows[0]["correct"] == str(move < 0).lower()
     assert any("of 1 right" in l for l in lines)
+
+
+def test_benchmark_compares_with_spy(tmp_path):
+    setup_root(tmp_path)
+    cfg = {**CFG, "benchmark": {"since": "2026-10-12T16:40:00Z", "start_equity": 75.0}}
+    learn.benchmark(FakeData(), cfg, TODAY, tmp_path)
+    lines = learn.benchmark(FakeData(), cfg, TODAY, tmp_path)    # rerun replaces today's row
+    rows = list(csv.DictReader(open(tmp_path / "research" / "benchmark.csv")))
+    assert rows == [{"date": "2026-10-12", "bot": "80.00", "sp500": "82.50"}]   # SPY 100 -> 110
+    assert any("Bot $80.00 (+6.67%) vs S&P 500 $82.50 (+10.00%)" in l and "behind by $2.50" in l for l in lines)
+    assert learn.benchmark(FakeData(), {**CFG, "benchmark": {}}, TODAY, tmp_path) == []
