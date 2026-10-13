@@ -105,3 +105,9 @@ Since 13:20: S&P about -0.1%, breadth weak (60% of issues down); memory/storage 
 - No new pick. CPI is tomorrow before the open and could move everything 1-2%; nothing today has a multi-day catalyst strong enough to carry through it. META is a chase after a 3% gap (CEG/HUM lesson).
 - Scalper (paper) stays **bear**.
 Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-13-2026
+
+## 2026-10-13 evening review (LIVE, $75)
+Day: no live positions all day (bot went live at midday; paper flattened). Live equity $75.02, cash $75.02, unchanged. Paper picks closed today: PENG +$2.07 (+8.3%, best trade so far, closed a day early on the sector-selloff kill condition) and UNH +$0.42 (+1.7%; gap faded, closed on the "wrong if" rule). All-time closed picks: 6, net +$0.89, 3 winners. The paper bear-bias scalper took 2 SQQQ trips (-0.077% stop, -0.007% time): right direction (chips and Nasdaq weak), no profit.
+- The scorecard on main was still dated 10-12 when this ran (16:46 ET); I could not check the learn workflow run (no GitHub API access from this session). Results above come from the ledgers.
+- Lessons rewritten: catalysts with lasting estimate changes win; faded gaps and unconfirmed headlines lose; judge theses at the 9:50 price; kill conditions acted on promptly keep losses at cents; express direction views as same-day TQQQ/SQQQ picks rather than relying on scalp_bias.
+- Tomorrow: CPI before the open, PPI Thursday. Default is no new pick ahead of the print unless a clean catalyst appears.
