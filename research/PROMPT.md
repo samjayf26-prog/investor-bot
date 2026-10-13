@@ -1,4 +1,4 @@
-# Research runs (Claude: 8:50, 11:20 and 14:20 ET each trading day)
+# Research runs (Claude: 8:50, 10:20, 11:20, 13:20 and 14:20 ET each trading day)
 
 Goal: find the trades most likely to make money over the next 1-10 trading days for a
 small account. Sam accepts losing the whole stake; the experiment measures how much
@@ -43,7 +43,7 @@ it. Keep a rule only while the evidence supports it; drop rules the results cont
 Append a short "evening review" entry to the journal. Commit "review: YYYY-MM-DD" and
 push. Do not write picks/latest.json in this run.
 
-## Midday refresh (11:20 and 14:20 ET)
+## Intraday refresh (10:20, 11:20, 13:20 and 14:20 ET)
 Same steps, focused on what changed since the last journal entry: intraday news, earnings
 or guidance released during the day, sharp moves in open positions. Rewrite
 picks/latest.json from scratch: keep an earlier pick only if it has not been bought yet
