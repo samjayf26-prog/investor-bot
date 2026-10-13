@@ -99,3 +99,9 @@ Since 11:20: the bot went live on Sam's real $75 account (paper flattened, so CR
 - No new pick. CPI is tomorrow morning, and nothing today has a multi-day edge worth carrying into it. JNJ puts don't fit a ~$30 budget.
 - Scalper stays **bear** (SQQQ only) while the chip selloff continues.
 Source: https://www.fool.com/coverage/stock-market-today/2026/10/13/stock-market-midday-oct-13-bank-earnings-and-chip-pressure-drives-mixed-trading/
+
+## 2026-10-13 14:20 ET refresh (LIVE)
+Since 13:20: S&P about -0.1%, breadth weak (60% of issues down); memory/storage still sliding (WDC, STX -7%, MU -5%) on China CXMT competition; META +3.4% on AI model news and upgrades; Brent ~$104. No live positions. The bot changed today: the scalper is on paper, picks execute within minutes, live sizes compound.
+- No new pick. CPI is tomorrow before the open and could move everything 1-2%; nothing today has a multi-day catalyst strong enough to carry through it. META is a chase after a 3% gap (CEG/HUM lesson).
+- Scalper (paper) stays **bear**.
+Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-13-2026
