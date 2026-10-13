@@ -120,15 +120,12 @@ class Scalper:
         if os.environ.get("SCALP_START_NOW") == "1":  # manual run from the Actions tab
             start = now_et
             minutes = int(os.environ.get("SCALP_MINUTES") or minutes)
-        elif now_et > start + timedelta(minutes=25):
-            log("Started too long after the window opened (off-season cron run).")
-            return "too-late"
         end = min(start + timedelta(minutes=minutes),
                   datetime.combine(today, datetime.min.time(), ET).replace(hour=15, minute=55))
         if now_et < start - timedelta(minutes=30):
             log("Too early (off-season cron run).")
             return "too-early"
-        if now_et >= end:
+        if now_et >= end:  # a late cron start still scalps the rest of the window
             log("Scalping window already over.")
             return "too-late"
 

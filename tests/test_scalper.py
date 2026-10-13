@@ -163,3 +163,14 @@ def test_refused_order_does_not_stop_session(tmp_path):
     assert s.run() == "done"
     assert len(s.trips) >= 1 and not api.pos
     assert all("-093500-" in c for c in calls)  # session start time is part of every order id
+
+
+def test_late_scheduled_start_still_scalps(tmp_path, monkeypatch):
+    """GitHub's cron can start the 9:35 run half an hour late; it should still trade."""
+    monkeypatch.delenv("SCALP_START_NOW", raising=False)
+    late = START + timedelta(minutes=40)  # 10:15 ET
+    clock = Clock(late)
+    api = FakeAlpaca(clock)
+    s = scalper.Scalper(api, {**CFG, "scalper": {**SC, "minutes": 60}}, now=clock.now, sleep=clock.sleep, root=tmp_path)
+    assert s.run() == "done"
+    assert clock.t <= START + timedelta(minutes=60) + timedelta(seconds=SC["poll_seconds"] * 2)
