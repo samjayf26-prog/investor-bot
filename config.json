@@ -15,7 +15,7 @@
   "drawdown_halt_pct": 0.60,
   "min_order_notional": 1.0,
   "max_order_notional": 500.0,
-  "sizing_equity_cap": 100.0,
+  "sizing_equity_cap": 75.0,
 
   "scalper": {
     "enabled": true,
@@ -24,8 +24,8 @@
     "bear_symbols": ["SQQQ"],
     "start_et": "09:35",
     "minutes": 340,
-    "trade_notional": 20.0,
-    "max_open": 4,
+    "trade_notional": 15.0,
+    "max_open": 2,
     "take_profit_pct": 0.0015,
     "stop_pct": 0.0015,
     "max_hold_minutes": 5,
