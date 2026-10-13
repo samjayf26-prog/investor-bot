@@ -8,15 +8,5 @@
     "max_hold_days": 7,
     "stop_pct": 0.06,
     "target_pct": 0.12
-  },
-  "2026-10-13-UNH": {
-    "action": "buy",
-    "broker_symbol": "UNH",
-    "entry_date": "2026-10-13",
-    "expiry": null,
-    "id": "2026-10-13-UNH",
-    "max_hold_days": 7,
-    "stop_pct": 0.05,
-    "target_pct": 0.1
   }
 }
