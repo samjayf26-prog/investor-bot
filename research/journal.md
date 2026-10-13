@@ -78,3 +78,11 @@ Since 11:20: mixed tape, Dow +0.4%, S&P -0.1%, Nasdaq -0.3%; rotation into value
 - No new picks ahead of tomorrow's bank earnings and Wednesday's CPI.
 - Scalper stays **neutral** today.
 Source: https://www.fool.com/coverage/stock-market-today/2026/10/12/stock-market-midday-oct-12-dow-edges-higher-as-investors-rotate-into-value-stocks/
+
+## 2026-10-13 08:50 ET (paper)
+Overnight: Nasdaq futures -0.6%, S&P -0.1%, Dow +0.2%. Memory and chip stocks are selling off again (KOSPI -5.5%; MU -3%, WDC/STX/SNDK -3 to -5%) on reports of advances by China's CXMT. JPM beat on trading but fell 3% premarket; WFC -1%. CPI tomorrow. Yesterday: no scalping (GitHub started the 9:35 run late and the scalper refused to start; fixed). CRM -0.7%, PENG +8.3%.
+- **Close PENG.** Its kill condition was a sector selloff, and memory/AI hardware is now selling off hard. Taking the +8% (our best trade so far) a day before its hold limit.
+- Keep **CRM** (above Friday's close; 6% stop).
+- **UNH buy (conviction 2, max entry $392).** Thesis: beat ($4.69 vs $4.14) and raised the 2026 guide above consensus on a lower medical care ratio; a modest premarket move leaves room for estimate-driven drift (lessons: lasting estimate changes, max entry price). Wrong if it closes below Monday's ~$379 close.
+- Scalper **bear** (SQQQ only) given the chip selloff.
+Sources: https://finance.yahoo.com/markets/stocks/articles/p-500-dow-futures-muted-112400648.html, https://invezz.com/news/2026/10/13/unitedhealth-stock-rises-on-earnings-beat-raised-2026-profit-forecast/

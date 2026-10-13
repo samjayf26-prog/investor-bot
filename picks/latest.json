@@ -1,25 +1,24 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-12T18:21:16Z",
-  "expires_at": "2026-10-12T19:30:00Z",
+  "generated_at": "2026-10-13T12:54:06Z",
+  "expires_at": "2026-10-13T19:30:00Z",
   "picks": [
     {
-      "id": "2026-10-12-CRM",
-      "symbol": "CRM",
+      "id": "2026-10-13-UNH",
+      "symbol": "UNH",
       "action": "buy",
       "conviction": 2,
-      "max_entry_price": 240,
-      "stop_pct": 0.06,
-      "target_pct": 0.12,
+      "max_entry_price": 392,
+      "stop_pct": 0.05,
+      "target_pct": 0.1,
       "max_hold_days": 7,
-      "thesis": "Bank of America double-upgraded Salesforce from Underperform to Buy (target $285 from $160, ~25% above Friday's ~$228 close), arguing AI deepens customer dependence rather than disrupting it. A full reversal from a major bear tends to pull in follow-on buying for days.",
+      "thesis": "Q3 adjusted EPS $4.69 vs $4.14 expected; 2026 guide raised to at least $20.50 from $19.50-20 (consensus $19.86) as the medical care ratio fell to 88.4%. A beat-and-raise with only a ~1.5% premarket move leaves room for estimate revisions to lift it over the next days.",
       "sources": [
-        "https://247wallst.com/investing/2026/10/12/here-are-mondays-top-wall-street-analyst-research-calls-adobe-biogen-first-solar-godaddy-hubspot-palantir-technologies-robinhood-markets-snowflake-terawulf-t-mobile-us-and-more/",
-        "https://www.zetik.com/news/article/story_id-p008-223467",
-        "https://www.fool.com/coverage/stock-market-today/2026/10/12/stock-market-midday-oct-12-dow-edges-higher-as-investors-rotate-into-value-stocks/"
+        "https://invezz.com/news/2026/10/13/unitedhealth-stock-rises-on-earnings-beat-raised-2026-profit-forecast/",
+        "https://www.investing.com/news/stock-market-news/unitedhealth-group-raises-profit-forecast-on-thirdquarter-earnings-beat-4945967"
       ]
     }
   ],
-  "close": [],
-  "scalp_bias": "neutral"
+  "close": ["2026-10-07-1420-PENG"],
+  "scalp_bias": "bear"
 }
