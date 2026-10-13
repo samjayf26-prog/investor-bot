@@ -1,0 +1,36 @@
+name: review-backtest
+
+# Independent review: replays the scalper on recent 1-minute bars. Market data only
+# (paper keys), places no orders. Runs on pushes to the review branch only.
+on:
+  push:
+    branches: [claude/project-thread-upfxlx]
+    paths: ["review/backtest.py", ".github/workflows/review-backtest.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Backtest
+        env:
+          ALPACA_PAPER_KEY_ID: ${{ secrets.ALPACA_PAPER_KEY_ID }}
+          ALPACA_PAPER_SECRET: ${{ secrets.ALPACA_PAPER_SECRET }}
+        run: |
+          python review/backtest.py 70
+          cat review/backtest-results.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Save results
+        run: |
+          git config user.name "trading-bot"
+          git config user.email "trading-bot@users.noreply.github.com"
+          git add review/backtest-results.md
+          git diff --cached --quiet && exit 0
+          git commit -m "review: backtest results"
+          git push -q
