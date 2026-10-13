@@ -178,14 +178,21 @@ def test_buy_and_put_entries(tmp_path):
                            {"id": "p2", "symbol": "F", "action": "buy_put", "conviction": 3}])
     t, api, _ = make(tmp_path)
     assert t.cycle() == "traded"
-    assert api.orders["p1-entry"]["notional"] == f"{min(100, CFG['sizing_equity_cap']) * 0.40:.2f}"
+    # live picks size off real equity ($100 here), so gains compound
+    assert api.orders["p1-entry"]["notional"] == "40.00"
     put = api.orders["p2-entry"]
-    # the nearest-the-money put that fits the budget: $35 if 40% of the stake covers it, else $15
-    near = min(100, CFG["sizing_equity_cap"]) * 0.40 >= 35
-    expect = ("F261030P00011000", "0.35") if near else ("F261030P00010000", "0.15")
-    assert (put["symbol"], put["limit_price"]) == expect and put["type"] == "limit"
+    # the nearest-the-money put that fits the $40 budget
+    assert (put["symbol"], put["limit_price"]) == ("F261030P00011000", "0.35") and put["type"] == "limit"
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
     assert state["p2"]["expiry"] and state["p1"]["broker_symbol"] == "NVDA"
+
+
+def test_paper_sizes_like_the_capped_stake(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
+    t, api, _ = make(tmp_path, FakeAlpaca(cash=100_000))
+    t.cfg = {**CFG, "mode": "paper", "sizing_equity_cap": 75.0}
+    t.cycle()
+    assert api.orders["p1-entry"]["notional"] == "30.00"
 
 
 def test_rerun_does_not_double_buy(tmp_path):

@@ -205,7 +205,10 @@ class Trader:
                 continue
             held = sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions()
                        if p["symbol"] not in scalp)
-            size_eq, size_cash = risk.sizing_view(equity, cash, held, cfg["sizing_equity_cap"])
+            # Live picks size off real equity so gains compound (Sam's call, 2026-10-13);
+            # the cap only makes the big paper account trade like the small live one.
+            cap = cfg["sizing_equity_cap"] if cfg["mode"] == "paper" else float("inf")
+            size_eq, size_cash = risk.sizing_view(equity, cash, held, cap)
             budget = risk.pick_budget(size_eq, size_cash, pick["conviction"], cfg["max_order_notional"],
                                       cfg["min_order_notional"])
             if budget <= 0:

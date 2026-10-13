@@ -16,7 +16,8 @@ Feasibility Study" project, reworked so Claude picks trades.
 - Long picks: buy the stock or ETF (fractional when allowed). Bearish picks: buy one put,
   or a Claude-chosen inverse ETF. Real short selling needs $2,000 at Alpaca.
 - Size by conviction: 15% / 25% / 40% of equity per pick, never more than cash on hand,
-  never more than $500, at most 3 open positions.
+  never more than $500, at most 3 open positions. Live picks size off the real account so
+  gains compound; sizing_equity_cap only applies to the paper account.
 - New entries stop for the day after a 25% daily loss, and stop entirely after a 60% fall
   from the peak.
 - Every run commits state/ (account snapshot) and ledger/trades.csv. Errors fail the job and GitHub emails you.

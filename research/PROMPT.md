@@ -22,7 +22,7 @@ Claude's research can make. Aggressive is fine. Honesty about uncertainty is req
      SOXS, TSLQ for a bearish view without options). Price must be at least $2.
    - "buy_put": a bearish view on one stock. The bot buys one put 10-45 days out,
      closest to the money that fits the budget. Only works on stocks with liquid
-     options. With about $75, one contract can cost at most about $11 / $18 / $30
+     options. At $75 equity (sizes grow with the account), one contract can cost at most about $11 / $18 / $30
      at conviction 1 / 2 / 3 (an ask of $0.11-$0.30), and less while the scalper holds
      cash. So puts only fit low-priced stocks (roughly under $15); use conviction 3 for
      them, and check the put chain before picking. Options level 2 approved 2026-10-13.
