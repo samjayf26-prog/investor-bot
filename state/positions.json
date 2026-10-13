@@ -1,12 +1,1 @@
-{
-  "2026-10-12-CRM": {
-    "action": "buy",
-    "broker_symbol": "CRM",
-    "entry_date": "2026-10-12",
-    "expiry": null,
-    "id": "2026-10-12-CRM",
-    "max_hold_days": 7,
-    "stop_pct": 0.06,
-    "target_pct": 0.12
-  }
-}
+{}

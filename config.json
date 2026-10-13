@@ -1,6 +1,6 @@
 {
-  "mode": "paper",
-  "confirm_live": false,
+  "mode": "live",
+  "confirm_live": true,
   "kill": false,
   "learning": true,
 
