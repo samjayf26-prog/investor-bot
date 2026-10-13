@@ -93,3 +93,9 @@ Since 8:50: UNH opened ~+4% near $395 on the beat-and-raise, then gave the whole
 - Keep **CRM** (+1.4%).
 - No new pick before tomorrow's CPI.
 Source: https://247wallst.com/investing/2026/10/13/unitedhealth-rises-4-on-earnings-beat-and-raised-full-year-outlook-humana-advances-2
+
+## 2026-10-13 13:20 ET refresh (LIVE, $75)
+Since 11:20: the bot went live on Sam's real $75 account (paper flattened, so CRM and UNH are gone; no live positions). Options level 2 was approved, so puts are allowed again within a ~$30 budget. Midday: S&P -0.25%, Nasdaq -0.4%, 10-year 5.22%; chips weak again (SOX -1.5%, MU -5%) on China memory competition; JNJ -6% on an EPS miss; GS up on a beat, WFC down on a revenue miss. UNH gave back its gap as expected.
+- No new pick. CPI is tomorrow morning, and nothing today has a multi-day edge worth carrying into it. JNJ puts don't fit a ~$30 budget.
+- Scalper stays **bear** (SQQQ only) while the chip selloff continues.
+Source: https://www.fool.com/coverage/stock-market-today/2026/10/13/stock-market-midday-oct-13-bank-earnings-and-chip-pressure-drives-mixed-trading/
