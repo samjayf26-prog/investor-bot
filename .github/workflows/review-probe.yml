@@ -1,0 +1,26 @@
+name: review-probe
+
+# Independent review: which entry order shapes Alpaca accepts. PAPER account only;
+# orders are priced to not fill and are cancelled at once. Review branch only.
+on:
+  push:
+    branches: [claude/project-thread-upfxlx]
+    paths: ["review/probe_orders.py"]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe
+        env:
+          ALPACA_PAPER_KEY_ID: ${{ secrets.ALPACA_PAPER_KEY_ID }}
+          ALPACA_PAPER_SECRET: ${{ secrets.ALPACA_PAPER_SECRET }}
+        run: python review/probe_orders.py | tee -a "$GITHUB_STEP_SUMMARY"
