@@ -42,6 +42,15 @@ def sizing_view(equity, cash, positions_value, cap):
     return min(equity, cap), max(0.0, min(cash, cap - positions_value))
 
 
+def entry_limit(last_price, max_entry_price=None, slack=0.01):
+    """Limit price for a stock entry: Claude's max entry price, or 1% over the last trade,
+    whichever is lower. Rounded down to the cent."""
+    cap = last_price * (1 + slack)
+    if max_entry_price:
+        cap = min(cap, max_entry_price)
+    return math.floor(cap * 100) / 100
+
+
 def whole_shares(budget, price):
     return int(budget // price) if price > 0 else 0
 

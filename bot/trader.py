@@ -4,7 +4,7 @@
     python -m bot.trader flatten   # cancel all orders and close all positions
     python -m bot.trader status    # print account and positions (setup check)
 
-Runs from GitHub Actions about once an hour while the market is open. Exits non-zero
+Runs from GitHub Actions every 15 minutes in market hours and on each picks push. Exits non-zero
 on anything unexpected so GitHub emails Sam.
 """
 import csv
@@ -17,7 +17,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from . import picks, risk
-from .alpaca import Alpaca
+from .alpaca import Alpaca, AlpacaError
 
 ET = ZoneInfo("America/New_York")
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,6 +36,17 @@ def log(msg):
 def load_config(path=ROOT / "config.json"):
     with open(path) as f:
         return json.load(f)
+
+
+def scalper_mode(cfg):
+    """Account the scalper trades on: its own "mode" if set, else the bot's."""
+    return cfg.get("scalper", {}).get("mode", cfg["mode"])
+
+
+def scalper_symbols(cfg):
+    """Symbols reserved for the scalper on this account (none when it trades elsewhere)."""
+    sc = cfg.get("scalper", {})
+    return set(sc.get("symbols", [])) if sc.get("enabled") and scalper_mode(cfg) == cfg["mode"] else set()
 
 
 def make_client(cfg):
@@ -121,8 +132,9 @@ class Trader:
             log(f"Picks: {n}")
 
         # Our unfilled entries from earlier runs are stale; the reconcile below drops them.
-        # Orders and positions of the scalper (its own symbols) are left alone.
-        scalp = set(cfg.get("scalper", {}).get("symbols", []))
+        # Orders and positions of the scalper (its own symbols, if it trades this account)
+        # are left alone.
+        scalp = scalper_symbols(cfg)
         for o in self.api.open_orders():
             if o.get("client_order_id", "").endswith("-entry") and o["symbol"] not in scalp:
                 self.api.cancel_order(o["id"])
@@ -199,9 +211,14 @@ class Trader:
             if budget <= 0:
                 log(f"Skip {pick['id']}: not enough cash.")
                 continue
-            entry = self.enter(pick, budget, acct, today)
+            try:
+                entry = self.enter(pick, budget, acct, today)
+            except AlpacaError as e:  # one refused order must not lose the picks already bought
+                log(f"Skip {pick['id']}: Alpaca refused it: {e}")
+                continue
             if entry:
                 state[pick["id"]] = entry
+                self.save_state(state)
                 result = "traded"
                 acct = self.api.account()
                 cash = float(acct["cash"])
@@ -234,17 +251,29 @@ class Trader:
             if pick["max_entry_price"] and price > pick["max_entry_price"]:
                 log(f"Skip {pick['id']}: {sym} at ${price} is above Claude's max entry ${pick['max_entry_price']}.")
                 return None
+            # A limit order lets the broker enforce the cap: never pay above Claude's max entry
+            # price, or more than 1% over the last trade when there is none.
+            limit = risk.entry_limit(price, pick["max_entry_price"])
             if asset.get("fractionable"):
                 order = dict(notional=f"{budget:.2f}")
             else:
-                qty = risk.whole_shares(budget, price)
+                qty = risk.whole_shares(budget, limit)
                 if qty < 1:
                     log(f"Skip {pick['id']}: one share of {sym} (${price}) costs more than ${budget}.")
                     return None
                 order = dict(qty=str(qty))
-            self.api.submit_order(symbol=sym, side="buy", type="market", time_in_force="day",
-                                  client_order_id=cid, **order)
-            log(f"Bought {sym} ({order}) for pick {pick['id']}")
+            try:
+                self.api.submit_order(symbol=sym, side="buy", type="limit", limit_price=f"{limit:.2f}",
+                                      time_in_force="day", client_order_id=cid, **order)
+            except AlpacaError as e:
+                if e.status != 422:
+                    raise
+                # Alpaca's docs disagree on limit orders for fractional amounts; if it is refused,
+                # fall back to market (the max-entry check above already passed).
+                log(f"Limit order for {sym} refused ({e}); sending a market order.")
+                self.api.submit_order(symbol=sym, side="buy", type="market", time_in_force="day",
+                                      client_order_id=cid, **order)
+            log(f"Bought {sym} ({order}, limit ${limit:.2f}) for pick {pick['id']}")
             return {**base, "broker_symbol": sym}
 
         # buy_put: the bearish trade available to a small cash account (shorting needs $2k+)

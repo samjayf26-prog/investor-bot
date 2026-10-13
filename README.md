@@ -7,8 +7,12 @@ Feasibility Study" project, reworked so Claude picks trades.
 ## Each trading day
 - ~8:50 ET: a scheduled Claude run researches (earnings, news, analyst moves, macro
   calendar) and writes up to 3 picks to picks/latest.json, with reasons in research/journal.md.
-- Every hour 9:50-15:50 ET: the bot (bot/trader.py) checks exits (stop, target, max
-  hold days, Claude's close list, options near expiry), then buys new picks until 15:30.
+- Every 15 minutes in market hours, and whenever Claude pushes new picks: the bot
+  (bot/trader.py) checks exits (stop, target, max hold days, Claude's close list, options
+  near expiry), then buys new picks until 15:30 with limit orders (never above Claude's max
+  entry price, or 1% over the last trade). A refused order skips that pick only.
+- The scalper (bot/scalper.py) trades the paper account (config scalper.mode "paper") since
+  replays showed it loses after costs; set it to "live" to put it back on real money.
 - Long picks: buy the stock or ETF (fractional when allowed). Bearish picks: buy one put,
   or a Claude-chosen inverse ETF. Real short selling needs $2,000 at Alpaca.
 - Size by conviction: 15% / 25% / 40% of equity per pick, never more than cash on hand,

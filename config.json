@@ -18,6 +18,7 @@
   "sizing_equity_cap": 75.0,
 
   "scalper": {
+    "mode": "paper",
     "enabled": true,
     "symbols": ["SPY", "QQQ", "TQQQ", "SQQQ"],
     "bull_symbols": ["SPY", "QQQ", "TQQQ"],

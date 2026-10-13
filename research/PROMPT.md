@@ -79,3 +79,11 @@ picks that can be held for days.
 - scalp_bias steers the fast scalper (bot/scalper.py, 9:35-15:15 ET on SPY/QQQ/TQQQ/SQQQ):
   "bull" = only long SPY/QQQ/TQQQ, "bear" = only SQQQ, "neutral" = all four, "off" = no
   scalping (e.g. ahead of CPI or a Fed decision). Pick it from the morning's tone.
+- Since 2026-10-13 the scalper trades the PAPER account (config scalper.mode): replays of
+  70 sessions found no setting that made money after costs. All live cash goes to your
+  picks. To bet real money on the day's direction, make it a pick: TQQQ (bull) or SQQQ
+  (bear) are allowed as normal "buy" picks while the scalper is on paper.
+- Picks are executed within minutes of your push (the bot runs on each picks push and
+  every 15 minutes), as limit orders at max_entry_price or 1% over the last trade.
+  A "wrong if it closes below X" rule is judged at the 14:20 run; for an intraday level,
+  set stop_pct so the bot enforces it.
