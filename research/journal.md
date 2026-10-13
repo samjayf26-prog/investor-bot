@@ -86,3 +86,10 @@ Overnight: Nasdaq futures -0.6%, S&P -0.1%, Dow +0.2%. Memory and chip stocks ar
 - **UNH buy (conviction 2, max entry $392).** Thesis: beat ($4.69 vs $4.14) and raised the 2026 guide above consensus on a lower medical care ratio; a modest premarket move leaves room for estimate-driven drift (lessons: lasting estimate changes, max entry price). Wrong if it closes below Monday's ~$379 close.
 - Scalper **bear** (SQQQ only) given the chip selloff.
 Sources: https://finance.yahoo.com/markets/stocks/articles/p-500-dow-futures-muted-112400648.html, https://invezz.com/news/2026/10/13/unitedhealth-stock-rises-on-earnings-beat-raised-2026-profit-forecast/
+
+## 2026-10-13 11:20 ET refresh (paper)
+Since 8:50: UNH opened ~+4% near $395 on the beat-and-raise, then gave the whole gap back; our 9:50 fill was $376 and it's now ~$375, under Monday's ~$380 close. PENG closed +$2.07 (+8.3%), our best trade. CRM +1.4%. Scalper running in bear mode.
+- **Close UNH.** A beat-and-raise whose gap fully fades in the first hour means sellers are using the news to exit; my "wrong if below Monday's close" condition is already met intraday. Near breakeven. Note: the bot's first check is 9:50, after the gap had already faded, so the $392 cap didn't matter here.
+- Keep **CRM** (+1.4%).
+- No new pick before tomorrow's CPI.
+Source: https://247wallst.com/investing/2026/10/13/unitedhealth-rises-4-on-earnings-beat-and-raised-full-year-outlook-humana-advances-2
