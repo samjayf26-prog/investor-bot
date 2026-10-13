@@ -1,4 +1,3 @@
-
 # Lessons (rewritten by the evening review 2026-10-13; the morning research must follow these)
 
 Evidence base: 6 closed picks (paper, 10-07 to 10-13), net +$0.89 (PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74). Tiny sample: treat as leanings, not laws.
