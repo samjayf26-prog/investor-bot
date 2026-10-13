@@ -166,6 +166,7 @@ class Trader:
                     "stop_pct": 0.10, "target_pct": 0.20, "max_hold_days": 5, "expiry": None}
 
         # exits
+        cutoff = datetime.combine(today, datetime.strptime(cfg["no_entries_after_et"], "%H:%M").time(), ET)
         for pid, e in list(state.items()):
             pos = positions.get(e["broker_symbol"])
             if not pos:
@@ -173,7 +174,8 @@ class Trader:
             dte = (date.fromisoformat(e["expiry"]) - today).days if e.get("expiry") else None
             reason = risk.exit_reason(float(pos["unrealized_plpc"]), e["stop_pct"], e["target_pct"],
                                       (today - date.fromisoformat(e["entry_date"])).days,
-                                      e["max_hold_days"], pid in close_ids, dte)
+                                      e["max_hold_days"], pid in close_ids, dte,
+                                      late_in_day=now >= cutoff)
             if reason:
                 self.close(e, pos, reason, today)
                 del state[pid]
@@ -186,7 +188,6 @@ class Trader:
             self.save_state(state)
             raise RuntimeError("Alpaca says the account is blocked from trading")
         equity, cash = float(acct["equity"]), float(acct["cash"])
-        cutoff = datetime.combine(today, datetime.strptime(cfg["no_entries_after_et"], "%H:%M").time(), ET)
         halts = [why for ok, why in (risk.daily_loss_ok(equity, float(acct["last_equity"]), cfg["daily_loss_cap_pct"]),
                                      risk.drawdown_ok(equity, self.peak_equity(equity), cfg["drawdown_halt_pct"])) if not ok]
         if halts:

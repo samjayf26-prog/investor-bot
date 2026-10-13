@@ -159,6 +159,42 @@ def scorecard(today, root=ROOT):
     return lines
 
 
+# Claude's daily direction call
+def score_direction(api, today, root=ROOT):
+    """Log whether today's scalp_bias called QQQ's 9:35-15:15 move right
+    (research/direction_log.csv, one row per day). Returns the scorecard lines."""
+    path = root / "research" / "direction_log.csv"
+    rows = [r for r in read_csv(path) if r["date"] != today.isoformat()]
+    try:
+        data = json.loads((root / "picks" / "latest.json").read_text())
+        made = datetime.fromisoformat(data["generated_at"].replace("Z", "+00:00")).astimezone(ET).date()
+        bias = data.get("scalp_bias", "neutral") if made == today else "none"
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        bias = "none"
+    lo = datetime.combine(today, dtime(9, 35), ET).astimezone(timezone.utc).isoformat()
+    hi = datetime.combine(today, dtime(15, 15), ET).astimezone(timezone.utc).isoformat()
+    bars = api.bars_between("QQQ", "1Min", lo, hi)
+    if bars:
+        move = bars[-1]["c"] / bars[0]["o"] - 1
+        right = {"bull": move > 0, "bear": move < 0}.get(bias)
+        rows.append({"date": today.isoformat(), "bias": bias, "qqq_move": f"{move:.4f}",
+                     "correct": "" if right is None else str(right).lower()})
+        with open(path, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["date", "bias", "qqq_move", "correct"])
+            w.writeheader()
+            w.writerows(sorted(rows, key=lambda r: r["date"]))
+    else:
+        rows = read_csv(path)
+    calls = [r for r in rows if r["correct"]]
+    hits = sum(1 for r in calls if r["correct"] == "true")
+    lines = ["", "## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)",
+             "| day | bias | QQQ move | right? |", "|---|---|---|---|"]
+    lines += [f"| {r['date']} | {r['bias']} | {float(r['qqq_move']):+.2%} | {r['correct'] or '-'} |"
+              for r in rows[-10:]]
+    lines.append(f"\nBull/bear calls: {hits} of {len(calls)} right." if calls else "\nNo bull/bear calls scored yet.")
+    return lines
+
+
 # run
 def load_sessions(api, symbols, start_et, today):
     """Last LOOKBACK full sessions of 1-minute bars per symbol, from start_et to 15:50 ET."""
@@ -195,11 +231,12 @@ def run(api, cfg, today, root=ROOT):
     current = tuning.scalper_config(cfg, root / "tuning.json")
     current_syms = current.get("enabled_symbols") or sc["symbols"]
     tuned = tuning.load(root / "tuning.json")
-    lines = scorecard(today.isoformat(), root)
-    lines += ["", "## Tuner"]
     if tuned.get("updated") == today.isoformat():
         log("Already learned today.")
         return "already-done"
+    lines = scorecard(today.isoformat(), root)
+    lines += score_direction(api, today, root)
+    lines += ["", "## Tuner"]
     if not cfg.get("learning", True):
         lines.append("Learning is off in config.json; nothing changed.")
     else:

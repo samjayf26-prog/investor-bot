@@ -75,14 +75,21 @@ picks that can be held for days.
 ```
 - ids must be new each day (date prefix). expires_at = 15:30 ET today in UTC.
 - conviction 1/2/3 = 15%/25%/40% of equity. Stops: stock 2-25%, put 2-60%.
-- max_hold_days up to 10 (calendar days).
+- max_hold_days up to 10 (calendar days); 0 = sell the same day after 15:30 ET.
 - scalp_bias steers the fast scalper (bot/scalper.py, 9:35-15:15 ET on SPY/QQQ/TQQQ/SQQQ):
   "bull" = only long SPY/QQQ/TQQQ, "bear" = only SQQQ, "neutral" = all four, "off" = no
   scalping (e.g. ahead of CPI or a Fed decision). Pick it from the morning's tone.
 - Since 2026-10-13 the scalper trades the PAPER account (config scalper.mode): replays of
   70 sessions found no setting that made money after costs. All live cash goes to your
   picks. To bet real money on the day's direction, make it a pick: TQQQ (bull) or SQQQ
-  (bear) are allowed as normal "buy" picks while the scalper is on paper.
+  (bear), or SPY/QQQ for a milder view, are allowed as normal "buy" picks while the
+  scalper is on paper. A replay of 70 sessions found one right-way 3x ETF hold per day
+  beats scalping the same view by a wide margin (review/bias-results.md on the review
+  branch). Use max_hold_days 0 for a same-day call: the bot holds it until the first run
+  after 15:30 ET (or its stop/target) and never overnight. Size by conviction as usual,
+  and use wide-enough stops for 3x ETFs (about 3x the index move you'd tolerate).
+- Your scalp_bias is scored daily against QQQ's 9:35-15:15 move in research/scorecard.md;
+  check its hit rate before trusting your direction calls with size.
 - Picks are executed within minutes of your push (the bot runs on each picks push and
   every 15 minutes), as limit orders at max_entry_price or 1% over the last trade.
   A "wrong if it closes below X" rule is judged at the 14:20 run; for an intraday level,

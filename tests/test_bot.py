@@ -45,6 +45,10 @@ def test_exit_reasons():
     assert risk.exit_reason(0.0, 0.08, 0.15, 5, 5, False).startswith("max hold")
     assert risk.exit_reason(0.0, 0.5, 1.0, 0, 5, False, days_to_expiry=2) == "option near expiry"
     assert risk.exit_reason(0.0, 0.08, 0.15, 1, 5, False) is None
+    # max_hold_days 0 = day trade: kept intraday, sold late in the day or the next day
+    assert risk.exit_reason(0.0, 0.08, 0.15, 0, 0, False) is None
+    assert risk.exit_reason(0.0, 0.08, 0.15, 0, 0, False, late_in_day=True) == "day trade: end of day"
+    assert risk.exit_reason(0.0, 0.08, 0.15, 1, 0, False) == "day trade: end of day"
 
 
 def contract(sym, strike, days):
@@ -340,3 +344,15 @@ def test_scalper_symbols_reserved_only_on_its_own_account(tmp_path):
     t2.cfg = same
     t2.cycle()
     assert not api2.orders
+
+
+def test_day_trade_held_until_late_then_sold(tmp_path):
+    write_picks(tmp_path, [{"id": "d1", "symbol": "TQQQ", "action": "buy", "max_hold_days": 0}])
+    t, api, clock = make(tmp_path)
+    t.cycle()
+    clock.t += timedelta(minutes=15)
+    t.cycle()
+    assert not api.closed
+    clock.t = datetime(2026, 10, 8, 19, 35, tzinfo=timezone.utc)   # 15:35 ET
+    t.cycle()
+    assert api.closed == ["TQQQ"]

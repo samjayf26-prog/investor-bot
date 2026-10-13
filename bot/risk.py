@@ -56,15 +56,20 @@ def whole_shares(budget, price):
 
 
 def exit_reason(plpc, stop_pct, target_pct, held_days, max_hold_days, close_requested,
-                days_to_expiry=None, min_days_to_expiry=2):
-    """Why a position should be closed now, or None to keep it."""
+                days_to_expiry=None, min_days_to_expiry=2, late_in_day=False):
+    """Why a position should be closed now, or None to keep it.
+
+    max_hold_days 0 is a day trade: held until late_in_day (15:30 ET), never overnight."""
     if plpc <= -stop_pct:
         return f"stop loss ({plpc:.1%})"
     if plpc >= target_pct:
         return f"profit target ({plpc:.1%})"
     if close_requested:
         return "Claude asked to close"
-    if held_days >= max_hold_days:
+    if max_hold_days == 0:
+        if held_days >= 1 or late_in_day:
+            return "day trade: end of day"
+    elif held_days >= max_hold_days:
         return f"max hold of {max_hold_days} days"
     if days_to_expiry is not None and days_to_expiry <= min_days_to_expiry:
         return "option near expiry"
