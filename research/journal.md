@@ -132,3 +132,10 @@ Since 10:20: the hot-core-CPI selloff is steady, not accelerating: S&P about -0.
 - No new pick: nothing fresh beyond the rate story, and a same-day SQQQ call now would chase a move already priced.
 - Paper scalper stays **bear**.
 Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026
+
+## 2026-10-14 13:20 ET refresh (LIVE)
+Since 11:20: the hot-CPI selloff deepened into midday: S&P about -0.9%, Nasdaq-100 down 1-1.7%, Dow near flat; semis (SOXX) on a seventh straight losing day, defensives leading. AZZ followed the tape down to ~$134.64 (-2.1% from the $137.57 fill); equity $74.61.
+- Keep **AZZ** (same id). The kill condition is a close below the ~$132 pre-earnings level and the 5% stop sits near $130.7; neither is hit. The slide is the rate tape, not news on AZZ. If it closes under $132 the 2:20 run or tomorrow morning closes it.
+- No new pick: the selloff is already well along, so a same-day SQQQ now is a chase; small budget is better left in cash.
+- Paper scalper stays **bear**.
+Sources: https://247wallst.com/cards/the-dow-is-holding-near-flat-while-the-s-p-500-gives-up-0-87-gspc-market-bell-01m4xjdh6n3565y2cfmzb04q6x, https://www.benzinga.com/markets/equities/26/10/62360140/nasdaq-100-drops-1-on-hot-cpi-soxx-falls-7th-day-stock-market-today
