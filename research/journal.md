@@ -139,3 +139,10 @@ Since 11:20: the hot-CPI selloff deepened into midday: S&P about -0.9%, Nasdaq-1
 - No new pick: the selloff is already well along, so a same-day SQQQ now is a chase; small budget is better left in cash.
 - Paper scalper stays **bear**.
 Sources: https://247wallst.com/cards/the-dow-is-holding-near-flat-while-the-s-p-500-gives-up-0-87-gspc-market-bell-01m4xjdh6n3565y2cfmzb04q6x, https://www.benzinga.com/markets/equities/26/10/62360140/nasdaq-100-drops-1-on-hot-cpi-soxx-falls-7th-day-stock-market-today
+
+## 2026-10-14 14:20 ET refresh (LIVE)
+Since 13:20: the hot-CPI selloff widened in small caps and tech (Russell 2000 and Nasdaq both about -2%), with yields and hike odds still higher. AZZ bounced off its midday low to ~$135.87 (-1.2% from the fill), well above the ~$132 kill line, while small caps fell twice as much; equity $74.78.
+- Keep **AZZ** (same id). Relative strength against a -2% small-cap tape supports the estimate-raise thesis; the 5% stop and the ~$132 close rule stay in place.
+- No new pick: with about an hour to the 3:30 cutoff a same-day TQQQ/SQQQ call has no room, and nothing has a multi-day catalyst to carry into Thursday's PPI.
+- Paper scalper stays **bear**.
+Source: https://finance.yahoo.com/markets/stocks/articles/stock-market-today-oct-14-135249729.html
