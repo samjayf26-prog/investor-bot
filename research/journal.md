@@ -125,3 +125,10 @@ Since 8:50: the market took the hot core CPI badly: S&P about -0.3%, Nasdaq-100 
 - No new pick. The day's driver is rates, which no stock pick here plays well; a same-day SQQQ call would be chasing a move that already happened premarket.
 - Paper scalper **bear** (hot CPI, yields up, chips weak).
 Source: https://247wallst.com/investing/2026/10/14/stock-market-today-stocks-head-lower-as-hot-inflation-puts-another-fed-rate-hike-back-in-play/
+
+## 2026-10-14 11:20 ET refresh (LIVE)
+Since 10:20: the hot-core-CPI selloff is steady, not accelerating: S&P about -0.4%, Nasdaq -0.6%, Dow -0.2%; yields stay above 5.2% and oil elevated. AZZ is holding up against the tape at ~$137.89 (+0.2% from the $137.57 fill); equity $75.05.
+- Keep **AZZ** (same id). Relative strength on a down, rate-driven day supports the guidance-raise thesis.
+- No new pick: nothing fresh beyond the rate story, and a same-day SQQQ call now would chase a move already priced.
+- Paper scalper stays **bear**.
+Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026
