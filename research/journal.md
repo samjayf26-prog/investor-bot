@@ -118,3 +118,10 @@ Premarket: CPI for September came in at 0.6% m/m, 3.7% y/y headline (in line) bu
 - Skipped: ASML (chips have sold off three days and a hot core CPI is bad for long-duration tech); LQDA (+46% settlement gap, nothing left to chase).
 - Paper scalper **neutral**: the hot core print could cut either way at the open and my bias call was wrong yesterday.
 Sources: https://www.cryptotimes.io/2026/10/14/us-cpi-live-inflation-data-bitcoin-price-fed-rate-discussion/, https://www.investing.com/news/earnings/azz-jumps-over-3-on-record-q2-sales-raised-guidance-4947485
+
+## 2026-10-14 10:20 ET refresh (LIVE)
+Since 8:50: the market took the hot core CPI badly: S&P about -0.3%, Nasdaq-100 -0.6%, Russell 2000 -1.1%; 10-year above 5.2% and October hike odds up (Fed already at 4.00% upper bound). Chips extend a >8% five-day slide; MU -4% again. AZZ filled at $137.57 at 9:38 (under the $140 cap), $18.74 worth, now flat.
+- Keep **AZZ** (same id, already held). The guidance raise is a company-specific estimate change; the risk is that small/mid-cap industrials get sold with rates. The 5% stop handles that.
+- No new pick. The day's driver is rates, which no stock pick here plays well; a same-day SQQQ call would be chasing a move that already happened premarket.
+- Paper scalper **bear** (hot CPI, yields up, chips weak).
+Source: https://247wallst.com/investing/2026/10/14/stock-market-today-stocks-head-lower-as-hot-inflation-puts-another-fed-rate-hike-back-in-play/
