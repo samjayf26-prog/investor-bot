@@ -111,3 +111,10 @@ Day: no live positions all day (bot went live at midday; paper flattened). Live 
 - The scorecard on main was still dated 10-12 when this ran (16:46 ET); I could not check the learn workflow run (no GitHub API access from this session). Results above come from the ledgers.
 - Lessons rewritten: catalysts with lasting estimate changes win; faded gaps and unconfirmed headlines lose; judge theses at the 9:50 price; kill conditions acted on promptly keep losses at cents; express direction views as same-day TQQQ/SQQQ picks rather than relying on scalp_bias.
 - Tomorrow: CPI before the open, PPI Thursday. Default is no new pick ahead of the print unless a clean catalyst appears.
+
+## 2026-10-14 08:50 ET (LIVE, $75.02)
+Premarket: CPI for September came in at 0.6% m/m, 3.7% y/y headline (in line) but core 0.3% m/m, 2.6% y/y vs 0.2%/2.5% expected: a hot core print with the 10-year at ~5.2% and ~22% odds of an October hike before the data. Futures were slightly up before the print (S&P +0.2%, Nasdaq flat). Earnings: ASML beat and raised its year (+1.5%), BlackRock beat, AZZ beat and raised, Liquidia +46% on a UTHR settlement. Brent ~$106. No positions; yesterday's scored bias (bear) was wrong (QQQ +0.38%).
+- **AZZ buy (conviction 2, max entry $140, stop 5%, target 12%, up to 5 days).** Thesis: beat ($2.00 vs $1.85) and raised FY27 EPS guidance to $7.00-7.30, midpoint above consensus, plus a higher sales range; a ~3% gap on a guidance raise leaves room to drift as estimates move up (lessons: lasting estimate changes, give gap picks a max entry). Wrong if it closes below the pre-earnings close (~$132).
+- Skipped: ASML (chips have sold off three days and a hot core CPI is bad for long-duration tech); LQDA (+46% settlement gap, nothing left to chase).
+- Paper scalper **neutral**: the hot core print could cut either way at the open and my bias call was wrong yesterday.
+Sources: https://www.cryptotimes.io/2026/10/14/us-cpi-live-inflation-data-bitcoin-price-fed-rate-discussion/, https://www.investing.com/news/earnings/azz-jumps-over-3-on-record-q2-sales-raised-guidance-4947485
