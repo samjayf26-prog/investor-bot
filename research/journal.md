@@ -146,3 +146,10 @@ Since 13:20: the hot-CPI selloff widened in small caps and tech (Russell 2000 an
 - No new pick: with about an hour to the 3:30 cutoff a same-day TQQQ/SQQQ call has no room, and nothing has a multi-day catalyst to carry into Thursday's PPI.
 - Paper scalper stays **bear**.
 Source: https://finance.yahoo.com/markets/stocks/articles/stock-market-today-oct-14-135249729.html
+
+## 2026-10-14 evening review (LIVE, $75.02)
+Day: the hot core CPI (0.3% vs 0.2%) drove a steady selloff: QQQ -1.43% from 9:35 to 15:15, S&P about -1.1%, small caps about -2%, yields above 5.2%. The live account held one pick, AZZ (filled $137.57 at 9:38, closed the day ~$137.85, about +$0.04); equity $75.02 vs $74.17 for the same $75 in the S&P since go-live. The 10:20 bear scalp_bias was right; the paper scalper made +$0.20 on 10 SQQQ trips.
+- AZZ thesis (guidance raise drifts as estimates rise) is intact: flat on a -2% small-cap day, kill line ~$132 never threatened. Holding it (up to 5 days).
+- Miss: I passed on a same-day SQQQ at 10:20 and later as "chasing"; the trend ran all day. Added a lesson to consider a conviction-2 same-day ETF pick when a macro print sets direction by 10:20.
+- The learn workflow hadn't started by 16:46 ET (GitHub cron delay); I dispatched it by hand and it committed the 10-14 scorecard.
+- Tomorrow: PPI Thursday morning after a hot CPI; bank and other earnings continue.
