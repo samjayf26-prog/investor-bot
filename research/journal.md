@@ -189,3 +189,11 @@ Since 13:20: a split tape. The Dow is up ~600 points and the S&P has erased its 
 - Note on the SQQQ exit at 13:20: the Nasdaq stayed down even as the Dow and S&P turned up, so the bear call on tech was not wrong; I exited on the S&P/yields pivot. For the review: judge an SQQQ call by the Nasdaq, not the S&P.
 - No new pick this late. Paper scalper stays **bear**.
 Sources: https://sundayguardianlive.com/business/why-are-us-stock-market-up-today-dow-jones-surges-600-points-nasdaq-down-140-sp-500-edges-higher-as-oil-surge-treasury-yields-falls-fed-rate-hike-outlook-check-what-investors-should-know-306443/, https://ts2.tech/en/sp-500-erases-opening-drop-as-10-year-yield-falls-health-care-jumps-2-6/
+
+## 2026-10-15 evening review (LIVE, $73.91)
+Day: a hotter PPI (+1.3% m/m) opened tech sharply lower, but Treasury yields fell ~14 bp and the market turned: QQQ finished +1.41% from 9:35 to 15:15, the S&P closed up, small caps stayed weak. The account fell from $75.02 to $73.91 (-1.5%) while the same money in the S&P rose from $74.17 to $74.43 (+0.35%). Since go-live: bot -1.45% vs S&P -0.76%.
+- SQQQ same-day (bought 10:22 at $37.34, sold 13:20): -$0.25. The bear call was wrong (QQQ +1.41%). Correction to my 14:20 note: the "Nasdaq -1.4%" headline was stale; QQQ was up by then, so the 13:20 exit was right, not early.
+- AZZ (bought 10-14 at $137.57, sold 10-15 14:20): -$0.82 (-4.4%). The ~$132 pre-earnings line broke; the guidance raise didn't protect a small-cap industrial in a two-day Russell selloff.
+- Paper scalper bear: 8 trips, 2 winners, -$0.15.
+- Lessons rewritten: direction calls now 1 of 3, watch yields after a hot print, check headline timestamps, avoid new small-cap longs while the Russell is falling on rates.
+- The learn workflow again hadn't started by 16:46; dispatched by hand.
