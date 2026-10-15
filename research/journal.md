@@ -161,3 +161,10 @@ Premarket: a second hot inflation print. September PPI rose 1.3% m/m (most since
 - Skipped ERIC: a 12% gap is the CEG pattern; the beat is real but there's nothing left to buy cheaply in a falling tape.
 - Paper scalper **bear**.
 Sources: https://www.clickondetroit.com/business/2026/10/15/wholesale-inflation-jumped-last-month-by-most-in-four-years-as-gas-prices-soared/, https://www.tradingkey.com/analysis/stocks/us-stocks/262218623-us-premarket-tsmc-record-profit-chip-stocks-fall-nvidia-micron-ppi-tradingkey, https://quantpartners.substack.com/p/morning-note-101526-ppi-and-retail
+
+## 2026-10-15 10:20 ET refresh (LIVE)
+Since 8:50: the selloff held into the open: S&P -0.5%, Nasdaq -1.3%, Russell 2000 -1.9%, Dow +0.4% at 9:33, and the S&P was still edging lower at 10:08. TSM -4% (margin slip), SK Hynix -6.7%, CoreWeave -5%; Kospi fell ~7.8% overnight. Hike odds for the meeting in two weeks are described as a coin flip. AZZ is down with small caps to ~$134.04 (-2.6% from the fill), above the ~$132 close rule; equity $74.53.
+- **New: SQQQ same-day buy (conviction 2, max entry $39.50, stop 4.5%, target 6%, max_hold_days 0).** Thesis: two hot inflation prints in two days plus a global AI/chip rout; yesterday's hot-CPI selloff trended all session, and the 10-14 lesson says to act when a macro print sets direction by 10:20. Wrong if QQQ bounces back toward yesterday's close (the 4.5% stop is about a 1.5% QQQ bounce). Risk: chips are nine days down and oversold, so a short-covering bounce is the main threat.
+- Keep **AZZ** (same id); close rule ~$132 unchanged.
+- Paper scalper stays **bear**.
+Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://www.marketscreener.com/news/chip-stocks-take-another-beating-ce785dd3d88df525
