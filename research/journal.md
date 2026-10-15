@@ -168,3 +168,10 @@ Since 8:50: the selloff held into the open: S&P -0.5%, Nasdaq -1.3%, Russell 200
 - Keep **AZZ** (same id); close rule ~$132 unchanged.
 - Paper scalper stays **bear**.
 Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://www.marketscreener.com/news/chip-stocks-take-another-beating-ce785dd3d88df525
+
+## 2026-10-15 11:20 ET refresh (LIVE)
+Since 10:20: the selloff has eased. Midmorning reports have the S&P about -0.3% and the Nasdaq only slightly lower, with the Dow +0.4%. One detail cuts against my rate thesis: Treasury yields fell sharply despite the hot PPI (10-year ~5.05%, down ~14 bp; 30-year on track for its biggest drop since Nov 2024), so today's tech weakness is the AI-debt/chip rout (eighth straight down day for chips) more than a hike scare. SQQQ filled at $37.34 at 10:22 and is ~$36.82 (-1.4%); AZZ ~$133.91 (-2.7%); equity $74.24.
+- Keep **SQQQ same-day** (same id). The "wrong if" (QQQ back to yesterday's close) isn't hit and the 4.5% stop (~$35.66) caps the loss at about $0.85. The weaker rate story lowers my confidence, so no adding.
+- Keep **AZZ** (same id). Lower yields should help small-cap industrials; the ~$132 close rule stands.
+- No new pick. Paper scalper stays **bear**.
+Source: https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html, https://sundayguardianlive.com/business/us-stock-market-today-live-dow-jones-gains-043-sp-500-falls-026-nasdaq-edges-lower-as-oil-surge-tech-sell-off-fed-rate-outlook-ahead-cpi-inflation-check-what-investors-should-know-306401/
