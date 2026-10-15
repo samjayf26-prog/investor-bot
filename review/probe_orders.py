@@ -1,28 +1,22 @@
-"""Checks on the PAPER account which entry order shapes Alpaca accepts. Each order is
-priced 10% under the market so it cannot fill, and is cancelled at once.
+"""Checks the bot's market snapshot (state/market.json rows) against real Alpaca data,
+using the PAPER keys. Read-only: places no orders.
 
     python review/probe_orders.py
 """
+import json
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from bot.alpaca import Alpaca, AlpacaError  # noqa: E402
+from bot import risk  # noqa: E402
+from bot.alpaca import Alpaca  # noqa: E402
+from bot.trader import MARKET  # noqa: E402
 
 api = Alpaca.from_env(False)
-sym = "AAPL"
-last = api.last_price(sym)
-limit = f"{last * 0.9:.2f}"
-shapes = {
-    "notional + limit (what d8804fb sends)": dict(notional="10.00", type="limit", limit_price=limit),
-    "fractional qty + limit": dict(qty=f"{10 / last:.6f}", type="limit", limit_price=limit),
-}
-for name, o in shapes.items():
-    cid = f"review-probe-{int(time.time())}-{len(name)}"
-    try:
-        r = api.submit_order(symbol=sym, side="buy", time_in_force="day", client_order_id=cid, **o)
-        print(f"ACCEPTED  {name}: status {r.get('status')}")
-        api.cancel_order(r["id"])
-    except AlpacaError as e:
-        print(f"REFUSED   {name}: HTTP {e.status} {e}")
+syms = list(MARKET) + ["AZZ", "TQQQ", "SQQQ"]
+snaps = api.snapshots(syms)
+print("raw keys for QQQ:", sorted((snaps.get("QQQ") or {}).keys()))
+rows = {s: risk.market_row(snaps.get(s)) for s in syms}
+print(json.dumps(rows, indent=1))
+missing = [s for s, r in rows.items() if not r or r["vwap"] is None or r["pct_vs_prev_close"] is None]
+print("MISSING FIELDS:", missing or "none")
