@@ -16,7 +16,7 @@ Exits
 - Close on the stated kill condition even before the hold limit (PENG +8%).
 
 Direction calls (scalp_bias and same-day SQQQ/TQQQ)
-- Hit rate 1 of 3: 10-13 bear wrong (QQQ +0.38%), 10-14 bear right (-1.43%), 10-15 bear wrong (+1.41%). Not reliable; size any direction pick at conviction 2 at most.
+- Hit rate 1 of 3: 10-13 bear wrong (QQQ +0.38%), 10-14 bear right (-1.43%), 10-15 bear wrong (+1.41%). Not reliable: direction picks are conviction 1 only, with the tape (QQQ vs its open in state/market.json), never fading it (PROMPT.md, 10-15).
 - One trend day does not make a rule. On 10-14 a hot CPI drove an all-day selloff; on 10-15 a hotter PPI opened Nasdaq -1.3% and then QQQ rallied +1.4% as Treasury yields fell ~14 bp. The 10:20 SQQQ pick (bought $37.34) lost -$0.25.
 - Watch yields, not just the inflation print: when yields fall after a hot print, the market is saying the print won't drive a hike; don't bet on a selloff then.
 - Exiting the SQQQ at 13:20 when the S&P and yields turned was right (QQQ kept rallying into the close). Act on a broken thesis even before the stop.

@@ -68,8 +68,24 @@ def load(path, now, cfg):
             "target_pct": _clamp(raw.get("target_pct"), 0.03, 5.0, 1.0 if put else 0.15),
             "max_hold_days": int(_clamp(raw.get("max_hold_days"), 0, cfg["max_hold_days"], 5)),
             "max_entry_price": _clamp(raw.get("max_entry_price"), 0, 1e6, 0) or None,
+            "confirm_vwap": raw.get("confirm_vwap") is True,
         })
     return entries, close_ids, notes
+
+
+def watch_symbols(path, limit=10):
+    """Optional "watch" list in the picks file: extra symbols for state/market.json only."""
+    try:
+        with open(path) as f:
+            raw = json.load(f).get("watch", [])
+    except (OSError, ValueError, AttributeError):
+        return []
+    out = []
+    for s in raw if isinstance(raw, list) else []:
+        s = str(s).upper()
+        if SYMBOL.match(s) and s not in out:
+            out.append(s)
+    return out[:limit]
 
 
 if __name__ == "__main__":

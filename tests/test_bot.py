@@ -150,6 +150,13 @@ class FakeAlpaca:
     def last_price(self, sym):
         return self.prices[sym]
 
+    vwaps = {}
+
+    def snapshots(self, syms):
+        return {s: {"latestTrade": {"p": self.prices.get(s, 100.0)},
+                    "dailyBar": {"o": 99.0, "vw": self.vwaps.get(s, 1.0)}, "prevDailyBar": {"c": 98.0}}
+                for s in syms}
+
     def put_contracts(self, und, a, b):
         return [contract("F261030P00011000", 11, 22), contract("F261030P00010000", 10, 22)]
 
@@ -356,3 +363,63 @@ def test_day_trade_held_until_late_then_sold(tmp_path):
     clock.t = datetime(2026, 10, 8, 19, 35, tzinfo=timezone.utc)   # 15:35 ET
     t.cycle()
     assert api.closed == ["TQQQ"]
+
+
+# market snapshot and VWAP-confirmed entries (review proposals, Sam chose "Ship all" 2026-10-15)
+def test_vwap_confirms():
+    assert risk.vwap_confirms(101, 100) and not risk.vwap_confirms(99, 100)
+    assert risk.vwap_confirms(99, 100, bullish=False) and not risk.vwap_confirms(101, 100, bullish=False)
+    assert not risk.vwap_confirms(101, 0) and not risk.vwap_confirms(101, None)
+
+
+def test_market_row():
+    row = risk.market_row({"latestTrade": {"p": 102.0}, "dailyBar": {"o": 100.0, "vw": 101.0},
+                           "prevDailyBar": {"c": 99.0}})
+    assert row == {"last": 102.0, "pct_vs_prev_close": 3.03, "pct_vs_open": 2.0, "vwap": 101.0,
+                   "vwap_side": "above"}
+    assert risk.market_row(None) is None and risk.market_row({"latestTrade": {}}) is None
+    assert risk.market_row({"latestTrade": {"p": 5}})["pct_vs_open"] is None
+
+
+def test_confirm_vwap_field_defaults_off(tmp_path):
+    p = write_picks(tmp_path, [{"id": "a", "symbol": "F", "action": "buy", "confirm_vwap": True},
+                               {"id": "b", "symbol": "F", "action": "buy", "confirm_vwap": "yes"}])
+    a, b = picks.load(p, NOW, CFG)[0]
+    assert a["confirm_vwap"] is True and b["confirm_vwap"] is False
+
+
+def test_confirm_vwap_waits_then_buys(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "confirm_vwap": True}])
+    api = FakeAlpaca()
+    api.vwaps = {"NVDA": 185.0}       # price 180 is below VWAP: wait, send nothing
+    t, api, _ = make(tmp_path, api)
+    assert t.cycle() == "managed" and not api.orders
+    api.vwaps = {"NVDA": 175.0}       # next run, above VWAP: buy
+    assert t.cycle() == "traded" and "p1-entry" in api.orders
+
+
+def test_confirm_vwap_put_needs_price_below_vwap(tmp_path):
+    write_picks(tmp_path, [{"id": "p2", "symbol": "F", "action": "buy_put", "conviction": 3, "confirm_vwap": True}])
+    api = FakeAlpaca()
+    api.vwaps = {"F": 10.0}           # F at 11 is above VWAP: no put yet
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    assert not api.orders
+    api.vwaps = {"F": 12.0}
+    t.cycle()
+    assert "p2-entry" in api.orders
+
+
+def test_market_json_written_and_never_breaks_trading(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy"}], watch=["amd", "bad;sym", "AMD"])
+    t, api, _ = make(tmp_path)
+    t.cycle()
+    m = json.loads((tmp_path / "state" / "market.json").read_text())
+    assert {"SPY", "QQQ", "IWM", "NVDA", "AMD"} <= set(m["symbols"]) and "BAD;SYM" not in m["symbols"]
+    assert m["symbols"]["QQQ"]["pct_vs_open"] == 1.01
+
+    def broken(syms):
+        raise RuntimeError("data down")
+    api.snapshots = broken
+    write_picks(tmp_path, [{"id": "p3", "symbol": "F", "action": "buy"}])
+    assert t.cycle() == "traded"

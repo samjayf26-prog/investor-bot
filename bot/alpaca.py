@@ -134,6 +134,11 @@ class Alpaca:
             if not token:
                 return out
 
+    def snapshots(self, symbols):
+        """Latest trade, today's bar (o/h/l/c/v and vw = VWAP) and the previous day's bar per symbol."""
+        return self._req("GET", f"{DATA_URL}/v2/stocks/snapshots",
+                         {"symbols": ",".join(symbols), "feed": "iex"}) or {}
+
     def last_price(self, symbol):
         out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", {"feed": "iex"})
         return float(out["trade"]["p"])
