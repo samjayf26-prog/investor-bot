@@ -94,3 +94,30 @@ def choose_put(contracts, quotes, underlying_price, budget, today, min_days=10, 
         if best is None or score < best[0]:
             best = (score, c, ask)
     return (best[1], best[2]) if best else (None, None)
+
+
+def vwap_confirms(last, vwap, bullish=True):
+    """Entry confirmation: buy only while the price is on the right side of today's VWAP
+    (above it for a stock buy, below it for a put). No VWAP means no confirmation."""
+    if not last or not vwap:
+        return False
+    return last > vwap if bullish else last < vwap
+
+
+def market_row(snap):
+    """One symbol's line in state/market.json from an Alpaca snapshot, or None."""
+    try:
+        last = float(snap["latestTrade"]["p"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    day, prev = snap.get("dailyBar") or {}, snap.get("prevDailyBar") or {}
+
+    def pct(base):
+        try:
+            return round((last / float(base) - 1) * 100, 2)
+        except (TypeError, ValueError, ZeroDivisionError):
+            return None
+
+    vwap = day.get("vw")
+    return {"last": last, "pct_vs_prev_close": pct(prev.get("c")), "pct_vs_open": pct(day.get("o")),
+            "vwap": vwap, "vwap_side": None if not vwap else ("above" if last > vwap else "below")}

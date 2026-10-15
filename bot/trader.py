@@ -21,6 +21,7 @@ from .alpaca import Alpaca, AlpacaError
 
 ET = ZoneInfo("America/New_York")
 ROOT = Path(__file__).resolve().parent.parent
+MARKET = ("SPY", "QQQ", "IWM", "SMH", "TLT", "VIXY")  # always in state/market.json
 PENDING = {"new", "accepted", "pending_new", "partially_filled", "accepted_for_bidding", "held"}
 
 
@@ -65,6 +66,7 @@ class Trader:
         self.state_path = root / "state" / "positions.json"
         self.ledger_path = root / "ledger" / "trades.csv"
         self.snapshot_path = root / "state" / "account.json"
+        self.market_path = root / "state" / "market.json"
 
     # persistence
     def load_state(self):
@@ -233,8 +235,28 @@ class Trader:
             "positions": [{k: p.get(k) for k in ("symbol", "qty", "avg_entry_price", "current_price",
                                                   "unrealized_pl", "unrealized_plpc")}
                           for p in self.api.positions()]}, indent=2) + "\n")
+        self.write_market(now, state, entries)
         log(f"Equity ${float(acct['equity']):.2f}, cash ${float(acct['cash']):.2f}, open positions {len(state)}")
         return result
+
+    def write_market(self, now, state, entries):
+        """state/market.json: live prices for the research runs, which trust it over index levels
+        quoted in headlines. Purely informational: a failure never stops a trade run."""
+        syms = list(MARKET)
+        for s in [e["broker_symbol"] for e in state.values()] + [p["symbol"] for p in entries] \
+                + picks.watch_symbols(self.picks_path):
+            if picks.SYMBOL.match(s) and s not in syms:   # skips option contract symbols
+                syms.append(s)
+        try:
+            snaps = self.api.snapshots(syms)
+        except Exception as e:  # noqa: BLE001 - market data must never break trading
+            log(f"Market snapshot skipped: {e}")
+            return
+        rows = {s: risk.market_row(snaps.get(s)) for s in syms}
+        self.market_path.write_text(json.dumps({
+            "as_of": now.isoformat(), "as_of_et": now.astimezone(ET).strftime("%Y-%m-%d %H:%M ET"),
+            "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
+            "symbols": {s: r for s, r in rows.items() if r}}, indent=2) + "\n")
 
     def enter(self, pick, budget, acct, today):
         sym, cid = pick["symbol"], f"{pick['id']}-entry"
@@ -254,6 +276,8 @@ class Trader:
                 return None
             if pick["max_entry_price"] and price > pick["max_entry_price"]:
                 log(f"Skip {pick['id']}: {sym} at ${price} is above Claude's max entry ${pick['max_entry_price']}.")
+                return None
+            if pick.get("confirm_vwap") and not self.vwap_ok(sym, price, bullish=True):
                 return None
             # A limit order lets the broker enforce the cap: never pay above Claude's max entry
             # price, or more than 1% over the last trade when there is none.
@@ -284,6 +308,8 @@ class Trader:
         if not self.cfg["options_enabled"] or int(acct.get("options_trading_level") or 0) < 2:
             log(f"Skip {pick['id']}: account is not approved to buy options (level 2).")
             return None
+        if pick.get("confirm_vwap") and not self.vwap_ok(sym, price, bullish=False):
+            return None
         contracts = self.api.put_contracts(sym, (today + timedelta(days=10)).isoformat(),
                                            (today + timedelta(days=45)).isoformat())
         contracts = sorted(contracts, key=lambda c: abs(float(c["strike_price"]) - price))[:100]
@@ -299,6 +325,19 @@ class Trader:
                               limit_price=f"{ask:.2f}", time_in_force="day", client_order_id=cid)
         log(f"Bought 1 put {contract['symbol']} at ${ask:.2f} (${ask * 100:.0f}) for pick {pick['id']}")
         return {**base, "broker_symbol": contract["symbol"], "expiry": contract["expiration_date"]}
+
+    def vwap_ok(self, sym, price, bullish):
+        """Claude asked to enter only on confirmation. No order is sent while waiting, so the
+        pick is retried on every run until the entry cutoff."""
+        try:
+            vwap = float((((self.api.snapshots([sym]) or {}).get(sym) or {}).get("dailyBar") or {}).get("vw") or 0)
+        except (AlpacaError, OSError, TypeError, ValueError):  # no data = no confirmation, retry later
+            vwap = 0.0
+        if risk.vwap_confirms(price, vwap, bullish):
+            return True
+        side = "above" if bullish else "below"
+        log(f"Waiting on {sym}: ${price} is not {side} today's VWAP (${vwap:.2f}); will retry next run.")
+        return False
 
     def status(self):
         acct = self.api.account()

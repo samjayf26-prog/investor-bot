@@ -10,7 +10,10 @@ Feasibility Study" project, reworked so Claude picks trades.
 - Every 15 minutes in market hours, and whenever Claude pushes new picks: the bot
   (bot/trader.py) checks exits (stop, target, max hold days, Claude's close list, options
   near expiry), then buys new picks until 15:30 with limit orders (never above Claude's max
-  entry price, or 1% over the last trade). A refused order skips that pick only.
+  entry price, or 1% over the last trade). A refused order skips that pick only. A pick
+  with "confirm_vwap": true waits (no order) until the price is above today's VWAP (below
+  it for a put). Each run also writes state/market.json, live index and pick prices that
+  the research runs read instead of headline numbers.
 - The scalper (bot/scalper.py) trades the paper account (config scalper.mode "paper") since
   replays showed it loses after costs; set it to "live" to put it back on real money.
 - Long picks: buy the stock or ETF (fractional when allowed). Bearish picks: buy one put,

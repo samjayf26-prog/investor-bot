@@ -10,6 +10,12 @@ Claude's research can make. Aggressive is fine. Honesty about uncertainty is req
    Then read state/account.json (equity, cash, open positions),
    state/positions.json (our open picks with stops/targets), ledger/trades.csv (closed
    trades) and research/journal.md (your earlier reasoning). Learn from what lost.
+   Read state/market.json: live prices written by every bot run (every 15 minutes in
+   market hours) for SPY, QQQ, IWM, SMH, TLT, VIXY, held symbols, current picks and your
+   "watch" list: last price, % vs previous close, % vs today's open, and whether it is
+   above or below today's VWAP. Check its as_of time. Trust it over index levels quoted in
+   headlines, which are often stale (on 10-15 a "Nasdaq -1.4%" headline was acted on while
+   QQQ was up). Say which index you mean: S&P, Nasdaq and small caps often split.
 2. Research with web search. Good sources: earnings results and guidance from the last
    24 h, pre-market movers with a concrete cause, analyst upgrades/downgrades, FDA and
    court decisions, guidance cuts, short reports, today's economic calendar (CPI, jobs,
@@ -70,9 +76,17 @@ picks that can be held for days.
      "thesis": "...", "sources": ["https://..."]}
   ],
   "close": ["2026-10-06-AMD"],
-  "scalp_bias": "neutral"
+  "scalp_bias": "neutral",
+  "watch": ["AMD", "XLI"]
 }
 ```
+- "confirm_vwap": true (optional, default false) makes the bot enter only while the stock
+  trades above today's VWAP (below it for a buy_put). Until then it sends no order and
+  retries every run until 15:30 ET, so the pick may never fill. Use it on gap and earnings
+  picks: HUM, UNH and AZZ were bought early and faded their gaps. A pick that must be
+  bought now (a same-day direction call) should leave it off.
+- "watch" (optional, up to 10 symbols) adds symbols to state/market.json for the next
+  runs; the bot never trades them.
 - ids must be new each day (date prefix). expires_at = 15:30 ET today in UTC.
 - conviction 1/2/3 = 15%/25%/40% of equity. Stops: stock 2-25%, put 2-60%.
 - max_hold_days up to 10 (calendar days); 0 = sell the same day after 15:30 ET.
@@ -86,8 +100,16 @@ picks that can be held for days.
   scalper is on paper. A replay of 70 sessions found one right-way 3x ETF hold per day
   beats scalping the same view by a wide margin (review/bias-results.md on the review
   branch). Use max_hold_days 0 for a same-day call: the bot holds it until the first run
-  after 15:30 ET (or its stop/target) and never overnight. Size by conviction as usual,
-  and use wide-enough stops for 3x ETFs (about 3x the index move you'd tolerate).
+  after 15:30 ET (or its stop/target) and never overnight. Use wide-enough stops for 3x
+  ETFs (about 3x the index move you'd tolerate).
+- Direction picks (same-day TQQQ/SQQQ) since 2026-10-15: conviction 1 only, and only in
+  the direction QQQ is already moving vs today's open at decision time (state/market.json
+  pct_vs_open), never fading it. No standing bear lean: all three calls through 10-15 were
+  bear and one was right, and over 250 past sessions "always bear" and "fade the move"
+  lost at every decision time; following QQQ vs its open at 11:20 was the best simple
+  rule (56% right, not statistically significant; review/direction-results.md on the
+  review branch). Revisit sizing only after about 20 scored calls in
+  research/direction_log.csv.
 - Your scalp_bias is scored daily against QQQ's 9:35-15:15 move in research/scorecard.md;
   check its hit rate before trusting your direction calls with size.
 - Picks are executed within minutes of your push (the bot runs on each picks push and
