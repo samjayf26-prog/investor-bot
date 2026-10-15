@@ -175,3 +175,10 @@ Since 10:20: the selloff has eased. Midmorning reports have the S&P about -0.3% 
 - Keep **AZZ** (same id). Lower yields should help small-cap industrials; the ~$132 close rule stands.
 - No new pick. Paper scalper stays **bear**.
 Source: https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html, https://sundayguardianlive.com/business/us-stock-market-today-live-dow-jones-gains-043-sp-500-falls-026-nasdaq-edges-lower-as-oil-surge-tech-sell-off-fed-rate-outlook-ahead-cpi-inflation-check-what-investors-should-know-306401/
+
+## 2026-10-15 13:20 ET refresh (LIVE)
+Since 11:20: the day pivoted. Headlines now have the Dow and S&P 500 up and the Nasdaq trimming its loss as Treasury yields sink (10-year ~5.05%, down ~14 bp). The trend-day selloff I bet on at 10:20 has stalled. SQQQ ~$36.84 (-1.3% from the $37.34 fill); AZZ ~$132.81 (-3.5%), just above its ~$132 close rule; equity $74.10.
+- **Close SQQQ** (2026-10-15-1020-SQQQ). The stated stop isn't hit, but the thesis behind it (a hike scare driving a second trend day) is contradicted by falling yields and a rising S&P. Taking about -$0.25 now beats riding a same-day bear bet into a rebound. Lesson for the review: on 10-15 the open's direction did NOT hold, unlike 10-14, so one trend day doesn't make a rule.
+- Keep **AZZ** for now. Falling yields should help it, yet it is weak. The close rule is judged at 14:20: if it is below ~$132 then, close it.
+- Paper scalper stays **bear** (Nasdaq still red on the day).
+Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html
