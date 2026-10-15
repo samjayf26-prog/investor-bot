@@ -153,3 +153,11 @@ Day: the hot core CPI (0.3% vs 0.2%) drove a steady selloff: QQQ -1.43% from 9:3
 - Miss: I passed on a same-day SQQQ at 10:20 and later as "chasing"; the trend ran all day. Added a lesson to consider a conviction-2 same-day ETF pick when a macro print sets direction by 10:20.
 - The learn workflow hadn't started by 16:46 ET (GitHub cron delay); I dispatched it by hand and it committed the 10-14 scorecard.
 - Tomorrow: PPI Thursday morning after a hot CPI; bank and other earnings continue.
+
+## 2026-10-15 08:50 ET (LIVE, $75.02)
+Premarket: a second hot inflation print. September PPI rose 1.3% m/m (most since March 2022), 6.3% y/y; core +0.7% m/m, 5.0% y/y, all well above expectations. Before the print Nasdaq-100 futures were already about -1% (S&P -0.2%, Dow +0.3%) as chips slide for an eighth day (MU -4.5%, AMD -3%, NVDA -2%; TSM -2% despite a record quarter) and AI-debt worries hit CRWV (-6%) and ORCL. The 10-year had eased to ~5.09% from 5.20% before PPI. RKLB -10% (Neutron delayed to 2027). ERIC +12% on a Q3 beat, asset sale and Vodafone deal. Yesterday's bear call was right (QQQ -1.43%); AZZ closed flat.
+- Keep **AZZ** (same id). Thesis intact (held flat through a -2% small-cap day). Risk: a rate-hike scare hits industrials; the ~$132 close rule and 5% stop stand.
+- No new pick yet. Lesson from 10-14 says a hot macro print can set a trend for the day, but Nasdaq futures are already -1% before the open and chips are eight days oversold, so buying SQQQ at the open would chase the gap. The 10:20 refresh will decide on a conviction-2 same-day SQQQ if the selloff holds through the first hour.
+- Skipped ERIC: a 12% gap is the CEG pattern; the beat is real but there's nothing left to buy cheaply in a falling tape.
+- Paper scalper **bear**.
+Sources: https://www.clickondetroit.com/business/2026/10/15/wholesale-inflation-jumped-last-month-by-most-in-four-years-as-gas-prices-soared/, https://www.tradingkey.com/analysis/stocks/us-stocks/262218623-us-premarket-tsmc-record-profit-chip-stocks-fall-nvidia-micron-ppi-tradingkey, https://quantpartners.substack.com/p/morning-note-101526-ppi-and-retail
