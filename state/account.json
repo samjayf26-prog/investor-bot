@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-15T14:20:24.753319+00:00",
+  "as_of": "2026-10-15T14:22:26.435099+00:00",
   "mode": "live",
-  "equity": "74.53",
-  "cash": "56.27",
+  "equity": "74.52",
+  "cash": "37.64",
   "positions": [
     {
       "symbol": "AZZ",
@@ -11,6 +11,14 @@
       "current_price": "134.04",
       "unrealized_pl": "-0.480331",
       "unrealized_plpc": "-0.02563"
+    },
+    {
+      "symbol": "SQQQ",
+      "qty": "0.498687664",
+      "avg_entry_price": "37.338",
+      "current_price": "37.3399",
+      "unrealized_pl": "0.000948",
+      "unrealized_plpc": "0.00005"
     }
   ]
 }
