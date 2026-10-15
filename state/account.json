@@ -1,16 +1,16 @@
 {
-  "as_of": "2026-10-15T13:44:05.751559+00:00",
+  "as_of": "2026-10-15T14:20:24.753319+00:00",
   "mode": "live",
-  "equity": "74.56",
+  "equity": "74.53",
   "cash": "56.27",
   "positions": [
     {
       "symbol": "AZZ",
       "qty": "0.13622552",
       "avg_entry_price": "137.566",
-      "current_price": "134.29",
-      "unrealized_pl": "-0.446275",
-      "unrealized_plpc": "-0.02381"
+      "current_price": "134.04",
+      "unrealized_pl": "-0.480331",
+      "unrealized_plpc": "-0.02563"
     }
   ]
 }
