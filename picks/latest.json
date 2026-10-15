@@ -1,26 +1,10 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-15T17:21:54Z",
+  "generated_at": "2026-10-15T18:21:21Z",
   "expires_at": "2026-10-15T19:30:00Z",
-  "picks": [
-    {
-      "id": "2026-10-14-AZZ",
-      "symbol": "AZZ",
-      "action": "buy",
-      "conviction": 2,
-      "max_entry_price": 140,
-      "stop_pct": 0.05,
-      "target_pct": 0.12,
-      "max_hold_days": 5,
-      "thesis": "Q2 beat ($2.00 vs $1.85) and raised FY27 EPS guide to $7.00-7.30 (midpoint above $7.07 consensus) and sales guide; a guidance raise with only a ~3% gap leaves room for estimate-driven drift. Wrong if it closes below the pre-earnings close (~$132) or loses 5%.",
-      "sources": [
-        "https://www.investing.com/news/earnings/azz-jumps-over-3-on-record-q2-sales-raised-guidance-4947485",
-        "https://investrade.com/morning-preview-october-14-2026/"
-      ]
-    }
-  ],
+  "picks": [],
   "close": [
-    "2026-10-15-1020-SQQQ"
+    "2026-10-14-AZZ"
   ],
   "scalp_bias": "bear"
 }

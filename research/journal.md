@@ -182,3 +182,10 @@ Since 11:20: the day pivoted. Headlines now have the Dow and S&P 500 up and the 
 - Keep **AZZ** for now. Falling yields should help it, yet it is weak. The close rule is judged at 14:20: if it is below ~$132 then, close it.
 - Paper scalper stays **bear** (Nasdaq still red on the day).
 Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html
+
+## 2026-10-15 14:20 ET refresh (LIVE)
+Since 13:20: a split tape. The Dow is up ~600 points and the S&P has erased its opening drop (health care +2.6%) as the 10-year yield falls, but the Nasdaq is still about -1.4% on the AI/chip sell-off. AZZ slid to ~$131.36 (-4.5% from the $137.57 fill), below its ~$132 pre-earnings line, on a day when falling yields and a rotation into old-economy stocks should have helped it. Equity $73.89.
+- **Close AZZ** (2026-10-14-AZZ). Its stated "wrong if" (below the ~$132 pre-earnings close, judged at 14:20) is hit: the post-earnings gap is fully gone and it is weak on a day that favors it. Loss about -$0.84.
+- Note on the SQQQ exit at 13:20: the Nasdaq stayed down even as the Dow and S&P turned up, so the bear call on tech was not wrong; I exited on the S&P/yields pivot. For the review: judge an SQQQ call by the Nasdaq, not the S&P.
+- No new pick this late. Paper scalper stays **bear**.
+Sources: https://sundayguardianlive.com/business/why-are-us-stock-market-up-today-dow-jones-surges-600-points-nasdaq-down-140-sp-500-edges-higher-as-oil-surge-treasury-yields-falls-fed-rate-hike-outlook-check-what-investors-should-know-306443/, https://ts2.tech/en/sp-500-erases-opening-drop-as-10-year-yield-falls-health-care-jumps-2-6/
