@@ -4,7 +4,8 @@ from datetime import date, datetime, timedelta, timezone
 import pytest
 
 from bot import picks, risk
-from bot.trader import Trader, load_config, make_client
+from bot.alpaca import AlpacaError
+from bot.trader import Trader, load_config, make_client, scalper_symbols
 
 NOW = datetime(2026, 10, 8, 14, 50, tzinfo=timezone.utc)  # 10:50 ET, a Thursday
 TODAY = date(2026, 10, 8)
@@ -44,6 +45,10 @@ def test_exit_reasons():
     assert risk.exit_reason(0.0, 0.08, 0.15, 5, 5, False).startswith("max hold")
     assert risk.exit_reason(0.0, 0.5, 1.0, 0, 5, False, days_to_expiry=2) == "option near expiry"
     assert risk.exit_reason(0.0, 0.08, 0.15, 1, 5, False) is None
+    # max_hold_days 0 = day trade: kept intraday, sold late in the day or the next day
+    assert risk.exit_reason(0.0, 0.08, 0.15, 0, 0, False) is None
+    assert risk.exit_reason(0.0, 0.08, 0.15, 0, 0, False, late_in_day=True) == "day trade: end of day"
+    assert risk.exit_reason(0.0, 0.08, 0.15, 1, 0, False) == "day trade: end of day"
 
 
 def contract(sym, strike, days):
@@ -112,7 +117,7 @@ class FakeAlpaca:
     def __init__(self, cash=100.0, options_level=2, open_=True):
         self.cash, self.options_level, self.open_ = cash, options_level, open_
         self.orders, self.pos, self.closed = {}, {}, []
-        self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5}
+        self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5, "TQQQ": 80.0, "WHOLE": 10.0}
 
     def clock(self):
         return {"is_open": self.open_}
@@ -140,7 +145,7 @@ class FakeAlpaca:
         if sym == "OTCX":
             return {"tradable": True, "status": "active", "class": "us_equity", "exchange": "OTC"}
         return {"tradable": True, "status": "active", "class": "us_equity", "exchange": "NASDAQ",
-                "fractionable": sym != "BRK.A"}
+                "fractionable": sym not in ("BRK.A", "WHOLE")}
 
     def last_price(self, sym):
         return self.prices[sym]
@@ -177,14 +182,21 @@ def test_buy_and_put_entries(tmp_path):
                            {"id": "p2", "symbol": "F", "action": "buy_put", "conviction": 3}])
     t, api, _ = make(tmp_path)
     assert t.cycle() == "traded"
-    assert api.orders["p1-entry"]["notional"] == f"{min(100, CFG['sizing_equity_cap']) * 0.40:.2f}"
+    # live picks size off real equity ($100 here), so gains compound
+    assert api.orders["p1-entry"]["notional"] == "40.00"
     put = api.orders["p2-entry"]
-    # the nearest-the-money put that fits the budget: $35 if 40% of the stake covers it, else $15
-    near = min(100, CFG["sizing_equity_cap"]) * 0.40 >= 35
-    expect = ("F261030P00011000", "0.35") if near else ("F261030P00010000", "0.15")
-    assert (put["symbol"], put["limit_price"]) == expect and put["type"] == "limit"
+    # the nearest-the-money put that fits the $40 budget
+    assert (put["symbol"], put["limit_price"]) == ("F261030P00011000", "0.35") and put["type"] == "limit"
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
     assert state["p2"]["expiry"] and state["p1"]["broker_symbol"] == "NVDA"
+
+
+def test_paper_sizes_like_the_capped_stake(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
+    t, api, _ = make(tmp_path, FakeAlpaca(cash=100_000))
+    t.cfg = {**CFG, "mode": "paper", "sizing_equity_cap": 75.0}
+    t.cycle()
+    assert api.orders["p1-entry"]["notional"] == "30.00"
 
 
 def test_rerun_does_not_double_buy(tmp_path):
@@ -267,3 +279,80 @@ def test_market_closed_does_nothing(tmp_path):
 def test_live_requires_confirmation():
     with pytest.raises(SystemExit):
         make_client({"mode": "live", "confirm_live": False})
+
+
+def test_entry_limit():
+    assert risk.entry_limit(100.0) == 101.0
+    assert risk.entry_limit(100.0, 100.5) == 100.5
+    assert risk.entry_limit(100.0, 120) == 101.0
+    assert risk.entry_limit(9.999) == 10.09
+
+
+def test_stock_entries_are_limit_orders_capped_at_max_entry(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "max_entry_price": 181},
+                           {"id": "p2", "symbol": "WHOLE", "action": "buy"}])
+    t, api, _ = make(tmp_path)
+    t.cycle()
+    assert api.orders["p1-entry"]["type"] == "limit" and api.orders["p1-entry"]["limit_price"] == "181.00"
+    assert api.orders["p2-entry"]["limit_price"] == "10.10" and api.orders["p2-entry"]["qty"] == "1"
+
+
+class RefusesLimits(FakeAlpaca):
+    def submit_order(self, **o):
+        if o["type"] == "limit" and "notional" in o:
+            raise AlpacaError(422, '{"message":"limit not allowed"}')
+        return super().submit_order(**o)
+
+
+def test_refused_fractional_limit_falls_back_to_market(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy"}])
+    t, api, _ = make(tmp_path, RefusesLimits())
+    assert t.cycle() == "traded" and api.orders["p1-entry"]["type"] == "market"
+
+
+class RejectsSecondOrder(FakeAlpaca):
+    def submit_order(self, **o):
+        if len(self.orders) == 1:
+            raise AlpacaError(403, '{"message":"insufficient buying power"}')
+        return super().submit_order(**o)
+
+
+def test_refused_order_skips_that_pick_and_keeps_the_others(tmp_path):
+    # review finding: a refused 2nd order used to crash the run before pick 1 was saved
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "stop_pct": 0.03},
+                           {"id": "p2", "symbol": "F", "action": "buy"}])
+    t, api, _ = make(tmp_path, RejectsSecondOrder())
+    assert t.cycle() == "traded"
+    state = json.loads((tmp_path / "state" / "positions.json").read_text())
+    assert set(state) == {"p1"} and state["p1"]["stop_pct"] == 0.03
+
+
+def test_scalper_symbols_reserved_only_on_its_own_account(tmp_path):
+    live = {**CFG, "mode": "live", "scalper": {**CFG["scalper"], "mode": "paper"}}
+    assert scalper_symbols(live) == set()
+    same = {**CFG, "mode": "live", "scalper": {**CFG["scalper"], "mode": "live"}}
+    assert scalper_symbols(same) == {"SPY", "QQQ", "TQQQ", "SQQQ"}
+    assert scalper_symbols({**same, "scalper": {**same["scalper"], "enabled": False}}) == set()
+    write_picks(tmp_path, [{"id": "p1", "symbol": "TQQQ", "action": "buy"}])
+    t, api, _ = make(tmp_path)
+    t.cfg = live
+    t.cycle()
+    assert "p1-entry" in api.orders
+    (tmp_path / "x").mkdir()
+    write_picks(tmp_path / "x", [{"id": "p1", "symbol": "TQQQ", "action": "buy"}])
+    t2, api2, _ = make(tmp_path / "x")
+    t2.cfg = same
+    t2.cycle()
+    assert not api2.orders
+
+
+def test_day_trade_held_until_late_then_sold(tmp_path):
+    write_picks(tmp_path, [{"id": "d1", "symbol": "TQQQ", "action": "buy", "max_hold_days": 0}])
+    t, api, clock = make(tmp_path)
+    t.cycle()
+    clock.t += timedelta(minutes=15)
+    t.cycle()
+    assert not api.closed
+    clock.t = datetime(2026, 10, 8, 19, 35, tzinfo=timezone.utc)   # 15:35 ET
+    t.cycle()
+    assert api.closed == ["TQQQ"]

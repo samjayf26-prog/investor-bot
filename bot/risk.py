@@ -42,20 +42,34 @@ def sizing_view(equity, cash, positions_value, cap):
     return min(equity, cap), max(0.0, min(cash, cap - positions_value))
 
 
+def entry_limit(last_price, max_entry_price=None, slack=0.01):
+    """Limit price for a stock entry: Claude's max entry price, or 1% over the last trade,
+    whichever is lower. Rounded down to the cent."""
+    cap = last_price * (1 + slack)
+    if max_entry_price:
+        cap = min(cap, max_entry_price)
+    return math.floor(cap * 100) / 100
+
+
 def whole_shares(budget, price):
     return int(budget // price) if price > 0 else 0
 
 
 def exit_reason(plpc, stop_pct, target_pct, held_days, max_hold_days, close_requested,
-                days_to_expiry=None, min_days_to_expiry=2):
-    """Why a position should be closed now, or None to keep it."""
+                days_to_expiry=None, min_days_to_expiry=2, late_in_day=False):
+    """Why a position should be closed now, or None to keep it.
+
+    max_hold_days 0 is a day trade: held until late_in_day (15:30 ET), never overnight."""
     if plpc <= -stop_pct:
         return f"stop loss ({plpc:.1%})"
     if plpc >= target_pct:
         return f"profit target ({plpc:.1%})"
     if close_requested:
         return "Claude asked to close"
-    if held_days >= max_hold_days:
+    if max_hold_days == 0:
+        if held_days >= 1 or late_in_day:
+            return "day trade: end of day"
+    elif held_days >= max_hold_days:
         return f"max hold of {max_hold_days} days"
     if days_to_expiry is not None and days_to_expiry <= min_days_to_expiry:
         return "option near expiry"

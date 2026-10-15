@@ -2,9 +2,15 @@ name: trade
 
 on:
   schedule:
-    # GitHub cron is UTC: :50 past each hour, 13:50-20:50 UTC, covers 9:50-15:50 ET in both
-    # daylight-saving seasons. The bot exits at once when the market is closed.
-    - cron: "50 13-20 * * 1-5"
+    # GitHub cron is UTC: every 15 minutes, 13:05-20:50 UTC, covers market hours in both
+    # daylight-saving seasons, so stops and targets are checked 4 times an hour.
+    # The bot exits at once when the market is closed.
+    - cron: "5,20,35,50 13-20 * * 1-5"
+  push:
+    # Act on new research picks (and close requests) as soon as Claude pushes them.
+    # The bot's own commits never touch this file, so this cannot loop.
+    branches: [main]
+    paths: [picks/latest.json]
   workflow_dispatch:
     inputs:
       command:

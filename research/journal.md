@@ -93,3 +93,107 @@ Since 8:50: UNH opened ~+4% near $395 on the beat-and-raise, then gave the whole
 - Keep **CRM** (+1.4%).
 - No new pick before tomorrow's CPI.
 Source: https://247wallst.com/investing/2026/10/13/unitedhealth-rises-4-on-earnings-beat-and-raised-full-year-outlook-humana-advances-2
+
+## 2026-10-13 13:20 ET refresh (LIVE, $75)
+Since 11:20: the bot went live on Sam's real $75 account (paper flattened, so CRM and UNH are gone; no live positions). Options level 2 was approved, so puts are allowed again within a ~$30 budget. Midday: S&P -0.25%, Nasdaq -0.4%, 10-year 5.22%; chips weak again (SOX -1.5%, MU -5%) on China memory competition; JNJ -6% on an EPS miss; GS up on a beat, WFC down on a revenue miss. UNH gave back its gap as expected.
+- No new pick. CPI is tomorrow morning, and nothing today has a multi-day edge worth carrying into it. JNJ puts don't fit a ~$30 budget.
+- Scalper stays **bear** (SQQQ only) while the chip selloff continues.
+Source: https://www.fool.com/coverage/stock-market-today/2026/10/13/stock-market-midday-oct-13-bank-earnings-and-chip-pressure-drives-mixed-trading/
+
+## 2026-10-13 14:20 ET refresh (LIVE)
+Since 13:20: S&P about -0.1%, breadth weak (60% of issues down); memory/storage still sliding (WDC, STX -7%, MU -5%) on China CXMT competition; META +3.4% on AI model news and upgrades; Brent ~$104. No live positions. The bot changed today: the scalper is on paper, picks execute within minutes, live sizes compound.
+- No new pick. CPI is tomorrow before the open and could move everything 1-2%; nothing today has a multi-day catalyst strong enough to carry through it. META is a chase after a 3% gap (CEG/HUM lesson).
+- Scalper (paper) stays **bear**.
+Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-13-2026
+
+## 2026-10-13 evening review (LIVE, $75)
+Day: no live positions all day (bot went live at midday; paper flattened). Live equity $75.02, cash $75.02, unchanged. Paper picks closed today: PENG +$2.07 (+8.3%, best trade so far, closed a day early on the sector-selloff kill condition) and UNH +$0.42 (+1.7%; gap faded, closed on the "wrong if" rule). All-time closed picks: 6, net +$0.89, 3 winners. The paper bear-bias scalper took 2 SQQQ trips (-0.077% stop, -0.007% time): right direction (chips and Nasdaq weak), no profit.
+- The scorecard on main was still dated 10-12 when this ran (16:46 ET); I could not check the learn workflow run (no GitHub API access from this session). Results above come from the ledgers.
+- Lessons rewritten: catalysts with lasting estimate changes win; faded gaps and unconfirmed headlines lose; judge theses at the 9:50 price; kill conditions acted on promptly keep losses at cents; express direction views as same-day TQQQ/SQQQ picks rather than relying on scalp_bias.
+- Tomorrow: CPI before the open, PPI Thursday. Default is no new pick ahead of the print unless a clean catalyst appears.
+
+## 2026-10-14 08:50 ET (LIVE, $75.02)
+Premarket: CPI for September came in at 0.6% m/m, 3.7% y/y headline (in line) but core 0.3% m/m, 2.6% y/y vs 0.2%/2.5% expected: a hot core print with the 10-year at ~5.2% and ~22% odds of an October hike before the data. Futures were slightly up before the print (S&P +0.2%, Nasdaq flat). Earnings: ASML beat and raised its year (+1.5%), BlackRock beat, AZZ beat and raised, Liquidia +46% on a UTHR settlement. Brent ~$106. No positions; yesterday's scored bias (bear) was wrong (QQQ +0.38%).
+- **AZZ buy (conviction 2, max entry $140, stop 5%, target 12%, up to 5 days).** Thesis: beat ($2.00 vs $1.85) and raised FY27 EPS guidance to $7.00-7.30, midpoint above consensus, plus a higher sales range; a ~3% gap on a guidance raise leaves room to drift as estimates move up (lessons: lasting estimate changes, give gap picks a max entry). Wrong if it closes below the pre-earnings close (~$132).
+- Skipped: ASML (chips have sold off three days and a hot core CPI is bad for long-duration tech); LQDA (+46% settlement gap, nothing left to chase).
+- Paper scalper **neutral**: the hot core print could cut either way at the open and my bias call was wrong yesterday.
+Sources: https://www.cryptotimes.io/2026/10/14/us-cpi-live-inflation-data-bitcoin-price-fed-rate-discussion/, https://www.investing.com/news/earnings/azz-jumps-over-3-on-record-q2-sales-raised-guidance-4947485
+
+## 2026-10-14 10:20 ET refresh (LIVE)
+Since 8:50: the market took the hot core CPI badly: S&P about -0.3%, Nasdaq-100 -0.6%, Russell 2000 -1.1%; 10-year above 5.2% and October hike odds up (Fed already at 4.00% upper bound). Chips extend a >8% five-day slide; MU -4% again. AZZ filled at $137.57 at 9:38 (under the $140 cap), $18.74 worth, now flat.
+- Keep **AZZ** (same id, already held). The guidance raise is a company-specific estimate change; the risk is that small/mid-cap industrials get sold with rates. The 5% stop handles that.
+- No new pick. The day's driver is rates, which no stock pick here plays well; a same-day SQQQ call would be chasing a move that already happened premarket.
+- Paper scalper **bear** (hot CPI, yields up, chips weak).
+Source: https://247wallst.com/investing/2026/10/14/stock-market-today-stocks-head-lower-as-hot-inflation-puts-another-fed-rate-hike-back-in-play/
+
+## 2026-10-14 11:20 ET refresh (LIVE)
+Since 10:20: the hot-core-CPI selloff is steady, not accelerating: S&P about -0.4%, Nasdaq -0.6%, Dow -0.2%; yields stay above 5.2% and oil elevated. AZZ is holding up against the tape at ~$137.89 (+0.2% from the $137.57 fill); equity $75.05.
+- Keep **AZZ** (same id). Relative strength on a down, rate-driven day supports the guidance-raise thesis.
+- No new pick: nothing fresh beyond the rate story, and a same-day SQQQ call now would chase a move already priced.
+- Paper scalper stays **bear**.
+Source: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-14-2026
+
+## 2026-10-14 13:20 ET refresh (LIVE)
+Since 11:20: the hot-CPI selloff deepened into midday: S&P about -0.9%, Nasdaq-100 down 1-1.7%, Dow near flat; semis (SOXX) on a seventh straight losing day, defensives leading. AZZ followed the tape down to ~$134.64 (-2.1% from the $137.57 fill); equity $74.61.
+- Keep **AZZ** (same id). The kill condition is a close below the ~$132 pre-earnings level and the 5% stop sits near $130.7; neither is hit. The slide is the rate tape, not news on AZZ. If it closes under $132 the 2:20 run or tomorrow morning closes it.
+- No new pick: the selloff is already well along, so a same-day SQQQ now is a chase; small budget is better left in cash.
+- Paper scalper stays **bear**.
+Sources: https://247wallst.com/cards/the-dow-is-holding-near-flat-while-the-s-p-500-gives-up-0-87-gspc-market-bell-01m4xjdh6n3565y2cfmzb04q6x, https://www.benzinga.com/markets/equities/26/10/62360140/nasdaq-100-drops-1-on-hot-cpi-soxx-falls-7th-day-stock-market-today
+
+## 2026-10-14 14:20 ET refresh (LIVE)
+Since 13:20: the hot-CPI selloff widened in small caps and tech (Russell 2000 and Nasdaq both about -2%), with yields and hike odds still higher. AZZ bounced off its midday low to ~$135.87 (-1.2% from the fill), well above the ~$132 kill line, while small caps fell twice as much; equity $74.78.
+- Keep **AZZ** (same id). Relative strength against a -2% small-cap tape supports the estimate-raise thesis; the 5% stop and the ~$132 close rule stay in place.
+- No new pick: with about an hour to the 3:30 cutoff a same-day TQQQ/SQQQ call has no room, and nothing has a multi-day catalyst to carry into Thursday's PPI.
+- Paper scalper stays **bear**.
+Source: https://finance.yahoo.com/markets/stocks/articles/stock-market-today-oct-14-135249729.html
+
+## 2026-10-14 evening review (LIVE, $75.02)
+Day: the hot core CPI (0.3% vs 0.2%) drove a steady selloff: QQQ -1.43% from 9:35 to 15:15, S&P about -1.1%, small caps about -2%, yields above 5.2%. The live account held one pick, AZZ (filled $137.57 at 9:38, closed the day ~$137.85, about +$0.04); equity $75.02 vs $74.17 for the same $75 in the S&P since go-live. The 10:20 bear scalp_bias was right; the paper scalper made +$0.20 on 10 SQQQ trips.
+- AZZ thesis (guidance raise drifts as estimates rise) is intact: flat on a -2% small-cap day, kill line ~$132 never threatened. Holding it (up to 5 days).
+- Miss: I passed on a same-day SQQQ at 10:20 and later as "chasing"; the trend ran all day. Added a lesson to consider a conviction-2 same-day ETF pick when a macro print sets direction by 10:20.
+- The learn workflow hadn't started by 16:46 ET (GitHub cron delay); I dispatched it by hand and it committed the 10-14 scorecard.
+- Tomorrow: PPI Thursday morning after a hot CPI; bank and other earnings continue.
+
+## 2026-10-15 08:50 ET (LIVE, $75.02)
+Premarket: a second hot inflation print. September PPI rose 1.3% m/m (most since March 2022), 6.3% y/y; core +0.7% m/m, 5.0% y/y, all well above expectations. Before the print Nasdaq-100 futures were already about -1% (S&P -0.2%, Dow +0.3%) as chips slide for an eighth day (MU -4.5%, AMD -3%, NVDA -2%; TSM -2% despite a record quarter) and AI-debt worries hit CRWV (-6%) and ORCL. The 10-year had eased to ~5.09% from 5.20% before PPI. RKLB -10% (Neutron delayed to 2027). ERIC +12% on a Q3 beat, asset sale and Vodafone deal. Yesterday's bear call was right (QQQ -1.43%); AZZ closed flat.
+- Keep **AZZ** (same id). Thesis intact (held flat through a -2% small-cap day). Risk: a rate-hike scare hits industrials; the ~$132 close rule and 5% stop stand.
+- No new pick yet. Lesson from 10-14 says a hot macro print can set a trend for the day, but Nasdaq futures are already -1% before the open and chips are eight days oversold, so buying SQQQ at the open would chase the gap. The 10:20 refresh will decide on a conviction-2 same-day SQQQ if the selloff holds through the first hour.
+- Skipped ERIC: a 12% gap is the CEG pattern; the beat is real but there's nothing left to buy cheaply in a falling tape.
+- Paper scalper **bear**.
+Sources: https://www.clickondetroit.com/business/2026/10/15/wholesale-inflation-jumped-last-month-by-most-in-four-years-as-gas-prices-soared/, https://www.tradingkey.com/analysis/stocks/us-stocks/262218623-us-premarket-tsmc-record-profit-chip-stocks-fall-nvidia-micron-ppi-tradingkey, https://quantpartners.substack.com/p/morning-note-101526-ppi-and-retail
+
+## 2026-10-15 10:20 ET refresh (LIVE)
+Since 8:50: the selloff held into the open: S&P -0.5%, Nasdaq -1.3%, Russell 2000 -1.9%, Dow +0.4% at 9:33, and the S&P was still edging lower at 10:08. TSM -4% (margin slip), SK Hynix -6.7%, CoreWeave -5%; Kospi fell ~7.8% overnight. Hike odds for the meeting in two weeks are described as a coin flip. AZZ is down with small caps to ~$134.04 (-2.6% from the fill), above the ~$132 close rule; equity $74.53.
+- **New: SQQQ same-day buy (conviction 2, max entry $39.50, stop 4.5%, target 6%, max_hold_days 0).** Thesis: two hot inflation prints in two days plus a global AI/chip rout; yesterday's hot-CPI selloff trended all session, and the 10-14 lesson says to act when a macro print sets direction by 10:20. Wrong if QQQ bounces back toward yesterday's close (the 4.5% stop is about a 1.5% QQQ bounce). Risk: chips are nine days down and oversold, so a short-covering bounce is the main threat.
+- Keep **AZZ** (same id); close rule ~$132 unchanged.
+- Paper scalper stays **bear**.
+Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://www.marketscreener.com/news/chip-stocks-take-another-beating-ce785dd3d88df525
+
+## 2026-10-15 11:20 ET refresh (LIVE)
+Since 10:20: the selloff has eased. Midmorning reports have the S&P about -0.3% and the Nasdaq only slightly lower, with the Dow +0.4%. One detail cuts against my rate thesis: Treasury yields fell sharply despite the hot PPI (10-year ~5.05%, down ~14 bp; 30-year on track for its biggest drop since Nov 2024), so today's tech weakness is the AI-debt/chip rout (eighth straight down day for chips) more than a hike scare. SQQQ filled at $37.34 at 10:22 and is ~$36.82 (-1.4%); AZZ ~$133.91 (-2.7%); equity $74.24.
+- Keep **SQQQ same-day** (same id). The "wrong if" (QQQ back to yesterday's close) isn't hit and the 4.5% stop (~$35.66) caps the loss at about $0.85. The weaker rate story lowers my confidence, so no adding.
+- Keep **AZZ** (same id). Lower yields should help small-cap industrials; the ~$132 close rule stands.
+- No new pick. Paper scalper stays **bear**.
+Source: https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html, https://sundayguardianlive.com/business/us-stock-market-today-live-dow-jones-gains-043-sp-500-falls-026-nasdaq-edges-lower-as-oil-surge-tech-sell-off-fed-rate-outlook-ahead-cpi-inflation-check-what-investors-should-know-306401/
+
+## 2026-10-15 13:20 ET refresh (LIVE)
+Since 11:20: the day pivoted. Headlines now have the Dow and S&P 500 up and the Nasdaq trimming its loss as Treasury yields sink (10-year ~5.05%, down ~14 bp). The trend-day selloff I bet on at 10:20 has stalled. SQQQ ~$36.84 (-1.3% from the $37.34 fill); AZZ ~$132.81 (-3.5%), just above its ~$132 close rule; equity $74.10.
+- **Close SQQQ** (2026-10-15-1020-SQQQ). The stated stop isn't hit, but the thesis behind it (a hike scare driving a second trend day) is contradicted by falling yields and a rising S&P. Taking about -$0.25 now beats riding a same-day bear bet into a rebound. Lesson for the review: on 10-15 the open's direction did NOT hold, unlike 10-14, so one trend day doesn't make a rule.
+- Keep **AZZ** for now. Falling yields should help it, yet it is weak. The close rule is judged at 14:20: if it is below ~$132 then, close it.
+- Paper scalper stays **bear** (Nasdaq still red on the day).
+Sources: https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-15-2026, https://finance.yahoo.com/markets/live/copy-stock-market-today-hot-inflation-report-drops-tech-drives-sp-500-nasdaq-down-122056767.html
+
+## 2026-10-15 14:20 ET refresh (LIVE)
+Since 13:20: a split tape. The Dow is up ~600 points and the S&P has erased its opening drop (health care +2.6%) as the 10-year yield falls, but the Nasdaq is still about -1.4% on the AI/chip sell-off. AZZ slid to ~$131.36 (-4.5% from the $137.57 fill), below its ~$132 pre-earnings line, on a day when falling yields and a rotation into old-economy stocks should have helped it. Equity $73.89.
+- **Close AZZ** (2026-10-14-AZZ). Its stated "wrong if" (below the ~$132 pre-earnings close, judged at 14:20) is hit: the post-earnings gap is fully gone and it is weak on a day that favors it. Loss about -$0.84.
+- Note on the SQQQ exit at 13:20: the Nasdaq stayed down even as the Dow and S&P turned up, so the bear call on tech was not wrong; I exited on the S&P/yields pivot. For the review: judge an SQQQ call by the Nasdaq, not the S&P.
+- No new pick this late. Paper scalper stays **bear**.
+Sources: https://sundayguardianlive.com/business/why-are-us-stock-market-up-today-dow-jones-surges-600-points-nasdaq-down-140-sp-500-edges-higher-as-oil-surge-treasury-yields-falls-fed-rate-hike-outlook-check-what-investors-should-know-306443/, https://ts2.tech/en/sp-500-erases-opening-drop-as-10-year-yield-falls-health-care-jumps-2-6/
+
+## 2026-10-15 evening review (LIVE, $73.91)
+Day: a hotter PPI (+1.3% m/m) opened tech sharply lower, but Treasury yields fell ~14 bp and the market turned: QQQ finished +1.41% from 9:35 to 15:15, the S&P closed up, small caps stayed weak. The account fell from $75.02 to $73.91 (-1.5%) while the same money in the S&P rose from $74.17 to $74.43 (+0.35%). Since go-live: bot -1.45% vs S&P -0.76%.
+- SQQQ same-day (bought 10:22 at $37.34, sold 13:20): -$0.25. The bear call was wrong (QQQ +1.41%). Correction to my 14:20 note: the "Nasdaq -1.4%" headline was stale; QQQ was up by then, so the 13:20 exit was right, not early.
+- AZZ (bought 10-14 at $137.57, sold 10-15 14:20): -$0.82 (-4.4%). The ~$132 pre-earnings line broke; the guidance raise didn't protect a small-cap industrial in a two-day Russell selloff.
+- Paper scalper bear: 8 trips, 2 winners, -$0.15.
+- Lessons rewritten: direction calls now 1 of 3, watch yields after a hot print, check headline timestamps, avoid new small-cap longs while the Russell is falling on rates.
+- The learn workflow again hadn't started by 16:46; dispatched by hand.

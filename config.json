@@ -16,8 +16,10 @@
   "min_order_notional": 1.0,
   "max_order_notional": 500.0,
   "sizing_equity_cap": 75.0,
+  "benchmark": {"since": "2026-10-13T16:40:00Z", "start_equity": 75.0},
 
   "scalper": {
+    "mode": "paper",
     "enabled": true,
     "symbols": ["SPY", "QQQ", "TQQQ", "SQQQ"],
     "bull_symbols": ["SPY", "QQQ", "TQQQ"],

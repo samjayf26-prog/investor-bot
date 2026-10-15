@@ -17,7 +17,7 @@ from pathlib import Path
 
 from . import tuning
 from .alpaca import AlpacaError
-from .trader import ET, ROOT, load_config, log, make_client
+from .trader import ET, ROOT, load_config, log, make_client, scalper_mode
 
 BIASES = ("bull", "bear", "neutral", "off")
 
@@ -220,7 +220,9 @@ class Scalper:
 
 def main():
     cfg = load_config()
-    cfg = {**cfg, "scalper": tuning.scalper_config(cfg)}
+    # The scalper can trade a different account than the research picks (config scalper.mode),
+    # e.g. paper while picks trade live. Live still needs confirm_live.
+    cfg = {**cfg, "mode": scalper_mode(cfg), "scalper": tuning.scalper_config(cfg)}
     sc = cfg["scalper"]
     log(f"Settings: take profit {sc['take_profit_pct']:.2%}, stop {sc['stop_pct']:.2%}, "
         f"max hold {sc['max_hold_minutes']} min, EMA {sc['ema_fast']}/{sc['ema_slow']}, "

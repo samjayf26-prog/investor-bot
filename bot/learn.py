@@ -159,6 +159,74 @@ def scorecard(today, root=ROOT):
     return lines
 
 
+# Claude's daily direction call
+def score_direction(api, today, root=ROOT):
+    """Log whether today's scalp_bias called QQQ's 9:35-15:15 move right
+    (research/direction_log.csv, one row per day). Returns the scorecard lines."""
+    path = root / "research" / "direction_log.csv"
+    rows = [r for r in read_csv(path) if r["date"] != today.isoformat()]
+    try:
+        data = json.loads((root / "picks" / "latest.json").read_text())
+        made = datetime.fromisoformat(data["generated_at"].replace("Z", "+00:00")).astimezone(ET).date()
+        bias = data.get("scalp_bias", "neutral") if made == today else "none"
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        bias = "none"
+    lo = datetime.combine(today, dtime(9, 35), ET).astimezone(timezone.utc).isoformat()
+    hi = datetime.combine(today, dtime(15, 15), ET).astimezone(timezone.utc).isoformat()
+    bars = api.bars_between("QQQ", "1Min", lo, hi)
+    if bars:
+        move = bars[-1]["c"] / bars[0]["o"] - 1
+        right = {"bull": move > 0, "bear": move < 0}.get(bias)
+        rows.append({"date": today.isoformat(), "bias": bias, "qqq_move": f"{move:.4f}",
+                     "correct": "" if right is None else str(right).lower()})
+        with open(path, "w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=["date", "bias", "qqq_move", "correct"])
+            w.writeheader()
+            w.writerows(sorted(rows, key=lambda r: r["date"]))
+    else:
+        rows = read_csv(path)
+    calls = [r for r in rows if r["correct"]]
+    hits = sum(1 for r in calls if r["correct"] == "true")
+    lines = ["", "## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)",
+             "| day | bias | QQQ move | right? |", "|---|---|---|---|"]
+    lines += [f"| {r['date']} | {r['bias']} | {float(r['qqq_move']):+.2%} | {r['correct'] or '-'} |"
+              for r in rows[-10:]]
+    lines.append(f"\nBull/bear calls: {hits} of {len(calls)} right." if calls else "\nNo bull/bear calls scored yet.")
+    return lines
+
+
+# the bot vs the S&P 500
+def benchmark(api, cfg, today, root=ROOT):
+    """Compare the account with the same money put in SPY when the bot went live.
+    Logs one row per day to research/benchmark.csv; returns the scorecard lines."""
+    b = cfg.get("benchmark") or {}
+    if not b.get("since") or not b.get("start_equity"):
+        return []
+    path = root / "research" / "benchmark.csv"
+    rows = [r for r in read_csv(path) if r["date"] != today.isoformat()]
+    since = datetime.fromisoformat(b["since"].replace("Z", "+00:00"))
+    start_bars = api.bars_between("SPY", "1Min", since.isoformat(), (since + timedelta(minutes=30)).isoformat())
+    if not start_bars:
+        return ["", "## Bot vs S&P 500", "No SPY price found for the start date."]
+    start, spy_start = float(b["start_equity"]), start_bars[0]["o"]
+    equity, spy_now = float(api.account()["equity"]), api.last_price("SPY")
+    spy_value = start * spy_now / spy_start
+    rows.append({"date": today.isoformat(), "bot": f"{equity:.2f}", "sp500": f"{spy_value:.2f}"})
+    rows.sort(key=lambda r: r["date"])
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["date", "bot", "sp500"])
+        w.writeheader()
+        w.writerows(rows)
+    lines = ["", f"## Bot vs S&P 500 (${start:.0f} since {since.astimezone(ET):%Y-%m-%d %H:%M} ET)",
+             f"**Bot ${equity:.2f} ({equity / start - 1:+.2%}) vs S&P 500 ${spy_value:.2f} "
+             f"({spy_value / start - 1:+.2%}): the bot is {'ahead' if equity >= spy_value else 'behind'} "
+             f"by ${abs(equity - spy_value):.2f}.**",
+             "", "| day | bot $ | $ in S&P 500 (SPY) |", "|---|---|---|"]
+    lines += [f"| {r['date']} | {r['bot']} | {r['sp500']} |" for r in rows[-10:]]
+    lines.append("(Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)")
+    return lines
+
+
 # run
 def load_sessions(api, symbols, start_et, today):
     """Last LOOKBACK full sessions of 1-minute bars per symbol, from start_et to 15:50 ET."""
@@ -195,11 +263,13 @@ def run(api, cfg, today, root=ROOT):
     current = tuning.scalper_config(cfg, root / "tuning.json")
     current_syms = current.get("enabled_symbols") or sc["symbols"]
     tuned = tuning.load(root / "tuning.json")
-    lines = scorecard(today.isoformat(), root)
-    lines += ["", "## Tuner"]
     if tuned.get("updated") == today.isoformat():
         log("Already learned today.")
         return "already-done"
+    lines = [*scorecard(today.isoformat(), root)[:1], *benchmark(api, cfg, today, root),
+             *scorecard(today.isoformat(), root)[1:]]
+    lines += score_direction(api, today, root)
+    lines += ["", "## Tuner"]
     if not cfg.get("learning", True):
         lines.append("Learning is off in config.json; nothing changed.")
     else:
