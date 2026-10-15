@@ -331,7 +331,7 @@ class Trader:
         pick is retried on every run until the entry cutoff."""
         try:
             vwap = float((((self.api.snapshots([sym]) or {}).get(sym) or {}).get("dailyBar") or {}).get("vw") or 0)
-        except (AlpacaError, TypeError, ValueError):
+        except (AlpacaError, OSError, TypeError, ValueError):  # no data = no confirmation, retry later
             vwap = 0.0
         if risk.vwap_confirms(price, vwap, bullish):
             return True
