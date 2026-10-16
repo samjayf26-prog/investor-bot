@@ -197,3 +197,10 @@ Day: a hotter PPI (+1.3% m/m) opened tech sharply lower, but Treasury yields fel
 - Paper scalper bear: 8 trips, 2 winners, -$0.15.
 - Lessons rewritten: direction calls now 1 of 3, watch yields after a hot print, check headline timestamps, avoid new small-cap longs while the Russell is falling on rates.
 - The learn workflow again hadn't started by 16:46; dispatched by hand.
+
+## 2026-10-16 08:50 ET (LIVE, $73.91, all cash)
+Premarket: quiet Friday. S&P futures about +0.2%, Dow +0.4%, Nasdaq-100 flat to -0.1%; the 10-year eased to ~5.09%; VIX ~16. AI/neocloud names stay weak (CRWV -4%, MU -1.7%, NBIS/IREN -2%) on debt worries; TSLA +4% on a Roadster unveil with SpaceX; VRNS +2% on a $49.75 cash takeover (nothing left to capture). Regional banks mixed: CFG beat and raised its dividend 13%, TFC missed on securities losses. Alcoa (reported Wednesday night) beat EPS by ~22%, but revenue fell 7% q/q and the Q4 outlook is cautious, so it's a beat without an estimate raise. Data today: import prices and industrial production only. Yesterday's bear call was wrong (QQQ +1.41%); the rules changed overnight (direction picks conviction 1 with QQQ's move vs the open, no bear lean; state/market.json for live prices).
+- No new picks. Nothing today is a lasting estimate change, and the lessons say not to start small-cap longs while the Russell is weak. Cash is fine on a quiet Friday.
+- scalp_bias **neutral** (no lean; the paper scalper's result just follows the call).
+- Watch list for the 10:20 run: AA, TSLA, IBKR, XLF. At 10:20 I'll check QQQ vs its open in state/market.json before any same-day direction pick (conviction 1, with the tape only).
+Sources: https://finance.yahoo.com/markets/stocks/articles/wall-st-futures-mixed-tech-110701262.html, https://investrade.com/morning-preview-october-16-2026/, https://www.chartmill.com/news/AA/Chartmill-56299-Alcoa-NYSEAA-Posts-Mixed-Q3-2026-Results-EPS-Beat-Revenue-Miss-and-Cautious-Q4-Outlook
