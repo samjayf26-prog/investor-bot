@@ -231,3 +231,10 @@ The re-issued SQQQ filled at the 13:22 run at $38.60 (0.287 sh, ~$11.07). At 14:
 - Keep **SQQQ same-day** (same id). The "wrong if" (QQQ back above its ~$725.5 open) is far off, and the 4.5% stop (~$36.86) caps the loss near $0.50. The bot sells it at the first run after 15:30 ET.
 - No new pick this late. Paper scalper stays **bear**.
 Source: state/market.json (14:03 ET)
+
+## 2026-10-16 evening review (LIVE, $74.00)
+Day: a quiet start turned into a broad selloff. QQQ fell 1.91% from 9:35 to 15:15 (about -2.4% on the day by mid-afternoon), small caps -2%, VIXY +12%. The account rose from $73.91 to $74.00 (+0.12%) while the same money in the S&P fell from $74.43 to $73.62 (-1.09%). Since go-live: bot -1.33% vs S&P -1.84%, so the bot is now ahead by $0.38.
+- SQQQ same-day (bought 13:22 at $38.60, ~$11, sold at the 15:30 close-out): +$0.11. The with-the-tape direction rule was right; the 11:20 entry missed because my cap was set off a stale snapshot. On time it would have made about $0.30.
+- Paper scalper (neutral, then bear from 11:20): 7 trips, 5 winners, +$0.25.
+- Direction calls now 2 of 4. Lessons updated: check the snapshot time before setting a cap; 3x ETF caps 2-3% over the price on a moving tape.
+- The learn workflow again hadn't started by 16:46; dispatched by hand. No tuning change.
