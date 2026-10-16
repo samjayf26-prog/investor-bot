@@ -1,7 +1,16 @@
 {
-  "as_of": "2026-10-16T17:22:04.988362+00:00",
+  "as_of": "2026-10-16T17:30:56.917304+00:00",
   "mode": "live",
-  "equity": "73.91",
-  "cash": "73.91",
-  "positions": []
+  "equity": "73.86",
+  "cash": "62.83",
+  "positions": [
+    {
+      "symbol": "SQQQ",
+      "qty": "0.286787564",
+      "avg_entry_price": "38.6",
+      "current_price": "38.451",
+      "unrealized_pl": "-0.042731",
+      "unrealized_plpc": "-0.00386"
+    }
+  ]
 }
