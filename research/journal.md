@@ -204,3 +204,10 @@ Premarket: quiet Friday. S&P futures about +0.2%, Dow +0.4%, Nasdaq-100 flat to 
 - scalp_bias **neutral** (no lean; the paper scalper's result just follows the call).
 - Watch list for the 10:20 run: AA, TSLA, IBKR, XLF. At 10:20 I'll check QQQ vs its open in state/market.json before any same-day direction pick (conviction 1, with the tape only).
 Sources: https://finance.yahoo.com/markets/stocks/articles/wall-st-futures-mixed-tech-110701262.html, https://investrade.com/morning-preview-october-16-2026/, https://www.chartmill.com/news/AA/Chartmill-56299-Alcoa-NYSEAA-Posts-Mixed-Q3-2026-Results-EPS-Beat-Revenue-Miss-and-Cautious-Q4-Outlook
+
+## 2026-10-16 10:20 ET refresh (LIVE, $73.91, all cash)
+First run with state/market.json (10:17 ET): QQQ 721.94, -0.86% vs yesterday's close and -0.49% vs today's open, below VWAP; SPY -0.25% vs open; IWM -0.32%; SMH -1.5% vs close but flat since the open; TLT +0.55% (yields easing); VIXY flat. AA +7.6% on its EPS beat, still rising from the open and above VWAP. TSLA +1.5%, XLF +1%.
+- No new pick. The tape leans down (QQQ below its open and VWAP), but the review's best rule (follow QQQ vs its open) worked at 11:20, not 10:20, and even then only 56% of the time. I'll decide on a conviction-1 same-day SQQQ/TQQQ at 11:20 with the tape at that point.
+- AA: a strong reaction, but it's a beat with a cautious outlook (no estimate raise) and a +7.6% gap; the CEG lesson says don't chase that.
+- scalp_bias stays **neutral**. Added TQQQ/SQQQ to the watch list.
+Source: state/market.json (10:17 ET)
