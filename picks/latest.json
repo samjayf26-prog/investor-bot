@@ -1,21 +1,21 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-16T15:24:00Z",
+  "generated_at": "2026-10-16T17:24:00Z",
   "expires_at": "2026-10-16T19:30:00Z",
   "picks": [
     {
-      "id": "2026-10-16-1120-SQQQ",
+      "id": "2026-10-16-1320-SQQQ",
       "symbol": "SQQQ",
       "action": "buy",
       "conviction": 1,
-      "max_entry_price": 37.6,
+      "max_entry_price": 38.6,
       "stop_pct": 0.045,
       "target_pct": 0.06,
       "max_hold_days": 0,
       "confirm_vwap": true,
-      "thesis": "Same-day direction call with the tape: at the last snapshot (10:55 ET) QQQ was -0.59% vs its open and below VWAP, SQQQ above its VWAP. Follows the 11:20 'QQQ vs open' rule at conviction 1 only; confirm_vwap makes the bot buy only while SQQQ is still above VWAP. Wrong if QQQ gets back above today's open (~$725.5); stop 4.5%.",
+      "thesis": "Re-issue of the 11:20 same-day call, which never filled: SQQQ ran to $37.92 before the bot ran, above the $37.60 cap set off a 25-minute-old snapshot. At 12:53 ET QQQ is -1.36% vs its open and below VWAP, IWM -1.55%, VIXY +6%, so the tape still points down. Conviction 1 only; confirm_vwap buys only while SQQQ is above its VWAP. Wrong if QQQ gets back above today's open (~$725.5); stop 4.5%.",
       "sources": [
-        "state/market.json (2026-10-16 10:55 ET)"
+        "state/market.json (2026-10-16 12:53 ET)"
       ]
     }
   ],

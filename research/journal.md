@@ -218,3 +218,10 @@ state/market.json (10:55 ET): QQQ 721.21, -0.96% vs yesterday's close and -0.59%
 - AA: still no chase (beat without a raise, +8.7% gap).
 - Paper scalper **bear** to match the call.
 Source: state/market.json (10:55 ET); a news search turned up nothing newer than the morning.
+
+## 2026-10-16 13:20 ET refresh (LIVE, $73.91, all cash)
+The 11:20 SQQQ pick never filled. SQQQ was already $37.92 at the 11:22 run, above my $37.60 cap, because I set the cap off a snapshot that was 25 minutes old while QQQ kept falling. It stayed above the cap at every later run. The bot did what it should; the cap was mine. Lesson: when the snapshot is stale and the tape is moving, set a 3x ETF's cap about 2-3% over the last price, not 1%.
+Tape at 12:53 ET (state/market.json): the selloff widened. QQQ 715.64 is -1.36% vs its open (-1.72% vs yesterday), SPY -0.90%, IWM -1.55%, SMH -0.47%, all below VWAP; VIXY +6.3%; TLT flat. TSLA -3.7% since the open; AA gave back its morning gains and is below VWAP.
+- **Re-issued SQQQ same-day, conviction 1** (2026-10-16-1320-SQQQ), cap $38.60 (~1.4% over $38.08), 4.5% stop, confirm_vwap. Same call as 11:20, with QQQ still moving down vs its open. The trade is late: SQQQ is already +4.2% since the open and only ~2 hours remain, so I'm keeping the size small. Wrong if QQQ gets back above today's open (~$725.5).
+- Paper scalper stays **bear**.
+Source: state/market.json (12:53 ET); web searches found no dated midday report for today.
