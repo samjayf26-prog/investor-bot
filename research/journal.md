@@ -225,3 +225,9 @@ Tape at 12:53 ET (state/market.json): the selloff widened. QQQ 715.64 is -1.36% 
 - **Re-issued SQQQ same-day, conviction 1** (2026-10-16-1320-SQQQ), cap $38.60 (~1.4% over $38.08), 4.5% stop, confirm_vwap. Same call as 11:20, with QQQ still moving down vs its open. The trade is late: SQQQ is already +4.2% since the open and only ~2 hours remain, so I'm keeping the size small. Wrong if QQQ gets back above today's open (~$725.5).
 - Paper scalper stays **bear**.
 Source: state/market.json (12:53 ET); web searches found no dated midday report for today.
+
+## 2026-10-16 14:20 ET refresh (LIVE, $73.95)
+The re-issued SQQQ filled at the 13:22 run at $38.60 (0.287 sh, ~$11.07). At 14:03 ET (state/market.json) the selloff is still building: QQQ 710.65 is -2.05% vs its open (-2.41% vs yesterday), SPY -1.36%, IWM -2.0%, all below VWAP; VIXY +11.9% since the open. SQQQ $38.79 (+0.5%), above its VWAP.
+- Keep **SQQQ same-day** (same id). The "wrong if" (QQQ back above its ~$725.5 open) is far off, and the 4.5% stop (~$36.86) caps the loss near $0.50. The bot sells it at the first run after 15:30 ET.
+- No new pick this late. Paper scalper stays **bear**.
+Source: state/market.json (14:03 ET)
