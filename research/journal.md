@@ -211,3 +211,10 @@ First run with state/market.json (10:17 ET): QQQ 721.94, -0.86% vs yesterday's c
 - AA: a strong reaction, but it's a beat with a cautious outlook (no estimate raise) and a +7.6% gap; the CEG lesson says don't chase that.
 - scalp_bias stays **neutral**. Added TQQQ/SQQQ to the watch list.
 Source: state/market.json (10:17 ET)
+
+## 2026-10-16 11:20 ET refresh (LIVE, $73.91, all cash)
+state/market.json (10:55 ET): QQQ 721.21, -0.96% vs yesterday's close and -0.59% vs today's open, below VWAP; SPY -0.21% vs open; IWM -0.44%; SMH flat since the open; VIXY -2% (no fear). TQQQ -1.8% vs open, SQQQ +1.8% and above VWAP. AA +8.7%, still above VWAP; TSLA -2.2% since the open.
+- **New: SQQQ same-day, conviction 1** (2026-10-16-1120-SQQQ). This is the 11:20 rule: follow QQQ vs its open, and it is down. Small size (~$11), 4.5% stop, cap $37.60, confirm_vwap so the bot only buys while SQQQ is above its VWAP. Wrong if QQQ gets back above today's open (~$725.5); I'll close it at a later refresh if so. The move is mild and VIXY is falling, so this is a rule-following call, not a strong view.
+- AA: still no chase (beat without a raise, +8.7% gap).
+- Paper scalper **bear** to match the call.
+Source: state/market.json (10:55 ET); a news search turned up nothing newer than the morning.

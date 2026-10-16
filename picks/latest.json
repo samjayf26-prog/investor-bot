@@ -1,15 +1,25 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-16T14:21:44Z",
+  "generated_at": "2026-10-16T15:24:00Z",
   "expires_at": "2026-10-16T19:30:00Z",
-  "picks": [],
+  "picks": [
+    {
+      "id": "2026-10-16-1120-SQQQ",
+      "symbol": "SQQQ",
+      "action": "buy",
+      "conviction": 1,
+      "max_entry_price": 37.6,
+      "stop_pct": 0.045,
+      "target_pct": 0.06,
+      "max_hold_days": 0,
+      "confirm_vwap": true,
+      "thesis": "Same-day direction call with the tape: at the last snapshot (10:55 ET) QQQ was -0.59% vs its open and below VWAP, SQQQ above its VWAP. Follows the 11:20 'QQQ vs open' rule at conviction 1 only; confirm_vwap makes the bot buy only while SQQQ is still above VWAP. Wrong if QQQ gets back above today's open (~$725.5); stop 4.5%.",
+      "sources": [
+        "state/market.json (2026-10-16 10:55 ET)"
+      ]
+    }
+  ],
   "close": [],
-  "scalp_bias": "neutral",
-  "watch": [
-    "AA",
-    "TSLA",
-    "XLF",
-    "TQQQ",
-    "SQQQ"
-  ]
+  "scalp_bias": "bear",
+  "watch": ["AA", "TSLA", "XLF", "TQQQ", "SQQQ"]
 }
