@@ -245,3 +245,10 @@ Premarket: a tech rebound after the Nasdaq's worst week since June (-4.5% last w
 - No direction call premarket. A gap-up after a heavy week can go either way; I'll follow QQQ vs its open at 10:20/11:20 (conviction 1). scalp_bias **neutral**.
 - Passed: Intel (upgrade only to neutral, +4.4% gap), GL (+8.5% with no confirmed cause), IRON/OPNW (binary or speculative).
 Sources: https://www.sec.gov/Archives/edgar/data/0000764065/000076406526000112/clf-202609308xkex991.htm, https://www.investing.com/news/earnings/clevelandcliffs-stock-jumps-on-third-quarter-earnings-beat-4956845, https://www.investing.com/news/economy-news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-4956777, https://www.benzinga.com/markets/equities/26/10/62431980/stock-market-today-dow-jones-sp-500-futures-rise-as-scott-bessent-links-september-inflation-to-energy-shock-rcat-eslt-stld-in-focus
+
+## 2026-10-19 10:20 ET refresh (LIVE, $74.00, all cash)
+state/market.json is from 9:48 ET (no bot run committed since). QQQ +1.37% vs Friday but flat vs its open, just above VWAP; SPY flat, IWM -0.2% since the open; SMH +2.6% vs Friday; VIXY -3.8%. The gap-up is holding but not extending.
+- **Dropped CLF** (never bought). It opened near $14.13 and faded to $13.35 (-5.6% from the open, below VWAP) in the first 15 minutes. confirm_vwap kept the bot out, as designed. The thesis was "the gap holds"; it isn't, and the UNH lesson says a fading earnings gap is a sell signal, so I'm not waiting for a VWAP reclaim. Back on the watch list.
+- INTC +5.8% and above VWAP on the upgrade, but it is only to neutral; no chase.
+- No direction call: QQQ is flat vs its open. Decide at 11:20 with the tape. scalp_bias **neutral**.
+Source: state/market.json (9:48 ET)
