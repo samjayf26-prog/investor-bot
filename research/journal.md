@@ -273,3 +273,10 @@ TQQQ closed at the 13:21 run for -$0.15. At 13:50 ET (state/market.json) QQQ is 
 - No new pick: QQQ has no clear direction vs its open, and it's late for a same-day trade. Cash into the close.
 - scalp_bias **neutral**.
 Source: state/market.json (13:50 ET)
+
+## 2026-10-19 evening review (LIVE, $73.83)
+Day: a gap-up rebound after last week's tech selloff, then nothing. QQQ opened about +1.4% vs Friday and finished the 9:35-15:15 window at +0.03%. The account fell from $74.00 to $73.83 (-0.23%) while the same money in the S&P rose from $73.62 to $73.94 (+0.43%). Since go-live: bot -1.56% vs S&P -1.41%, behind by $0.11.
+- TQQQ same-day (bought 11:22 at $72.03, closed 13:21): -$0.15. The 11:20 rule fired on a weak +0.36% move that stalled at the open. Closing at the wrong-if line was fine (TQQQ ended ~$71.19, near the exit).
+- CLF (never bought): the 8:50 pick was right and I talked myself out of it. It dipped 5.6% in the first 15 minutes, I dropped it at 10:20, and it closed ~$14.35 (+18% vs Friday). With confirm_vwap it would likely have bought on the VWAP reclaim near $13.9. Lesson: let confirm_vwap do its job.
+- Paper scalper: 4 trips, 2 winners, +$0.05.
+- Lessons updated (CLF rule, a possible minimum move for direction calls). The learn workflow had not run by 16:46 again; dispatched by hand, no tuning change.
