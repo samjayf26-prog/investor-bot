@@ -267,3 +267,9 @@ The TQQQ same-day filled at $72.03 (0.154 sh, ~$11.09). By 13:15 ET (state/marke
 - CLF note: after the early fade it is now $14.14, +16% vs Friday and back at its open, above VWAP. Dropping it at 10:20 cost the trade so far. For the review: confirm_vwap already guarded the entry, so dropping a confirm_vwap pick on an early fade was one step too many.
 - scalp_bias back to **neutral**.
 Source: state/market.json (13:15 ET)
+
+## 2026-10-19 14:20 ET refresh (LIVE, $73.83, all cash)
+TQQQ closed at the 13:21 run for -$0.15. At 13:50 ET (state/market.json) QQQ is -0.10% vs its open and below VWAP, SPY flat, IWM -0.3%, VIXY slightly up on the day's low. The morning gap-up is holding vs Friday (QQQ +1.27%) but nothing has happened since the open.
+- No new pick: QQQ has no clear direction vs its open, and it's late for a same-day trade. Cash into the close.
+- scalp_bias **neutral**.
+Source: state/market.json (13:50 ET)
