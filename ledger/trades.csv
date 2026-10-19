@@ -8,3 +8,4 @@ closed,id,symbol,action,opened,cost,pnl_approx,pnl_pct,reason,mode
 2026-10-15,2026-10-15-1020-SQQQ,SQQQ,buy,2026-10-15,18.62,-0.25,-0.0133,Claude asked to close,live
 2026-10-15,2026-10-14-AZZ,AZZ,buy,2026-10-14,18.74,-0.82,-0.0435,Claude asked to close,live
 2026-10-16,2026-10-16-1320-SQQQ,SQQQ,buy,2026-10-16,11.07,0.11,0.0102,day trade: end of day,live
+2026-10-19,2026-10-19-1120-TQQQ,TQQQ,buy,2026-10-19,11.09,-0.15,-0.0137,Claude asked to close,live

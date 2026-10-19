@@ -1,16 +1,7 @@
 {
-  "as_of": "2026-10-19T17:15:41.217818+00:00",
+  "as_of": "2026-10-19T17:21:29.149851+00:00",
   "mode": "live",
-  "equity": "73.84",
-  "cash": "62.9",
-  "positions": [
-    {
-      "symbol": "TQQQ",
-      "qty": "0.153967901",
-      "avg_entry_price": "72.028",
-      "current_price": "71.06",
-      "unrealized_pl": "-0.149041",
-      "unrealized_plpc": "-0.01344"
-    }
-  ]
+  "equity": "73.83",
+  "cash": "73.83",
+  "positions": []
 }
