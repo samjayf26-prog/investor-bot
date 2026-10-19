@@ -1,31 +1,27 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-16T18:23:00Z",
-  "expires_at": "2026-10-16T19:30:00Z",
+  "generated_at": "2026-10-19T13:05:00Z",
+  "expires_at": "2026-10-19T19:30:00Z",
   "picks": [
     {
-      "id": "2026-10-16-1320-SQQQ",
-      "symbol": "SQQQ",
+      "id": "2026-10-19-CLF",
+      "symbol": "CLF",
       "action": "buy",
       "conviction": 1,
-      "max_entry_price": 38.6,
-      "stop_pct": 0.045,
-      "target_pct": 0.06,
-      "max_hold_days": 0,
+      "max_entry_price": 14.3,
+      "stop_pct": 0.07,
+      "target_pct": 0.15,
+      "max_hold_days": 7,
       "confirm_vwap": true,
-      "thesis": "Re-issue of the 11:20 same-day call, which never filled: SQQQ ran to $37.92 before the bot ran, above the $37.60 cap set off a 25-minute-old snapshot. At 12:53 ET QQQ is -1.36% vs its open and below VWAP, IWM -1.55%, VIXY +6%, so the tape still points down. Conviction 1 only; confirm_vwap buys only while SQQQ is above its VWAP. Wrong if QQQ gets back above today's open (~$725.5); stop 4.5%.",
+      "thesis": "Q3 adjusted EBITDA $612M beat its own $575M guide (best quarter in three years), adj. EPS $0.28 vs $0.22 est., Q4 EBITDA guided up to ~$715M, and management says the 2027 outlook (>$4B EBITDA) 'improved materially': an estimate-raising print from the 8-K, not a one-day headline. The gap is big (+14% premarket to ~$13.83) and revenue missed slightly, so conviction 1 and confirm_vwap: buy only if the gap holds above VWAP. Wrong if it fades below ~$13.00 (half the gap), which the 7% stop roughly enforces, or closes below VWAP on day one.",
       "sources": [
-        "state/market.json (2026-10-16 12:53 ET)"
+        "https://www.sec.gov/Archives/edgar/data/0000764065/000076406526000112/clf-202609308xkex991.htm",
+        "https://www.investing.com/news/earnings/clevelandcliffs-stock-jumps-on-third-quarter-earnings-beat-4956845",
+        "https://stockanalysis.com/stocks/clf/"
       ]
     }
   ],
   "close": [],
-  "scalp_bias": "bear",
-  "watch": [
-    "AA",
-    "TSLA",
-    "XLF",
-    "TQQQ",
-    "SQQQ"
-  ]
+  "scalp_bias": "neutral",
+  "watch": ["CLF", "INTC", "STLD", "CRWV", "TQQQ", "SQQQ"]
 }

@@ -238,3 +238,10 @@ Day: a quiet start turned into a broad selloff. QQQ fell 1.91% from 9:35 to 15:1
 - Paper scalper (neutral, then bear from 11:20): 7 trips, 5 winners, +$0.25.
 - Direction calls now 2 of 4. Lessons updated: check the snapshot time before setting a cap; 3x ETF caps 2-3% over the price on a moving tape.
 - The learn workflow again hadn't started by 16:46; dispatched by hand. No tuning change.
+
+## 2026-10-19 08:50 ET (LIVE, $74.00, all cash)
+Premarket: a tech rebound after the Nasdaq's worst week since June (-4.5% last week on AI-spending and rate worries). At ~7:00-8:20 ET Nasdaq-100 futures +1.1%, S&P +0.5%, Dow flat to -0.3%; QQQ ~$719 premarket vs Friday's ~$710 close. The 10-year eased to ~5.07%; Brent -1.3% after Russia sanction waivers. Chips/neoclouds bounce (CRWV +3.4%, MU +3.3%, AVGO +2.9%); Intel +4.4% on a JPMorgan upgrade to neutral. Big week: SpaceX Tue, Meta and Tesla Wed; Steel Dynamics tonight. Light data (NAHB today).
+- **New: CLF, conviction 1** (2026-10-19-CLF), cap $14.30, 7% stop, 15% target, up to 7 days, confirm_vwap. The 8-K shows an EBITDA beat vs its own guide, a higher Q4 guide and a "materially improved" 2027 outlook: a real estimate change. The +14% gap (~$13.83 vs $12.12) is the CEG risk, so the size is small and the bot only buys while the gap holds above VWAP. Wrong if it fades below ~$13.00.
+- No direction call premarket. A gap-up after a heavy week can go either way; I'll follow QQQ vs its open at 10:20/11:20 (conviction 1). scalp_bias **neutral**.
+- Passed: Intel (upgrade only to neutral, +4.4% gap), GL (+8.5% with no confirmed cause), IRON/OPNW (binary or speculative).
+Sources: https://www.sec.gov/Archives/edgar/data/0000764065/000076406526000112/clf-202609308xkex991.htm, https://www.investing.com/news/earnings/clevelandcliffs-stock-jumps-on-third-quarter-earnings-beat-4956845, https://www.investing.com/news/economy-news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-4956777, https://www.benzinga.com/markets/equities/26/10/62431980/stock-market-today-dow-jones-sp-500-futures-rise-as-scott-bessent-links-september-inflation-to-energy-shock-rcat-eslt-stld-in-focus
