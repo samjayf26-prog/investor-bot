@@ -259,3 +259,11 @@ state/market.json (11:14 ET): the rebound is extending gently. QQQ 722.19, +1.74
 - CLF reclaimed VWAP ($13.89, -1.8% from its open, +14% vs Friday) after the early fade. I dropped it at 10:20 and am not re-adding: the first-hour fade is the pattern the lessons warn about, and chasing the bounce would be flip-flopping. I'll score the call in the evening review.
 - scalp_bias **bull** to match the call.
 Source: state/market.json (11:14 ET)
+
+## 2026-10-19 13:20 ET refresh (LIVE, $73.84)
+The TQQQ same-day filled at $72.03 (0.154 sh, ~$11.09). By 13:15 ET (state/market.json) the rebound has stalled: QQQ 719.68 is back to its open (+0.02%) and below VWAP; SPY flat vs its open and below VWAP; IWM -0.2%; VIXY turned up vs its open. TQQQ $71.06 (-1.3%).
+- **Close TQQQ** (2026-10-19-1120-TQQQ), about -$0.15. Its "wrong if" was QQQ back below today's open (~$719.6); it is sitting on that line and below VWAP, and the 10-15 lesson says to act on a broken thesis before the stop. A flat midday tape gives a same-day 3x long nothing left to work with.
+- No new pick. QQQ has no direction vs its open, so the rule gives no call.
+- CLF note: after the early fade it is now $14.14, +16% vs Friday and back at its open, above VWAP. Dropping it at 10:20 cost the trade so far. For the review: confirm_vwap already guarded the entry, so dropping a confirm_vwap pick on an early fade was one step too many.
+- scalp_bias back to **neutral**.
+Source: state/market.json (13:15 ET)
