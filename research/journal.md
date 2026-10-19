@@ -252,3 +252,10 @@ state/market.json is from 9:48 ET (no bot run committed since). QQQ +1.37% vs Fr
 - INTC +5.8% and above VWAP on the upgrade, but it is only to neutral; no chase.
 - No direction call: QQQ is flat vs its open. Decide at 11:20 with the tape. scalp_bias **neutral**.
 Source: state/market.json (9:48 ET)
+
+## 2026-10-19 11:20 ET refresh (LIVE, $74.00, all cash)
+state/market.json (11:14 ET): the rebound is extending gently. QQQ 722.19, +1.74% vs Friday and +0.36% vs its open, above VWAP; SPY +0.19% and IWM +0.08% vs the open, both above VWAP; VIXY -4.8%; TLT -0.3% (yields a bit higher). SMH +2.8% vs Friday but slightly below its open.
+- **New: TQQQ same-day, conviction 1** (2026-10-19-1120-TQQQ), cap $73.50 (2.5% over $71.74, per the 10-16 lesson), 4.5% stop, confirm_vwap. This is the with-the-tape rule: QQQ is up vs its open at 11:20. The move is small, so this is a rule-following call at the smallest size. Wrong if QQQ falls back below its open (~$719.6).
+- CLF reclaimed VWAP ($13.89, -1.8% from its open, +14% vs Friday) after the early fade. I dropped it at 10:20 and am not re-adding: the first-hour fade is the pattern the lessons warn about, and chasing the bounce would be flip-flopping. I'll score the call in the evening review.
+- scalp_bias **bull** to match the call.
+Source: state/market.json (11:14 ET)

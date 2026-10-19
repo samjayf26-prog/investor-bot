@@ -1,9 +1,25 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-19T14:24:00Z",
+  "generated_at": "2026-10-19T15:24:00Z",
   "expires_at": "2026-10-19T19:30:00Z",
-  "picks": [],
+  "picks": [
+    {
+      "id": "2026-10-19-1120-TQQQ",
+      "symbol": "TQQQ",
+      "action": "buy",
+      "conviction": 1,
+      "max_entry_price": 73.5,
+      "stop_pct": 0.045,
+      "target_pct": 0.06,
+      "max_hold_days": 0,
+      "confirm_vwap": true,
+      "thesis": "Same-day direction call by the 11:20 rule: at 11:14 ET QQQ is +0.36% vs its open and above VWAP (+1.74% vs Friday), SPY and IWM also above VWAP, VIXY -4.8%. Conviction 1 only; confirm_vwap buys only while TQQQ is above its VWAP; cap 2.5% over the snapshot so a moving tape doesn't block the fill. Wrong if QQQ falls back below today's open (~$719.6); stop 4.5%.",
+      "sources": [
+        "state/market.json (2026-10-19 11:14 ET)"
+      ]
+    }
+  ],
   "close": [],
-  "scalp_bias": "neutral",
+  "scalp_bias": "bull",
   "watch": ["CLF", "INTC", "STLD", "CRWV", "TQQQ", "SQQQ"]
 }
