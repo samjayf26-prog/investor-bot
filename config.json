@@ -17,6 +17,7 @@
   "max_order_notional": 500.0,
   "sizing_equity_cap": 75.0,
   "benchmark": {"since": "2026-10-13T16:40:00Z", "start_equity": 75.0},
+  "core": {"symbol": "SPY", "buy_after_et": "14:30", "reserve": 2.0},
 
   "scalper": {
     "mode": "paper",

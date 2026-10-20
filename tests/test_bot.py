@@ -117,7 +117,8 @@ class FakeAlpaca:
     def __init__(self, cash=100.0, options_level=2, open_=True):
         self.cash, self.options_level, self.open_ = cash, options_level, open_
         self.orders, self.pos, self.closed = {}, {}, []
-        self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5, "TQQQ": 80.0, "WHOLE": 10.0}
+        self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5, "TQQQ": 80.0, "WHOLE": 10.0,
+                       "SPY": 700.0}
 
     def clock(self):
         return {"is_open": self.open_}
@@ -165,16 +166,21 @@ class FakeAlpaca:
 
     def submit_order(self, **o):
         cost = float(o.get("notional") or 0) or float(o["qty"]) * (float(o.get("limit_price", 0)) * 100 or 1)
-        self.cash -= cost
         o.update(status="filled", filled_qty=o.get("qty", "1"))
         self.orders[o["client_order_id"]] = o
+        if o["side"] == "sell":
+            self.cash += cost
+            self.pos[o["symbol"]]["market_value"] = str(float(self.pos[o["symbol"]]["market_value"]) - cost)
+            return o
+        self.cash -= cost
+        old = float(self.pos.get(o["symbol"], {}).get("market_value") or 0)
         self.pos[o["symbol"]] = {"symbol": o["symbol"], "qty": o["filled_qty"], "unrealized_plpc": "0.01",
-                                 "unrealized_pl": "0.4", "cost_basis": str(cost)}
+                                 "unrealized_pl": "0.4", "cost_basis": str(cost), "market_value": str(old + cost)}
         return o
 
     def close_position(self, sym):
         self.closed.append(sym)
-        del self.pos[sym]
+        self.cash += float(self.pos.pop(sym).get("market_value") or 0)
 
 
 def make(tmp_path, api=None, start=NOW):
@@ -266,7 +272,7 @@ def test_no_entries_after_cutoff(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy"}])
     t, api, _ = make(tmp_path, start=datetime(2026, 10, 8, 19, 50, tzinfo=timezone.utc))  # 15:50 ET
     t.cycle()
-    assert not api.orders
+    assert not [k for k in api.orders if k.endswith("-entry")]   # only the overnight core buys
 
 
 def test_kill_switch_flattens(tmp_path):
@@ -423,3 +429,81 @@ def test_market_json_written_and_never_breaks_trading(tmp_path):
     api.snapshots = broken
     write_picks(tmp_path, [{"id": "p3", "symbol": "F", "action": "buy"}])
     assert t.cycle() == "traded"
+
+
+# overnight SPY core: idle cash sits in SPY after 14:30 ET until a pick needs it
+AFTERNOON = datetime(2026, 10, 8, 18, 45, tzinfo=timezone.utc)  # 14:45 ET
+
+
+def test_core_buys_only_after_1430_and_keeps_reserve(tmp_path):
+    write_picks(tmp_path, [])
+    t, api, _ = make(tmp_path)          # 10:50 ET
+    t.cycle()
+    assert "SPY" not in api.pos
+    t, api, _ = make(tmp_path, start=AFTERNOON)
+    t.cycle()
+    order = next(o for k, o in api.orders.items() if k.startswith("core-"))
+    assert order["symbol"] == "SPY" and order["notional"] == "98.00" and order["type"] == "limit"
+    assert api.cash == pytest.approx(2.0)
+    snap = json.loads((tmp_path / "state" / "account.json").read_text())
+    assert snap["core"] == {"symbol": "SPY", "value": 98.0}
+    assert "idle cash" in (tmp_path / "ledger" / "core.csv").read_text()
+    t.cycle()   # cash is at the reserve: no second buy
+    assert len([k for k in api.orders if k.startswith("core-")]) == 1
+
+
+def test_core_is_not_a_position_or_adopted(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 1}], close=["adopted-SPY"])
+    api = FakeAlpaca(cash=20.0)
+    api.pos["SPY"] = {"symbol": "SPY", "qty": "0.1", "market_value": "80", "unrealized_plpc": "-0.5",
+                      "unrealized_pl": "-40"}
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    state = json.loads((tmp_path / "state" / "positions.json").read_text())
+    assert list(state) == ["p1"]                      # SPY not adopted, not stopped out, not closed
+    assert "SPY" in api.pos and "SPY" not in api.closed
+
+
+def test_core_sold_just_enough_to_fund_a_pick(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
+    api = FakeAlpaca(cash=10.0)
+    api.pos["SPY"] = {"symbol": "SPY", "qty": "0.13", "market_value": "90", "unrealized_plpc": "0",
+                      "unrealized_pl": "0"}
+    t, api, _ = make(tmp_path, api)
+    assert t.cycle() == "traded"
+    sell = next(o for o in api.orders.values() if o["side"] == "sell")
+    assert sell["symbol"] == "SPY" and 30 < float(sell["notional"]) < 32   # ~$40 pick minus $9.80 cash
+    assert api.orders["p1-entry"]["notional"] == "40.00"
+    assert float(api.pos["SPY"]["market_value"]) > 55                       # the rest stays parked
+    assert "fund pick" in (tmp_path / "ledger" / "core.csv").read_text()
+
+
+def test_core_not_sold_when_pick_waits(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3, "confirm_vwap": True}])
+    api = FakeAlpaca(cash=10.0)
+    api.vwaps = {"NVDA": 999.0}
+    api.pos["SPY"] = {"symbol": "SPY", "qty": "0.13", "market_value": "90", "unrealized_plpc": "0",
+                      "unrealized_pl": "0"}
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    assert not [o for o in api.orders.values() if o["side"] == "sell"]
+
+
+def test_no_core_buy_when_halted_and_flatten_closes_it(tmp_path):
+    write_picks(tmp_path, [])
+    api = FakeAlpaca()
+    api.account = lambda: {"equity": "70", "last_equity": "100", "cash": "70", "status": "ACTIVE"}
+    t, api, _ = make(tmp_path, api, start=AFTERNOON)
+    assert t.cycle() == "halted"
+    assert not api.orders
+    api.pos["SPY"] = {"symbol": "SPY", "qty": "0.1", "market_value": "70"}
+    t.flatten("test")
+    assert "SPY" in api.closed
+
+
+def test_core_off_when_config_null(tmp_path):
+    write_picks(tmp_path, [])
+    t, api, _ = make(tmp_path, start=AFTERNOON)
+    t.cfg = {**CFG, "core": None}
+    t.cycle()
+    assert not api.orders

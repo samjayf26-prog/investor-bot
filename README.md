@@ -48,3 +48,12 @@ Actions tab → trade → Run workflow → `status`, `cycle` or `flatten`.
 
 ## Tests
 `python -m pytest`
+
+## Overnight SPY core
+`"core": {"symbol": "SPY", "buy_after_et": "14:30", "reserve": 2.0}` in config.json (set it to
+`null` to turn it off). On runs from 14:30 ET the bot buys SPY with cash above the reserve, so
+idle cash is invested overnight, when market returns have come. When a pick's budget is more
+than the cash on hand, the bot sells just enough SPY right before the pick's order. The core
+never counts as an open position, is never adopted or closed by picks, and no core is bought
+while a loss halt is on. The kill switch and `flatten` sell it like everything else. Core
+trades go to ledger/core.csv; state/account.json shows its value under "core".

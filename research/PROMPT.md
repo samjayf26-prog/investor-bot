@@ -96,7 +96,7 @@ picks that can be held for days.
 - Since 2026-10-13 the scalper trades the PAPER account (config scalper.mode): replays of
   70 sessions found no setting that made money after costs. All live cash goes to your
   picks. To bet real money on the day's direction, make it a pick: TQQQ (bull) or SQQQ
-  (bear), or SPY/QQQ for a milder view, are allowed as normal "buy" picks while the
+  (bear), or QQQ for a milder view, are allowed as normal "buy" picks while the
   scalper is on paper. A replay of 70 sessions found one right-way 3x ETF hold per day
   beats scalping the same view by a wide margin (review/bias-results.md on the review
   branch). Use max_hold_days 0 for a same-day call: the bot holds it until the first run
@@ -110,6 +110,12 @@ picks that can be held for days.
   rule (56% right, not statistically significant; review/direction-results.md on the
   review branch). Revisit sizing only after about 20 scored calls in
   research/direction_log.csv.
+- Overnight SPY core (config "core", since 2026-10-20 at Sam's OK): from 14:30 ET the bot
+  puts cash your picks aren't using (minus a $2 reserve) into SPY, because the market's
+  returns have come overnight, not during the day. It sells just enough SPY when a pick
+  needs the cash, so size picks as usual. SPY is reserved for it (a SPY pick is skipped),
+  it is not one of the 3 open positions, and "close" can't touch it. state/account.json
+  shows its value under "core"; its trades go to ledger/core.csv.
 - Your scalp_bias is scored daily against QQQ's 9:35-15:15 move in research/scorecard.md;
   check its hit rate before trusting your direction calls with size.
 - Picks are executed within minutes of your push (the bot runs on each picks push and

@@ -9,6 +9,7 @@ on anything unexpected so GitHub emails Sam.
 """
 import csv
 import json
+import math
 import os
 import sys
 import time
@@ -50,6 +51,12 @@ def scalper_symbols(cfg):
     return set(sc.get("symbols", [])) if sc.get("enabled") and scalper_mode(cfg) == cfg["mode"] else set()
 
 
+def core_cfg(cfg):
+    """The SPY core that parks idle cash overnight, or None when it is off (missing or null)."""
+    core = cfg.get("core")
+    return core if isinstance(core, dict) and core.get("symbol") else None
+
+
 def make_client(cfg):
     if cfg["mode"] not in ("live", "paper"):
         raise SystemExit(f"unknown mode {cfg['mode']!r}")
@@ -67,6 +74,7 @@ class Trader:
         self.ledger_path = root / "ledger" / "trades.csv"
         self.snapshot_path = root / "state" / "account.json"
         self.market_path = root / "state" / "market.json"
+        self.core_ledger_path = root / "ledger" / "core.csv"
 
     # persistence
     def load_state(self):
@@ -79,10 +87,11 @@ class Trader:
         self.state_path.parent.mkdir(exist_ok=True)
         self.state_path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n")
 
-    def record(self, row):
-        self.ledger_path.parent.mkdir(exist_ok=True)
-        new = not self.ledger_path.exists()
-        with open(self.ledger_path, "a", newline="") as f:
+    def record(self, row, path=None):
+        path = path or self.ledger_path
+        path.parent.mkdir(exist_ok=True)
+        new = not path.exists()
+        with open(path, "a", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(row))
             if new:
                 w.writeheader()
@@ -137,10 +146,15 @@ class Trader:
         # Orders and positions of the scalper (its own symbols, if it trades this account)
         # are left alone.
         scalp = scalper_symbols(cfg)
+        core = core_cfg(cfg)
+        core_sym = core["symbol"] if core else None
         for o in self.api.open_orders():
             if o.get("client_order_id", "").endswith("-entry") and o["symbol"] not in scalp:
                 self.api.cancel_order(o["id"])
-        positions = {p["symbol"]: p for p in self.api.positions() if p["symbol"] not in scalp}
+        # The SPY core is not a pick: it is never reconciled, adopted, closed by Claude or counted
+        # as an open position. Only flatten (kill switch) and pick funding sell it.
+        positions = {p["symbol"]: p for p in self.api.positions()
+                     if p["symbol"] not in scalp and p["symbol"] != core_sym}
 
         # reconcile our records with the broker, which is the source of truth
         for pid, e in list(state.items()):
@@ -206,19 +220,24 @@ class Trader:
             if pick["symbol"] in scalp:
                 log(f"Skip {pick['id']}: {pick['symbol']} is reserved for the scalper.")
                 continue
+            if pick["symbol"] == core_sym:
+                log(f"Skip {pick['id']}: {core_sym} is reserved for the overnight core.")
+                continue
             held = sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions()
-                       if p["symbol"] not in scalp)
+                       if p["symbol"] not in scalp and p["symbol"] != core_sym)
             # Live picks size off real equity so gains compound (Sam's call, 2026-10-13);
             # the cap only makes the big paper account trade like the small live one.
             cap = cfg["sizing_equity_cap"] if cfg["mode"] == "paper" else float("inf")
-            size_eq, size_cash = risk.sizing_view(equity, cash, held, cap)
+            # Cash parked in the core counts as available: it is sold only when a pick needs it.
+            size_eq, size_cash = risk.sizing_view(equity, cash + self.core_value(core_sym), held, cap)
             budget = risk.pick_budget(size_eq, size_cash, pick["conviction"], cfg["max_order_notional"],
                                       cfg["min_order_notional"])
             if budget <= 0:
                 log(f"Skip {pick['id']}: not enough cash.")
                 continue
+            fund = (lambda b: self.fund(b, core_sym)) if core_sym else None
             try:
-                entry = self.enter(pick, budget, acct, today)
+                entry = self.enter(pick, budget, acct, today, fund=fund)
             except AlpacaError as e:  # one refused order must not lose the picks already bought
                 log(f"Skip {pick['id']}: Alpaca refused it: {e}")
                 continue
@@ -229,15 +248,84 @@ class Trader:
                 acct = self.api.account()
                 cash = float(acct["cash"])
 
+        if core and not halts:
+            try:
+                if self.buy_core(core, now, today):
+                    acct = self.api.account()
+            except AlpacaError as e:  # the core is optional; it must never break a trade run
+                log(f"Core buy skipped: Alpaca refused it: {e}")
+
         self.save_state(state)
         self.snapshot_path.write_text(json.dumps({
             "as_of": now.isoformat(), "mode": cfg["mode"], "equity": acct["equity"], "cash": acct["cash"],
+            "core": {"symbol": core_sym, "value": round(self.core_value(core_sym), 2)} if core else None,
             "positions": [{k: p.get(k) for k in ("symbol", "qty", "avg_entry_price", "current_price",
                                                   "unrealized_pl", "unrealized_plpc")}
                           for p in self.api.positions()]}, indent=2) + "\n")
         self.write_market(now, state, entries)
         log(f"Equity ${float(acct['equity']):.2f}, cash ${float(acct['cash']):.2f}, open positions {len(state)}")
         return result
+
+    # overnight core: idle cash sits in SPY from the afternoon until a pick needs it
+    def core_value(self, sym):
+        if not sym:
+            return 0.0
+        return sum(abs(float(p.get("market_value") or 0)) for p in self.api.positions() if p["symbol"] == sym)
+
+    def buy_core(self, core, now, today):
+        """After buy_after_et, put cash above the reserve into the core. Returns True if it ordered."""
+        after = datetime.combine(today, datetime.strptime(core["buy_after_et"], "%H:%M").time(), ET)
+        if now < after:
+            return False
+        sym = core["symbol"]
+        if any(o["symbol"] == sym for o in self.api.open_orders()):
+            return False   # an earlier core order is still working
+        acct = self.api.account()
+        avail = min(float(acct["cash"]), float(acct.get("buying_power") or acct["cash"]))
+        amount = math.floor((avail - float(core.get("reserve", 2.0))) * 100) / 100
+        if amount < self.cfg["min_order_notional"]:
+            return False
+        price = self.api.last_price(sym)
+        limit = risk.entry_limit(price)
+        cid = f"core-{now.astimezone(ET):%Y%m%d-%H%M}"
+        try:
+            self.api.submit_order(symbol=sym, side="buy", type="limit", notional=f"{amount:.2f}",
+                                  limit_price=f"{limit:.2f}", time_in_force="day", client_order_id=cid)
+        except AlpacaError as e:
+            if e.status != 422:
+                raise
+            self.api.submit_order(symbol=sym, side="buy", type="market", notional=f"{amount:.2f}",
+                                  time_in_force="day", client_order_id=cid)
+        log(f"Core: bought ${amount:.2f} of {sym} (limit ${limit:.2f}) to hold idle cash overnight.")
+        self.record({"time": now.isoformat(), "side": "buy", "symbol": sym, "notional": f"{amount:.2f}",
+                     "price": price, "reason": "idle cash", "mode": self.cfg["mode"]}, self.core_ledger_path)
+        return True
+
+    def fund(self, budget, sym):
+        """Called by enter() just before a pick's order: sells enough core to cover `budget`.
+        Returns the budget the cash now covers (lower if the sale fell short)."""
+        cash = float(self.api.account()["cash"])
+        need = budget / 0.98 - cash   # pick_budget keeps 2% of cash back
+        held = self.core_value(sym)
+        if need <= 0 or held <= 0:
+            return min(budget, math.floor(cash * 0.98 * 100) / 100)
+        amount = min(held, math.ceil(need * 1.01 * 100) / 100)   # 1% slack for the market sale
+        if amount >= held - 0.01:
+            self.api.close_position(sym)
+            amount = held
+        else:
+            self.api.submit_order(symbol=sym, side="sell", type="market", notional=f"{amount:.2f}",
+                                  time_in_force="day",
+                                  client_order_id=f"core-sell-{self.now().astimezone(ET):%Y%m%d-%H%M%S}")
+        log(f"Core: sold ${amount:.2f} of {sym} to fund a pick.")
+        self.record({"time": self.now().isoformat(), "side": "sell", "symbol": sym, "notional": f"{amount:.2f}",
+                     "price": "", "reason": "fund pick", "mode": self.cfg["mode"]}, self.core_ledger_path)
+        for _ in range(12):   # wait for the sale to land in cash
+            cash = float(self.api.account()["cash"])
+            if cash * 0.98 >= budget - 0.01:
+                break
+            self.sleep(2)
+        return min(budget, math.floor(cash * 0.98 * 100) / 100)
 
     def write_market(self, now, state, entries):
         """state/market.json: live prices for the research runs, which trust it over index levels
@@ -258,7 +346,7 @@ class Trader:
             "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
             "symbols": {s: r for s, r in rows.items() if r}}, indent=2) + "\n")
 
-    def enter(self, pick, budget, acct, today):
+    def enter(self, pick, budget, acct, today, fund=None):
         sym, cid = pick["symbol"], f"{pick['id']}-entry"
         asset = self.api.asset(sym)
         if not asset or not asset.get("tradable") or asset.get("status") != "active" \
@@ -279,6 +367,11 @@ class Trader:
                 return None
             if pick.get("confirm_vwap") and not self.vwap_ok(sym, price, bullish=True):
                 return None
+            if fund:   # sell core only now, once the pick is really about to be bought
+                budget = fund(budget)
+                if budget < self.cfg["min_order_notional"]:
+                    log(f"Skip {pick['id']}: not enough cash after selling the core.")
+                    return None
             # A limit order lets the broker enforce the cap: never pay above Claude's max entry
             # price, or more than 1% over the last trade when there is none.
             limit = risk.entry_limit(price, pick["max_entry_price"])
@@ -320,6 +413,9 @@ class Trader:
                                         price, budget, today)
         if not contract:
             log(f"Skip {pick['id']}: no liquid put on {sym} fits ${budget:.2f}.")
+            return None
+        if fund and fund(ask * 100) < ask * 100 - 0.01:
+            log(f"Skip {pick['id']}: not enough cash for the put after selling the core.")
             return None
         self.api.submit_order(symbol=contract["symbol"], qty="1", side="buy", type="limit",
                               limit_price=f"{ask:.2f}", time_in_force="day", client_order_id=cid)
