@@ -1,4 +1,14 @@
 {
+  "2026-10-20-1120-TQQQ": {
+    "action": "buy",
+    "broker_symbol": "TQQQ",
+    "entry_date": "2026-10-20",
+    "expiry": null,
+    "id": "2026-10-20-1120-TQQQ",
+    "max_hold_days": 0,
+    "stop_pct": 0.045,
+    "target_pct": 0.06
+  },
   "2026-10-20-HAL": {
     "action": "buy",
     "broker_symbol": "HAL",
