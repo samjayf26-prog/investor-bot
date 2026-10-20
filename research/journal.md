@@ -319,3 +319,9 @@ state/market.json (14:06 ET): steady. QQQ +0.55% vs its open and above VWAP, SPY
 - **HAL** $33.46 (-0.3%), above $33 and VWAP at the 14:20 check. Keep (up to 5 days).
 - No new picks. scalp_bias **bull**.
 Source: state/market.json (14:06 ET)
+
+## 2026-10-20 evening review (LIVE, $73.82)
+- Day: bot -$0.01 (73.83 to 73.82) vs the same money in the S&P 500 +0.31%. Since go-live -1.57% vs S&P -1.10%, behind by $0.35.
+- TQQQ same-day sold at the 15:30 close-out, -$0.11. The bull call was right (QQQ +0.65% over the scored window), but the entry came near the late-morning high and the rally cooled. Third with-the-tape same-day trade, net -$0.15; lessons now also skip stretched (~1%+) moves.
+- MMM held (~$170.3 vs $169.74 fill) and HAL held (~$33.5, flat), both above their wrong-if levels.
+- Shipped after the close: overnight SPY core (Sam OK; first buy 10-21 after 14:30 ET) and the review's big-name news-gap rules in PROMPT.md. Learn workflow dispatched by hand again; no tuning change.
