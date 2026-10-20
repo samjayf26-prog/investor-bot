@@ -303,3 +303,11 @@ state/market.json (10:59 ET): a broad rally. QQQ +0.99% vs its open and above VW
 - **New: TQQQ same-day, conviction 1** (2026-10-20-1120-TQQQ), cap $73.60, 4.5% stop, confirm_vwap. QQQ is well past the ~0.5% minimum vs its open. Wrong if QQQ falls back below its open (~$715.2). This fills the third and last open slot.
 - scalp_bias **bull**.
 Source: state/market.json (10:59 ET)
+
+## 2026-10-20 13:20 ET refresh (LIVE, $73.89)
+state/market.json (12:57 ET): the rally cooled. QQQ +0.39% vs its open (flat vs Monday), just above VWAP; SPY +0.38% and below VWAP; IWM still +1.4%; VIXY -2.7%.
+- **TQQQ same-day** bought at $70.97 (~$11); now $70.59 (-0.5%). QQQ is still above its ~$715.2 open and VWAP, so the wrong-if isn't hit. Keep; the bot sells after 15:30.
+- **MMM** $171.78 (+1.2% from $169.74), holding +6% on the day above VWAP. Keep.
+- **HAL** $33.57, back to the fill and above VWAP. Keep; wrong if below ~$33.
+- No new picks (all three slots full). scalp_bias stays **bull**.
+Source: state/market.json (12:57 ET)
