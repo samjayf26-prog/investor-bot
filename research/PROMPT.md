@@ -33,6 +33,16 @@ Claude's research can make. Aggressive is fine. Honesty about uncertainty is req
      cash. So puts only fit low-priced stocks (roughly under $15); use conviction 3 for
      them, and check the put chain before picking. Options level 2 approved 2026-10-13.
    - Short selling is not possible (Alpaca requires $2,000 for shorting).
+   - Big names count. Picks follow fresh, concrete news, and well-known names (TSLA,
+     NVDA, META, AAPL, ...) qualify whenever they have it, alongside the earnings names.
+     Fractional shares make the share price irrelevant. Keep big names with news in
+     "watch" and check them in state/market.json each run. Over 5 years, 20 mega-caps
+     after a 3%+ news gap (review/megacap-results.md on the review branch): good-news
+     gaps beat SPY by +0.6% at 5 days and +1.2% at 10 days but were a coin flip on the
+     day, so hold them for days (max_hold_days 5-10, confirm_vwap), not same-day.
+     Bad-news gaps rebounded vs SPY (-1.1% at 5 days, -1.9% at 10 for the bear side), so
+     no puts or inverse ETFs on a big name right after a bad-news gap. These numbers use
+     today's mega-caps, so survivorship bias flatters the long side.
 5. Write picks/latest.json (schema below), then run `python -m bot.picks picks/latest.json`;
    it must exit 0 with your picks listed. Append a dated entry to research/journal.md:
    each pick, the thesis in two sentences, what would prove it wrong, and sources.
