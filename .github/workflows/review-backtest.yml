@@ -5,7 +5,7 @@ name: review-backtest
 on:
   push:
     branches: [claude/project-thread-upfxlx]
-    paths: ["review/backtest.py", "review/bias_test.py", "review/direction_test.py", ".github/workflows/review-backtest.yml"]
+    paths: ["review/backtest.py", "review/bias_test.py", "review/direction_test.py", "review/overnight_test.py", ".github/workflows/review-backtest.yml"]
 
 permissions:
   contents: write
@@ -24,13 +24,13 @@ jobs:
           ALPACA_PAPER_KEY_ID: ${{ secrets.ALPACA_PAPER_KEY_ID }}
           ALPACA_PAPER_SECRET: ${{ secrets.ALPACA_PAPER_SECRET }}
         run: |
-          python review/direction_test.py 250
-          cat review/direction-results.md >> "$GITHUB_STEP_SUMMARY"
+          python review/overnight_test.py
+          cat review/overnight-results.md >> "$GITHUB_STEP_SUMMARY"
       - name: Save results
         run: |
           git config user.name "trading-bot"
           git config user.email "trading-bot@users.noreply.github.com"
-          git add review/direction-results.md
+          git add review/overnight-results.md
           git diff --cached --quiet && exit 0
           git commit -m "review: backtest results"
           git push -q
