@@ -280,3 +280,11 @@ Day: a gap-up rebound after last week's tech selloff, then nothing. QQQ opened a
 - CLF (never bought): the 8:50 pick was right and I talked myself out of it. It dipped 5.6% in the first 15 minutes, I dropped it at 10:20, and it closed ~$14.35 (+18% vs Friday). With confirm_vwap it would likely have bought on the VWAP reclaim near $13.9. Lesson: let confirm_vwap do its job.
 - Paper scalper: 4 trips, 2 winners, +$0.05.
 - Lessons updated (CLF rule, a possible minimum move for direction calls). The learn workflow had not run by 16:46 again; dispatched by hand, no tuning change.
+
+## 2026-10-20 08:50 ET (LIVE, $73.83, all cash)
+Premarket (7:06 ET): Nasdaq-100 futures -0.6%, S&P -0.2%, Dow flat. AI names are weak again (CRWV -4.7%, NBIS -4.9%) on financing worries; Brent near a five-month high on Gulf attacks; 10-year ~5.08%. Earnings: GM -5% despite a beat, STLD -5.7% on a miss, HAL +3.7% on a beat with a 2027 outlook, MMM +1.2% on a guidance raise plus an Amazon deal. SpaceX and Netflix report tonight, Meta and Tesla Wednesday.
+- **New: HAL, conviction 2** (2026-10-20-HAL), cap $35.20, 5% stop, 10% target, up to 5 days, confirm_vwap. The 8-K gives a first 2027 outlook (mid-single-digit growth, ~15% margins, about +200 bp) that assumes no North America recovery, and oil is firm. Moderate gap. Wrong if it fills the gap below ~$33.
+- **New: MMM, conviction 1** (2026-10-20-MMM), cap $166, 4% stop, 8% target, up to 7 days, confirm_vwap. Raised full-year EPS guide plus an Amazon data-center optics deal with a $6B sales warrant; small gap, like the PENG pattern. Wrong if it closes below Monday's $162.
+- Per the CLF lesson, I'll leave both live with confirm_vwap until their wrong-if levels break, not drop them on an early dip.
+- No premarket direction call; at 11:20 only if QQQ is at least ~0.5% from its open. scalp_bias **neutral**.
+Sources: https://www.sec.gov/Archives/edgar/data/0000045012/000004501226000070/livemastererdocument.htm, https://www.sec.gov/Archives/edgar/data/0000066740/000006674026000308/q32026-8kerexx991.htm, https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413
