@@ -288,3 +288,10 @@ Premarket (7:06 ET): Nasdaq-100 futures -0.6%, S&P -0.2%, Dow flat. AI names are
 - Per the CLF lesson, I'll leave both live with confirm_vwap until their wrong-if levels break, not drop them on an early dip.
 - No premarket direction call; at 11:20 only if QQQ is at least ~0.5% from its open. scalp_bias **neutral**.
 Sources: https://www.sec.gov/Archives/edgar/data/0000045012/000004501226000070/livemastererdocument.htm, https://www.sec.gov/Archives/edgar/data/0000066740/000006674026000308/q32026-8kerexx991.htm, https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413
+
+## 2026-10-20 10:20 ET refresh (LIVE, $73.73)
+state/market.json (10:19 ET): a better open than futures suggested. QQQ +0.6% vs its open (+0.17% vs Monday) and above VWAP; SPY +0.54%, IWM +1.05%, SMH +1.2% since the open; TLT up (yields easing); VIXY -1.5%.
+- **HAL bought** at $33.57 (0.549 sh, ~$18.44). It opened well below the $34.20 premarket quote and is flat since the open, just above VWAP. Keep; wrong if it fills the gap below ~$33.
+- **MMM not bought yet:** it ran to $169.56 (+4.7% vs Monday, +3.9% since the open, above VWAP), past my $166 cap. The tape is confirming the guidance raise, so I raised the cap to $172 (same id, conviction 1). Wrong if it closes below Monday's $162.
+- No direction call yet: QQQ is +0.6% vs its open, but the rule is checked at 11:20. scalp_bias **neutral**.
+Source: state/market.json (10:19 ET)

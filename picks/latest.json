@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-20T12:53:00Z",
+  "generated_at": "2026-10-20T14:22:00Z",
   "expires_at": "2026-10-20T19:30:00Z",
   "picks": [
     {
@@ -25,12 +25,12 @@
       "symbol": "MMM",
       "action": "buy",
       "conviction": 1,
-      "max_entry_price": 166,
+      "max_entry_price": 172,
       "stop_pct": 0.04,
       "target_pct": 0.08,
       "max_hold_days": 7,
       "confirm_vwap": true,
-      "thesis": "Q3 adj. EPS $2.50 (+12% y/y), margin +110 bp, full-year EPS guide raised to $9.10-9.15, plus an expanded Amazon data-center optics deal with a warrant that vests on $6B of sales: a lasting estimate change with only a ~1.2% gap (~$164 vs $162.01). Wrong if it closes below Monday's $162 close (the 4% stop sits just under).",
+      "thesis": "Q3 adj. EPS $2.50 (+12% y/y), margin +110 bp, full-year EPS guide raised to $9.10-9.15, plus an expanded Amazon data-center optics deal with a warrant that vests on $6B of sales: a lasting estimate change with only a ~1.2% gap (~$164 vs $162.01). Opened higher and ran to ~$169.6 by 10:19 (+4.7%), above VWAP; cap raised to $172 at 10:20. Wrong if it closes below Monday's $162 close; the 4% stop from ~$170 sits near $163.",
       "sources": [
         "https://www.sec.gov/Archives/edgar/data/0000066740/000006674026000308/q32026-8kerexx991.htm",
         "https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413",
@@ -40,5 +40,12 @@
   ],
   "close": [],
   "scalp_bias": "neutral",
-  "watch": ["HAL", "MMM", "CLF", "GM", "TQQQ", "SQQQ"]
+  "watch": [
+    "HAL",
+    "MMM",
+    "CLF",
+    "GM",
+    "TQQQ",
+    "SQQQ"
+  ]
 }
