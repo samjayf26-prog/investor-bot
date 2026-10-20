@@ -1,16 +1,24 @@
 {
-  "as_of": "2026-10-20T14:19:35.749126+00:00",
+  "as_of": "2026-10-20T14:22:07.564245+00:00",
   "mode": "live",
-  "equity": "73.73",
-  "cash": "55.38",
+  "equity": "73.75",
+  "cash": "44.33",
   "positions": [
     {
       "symbol": "HAL",
       "qty": "0.549365429",
       "avg_entry_price": "33.566",
-      "current_price": "33.41",
-      "unrealized_pl": "-0.085701",
-      "unrealized_plpc": "-0.00465"
+      "current_price": "33.455",
+      "unrealized_pl": "-0.06098",
+      "unrealized_plpc": "-0.00331"
+    },
+    {
+      "symbol": "MMM",
+      "qty": "0.065100331",
+      "avg_entry_price": "169.738",
+      "current_price": "169.65",
+      "unrealized_pl": "-0.005729",
+      "unrealized_plpc": "-0.00052"
     }
   ]
 }
