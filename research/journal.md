@@ -197,3 +197,125 @@ Day: a hotter PPI (+1.3% m/m) opened tech sharply lower, but Treasury yields fel
 - Paper scalper bear: 8 trips, 2 winners, -$0.15.
 - Lessons rewritten: direction calls now 1 of 3, watch yields after a hot print, check headline timestamps, avoid new small-cap longs while the Russell is falling on rates.
 - The learn workflow again hadn't started by 16:46; dispatched by hand.
+
+## 2026-10-16 08:50 ET (LIVE, $73.91, all cash)
+Premarket: quiet Friday. S&P futures about +0.2%, Dow +0.4%, Nasdaq-100 flat to -0.1%; the 10-year eased to ~5.09%; VIX ~16. AI/neocloud names stay weak (CRWV -4%, MU -1.7%, NBIS/IREN -2%) on debt worries; TSLA +4% on a Roadster unveil with SpaceX; VRNS +2% on a $49.75 cash takeover (nothing left to capture). Regional banks mixed: CFG beat and raised its dividend 13%, TFC missed on securities losses. Alcoa (reported Wednesday night) beat EPS by ~22%, but revenue fell 7% q/q and the Q4 outlook is cautious, so it's a beat without an estimate raise. Data today: import prices and industrial production only. Yesterday's bear call was wrong (QQQ +1.41%); the rules changed overnight (direction picks conviction 1 with QQQ's move vs the open, no bear lean; state/market.json for live prices).
+- No new picks. Nothing today is a lasting estimate change, and the lessons say not to start small-cap longs while the Russell is weak. Cash is fine on a quiet Friday.
+- scalp_bias **neutral** (no lean; the paper scalper's result just follows the call).
+- Watch list for the 10:20 run: AA, TSLA, IBKR, XLF. At 10:20 I'll check QQQ vs its open in state/market.json before any same-day direction pick (conviction 1, with the tape only).
+Sources: https://finance.yahoo.com/markets/stocks/articles/wall-st-futures-mixed-tech-110701262.html, https://investrade.com/morning-preview-october-16-2026/, https://www.chartmill.com/news/AA/Chartmill-56299-Alcoa-NYSEAA-Posts-Mixed-Q3-2026-Results-EPS-Beat-Revenue-Miss-and-Cautious-Q4-Outlook
+
+## 2026-10-16 10:20 ET refresh (LIVE, $73.91, all cash)
+First run with state/market.json (10:17 ET): QQQ 721.94, -0.86% vs yesterday's close and -0.49% vs today's open, below VWAP; SPY -0.25% vs open; IWM -0.32%; SMH -1.5% vs close but flat since the open; TLT +0.55% (yields easing); VIXY flat. AA +7.6% on its EPS beat, still rising from the open and above VWAP. TSLA +1.5%, XLF +1%.
+- No new pick. The tape leans down (QQQ below its open and VWAP), but the review's best rule (follow QQQ vs its open) worked at 11:20, not 10:20, and even then only 56% of the time. I'll decide on a conviction-1 same-day SQQQ/TQQQ at 11:20 with the tape at that point.
+- AA: a strong reaction, but it's a beat with a cautious outlook (no estimate raise) and a +7.6% gap; the CEG lesson says don't chase that.
+- scalp_bias stays **neutral**. Added TQQQ/SQQQ to the watch list.
+Source: state/market.json (10:17 ET)
+
+## 2026-10-16 11:20 ET refresh (LIVE, $73.91, all cash)
+state/market.json (10:55 ET): QQQ 721.21, -0.96% vs yesterday's close and -0.59% vs today's open, below VWAP; SPY -0.21% vs open; IWM -0.44%; SMH flat since the open; VIXY -2% (no fear). TQQQ -1.8% vs open, SQQQ +1.8% and above VWAP. AA +8.7%, still above VWAP; TSLA -2.2% since the open.
+- **New: SQQQ same-day, conviction 1** (2026-10-16-1120-SQQQ). This is the 11:20 rule: follow QQQ vs its open, and it is down. Small size (~$11), 4.5% stop, cap $37.60, confirm_vwap so the bot only buys while SQQQ is above its VWAP. Wrong if QQQ gets back above today's open (~$725.5); I'll close it at a later refresh if so. The move is mild and VIXY is falling, so this is a rule-following call, not a strong view.
+- AA: still no chase (beat without a raise, +8.7% gap).
+- Paper scalper **bear** to match the call.
+Source: state/market.json (10:55 ET); a news search turned up nothing newer than the morning.
+
+## 2026-10-16 13:20 ET refresh (LIVE, $73.91, all cash)
+The 11:20 SQQQ pick never filled. SQQQ was already $37.92 at the 11:22 run, above my $37.60 cap, because I set the cap off a snapshot that was 25 minutes old while QQQ kept falling. It stayed above the cap at every later run. The bot did what it should; the cap was mine. Lesson: when the snapshot is stale and the tape is moving, set a 3x ETF's cap about 2-3% over the last price, not 1%.
+Tape at 12:53 ET (state/market.json): the selloff widened. QQQ 715.64 is -1.36% vs its open (-1.72% vs yesterday), SPY -0.90%, IWM -1.55%, SMH -0.47%, all below VWAP; VIXY +6.3%; TLT flat. TSLA -3.7% since the open; AA gave back its morning gains and is below VWAP.
+- **Re-issued SQQQ same-day, conviction 1** (2026-10-16-1320-SQQQ), cap $38.60 (~1.4% over $38.08), 4.5% stop, confirm_vwap. Same call as 11:20, with QQQ still moving down vs its open. The trade is late: SQQQ is already +4.2% since the open and only ~2 hours remain, so I'm keeping the size small. Wrong if QQQ gets back above today's open (~$725.5).
+- Paper scalper stays **bear**.
+Source: state/market.json (12:53 ET); web searches found no dated midday report for today.
+
+## 2026-10-16 14:20 ET refresh (LIVE, $73.95)
+The re-issued SQQQ filled at the 13:22 run at $38.60 (0.287 sh, ~$11.07). At 14:03 ET (state/market.json) the selloff is still building: QQQ 710.65 is -2.05% vs its open (-2.41% vs yesterday), SPY -1.36%, IWM -2.0%, all below VWAP; VIXY +11.9% since the open. SQQQ $38.79 (+0.5%), above its VWAP.
+- Keep **SQQQ same-day** (same id). The "wrong if" (QQQ back above its ~$725.5 open) is far off, and the 4.5% stop (~$36.86) caps the loss near $0.50. The bot sells it at the first run after 15:30 ET.
+- No new pick this late. Paper scalper stays **bear**.
+Source: state/market.json (14:03 ET)
+
+## 2026-10-16 evening review (LIVE, $74.00)
+Day: a quiet start turned into a broad selloff. QQQ fell 1.91% from 9:35 to 15:15 (about -2.4% on the day by mid-afternoon), small caps -2%, VIXY +12%. The account rose from $73.91 to $74.00 (+0.12%) while the same money in the S&P fell from $74.43 to $73.62 (-1.09%). Since go-live: bot -1.33% vs S&P -1.84%, so the bot is now ahead by $0.38.
+- SQQQ same-day (bought 13:22 at $38.60, ~$11, sold at the 15:30 close-out): +$0.11. The with-the-tape direction rule was right; the 11:20 entry missed because my cap was set off a stale snapshot. On time it would have made about $0.30.
+- Paper scalper (neutral, then bear from 11:20): 7 trips, 5 winners, +$0.25.
+- Direction calls now 2 of 4. Lessons updated: check the snapshot time before setting a cap; 3x ETF caps 2-3% over the price on a moving tape.
+- The learn workflow again hadn't started by 16:46; dispatched by hand. No tuning change.
+
+## 2026-10-19 08:50 ET (LIVE, $74.00, all cash)
+Premarket: a tech rebound after the Nasdaq's worst week since June (-4.5% last week on AI-spending and rate worries). At ~7:00-8:20 ET Nasdaq-100 futures +1.1%, S&P +0.5%, Dow flat to -0.3%; QQQ ~$719 premarket vs Friday's ~$710 close. The 10-year eased to ~5.07%; Brent -1.3% after Russia sanction waivers. Chips/neoclouds bounce (CRWV +3.4%, MU +3.3%, AVGO +2.9%); Intel +4.4% on a JPMorgan upgrade to neutral. Big week: SpaceX Tue, Meta and Tesla Wed; Steel Dynamics tonight. Light data (NAHB today).
+- **New: CLF, conviction 1** (2026-10-19-CLF), cap $14.30, 7% stop, 15% target, up to 7 days, confirm_vwap. The 8-K shows an EBITDA beat vs its own guide, a higher Q4 guide and a "materially improved" 2027 outlook: a real estimate change. The +14% gap (~$13.83 vs $12.12) is the CEG risk, so the size is small and the bot only buys while the gap holds above VWAP. Wrong if it fades below ~$13.00.
+- No direction call premarket. A gap-up after a heavy week can go either way; I'll follow QQQ vs its open at 10:20/11:20 (conviction 1). scalp_bias **neutral**.
+- Passed: Intel (upgrade only to neutral, +4.4% gap), GL (+8.5% with no confirmed cause), IRON/OPNW (binary or speculative).
+Sources: https://www.sec.gov/Archives/edgar/data/0000764065/000076406526000112/clf-202609308xkex991.htm, https://www.investing.com/news/earnings/clevelandcliffs-stock-jumps-on-third-quarter-earnings-beat-4956845, https://www.investing.com/news/economy-news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-4956777, https://www.benzinga.com/markets/equities/26/10/62431980/stock-market-today-dow-jones-sp-500-futures-rise-as-scott-bessent-links-september-inflation-to-energy-shock-rcat-eslt-stld-in-focus
+
+## 2026-10-19 10:20 ET refresh (LIVE, $74.00, all cash)
+state/market.json is from 9:48 ET (no bot run committed since). QQQ +1.37% vs Friday but flat vs its open, just above VWAP; SPY flat, IWM -0.2% since the open; SMH +2.6% vs Friday; VIXY -3.8%. The gap-up is holding but not extending.
+- **Dropped CLF** (never bought). It opened near $14.13 and faded to $13.35 (-5.6% from the open, below VWAP) in the first 15 minutes. confirm_vwap kept the bot out, as designed. The thesis was "the gap holds"; it isn't, and the UNH lesson says a fading earnings gap is a sell signal, so I'm not waiting for a VWAP reclaim. Back on the watch list.
+- INTC +5.8% and above VWAP on the upgrade, but it is only to neutral; no chase.
+- No direction call: QQQ is flat vs its open. Decide at 11:20 with the tape. scalp_bias **neutral**.
+Source: state/market.json (9:48 ET)
+
+## 2026-10-19 11:20 ET refresh (LIVE, $74.00, all cash)
+state/market.json (11:14 ET): the rebound is extending gently. QQQ 722.19, +1.74% vs Friday and +0.36% vs its open, above VWAP; SPY +0.19% and IWM +0.08% vs the open, both above VWAP; VIXY -4.8%; TLT -0.3% (yields a bit higher). SMH +2.8% vs Friday but slightly below its open.
+- **New: TQQQ same-day, conviction 1** (2026-10-19-1120-TQQQ), cap $73.50 (2.5% over $71.74, per the 10-16 lesson), 4.5% stop, confirm_vwap. This is the with-the-tape rule: QQQ is up vs its open at 11:20. The move is small, so this is a rule-following call at the smallest size. Wrong if QQQ falls back below its open (~$719.6).
+- CLF reclaimed VWAP ($13.89, -1.8% from its open, +14% vs Friday) after the early fade. I dropped it at 10:20 and am not re-adding: the first-hour fade is the pattern the lessons warn about, and chasing the bounce would be flip-flopping. I'll score the call in the evening review.
+- scalp_bias **bull** to match the call.
+Source: state/market.json (11:14 ET)
+
+## 2026-10-19 13:20 ET refresh (LIVE, $73.84)
+The TQQQ same-day filled at $72.03 (0.154 sh, ~$11.09). By 13:15 ET (state/market.json) the rebound has stalled: QQQ 719.68 is back to its open (+0.02%) and below VWAP; SPY flat vs its open and below VWAP; IWM -0.2%; VIXY turned up vs its open. TQQQ $71.06 (-1.3%).
+- **Close TQQQ** (2026-10-19-1120-TQQQ), about -$0.15. Its "wrong if" was QQQ back below today's open (~$719.6); it is sitting on that line and below VWAP, and the 10-15 lesson says to act on a broken thesis before the stop. A flat midday tape gives a same-day 3x long nothing left to work with.
+- No new pick. QQQ has no direction vs its open, so the rule gives no call.
+- CLF note: after the early fade it is now $14.14, +16% vs Friday and back at its open, above VWAP. Dropping it at 10:20 cost the trade so far. For the review: confirm_vwap already guarded the entry, so dropping a confirm_vwap pick on an early fade was one step too many.
+- scalp_bias back to **neutral**.
+Source: state/market.json (13:15 ET)
+
+## 2026-10-19 14:20 ET refresh (LIVE, $73.83, all cash)
+TQQQ closed at the 13:21 run for -$0.15. At 13:50 ET (state/market.json) QQQ is -0.10% vs its open and below VWAP, SPY flat, IWM -0.3%, VIXY slightly up on the day's low. The morning gap-up is holding vs Friday (QQQ +1.27%) but nothing has happened since the open.
+- No new pick: QQQ has no clear direction vs its open, and it's late for a same-day trade. Cash into the close.
+- scalp_bias **neutral**.
+Source: state/market.json (13:50 ET)
+
+## 2026-10-19 evening review (LIVE, $73.83)
+Day: a gap-up rebound after last week's tech selloff, then nothing. QQQ opened about +1.4% vs Friday and finished the 9:35-15:15 window at +0.03%. The account fell from $74.00 to $73.83 (-0.23%) while the same money in the S&P rose from $73.62 to $73.94 (+0.43%). Since go-live: bot -1.56% vs S&P -1.41%, behind by $0.11.
+- TQQQ same-day (bought 11:22 at $72.03, closed 13:21): -$0.15. The 11:20 rule fired on a weak +0.36% move that stalled at the open. Closing at the wrong-if line was fine (TQQQ ended ~$71.19, near the exit).
+- CLF (never bought): the 8:50 pick was right and I talked myself out of it. It dipped 5.6% in the first 15 minutes, I dropped it at 10:20, and it closed ~$14.35 (+18% vs Friday). With confirm_vwap it would likely have bought on the VWAP reclaim near $13.9. Lesson: let confirm_vwap do its job.
+- Paper scalper: 4 trips, 2 winners, +$0.05.
+- Lessons updated (CLF rule, a possible minimum move for direction calls). The learn workflow had not run by 16:46 again; dispatched by hand, no tuning change.
+
+## 2026-10-20 08:50 ET (LIVE, $73.83, all cash)
+Premarket (7:06 ET): Nasdaq-100 futures -0.6%, S&P -0.2%, Dow flat. AI names are weak again (CRWV -4.7%, NBIS -4.9%) on financing worries; Brent near a five-month high on Gulf attacks; 10-year ~5.08%. Earnings: GM -5% despite a beat, STLD -5.7% on a miss, HAL +3.7% on a beat with a 2027 outlook, MMM +1.2% on a guidance raise plus an Amazon deal. SpaceX and Netflix report tonight, Meta and Tesla Wednesday.
+- **New: HAL, conviction 2** (2026-10-20-HAL), cap $35.20, 5% stop, 10% target, up to 5 days, confirm_vwap. The 8-K gives a first 2027 outlook (mid-single-digit growth, ~15% margins, about +200 bp) that assumes no North America recovery, and oil is firm. Moderate gap. Wrong if it fills the gap below ~$33.
+- **New: MMM, conviction 1** (2026-10-20-MMM), cap $166, 4% stop, 8% target, up to 7 days, confirm_vwap. Raised full-year EPS guide plus an Amazon data-center optics deal with a $6B sales warrant; small gap, like the PENG pattern. Wrong if it closes below Monday's $162.
+- Per the CLF lesson, I'll leave both live with confirm_vwap until their wrong-if levels break, not drop them on an early dip.
+- No premarket direction call; at 11:20 only if QQQ is at least ~0.5% from its open. scalp_bias **neutral**.
+Sources: https://www.sec.gov/Archives/edgar/data/0000045012/000004501226000070/livemastererdocument.htm, https://www.sec.gov/Archives/edgar/data/0000066740/000006674026000308/q32026-8kerexx991.htm, https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413
+
+## 2026-10-20 10:20 ET refresh (LIVE, $73.73)
+state/market.json (10:19 ET): a better open than futures suggested. QQQ +0.6% vs its open (+0.17% vs Monday) and above VWAP; SPY +0.54%, IWM +1.05%, SMH +1.2% since the open; TLT up (yields easing); VIXY -1.5%.
+- **HAL bought** at $33.57 (0.549 sh, ~$18.44). It opened well below the $34.20 premarket quote and is flat since the open, just above VWAP. Keep; wrong if it fills the gap below ~$33.
+- **MMM not bought yet:** it ran to $169.56 (+4.7% vs Monday, +3.9% since the open, above VWAP), past my $166 cap. The tape is confirming the guidance raise, so I raised the cap to $172 (same id, conviction 1). Wrong if it closes below Monday's $162.
+- No direction call yet: QQQ is +0.6% vs its open, but the rule is checked at 11:20. scalp_bias **neutral**.
+Source: state/market.json (10:19 ET)
+
+## 2026-10-20 11:20 ET refresh (LIVE, $73.83)
+state/market.json (10:59 ET): a broad rally. QQQ +0.99% vs its open and above VWAP, SPY +0.82%, IWM +1.93%, VIXY -3%.
+- **MMM bought** at $169.74 (~$11.05) after the cap change; now $172.10 (+1.4%). Keep; wrong if it closes below $162.
+- **HAL** $33.32 (-0.7% from the $33.57 fill), flat around VWAP while the market rallies; oil names lag. Keep; wrong if below ~$33.
+- **New: TQQQ same-day, conviction 1** (2026-10-20-1120-TQQQ), cap $73.60, 4.5% stop, confirm_vwap. QQQ is well past the ~0.5% minimum vs its open. Wrong if QQQ falls back below its open (~$715.2). This fills the third and last open slot.
+- scalp_bias **bull**.
+Source: state/market.json (10:59 ET)
+
+## 2026-10-20 13:20 ET refresh (LIVE, $73.89)
+state/market.json (12:57 ET): the rally cooled. QQQ +0.39% vs its open (flat vs Monday), just above VWAP; SPY +0.38% and below VWAP; IWM still +1.4%; VIXY -2.7%.
+- **TQQQ same-day** bought at $70.97 (~$11); now $70.59 (-0.5%). QQQ is still above its ~$715.2 open and VWAP, so the wrong-if isn't hit. Keep; the bot sells after 15:30.
+- **MMM** $171.78 (+1.2% from $169.74), holding +6% on the day above VWAP. Keep.
+- **HAL** $33.57, back to the fill and above VWAP. Keep; wrong if below ~$33.
+- No new picks (all three slots full). scalp_bias stays **bull**.
+Source: state/market.json (12:57 ET)
+
+## 2026-10-20 14:20 ET refresh (LIVE, $73.86)
+state/market.json (14:06 ET): steady. QQQ +0.55% vs its open and above VWAP, SPY +0.48%, IWM +1.6%, VIXY -3.6%.
+- **TQQQ same-day** $70.91 (flat vs the $70.97 fill). QQQ is above its open and VWAP; keep to the 15:30 close-out.
+- **MMM** $171.48 (+1.0%), holding its +6% day. Keep (up to 7 days; wrong if it closes below $162).
+- **HAL** $33.46 (-0.3%), above $33 and VWAP at the 14:20 check. Keep (up to 5 days).
+- No new picks. scalp_bias **bull**.
+Source: state/market.json (14:06 ET)

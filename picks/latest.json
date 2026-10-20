@@ -1,10 +1,66 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-15T18:21:21Z",
-  "expires_at": "2026-10-15T19:30:00Z",
-  "picks": [],
-  "close": [
-    "2026-10-14-AZZ"
+  "generated_at": "2026-10-20T18:22:00Z",
+  "expires_at": "2026-10-20T19:30:00Z",
+  "picks": [
+    {
+      "id": "2026-10-20-HAL",
+      "symbol": "HAL",
+      "action": "buy",
+      "conviction": 2,
+      "max_entry_price": 35.2,
+      "stop_pct": 0.05,
+      "target_pct": 0.1,
+      "max_hold_days": 5,
+      "confirm_vwap": true,
+      "thesis": "Q3 beat (adj. EPS $0.60 vs $0.55 in Q2, adj. EBITDA margin up to 17.5%) and a first 2027 outlook of mid-single-digit revenue growth with ~15% operating margins (~200 bp better) that assumes no North America recovery: a forward estimate change, with Brent near a five-month high behind it. Gap is moderate (+3.7% premarket to ~$34.20 vs $32.98). Wrong if it fills the gap below ~$33 (the 5% stop) or closes below VWAP on day one.",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/0000045012/000004501226000070/livemastererdocument.htm",
+        "https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413",
+        "https://stockanalysis.com/stocks/hal/"
+      ]
+    },
+    {
+      "id": "2026-10-20-MMM",
+      "symbol": "MMM",
+      "action": "buy",
+      "conviction": 1,
+      "max_entry_price": 172,
+      "stop_pct": 0.04,
+      "target_pct": 0.08,
+      "max_hold_days": 7,
+      "confirm_vwap": true,
+      "thesis": "Q3 adj. EPS $2.50 (+12% y/y), margin +110 bp, full-year EPS guide raised to $9.10-9.15, plus an expanded Amazon data-center optics deal with a warrant that vests on $6B of sales: a lasting estimate change with only a ~1.2% gap (~$164 vs $162.01). Opened higher and ran to ~$169.6 by 10:19 (+4.7%), above VWAP; cap raised to $172 at 10:20. Wrong if it closes below Monday's $162 close; the 4% stop from ~$170 sits near $163.",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/0000066740/000006674026000308/q32026-8kerexx991.htm",
+        "https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413",
+        "https://stockanalysis.com/stocks/mmm/"
+      ]
+    },
+    {
+      "id": "2026-10-20-1120-TQQQ",
+      "symbol": "TQQQ",
+      "action": "buy",
+      "conviction": 1,
+      "max_entry_price": 73.6,
+      "stop_pct": 0.045,
+      "target_pct": 0.06,
+      "max_hold_days": 0,
+      "confirm_vwap": true,
+      "thesis": "Same-day direction call by the 11:20 rule, with the new ~0.5% minimum met: at 10:59 ET QQQ is +0.99% vs its open and above VWAP, SPY +0.82%, IWM +1.93%, VIXY -3%. Conviction 1; cap 2.5% over the snapshot; confirm_vwap. Wrong if QQQ falls back below today's open (~$715.2); stop 4.5%.",
+      "sources": [
+        "state/market.json (2026-10-20 10:59 ET)"
+      ]
+    }
   ],
-  "scalp_bias": "bear"
+  "close": [],
+  "scalp_bias": "bull",
+  "watch": [
+    "HAL",
+    "MMM",
+    "CLF",
+    "GM",
+    "TQQQ",
+    "SQQQ"
+  ]
 }
