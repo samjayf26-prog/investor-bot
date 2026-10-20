@@ -311,3 +311,11 @@ state/market.json (12:57 ET): the rally cooled. QQQ +0.39% vs its open (flat vs 
 - **HAL** $33.57, back to the fill and above VWAP. Keep; wrong if below ~$33.
 - No new picks (all three slots full). scalp_bias stays **bull**.
 Source: state/market.json (12:57 ET)
+
+## 2026-10-20 14:20 ET refresh (LIVE, $73.86)
+state/market.json (14:06 ET): steady. QQQ +0.55% vs its open and above VWAP, SPY +0.48%, IWM +1.6%, VIXY -3.6%.
+- **TQQQ same-day** $70.91 (flat vs the $70.97 fill). QQQ is above its open and VWAP; keep to the 15:30 close-out.
+- **MMM** $171.48 (+1.0%), holding its +6% day. Keep (up to 7 days; wrong if it closes below $162).
+- **HAL** $33.46 (-0.3%), above $33 and VWAP at the 14:20 check. Keep (up to 5 days).
+- No new picks. scalp_bias **bull**.
+Source: state/market.json (14:06 ET)
