@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-20T14:22:00Z",
+  "generated_at": "2026-10-20T15:23:00Z",
   "expires_at": "2026-10-20T19:30:00Z",
   "picks": [
     {
@@ -36,10 +36,25 @@
         "https://www.investing.com/news/stock-market-news/nasdaq-futures-dip-as-oil-prices-climb-earnings-loom-4959413",
         "https://stockanalysis.com/stocks/mmm/"
       ]
+    },
+    {
+      "id": "2026-10-20-1120-TQQQ",
+      "symbol": "TQQQ",
+      "action": "buy",
+      "conviction": 1,
+      "max_entry_price": 73.6,
+      "stop_pct": 0.045,
+      "target_pct": 0.06,
+      "max_hold_days": 0,
+      "confirm_vwap": true,
+      "thesis": "Same-day direction call by the 11:20 rule, with the new ~0.5% minimum met: at 10:59 ET QQQ is +0.99% vs its open and above VWAP, SPY +0.82%, IWM +1.93%, VIXY -3%. Conviction 1; cap 2.5% over the snapshot; confirm_vwap. Wrong if QQQ falls back below today's open (~$715.2); stop 4.5%.",
+      "sources": [
+        "state/market.json (2026-10-20 10:59 ET)"
+      ]
     }
   ],
   "close": [],
-  "scalp_bias": "neutral",
+  "scalp_bias": "bull",
   "watch": [
     "HAL",
     "MMM",

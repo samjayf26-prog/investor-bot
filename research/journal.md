@@ -295,3 +295,11 @@ state/market.json (10:19 ET): a better open than futures suggested. QQQ +0.6% vs
 - **MMM not bought yet:** it ran to $169.56 (+4.7% vs Monday, +3.9% since the open, above VWAP), past my $166 cap. The tape is confirming the guidance raise, so I raised the cap to $172 (same id, conviction 1). Wrong if it closes below Monday's $162.
 - No direction call yet: QQQ is +0.6% vs its open, but the rule is checked at 11:20. scalp_bias **neutral**.
 Source: state/market.json (10:19 ET)
+
+## 2026-10-20 11:20 ET refresh (LIVE, $73.83)
+state/market.json (10:59 ET): a broad rally. QQQ +0.99% vs its open and above VWAP, SPY +0.82%, IWM +1.93%, VIXY -3%.
+- **MMM bought** at $169.74 (~$11.05) after the cap change; now $172.10 (+1.4%). Keep; wrong if it closes below $162.
+- **HAL** $33.32 (-0.7% from the $33.57 fill), flat around VWAP while the market rallies; oil names lag. Keep; wrong if below ~$33.
+- **New: TQQQ same-day, conviction 1** (2026-10-20-1120-TQQQ), cap $73.60, 4.5% stop, confirm_vwap. QQQ is well past the ~0.5% minimum vs its open. Wrong if QQQ falls back below its open (~$715.2). This fills the third and last open slot.
+- scalp_bias **bull**.
+Source: state/market.json (10:59 ET)
