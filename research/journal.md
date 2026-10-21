@@ -325,3 +325,12 @@ Source: state/market.json (14:06 ET)
 - TQQQ same-day sold at the 15:30 close-out, -$0.11. The bull call was right (QQQ +0.65% over the scored window), but the entry came near the late-morning high and the rally cooled. Third with-the-tape same-day trade, net -$0.15; lessons now also skip stretched (~1%+) moves.
 - MMM held (~$170.3 vs $169.74 fill) and HAL held (~$33.5, flat), both above their wrong-if levels.
 - Shipped after the close: overnight SPY core (Sam OK; first buy 10-21 after 14:30 ET) and the review's big-name news-gap rules in PROMPT.md. Learn workflow dispatched by hand again; no tuning change.
+
+## 2026-10-21 08:50 ET (LIVE, ~$73.8; holding HAL, MMM)
+Premarket: Nasdaq-100 futures +0.5%, S&P +0.2%, Dow flat; 10-year 5.12% (-2 bp); WTI ~$100, Brent ~$111. Overnight: SMCI +10-17% on a $4B raise of its September-quarter revenue guide (preliminary), SpaceX +8% on results plus Tesla merger-committee talk, NFLX -6% on a weak Q4 guide and ad-revenue cut. Meta, Tesla, IBM, TXN and LRCX report tonight.
+- **New: ELV, conviction 2** (2026-10-21-ELV), cap $458, 5% stop, 10% target, up to 10 days, confirm_vwap. Q3 adj EPS $6.99 vs ~$4.70; FY26 guide raised to at least $29 from $27; benefit expense ratio -70 bp; 2027 at least +12% off a higher base. Only ~+2% premarket, so this is the PENG pattern (lasting estimate change, small gap). Wrong if it fills the gap below $440.
+- Only one slot is free (HAL and MMM held), so ELV beats SMCI: SMCI's beat is bigger but it's a 10%+ gap on a preliminary, unaudited update with a long fade history and a cash-burn question. On watch for a later run if a slot opens.
+- NFLX: big name bad-news gap, so no bearish bet (megacap rule).
+- **HAL** keep (oil firm; wrong if below ~$33). **MMM** keep (wrong if it closes below $162).
+- No premarket direction call. scalp_bias **neutral**. The SPY core starts buying idle cash after 14:30 ET today.
+Sources: https://www.sec.gov/Archives/edgar/data/0001156039/000115603926000068/a3q2026elvearningsrelease.htm, https://www.investing.com/news/stock-market-news/why-is-elevance-health-stock-rallying-today-93CH-4962303, https://invezz.com/news/2026/10/21/smci-stock-soars-17-on-4b-sales-forecast-hike-but-analysts-are-still-cautious/, https://investrade.com/morning-preview-october-21-2026/
