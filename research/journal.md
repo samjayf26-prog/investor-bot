@@ -334,3 +334,11 @@ Premarket: Nasdaq-100 futures +0.5%, S&P +0.2%, Dow flat; 10-year 5.12% (-2 bp);
 - **HAL** keep (oil firm; wrong if below ~$33). **MMM** keep (wrong if it closes below $162).
 - No premarket direction call. scalp_bias **neutral**. The SPY core starts buying idle cash after 14:30 ET today.
 Sources: https://www.sec.gov/Archives/edgar/data/0001156039/000115603926000068/a3q2026elvearningsrelease.htm, https://www.investing.com/news/stock-market-news/why-is-elevance-health-stock-rallying-today-93CH-4962303, https://invezz.com/news/2026/10/21/smci-stock-soars-17-on-4b-sales-forecast-hike-but-analysts-are-still-cautious/, https://investrade.com/morning-preview-october-21-2026/
+
+## 2026-10-21 10:20 ET refresh (LIVE, $73.88)
+state/market.json (10:21 ET): a soft open. QQQ -0.22% vs its open (+0.48% vs Tuesday), SPY -0.3%, SMH -1.0% from its open, all below VWAP; VIXY +2%.
+- **ELV dropped, never bought:** it opened near $448 and fell to $428 (-2.7% vs Tuesday, -4.3% since the open, below VWAP), through my $440 wrong-if. confirm_vwap kept us out. A likely reason is beat quality: GAAP EPS included a $1.85/share net non-operating benefit and membership fell 1.1% (inferred; no news source gives a reason).
+- **New: SMCI, conviction 1** (2026-10-21-1020-SMCI), cap $38, 7% stop, 15% target, up to 7 days, confirm_vwap. September-quarter revenue raised to $18.5-19.5B from $14.5-15.5B and gross margin to 12-12.5% from 10.4-10.8%. Now $35.67 (+9.9% vs Tuesday, -2% since the open, below VWAP); it buys only if it reclaims VWAP. Wrong if it falls back toward Tuesday's ~$32.5.
+- **HAL** $33.81 (+0.7% from the fill, above VWAP), keep. **MMM** $170.50 (+0.4%), keep.
+- TSLA +3.1% and META +1.6% ahead of tonight's reports; no pick into the print. No direction call (checked at 11:20). scalp_bias **neutral**.
+Source: state/market.json (10:21 ET)
