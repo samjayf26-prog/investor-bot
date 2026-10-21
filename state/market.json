@@ -1,104 +1,104 @@
 {
-  "as_of": "2026-10-21T14:23:02.538573+00:00",
-  "as_of_et": "2026-10-21 10:23 ET",
+  "as_of": "2026-10-21T15:08:02.137600+00:00",
+  "as_of_et": "2026-10-21 11:08 ET",
   "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
   "symbols": {
     "SPY": {
-      "last": 768.95,
-      "pct_vs_prev_close": -0.02,
-      "pct_vs_open": -0.29,
-      "vwap": 770.127973,
-      "vwap_side": "below"
+      "last": 771.06,
+      "pct_vs_prev_close": 0.26,
+      "pct_vs_open": -0.02,
+      "vwap": 770.084983,
+      "vwap_side": "above"
     },
     "QQQ": {
-      "last": 721.225,
-      "pct_vs_prev_close": 0.56,
-      "pct_vs_open": -0.15,
-      "vwap": 721.900345,
-      "vwap_side": "below"
+      "last": 723.895,
+      "pct_vs_prev_close": 0.93,
+      "pct_vs_open": 0.22,
+      "vwap": 722.131751,
+      "vwap_side": "above"
     },
     "IWM": {
-      "last": 276.56,
-      "pct_vs_prev_close": 0.28,
-      "pct_vs_open": -0.1,
-      "vwap": 276.820529,
+      "last": 276.55,
+      "pct_vs_prev_close": 0.27,
+      "pct_vs_open": -0.11,
+      "vwap": 276.836191,
       "vwap_side": "below"
     },
     "SMH": {
-      "last": 551.89,
-      "pct_vs_prev_close": 1.06,
-      "pct_vs_open": -0.82,
-      "vwap": 553.629683,
-      "vwap_side": "below"
+      "last": 553.85,
+      "pct_vs_prev_close": 1.42,
+      "pct_vs_open": -0.47,
+      "vwap": 553.508692,
+      "vwap_side": "above"
     },
     "TLT": {
-      "last": 80.22,
-      "pct_vs_prev_close": 0.12,
-      "pct_vs_open": -0.11,
-      "vwap": 80.376822,
+      "last": 80.12,
+      "pct_vs_prev_close": 0.0,
+      "pct_vs_open": -0.24,
+      "vwap": 80.346673,
       "vwap_side": "below"
     },
     "VIXY": {
-      "last": 17.02,
-      "pct_vs_prev_close": 0.83,
-      "pct_vs_open": 1.79,
-      "vwap": 16.884005,
-      "vwap_side": "above"
+      "last": 16.74,
+      "pct_vs_prev_close": -0.83,
+      "pct_vs_open": 0.12,
+      "vwap": 16.868693,
+      "vwap_side": "below"
     },
     "HAL": {
-      "last": 33.79,
-      "pct_vs_prev_close": 0.54,
-      "pct_vs_open": 0.6,
-      "vwap": 33.519668,
+      "last": 33.69,
+      "pct_vs_prev_close": 0.24,
+      "pct_vs_open": 0.3,
+      "vwap": 33.636243,
       "vwap_side": "above"
     },
     "MMM": {
-      "last": 170.42,
-      "pct_vs_prev_close": -0.52,
-      "pct_vs_open": -0.99,
-      "vwap": 170.299026,
+      "last": 170.64,
+      "pct_vs_prev_close": -0.39,
+      "pct_vs_open": -0.86,
+      "vwap": 170.355053,
       "vwap_side": "above"
     },
     "SMCI": {
-      "last": 35.9,
-      "pct_vs_prev_close": 10.6,
-      "pct_vs_open": -1.4,
-      "vwap": 36.5377,
+      "last": 36.085,
+      "pct_vs_prev_close": 11.17,
+      "pct_vs_open": -0.89,
+      "vwap": 36.42298,
       "vwap_side": "below"
     },
     "ELV": {
-      "last": 428.54,
-      "pct_vs_prev_close": -2.66,
-      "pct_vs_open": -4.27,
-      "vwap": 432.850069,
-      "vwap_side": "below"
+      "last": 436.64,
+      "pct_vs_prev_close": -0.82,
+      "pct_vs_open": -2.46,
+      "vwap": 433.381969,
+      "vwap_side": "above"
     },
     "NFLX": {
-      "last": 65.375,
-      "pct_vs_prev_close": -4.8,
-      "pct_vs_open": 1.9,
-      "vwap": 65.995394,
+      "last": 65.6,
+      "pct_vs_prev_close": -4.47,
+      "pct_vs_open": 2.25,
+      "vwap": 65.827809,
       "vwap_side": "below"
     },
     "TSLA": {
-      "last": 385.32,
-      "pct_vs_prev_close": 3.13,
-      "pct_vs_open": 0.82,
-      "vwap": 385.21963,
+      "last": 385.7,
+      "pct_vs_prev_close": 3.23,
+      "pct_vs_open": 0.92,
+      "vwap": 385.227081,
       "vwap_side": "above"
     },
     "META": {
-      "last": 704.06,
-      "pct_vs_prev_close": 1.46,
-      "pct_vs_open": 0.68,
-      "vwap": 704.408047,
-      "vwap_side": "below"
+      "last": 708.485,
+      "pct_vs_prev_close": 2.1,
+      "pct_vs_open": 1.31,
+      "vwap": 705.562419,
+      "vwap_side": "above"
     },
     "GM": {
-      "last": 75.675,
-      "pct_vs_prev_close": -1.85,
-      "pct_vs_open": -1.35,
-      "vwap": 76.367376,
+      "last": 75.5,
+      "pct_vs_prev_close": -2.08,
+      "pct_vs_open": -1.58,
+      "vwap": 76.065933,
       "vwap_side": "below"
     }
   }
