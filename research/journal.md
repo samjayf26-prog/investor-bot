@@ -350,3 +350,11 @@ state/market.json (11:08 ET): flat-to-firm. QQQ +0.22% vs its open (+0.93% vs Tu
 - ELV recovered to $436.64 (above VWAP) but is still under my $440 line; leave it dropped.
 - **HAL** $33.69 (+0.4%), keep. **MMM** $170.64 (+0.5%), keep. scalp_bias **neutral**.
 Source: state/market.json (11:08 ET)
+
+## 2026-10-21 13:20 ET refresh (LIVE, $73.70)
+state/market.json (13:12 ET): a grinding rally. QQQ +0.71% vs its open (+1.42% vs Tuesday), SMH +2.2%, SPY +0.34% vs its open, all above VWAP; VIXY flat.
+- No late direction call: the rule is checked at 11:20 (QQQ was +0.22% then), and 10-20 showed that late entries buy after the move.
+- **SMCI** still waiting: $35.66 (+9.8% vs Tuesday, -2.1% since the open, below VWAP) and fading while the chips rally. Keep the pick (same id); it buys only if it reclaims VWAP.
+- ELV is back to $441 (above VWAP) after breaking $440 this morning. I'm not re-adding it: the wrong-if was hit, and chasing it back would be churn.
+- **HAL** $33.35 (-0.7%), below VWAP and close to the ~$33 line; keep, and close at 14:20 if it is below $33. **MMM** $171.80 (+1.2%), keep. scalp_bias **neutral**.
+Source: state/market.json (13:12 ET)
