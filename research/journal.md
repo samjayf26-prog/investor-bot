@@ -342,3 +342,11 @@ state/market.json (10:21 ET): a soft open. QQQ -0.22% vs its open (+0.48% vs Tue
 - **HAL** $33.81 (+0.7% from the fill, above VWAP), keep. **MMM** $170.50 (+0.4%), keep.
 - TSLA +3.1% and META +1.6% ahead of tonight's reports; no pick into the print. No direction call (checked at 11:20). scalp_bias **neutral**.
 Source: state/market.json (10:21 ET)
+
+## 2026-10-21 11:20 ET refresh (LIVE, $73.82)
+state/market.json (11:08 ET): flat-to-firm. QQQ +0.22% vs its open (+0.93% vs Tuesday), above VWAP; SPY flat vs its open; SMH +1.4% vs Tuesday; VIXY -0.8%.
+- No direction call: QQQ is within ~0.5% of its open, so the lesson says skip.
+- **SMCI** (2026-10-21-1020-SMCI) still waiting: $36.09 (+11.2% vs Tuesday, -0.9% since the open), still below VWAP. Keep the pick with the same id.
+- ELV recovered to $436.64 (above VWAP) but is still under my $440 line; leave it dropped.
+- **HAL** $33.69 (+0.4%), keep. **MMM** $170.64 (+0.5%), keep. scalp_bias **neutral**.
+Source: state/market.json (11:08 ET)
