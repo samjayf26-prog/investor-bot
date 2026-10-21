@@ -358,3 +358,11 @@ state/market.json (13:12 ET): a grinding rally. QQQ +0.71% vs its open (+1.42% v
 - ELV is back to $441 (above VWAP) after breaking $440 this morning. I'm not re-adding it: the wrong-if was hit, and chasing it back would be churn.
 - **HAL** $33.35 (-0.7%), below VWAP and close to the ~$33 line; keep, and close at 14:20 if it is below $33. **MMM** $171.80 (+1.2%), keep. scalp_bias **neutral**.
 Source: state/market.json (13:12 ET)
+
+## 2026-10-21 14:20 ET refresh (LIVE, $73.90)
+state/market.json (13:51 ET): the rally is holding. QQQ +0.6% vs its open (+1.3% vs Tuesday), SMH +2.1%, SPY +0.35%, above VWAP; VIXY flat.
+- **HAL** $33.61, back above VWAP and the $33 line (close-check passed). Keep (up to 5 days).
+- **MMM** $172.36 (+1.5% from the fill), keep (wrong if it closes below $162).
+- **SMCI** still below VWAP ($35.47, -2.6% since the open). Keep it to the 15:30 cutoff; it will probably not fill today.
+- Meta and Tesla report after the close; no pick into the print. From 14:30 the new SPY core parks the ~$42 of idle cash in SPY overnight (first day). scalp_bias **neutral**.
+Source: state/market.json (13:51 ET)
