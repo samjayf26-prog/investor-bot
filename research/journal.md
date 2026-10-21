@@ -366,3 +366,10 @@ state/market.json (13:51 ET): the rally is holding. QQQ +0.6% vs its open (+1.3%
 - **SMCI** still below VWAP ($35.47, -2.6% since the open). Keep it to the 15:30 cutoff; it will probably not fill today.
 - Meta and Tesla report after the close; no pick into the print. From 14:30 the new SPY core parks the ~$42 of idle cash in SPY overnight (first day). scalp_bias **neutral**.
 Source: state/market.json (13:51 ET)
+
+## 2026-10-21 evening review (LIVE, $74.16)
+- Day: bot +$0.34 (+0.46%, 73.82 to 74.16) vs the same money in the S&P 500 +0.54%. Since go-live -1.12% vs S&P -0.57%, behind by $0.41.
+- No trades closed. MMM $173.26 (+2.1% from the fill) and HAL $33.84 (+0.8%) held. ELV was never bought: it faded its gap below VWAP and through my $440 line, and confirm_vwap kept us out. SMCI never reclaimed VWAP, so it never filled (it expired at 15:30).
+- First overnight SPY core: $42.21 bought at 14:37 ET ($774.26); $2 cash kept. Tomorrow's picks will sell just enough SPY to fund themselves.
+- No direction call (QQQ +0.22% vs its open at 11:20); QQQ finished up, which a ~0.5% threshold misses. Tesla and Meta reported after the close; the morning run will read the reactions.
+- Lessons: added the beat-quality / first-hour fade rule (ELV), and noted the core.

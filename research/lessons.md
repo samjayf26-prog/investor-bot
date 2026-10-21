@@ -1,6 +1,6 @@
-# Lessons (rewritten by the evening review 2026-10-20; the morning research must follow these)
+# Lessons (rewritten by the evening review 2026-10-21; the morning research must follow these)
 
-Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 5 closed live picks (AZZ -$0.82, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15 and -$0.11). Open: HAL (10-20, ~flat), MMM (10-20, +~0.3%). Live account since 10-13: $73.82 (-1.57%) vs $74.17 in the S&P 500 (-1.10%), behind by $0.35. Tiny sample: treat as leanings, not laws.
+Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 5 closed live picks (AZZ -$0.82, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15 and -$0.11). Open: HAL (10-20, +0.8%), MMM (10-20, +2.1%), plus the overnight SPY core. Live account since 10-13: $74.16 (-1.12%) vs $74.57 in the S&P 500 (-0.57%), behind by $0.41. Tiny sample: treat as leanings, not laws.
 
 Catalysts
 - Prefer lasting estimate changes (guidance raise, rating reversal) over one-day headlines. PENG (+$2.07) is still the only real winner. A raise alone isn't enough: AZZ (beat and raise, ~3% gap) faded in two days for -$0.82 when small caps sold off on rates.
@@ -8,7 +8,8 @@ Catalysts
 - Don't chase a big gap on one unconfirmed source: CEG (+12% gap, -$0.74) is the largest loss.
 - A beat-and-raise whose gap fully fades in the first hour is a sell signal for a position already held (UNH 10-13, +$0.42).
 - Don't cancel an unbought confirm_vwap pick on an early dip: CLF 10-19 dipped -5.6% early, I dropped it, and it finished ~+18% vs Friday. Keep such picks until the stated wrong-if breaks.
-- If a capped pick runs past its cap while the tape confirms the thesis, raising the cap once is fine (MMM 10-20: cap $166 to $172, filled $169.74, closed ~$170.3).
+- If a capped pick runs past its cap while the tape confirms the thesis, raising the cap once is fine (MMM 10-20: cap $166 to $172, filled $169.74, $173.26 on 10-21).
+- Check beat quality before trusting a big EPS beat: ELV 10-21 (adj EPS $6.99 vs ~$4.70, guide raised) gapped to ~$448 and sank to $428 in the first hour; GAAP included a $1.85/share non-operating benefit and membership fell. confirm_vwap kept us out. A post-earnings gap that fades below VWAP in the first hour has twice been the right skip (HUM, ELV).
 
 Entry
 - Picks execute within minutes as limit orders capped at max_entry_price. Give every gap pick a cap and judge the thesis on the first-hour price.
@@ -27,3 +28,4 @@ Sizing, regime and process
 - From 10-21 the bot parks idle cash in SPY after 14:30 ET (overnight core) and sells just enough when a pick needs it; size picks as usual and never pick SPY.
 - Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge. Puts only fit stocks under ~$15; check the chain.
 - Scalper (paper): no after-cost edge; its result just follows the bias (10-14 to 10-20: +0.20, -0.15, +0.25, +0.05, +0.06). No tuning change since 10-13; the 16:46 review dispatches the late learn workflow.
+- Overnight SPY core worked on day 1 (10-21: $42.21 bought at 14:37 ET, $2 cash reserve kept).
