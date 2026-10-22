@@ -382,3 +382,11 @@ Premarket: risk-off. Nasdaq-100 futures -1.6%, S&P -1.0%, Dow -0.6%. Oil is up a
 - **HAL** keep (oil up; wrong if below ~$33). **MMM** keep (wrong if it closes below $162).
 - scalp_bias **bear** (paper only), following the clearly negative futures. No same-day direction pick before 11:20.
 Sources: https://investrade.com/morning-preview-october-22-2026/, https://www.investing.com/news/stock-market-news/premarket-movers-tesla-ibm-slide-meta-earnings-fail-to-lift-sentiment-4965382, https://www.sec.gov/Archives/edgar/data/0000936468/000162828026066780/ex991q32026.htm
+
+## 2026-10-22 10:20 ET refresh (LIVE, $73.59)
+state/market.json (09:46 ET, the latest snapshot): QQQ -1.75% vs Wednesday but flat vs its open (-0.15%), SMH -3.7%, SPY -0.9%, IWM nearly flat; TLT +1.1% (yields falling); VIXY +3%. The SPY core is -1.1% ($41.75) after its first night.
+- **New: LMT, conviction 1** (2026-10-22-1020-LMT), cap $610, 5% stop, 10% target, up to 10 days, confirm_vwap. It is $593.89, +7.6% vs Wednesday (a bigger reaction than the +2.5% premarket) but below VWAP. Record $292B backlog and raised EPS/FCF guide. Wrong if it falls back below ~$575. Buying it will sell ~$11 of the SPY core.
+- META -7%, LRCX -9%, IBM -2%: big-name bad-news gaps, so no bearish bets.
+- **HAL** $33.64 (+0.2%), slightly below VWAP as oil eases from its high; keep (wrong if below ~$33). **MMM** $174.51 (+2.8%), keep.
+- No direction call (checked at 11:20). scalp_bias stays **bear**.
+Sources: state/market.json (09:46 ET), https://www.sec.gov/Archives/edgar/data/0000936468/000162828026066780/ex991q32026.htm
