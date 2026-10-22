@@ -398,3 +398,11 @@ state/market.json (11:10 ET): the selloff deepened. QQQ -2.5% vs Wednesday and -
 - **LMT** (2026-10-22-1020-LMT) still waiting: $588.93 (+6.7% vs Wednesday), below VWAP. Keep it; wrong if below ~$575.
 - **MMM** $173.55 (+2.2% from the fill), keep. The SPY core is $41.57 (-1.5%). scalp_bias **bear**.
 Source: state/market.json (11:10 ET)
+
+## 2026-10-22 13:20 ET refresh (LIVE, $72.75)
+state/market.json (13:16 ET): still heavy. QQQ -2.7% vs Wednesday (-1.1% vs its open), SMH -5.5%, SPY -1.4%; TLT +1.8% as yields drop; VIXY +5.6%.
+- **HAL closed** at ~$32.59: -$0.55 (-3.0%). It has since bounced to $32.92, still below $33.
+- **LMT** still waiting: $582.87 (+5.6% vs Wednesday), below VWAP and above my $575 line. Keep.
+- **MMM** $173.71 (+2.3%), keep. The SPY core is $41.57; HAL's $18 is back in cash and joins the core after 14:30.
+- No new picks into a falling tape. scalp_bias **bear**.
+Source: state/market.json (13:16 ET)

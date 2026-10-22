@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-22T15:21:00Z",
+  "generated_at": "2026-10-22T17:21:00Z",
   "expires_at": "2026-10-22T19:30:00Z",
   "picks": [
     {
@@ -20,9 +20,7 @@
       ]
     }
   ],
-  "close": [
-    "2026-10-20-HAL"
-  ],
+  "close": [],
   "scalp_bias": "bear",
   "watch": [
     "HAL",
