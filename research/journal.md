@@ -373,3 +373,12 @@ Source: state/market.json (13:51 ET)
 - First overnight SPY core: $42.21 bought at 14:37 ET ($774.26); $2 cash kept. Tomorrow's picks will sell just enough SPY to fund themselves.
 - No direction call (QQQ +0.22% vs its open at 11:20); QQQ finished up, which a ~0.5% threshold misses. Tesla and Meta reported after the close; the morning run will read the reactions.
 - Lessons: added the beat-quality / first-hour fade rule (ELV), and noted the core.
+
+## 2026-10-22 08:50 ET (LIVE, ~$74; holding HAL, MMM and the SPY core)
+Premarket: risk-off. Nasdaq-100 futures -1.6%, S&P -1.0%, Dow -0.6%. Oil is up again (Brent ~$111.9, highest since May) after more Houthi attacks on Saudi Arabia; the 10-year is 5.07% (-5 bp). Earnings-day selling in tech: TSLA -5% (net income -29%, capex cut, 5M-car target), META -1% (capex raised to $135-145B, $9.9B legal charge), IBM -5.7%, LRCX -8.4% despite a beat. Gainers: LMT +2.5% (guide raised, record $292B backlog), DOW +2.5%, CSX +2.4%, SPOT +3.8%.
+- The SPY core will open down about 1% (the first night was a bad one). That is the core working as designed, not a reason to change it.
+- **No new picks yet.** LMT is the best candidate: the 8-K raises 2026 EPS to $30.35-30.75 from $29.95-30.65 and FCF to $7.8-8.0B from $7.0-7.2B, with a record $292B backlog, and defense fits an oil-and-conflict tape. But the raise is modest, and I have no reliable price for a cap, so it's on watch for 10:20 with live prices from state/market.json.
+- No bearish bets on the big-name bad-news gaps (TSLA, META, IBM, LRCX), per the megacap rule.
+- **HAL** keep (oil up; wrong if below ~$33). **MMM** keep (wrong if it closes below $162).
+- scalp_bias **bear** (paper only), following the clearly negative futures. No same-day direction pick before 11:20.
+Sources: https://investrade.com/morning-preview-october-22-2026/, https://www.investing.com/news/stock-market-news/premarket-movers-tesla-ibm-slide-meta-earnings-fail-to-lift-sentiment-4965382, https://www.sec.gov/Archives/edgar/data/0000936468/000162828026066780/ex991q32026.htm
