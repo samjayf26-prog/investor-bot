@@ -1,14 +1,4 @@
 {
-  "2026-10-20-HAL": {
-    "action": "buy",
-    "broker_symbol": "HAL",
-    "entry_date": "2026-10-20",
-    "expiry": null,
-    "id": "2026-10-20-HAL",
-    "max_hold_days": 5,
-    "stop_pct": 0.05,
-    "target_pct": 0.1
-  },
   "2026-10-20-MMM": {
     "action": "buy",
     "broker_symbol": "MMM",
