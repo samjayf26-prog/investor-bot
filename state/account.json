@@ -1,28 +1,28 @@
 {
-  "as_of": "2026-10-22T16:37:13.699502+00:00",
+  "as_of": "2026-10-22T17:16:28.004793+00:00",
   "mode": "live",
-  "equity": "72.89",
+  "equity": "72.75",
   "cash": "19.87",
   "core": {
     "symbol": "SPY",
-    "value": 41.65
+    "value": 41.57
   },
   "positions": [
     {
       "symbol": "MMM",
       "qty": "0.065100331",
       "avg_entry_price": "169.738",
-      "current_price": "174.54",
-      "unrealized_pl": "0.312612",
-      "unrealized_plpc": "0.02829"
+      "current_price": "173.71",
+      "unrealized_pl": "0.258578",
+      "unrealized_plpc": "0.0234"
     },
     {
       "symbol": "SPY",
       "qty": "0.054505344",
       "avg_entry_price": "774.236",
-      "current_price": "764.225",
-      "unrealized_pl": "-0.545653",
-      "unrealized_plpc": "-0.01293"
+      "current_price": "762.62",
+      "unrealized_pl": "-0.633135",
+      "unrealized_plpc": "-0.015"
     }
   ]
 }
