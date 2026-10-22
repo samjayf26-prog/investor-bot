@@ -406,3 +406,9 @@ state/market.json (13:16 ET): still heavy. QQQ -2.7% vs Wednesday (-1.1% vs its 
 - **MMM** $173.71 (+2.3%), keep. The SPY core is $41.57; HAL's $18 is back in cash and joins the core after 14:30.
 - No new picks into a falling tape. scalp_bias **bear**.
 Source: state/market.json (13:16 ET)
+
+## 2026-10-22 14:20 ET refresh (LIVE, $72.76)
+state/market.json (13:51 ET): unchanged risk-off. QQQ -2.75% vs Wednesday, SMH -5.5%, SPY -1.3%; TLT +1.8%; VIXY +5.5%.
+- **LMT** $584.70 (+5.9% vs Wednesday), still below VWAP; keep to the 15:30 cutoff (wrong if below ~$575). It probably won't fill today; I'll reconsider it tomorrow on day-2 strength.
+- **MMM** $173.78 (+2.4%), keep. The SPY core ($41.58) gets HAL's ~$18 after 14:30. scalp_bias **bear**.
+Source: state/market.json (13:51 ET)
