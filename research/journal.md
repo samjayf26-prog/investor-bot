@@ -412,3 +412,10 @@ state/market.json (13:51 ET): unchanged risk-off. QQQ -2.75% vs Wednesday, SMH -
 - **LMT** $584.70 (+5.9% vs Wednesday), still below VWAP; keep to the 15:30 cutoff (wrong if below ~$575). It probably won't fill today; I'll reconsider it tomorrow on day-2 strength.
 - **MMM** $173.78 (+2.4%), keep. The SPY core ($41.58) gets HAL's ~$18 after 14:30. scalp_bias **bear**.
 Source: state/market.json (13:51 ET)
+
+## 2026-10-22 evening review (LIVE, $72.77)
+- Day: bot -$1.39 (-1.9%, 74.16 to 72.77) vs the same money in the S&P 500 -1.2%. Since go-live -2.97% vs S&P -1.76%, behind by $0.91.
+- Where it went: HAL closed at its $33 line for -$0.55 (energy sold with the market even with Brent at a five-month high); the SPY core's first night lost ~-$0.63 into the gap-down; MMM gained (+3.2% from its fill, $175.13).
+- LMT never filled: +6-7% all day but below VWAP, so confirm_vwap waited. The core bought another $17.87 of SPY at 14:36 with HAL's cash ($59.43 total).
+- The paper bear bias was right (QQQ -1.5% in the window).
+- Lessons: added HAL (wrong-if worked; sector tailwinds don't protect in a broad selloff), LMT (good-news gap below VWAP all day), and a note to judge the core over weeks.
