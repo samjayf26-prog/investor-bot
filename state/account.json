@@ -1,36 +1,36 @@
 {
-  "as_of": "2026-10-22T14:21:42.118479+00:00",
+  "as_of": "2026-10-22T15:10:18.118882+00:00",
   "mode": "live",
-  "equity": "73.27",
+  "equity": "72.77",
   "cash": "2",
   "core": {
     "symbol": "SPY",
-    "value": 41.72
+    "value": 41.57
   },
   "positions": [
     {
       "symbol": "HAL",
       "qty": "0.549365429",
       "avg_entry_price": "33.566",
-      "current_price": "32.96",
-      "unrealized_pl": "-0.332915",
-      "unrealized_plpc": "-0.01805"
+      "current_price": "32.585",
+      "unrealized_pl": "-0.538927",
+      "unrealized_plpc": "-0.02923"
     },
     {
       "symbol": "MMM",
       "qty": "0.065100331",
       "avg_entry_price": "169.738",
-      "current_price": "175.74",
-      "unrealized_pl": "0.390732",
-      "unrealized_plpc": "0.03536"
+      "current_price": "173.555",
+      "unrealized_pl": "0.248488",
+      "unrealized_plpc": "0.02249"
     },
     {
       "symbol": "SPY",
       "qty": "0.054505344",
       "avg_entry_price": "774.236",
-      "current_price": "765.4075",
-      "unrealized_pl": "-0.481201",
-      "unrealized_plpc": "-0.0114"
+      "current_price": "762.7",
+      "unrealized_pl": "-0.628774",
+      "unrealized_plpc": "-0.0149"
     }
   ]
 }
