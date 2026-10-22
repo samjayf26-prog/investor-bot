@@ -1,7 +1,7 @@
-# Scorecard 2026-10-21
+# Scorecard 2026-10-22
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $74.16 (-1.12%) vs S&P 500 $74.57 (-0.57%): the bot is behind by $0.41.**
+**Bot $72.77 (-2.97%) vs S&P 500 $73.68 (-1.76%): the bot is behind by $0.91.**
 
 | day | bot $ | $ in S&P 500 (SPY) |
 |---|---|---|
@@ -12,27 +12,28 @@
 | 2026-10-19 | 73.83 | 73.94 |
 | 2026-10-20 | 73.82 | 74.17 |
 | 2026-10-21 | 74.16 | 74.57 |
+| 2026-10-22 | 72.77 | 73.68 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
 | day | trips | winners | P&L $ |
 |---|---|---|---|
-| 2026-10-15 | 8 | 2 | -0.15 |
 | 2026-10-16 | 7 | 5 | 0.25 |
 | 2026-10-19 | 4 | 2 | 0.05 |
 | 2026-10-20 | 2 | 1 | 0.06 |
 | 2026-10-21 | 5 | 3 | 0.02 |
+| 2026-10-22 | 9 | 4 | -0.05 |
 
 | symbol | trips | winners | P&L $ |
 |---|---|---|---|
-| SQQQ | 26 | 13 | 0.24 |
+| SQQQ | 27 | 15 | 0.34 |
 
 | exit reason | trips | winners | P&L $ |
 |---|---|---|---|
 | end of session | 1 | 0 | -0.01 |
 | stop | 11 | 0 | -0.58 |
-| take profit | 7 | 7 | 0.58 |
-| time | 7 | 6 | 0.25 |
+| take profit | 8 | 8 | 0.66 |
+| time | 7 | 7 | 0.27 |
 
 ## Research picks, all closed
 | closed | pick | P&L $ | P&L % | why closed |
@@ -48,8 +49,9 @@
 | 2026-10-16 | 2026-10-16-1320-SQQQ | 0.11 | 1.0% | day trade: end of day |
 | 2026-10-19 | 2026-10-19-1120-TQQQ | -0.15 | -1.4% | Claude asked to close |
 | 2026-10-20 | 2026-10-20-1120-TQQQ | -0.11 | -1.0% | day trade: end of day |
+| 2026-10-22 | 2026-10-20-HAL | -0.55 | -3.0% | Claude asked to close |
 
-Picks: 11 closed, 4 winners, $0.13 total.
+Picks: 12 closed, 4 winners, $-0.42 total.
 
 ## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)
 | day | bias | QQQ move | right? |
@@ -61,9 +63,10 @@ Picks: 11 closed, 4 winners, $0.13 total.
 | 2026-10-19 | neutral | +0.03% | - |
 | 2026-10-20 | bull | +0.65% | true |
 | 2026-10-21 | neutral | +0.28% | - |
+| 2026-10-22 | bear | -1.48% | true |
 
-Bull/bear calls: 3 of 5 right.
+Bull/bear calls: 4 of 6 right.
 
 ## Tuner
-Replayed 10 sessions. Current settings: +2.23% / +5.18% of trade size (earlier / later half, after 0.03% costs per trade).
-No setting beat the current one in both halves by enough; kept it.
+Replayed 10 sessions. Current settings: +0.19% / +5.99% of trade size (earlier / later half, after 0.03% costs per trade).
+Changed to {"take_profit_pct": 0.005, "stop_pct": 0.002, "max_hold_minutes": 20, "ema_fast": 5, "ema_slow": 13, "enabled_symbols": ["SQQQ"]} because replay of 10 sessions: +1.87%/+6.43% vs current +0.19%/+5.99% (94 trades).
