@@ -390,3 +390,11 @@ state/market.json (09:46 ET, the latest snapshot): QQQ -1.75% vs Wednesday but f
 - **HAL** $33.64 (+0.2%), slightly below VWAP as oil eases from its high; keep (wrong if below ~$33). **MMM** $174.51 (+2.8%), keep.
 - No direction call (checked at 11:20). scalp_bias stays **bear**.
 Sources: state/market.json (09:46 ET), https://www.sec.gov/Archives/edgar/data/0000936468/000162828026066780/ex991q32026.htm
+
+## 2026-10-22 11:20 ET refresh (LIVE, $72.77)
+state/market.json (11:10 ET): the selloff deepened. QQQ -2.5% vs Wednesday and -0.92% vs its open, SMH -5.3%, SPY -1.3%, all below VWAP; VIXY +6%; TLT +1.3% (yields falling). Energy is being sold with everything: VLO -3.3%.
+- **Close HAL** (2026-10-20-HAL): $32.59, -4.1% today and -2.9% from the $33.57 fill, through my ~$33 wrong-if. About -$0.54.
+- No direction call: QQQ is ~0.9% below its open, already stretched (the 10-20 lesson); same-day calls are net negative so far.
+- **LMT** (2026-10-22-1020-LMT) still waiting: $588.93 (+6.7% vs Wednesday), below VWAP. Keep it; wrong if below ~$575.
+- **MMM** $173.55 (+2.2% from the fill), keep. The SPY core is $41.57 (-1.5%). scalp_bias **bear**.
+Source: state/market.json (11:10 ET)
