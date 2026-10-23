@@ -1,7 +1,7 @@
-# Scorecard 2026-10-22
+# Scorecard 2026-10-23
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $72.77 (-2.97%) vs S&P 500 $73.68 (-1.76%): the bot is behind by $0.91.**
+**Bot $72.81 (-2.92%) vs S&P 500 $73.31 (-2.26%): the bot is behind by $0.50.**
 
 | day | bot $ | $ in S&P 500 (SPY) |
 |---|---|---|
@@ -13,27 +13,28 @@
 | 2026-10-20 | 73.82 | 74.17 |
 | 2026-10-21 | 74.16 | 74.57 |
 | 2026-10-22 | 72.77 | 73.68 |
+| 2026-10-23 | 72.81 | 73.31 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
 | day | trips | winners | P&L $ |
 |---|---|---|---|
-| 2026-10-16 | 7 | 5 | 0.25 |
 | 2026-10-19 | 4 | 2 | 0.05 |
 | 2026-10-20 | 2 | 1 | 0.06 |
 | 2026-10-21 | 5 | 3 | 0.02 |
 | 2026-10-22 | 9 | 4 | -0.05 |
+| 2026-10-23 | 2 | 0 | -0.07 |
 
 | symbol | trips | winners | P&L $ |
 |---|---|---|---|
-| SQQQ | 27 | 15 | 0.34 |
+| SQQQ | 22 | 10 | 0.02 |
 
 | exit reason | trips | winners | P&L $ |
 |---|---|---|---|
 | end of session | 1 | 0 | -0.01 |
-| stop | 11 | 0 | -0.58 |
-| take profit | 8 | 8 | 0.66 |
-| time | 7 | 7 | 0.27 |
+| stop | 11 | 0 | -0.55 |
+| take profit | 5 | 5 | 0.43 |
+| time | 5 | 5 | 0.15 |
 
 ## Research picks, all closed
 | closed | pick | P&L $ | P&L % | why closed |
@@ -64,9 +65,10 @@ Picks: 12 closed, 4 winners, $-0.42 total.
 | 2026-10-20 | bull | +0.65% | true |
 | 2026-10-21 | neutral | +0.28% | - |
 | 2026-10-22 | bear | -1.48% | true |
+| 2026-10-23 | bull | +0.40% | true |
 
-Bull/bear calls: 4 of 6 right.
+Bull/bear calls: 5 of 7 right.
 
 ## Tuner
-Replayed 10 sessions. Current settings: +0.19% / +5.99% of trade size (earlier / later half, after 0.03% costs per trade).
-Changed to {"take_profit_pct": 0.005, "stop_pct": 0.002, "max_hold_minutes": 20, "ema_fast": 5, "ema_slow": 13, "enabled_symbols": ["SQQQ"]} because replay of 10 sessions: +1.87%/+6.43% vs current +0.19%/+5.99% (94 trades).
+Replayed 10 sessions. Current settings: +6.95% / +3.55% of trade size (earlier / later half, after 0.03% costs per trade).
+No setting beat the current one in both halves by enough; kept it.
