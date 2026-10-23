@@ -458,3 +458,10 @@ state/market.json (13:52 ET): steady. QQQ +0.53% vs its open, SMH +1.2%, SPY +0.
 - **LMT** $604.63 (+2.9%), above VWAP; hold over the weekend (wrong if below ~$575). **MMM** $173.38 (+2.1%), hold.
 - No new picks before the weekend. The SPY core takes the idle cash after 14:30. scalp_bias **bull**.
 Source: state/market.json (13:52 ET)
+
+## 2026-10-23 evening review (LIVE, $72.81)
+- Day: bot +$0.04 (72.77 to 72.81) vs the same money in the S&P 500 -0.5%. Since go-live -2.92% vs S&P -2.26%, behind by $0.50 (was $0.91).
+- LMT, re-issued on day 2, filled at $587.50 once above VWAP and closed the day ~$608.7 (+3.6%). MMM ~$174 (+2.5%).
+- Problem: the same-day TQQQ ($67.14 fill, ~-1%) was not sold. GitHub ran trade.yml at 15:21 and then not until 16:00 (after the close), skipping 15:35 and 15:50, so the 15:30 day-trade exit never ran. It is held over the weekend; risk.exit_reason sells any day trade held >= 1 day at Monday's first run. Added a 15:40 ET check that dispatches the trade run when a same-day position is open.
+- The SPY core funded both of today's buys ($9.18 and $10.96 sold), as designed.
+- Paper bull bias was right.
