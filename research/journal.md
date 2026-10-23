@@ -427,3 +427,12 @@ Premarket: S&P futures -0.25%, Nasdaq flat, Dow -0.6% after Thursday's tech rout
 - **MMM** keep (+3%; falling yields help industrials; wrong if it closes below $162).
 - scalp_bias **neutral** (futures mixed).
 Sources: https://investrade.com/morning-preview-october-23-2026/, https://www.investing.com/news/stock-market-news/premarket-movers-crown-castle-jumps-75-on-spacex-talks-autoliv-slides-4969100
+
+## 2026-10-23 10:20 ET refresh (LIVE, $72.53)
+state/market.json (10:23 ET): chips bounce (SMH +0.9%, QQQ +0.45% vs its open); SPY flat vs its open, IWM -1.1%; VIXY +4.5%.
+- **LMT bought** at $587.50 (~$9.2, conviction 1) at 09:41 once it was above VWAP; now $596.16 (+1.5%). This was the first time a pick was funded by selling part of the SPY core ($9.18 sold), and it worked as designed. Keep (wrong if below ~$575; up to 10 days).
+- **RNG skipped**: it opened on its +15% gap and has faded -7.6% since the open, below VWAP (the HUM/ELV pattern). CCI faded too (-3% since the open).
+- **MMM** $171.51 (-2.3% today, +1.0% from the fill), keep (wrong if it closes below $162).
+- HAL is +3.6% today after yesterday's stop-out at the low: the cost of a mechanical line. I'm not re-entering.
+- No direction call yet (11:20). scalp_bias **neutral**.
+Source: state/market.json (10:23 ET)
