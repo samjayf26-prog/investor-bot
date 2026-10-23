@@ -436,3 +436,11 @@ state/market.json (10:23 ET): chips bounce (SMH +0.9%, QQQ +0.45% vs its open); 
 - HAL is +3.6% today after yesterday's stop-out at the low: the cost of a mechanical line. I'm not re-entering.
 - No direction call yet (11:20). scalp_bias **neutral**.
 Source: state/market.json (10:23 ET)
+
+## 2026-10-23 11:20 ET refresh (LIVE, $72.82)
+state/market.json (11:11 ET): a rebound. QQQ +0.78% vs its open and above VWAP, SMH +1.3%, SPY +0.33%; VIXY now -1% since the open.
+- **New: TQQQ same-day, conviction 1** (2026-10-23-1120-TQQQ), 4.5% stop, no cap (bot uses last +1%). QQQ is inside the 0.5-1% band (not stretched), so the rule says take it. Wrong if QQQ falls back below its open (~$702). The SPY core funds it.
+- **LMT** $595.14 (+1.3% from the fill), above VWAP; keep. **MMM** $173.43 (+2.2%), keep.
+- RNG is still -6% from its open. HAL is +5% today; it's gone.
+- scalp_bias **bull**.
+Source: state/market.json (11:11 ET)
