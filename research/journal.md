@@ -451,3 +451,10 @@ state/market.json (13:17 ET): the rebound cooled. QQQ +0.46% vs its open but bel
 - **LMT** $602.63 (+2.6% from the fill), above VWAP. Keep. **MMM** $173.88 (+2.4%), keep.
 - No new picks. scalp_bias **bull**.
 Source: state/market.json (13:17 ET)
+
+## 2026-10-23 14:20 ET refresh (LIVE, $72.85)
+state/market.json (13:52 ET): steady. QQQ +0.53% vs its open, SMH +1.2%, SPY +0.14%; VIXY slightly down.
+- **TQQQ same-day** $66.70 (-0.6% from the $67.14 fill); QQQ above its open, keep to the 15:30 close-out.
+- **LMT** $604.63 (+2.9%), above VWAP; hold over the weekend (wrong if below ~$575). **MMM** $173.38 (+2.1%), hold.
+- No new picks before the weekend. The SPY core takes the idle cash after 14:30. scalp_bias **bull**.
+Source: state/market.json (13:52 ET)
