@@ -9,6 +9,16 @@
     "stop_pct": 0.04,
     "target_pct": 0.08
   },
+  "2026-10-23-1120-TQQQ": {
+    "action": "buy",
+    "broker_symbol": "TQQQ",
+    "entry_date": "2026-10-23",
+    "expiry": null,
+    "id": "2026-10-23-1120-TQQQ",
+    "max_hold_days": 0,
+    "stop_pct": 0.045,
+    "target_pct": 0.06
+  },
   "2026-10-23-LMT": {
     "action": "buy",
     "broker_symbol": "LMT",
