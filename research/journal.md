@@ -419,3 +419,11 @@ Source: state/market.json (13:51 ET)
 - LMT never filled: +6-7% all day but below VWAP, so confirm_vwap waited. The core bought another $17.87 of SPY at 14:36 with HAL's cash ($59.43 total).
 - The paper bear bias was right (QQQ -1.5% in the window).
 - Lessons: added HAL (wrong-if worked; sector tailwinds don't protect in a broad selloff), LMT (good-news gap below VWAP all day), and a note to judge the core over weeks.
+
+## 2026-10-23 08:50 ET (LIVE, ~$72.8; holding MMM and the ~$59 SPY core)
+Premarket: S&P futures -0.25%, Nasdaq flat, Dow -0.6% after Thursday's tech rout (Nasdaq Comp -2.6%, XLK -6.8% in October). The 10-year fell 18 bp Thursday to ~4.95%, the biggest one-day drop in two years. Brent is $114, the highest since May. Data today: flash PMIs 9:45, final UMich 10:00. Movers: RNG +15.5% (beat, FY EPS and FCF raised), RHI +10%, CCI +7.5% (SpaceX cell-site talks), AXP -2.5% despite a raised forecast, WDC -4.5% despite a beat-and-raise, ALV -6.3% (miss).
+- **LMT, conviction 1** (2026-10-23-LMT), cap $600, 5% stop, 10% target, up to 10 days, confirm_vwap. Day 2 of its guide-raise gap: it held +5-7% on a day the Nasdaq fell 2.7% but never got above VWAP. It buys only if it does today. Wrong if below ~$575.
+- RNG is the other candidate, but the +15% gap is large (CEG lesson). It's on watch for a first-hour read at 10:20.
+- **MMM** keep (+3%; falling yields help industrials; wrong if it closes below $162).
+- scalp_bias **neutral** (futures mixed).
+Sources: https://investrade.com/morning-preview-october-23-2026/, https://www.investing.com/news/stock-market-news/premarket-movers-crown-castle-jumps-75-on-spacex-talks-autoliv-slides-4969100
