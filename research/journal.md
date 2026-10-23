@@ -444,3 +444,10 @@ state/market.json (11:11 ET): a rebound. QQQ +0.78% vs its open and above VWAP, 
 - RNG is still -6% from its open. HAL is +5% today; it's gone.
 - scalp_bias **bull**.
 Source: state/market.json (11:11 ET)
+
+## 2026-10-23 13:20 ET refresh (LIVE, $72.82)
+state/market.json (13:17 ET): the rebound cooled. QQQ +0.46% vs its open but below VWAP, SMH +1%, SPY flat vs its open.
+- **TQQQ same-day** bought at $67.14 (~$11, funded by a $10.96 core sale); now $66.60 (-0.8%). QQQ is still above its ~$702 open, so the wrong-if isn't hit; keep to the 15:30 close-out. Same pattern as 10-20: the late-morning entry bought near the high.
+- **LMT** $602.63 (+2.6% from the fill), above VWAP. Keep. **MMM** $173.88 (+2.4%), keep.
+- No new picks. scalp_bias **bull**.
+Source: state/market.json (13:17 ET)
