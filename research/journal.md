@@ -507,3 +507,11 @@ state/market.json (13:43 ET): gains easing. QQQ +1.2% vs Friday (+0.8% vs its op
 - **LMT** $628.25 (+6.9%), keep. **TSLA** $394.93 (flat vs the fill), still +6% on the day and above VWAP; keep (wrong if it closes below ~$384). **MMM** $172.47 (+1.6%), below VWAP; its 7-day max hold sells it at tomorrow's runs.
 - No idle cash, so the 14:30 core buy has nothing to add. scalp_bias **bull**.
 Source: state/market.json (13:43 ET)
+
+## 2026-10-26 evening review (LIVE, $73.66)
+- Day: bot +$0.85 (+1.2%, 72.81 to 73.66) vs the same money in the S&P 500 +0.7%. Since go-live -1.79% vs S&P -1.60%, behind by $0.14 (was $0.50).
+- Closed: Friday's stranded same-day TQQQ sold at the first cycle, +$0.12 (+1.1%); the weekend hold happened to work, but it was not the plan.
+- Held: LMT ~$630 (+7.2% from the fill), MMM ~$172.70 (+1.7%; its 7-day max hold sells it tomorrow), TSLA $394.62 (flat vs the $394.68 fill, kept its +6% gap). SPY core ~$39.
+- Ops: GitHub's schedule ran nothing from the open to 11:10 ET and then only sparsely (last run 15:21 ET). A bare manual dispatch runs "status", not a trade cycle; fixed the 15:40 check to pass command=cycle. The TSLA buy run failed to save state, so TSLA is managed as an adopted position with default exits.
+- Direction: bull bias right (QQQ +0.92% in the window), 6 of 8. Paper scalper lost a little on an SQQQ stop.
+- Lessons: added two-source confirmation for big-name picks (TSLA), the stale-state check with `-f command=cycle`, and the failed-save adoption note; compressed to 30 lines.
