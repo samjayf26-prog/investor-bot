@@ -500,3 +500,10 @@ state/market.json (13:04 ET): the rally holds a bit softer. QQQ +1.3% vs Friday 
 - **LMT** $628.15 (+6.9%), above VWAP; keep. **TSLA** $395.57 (+0.2%), holding its gap above VWAP; keep (wrong if it closes below ~$384). **MMM** $172.97 (+1.9%), below VWAP; keep, max hold ends 10-27.
 - scalp_bias **bull**.
 Source: state/market.json (13:04 ET)
+
+## 2026-10-26 14:20 ET refresh (LIVE, $73.61)
+state/market.json (13:43 ET): gains easing. QQQ +1.2% vs Friday (+0.8% vs its open), SMH +3%, SPY +0.7% but below VWAP.
+- No new picks: slots full and the Fed decides Wednesday; everything held is a multi-day hold.
+- **LMT** $628.25 (+6.9%), keep. **TSLA** $394.93 (flat vs the fill), still +6% on the day and above VWAP; keep (wrong if it closes below ~$384). **MMM** $172.47 (+1.6%), below VWAP; its 7-day max hold sells it at tomorrow's runs.
+- No idle cash, so the 14:30 core buy has nothing to add. scalp_bias **bull**.
+Source: state/market.json (13:43 ET)
