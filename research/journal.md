@@ -493,3 +493,10 @@ GitHub's schedule came back at 15:10Z (first scheduled trade run today). state/m
 - **LMT** $625.81 (+6.5%), above VWAP; keep (target 10% ~$646). **MMM** $173.60 (+2.2%), slightly below VWAP; keep, max hold ends 10-27.
 - scalp_bias **bull**.
 Source: state/market.json (11:23 ET)
+
+## 2026-10-26 13:20 ET refresh (LIVE, $73.68)
+state/market.json (13:04 ET): the rally holds a bit softer. QQQ +1.3% vs Friday (+0.9% vs its open), SMH +2.9%, SPY +0.75%. Scheduled bot runs are back but sparse (15:24, 16:16, 17:04Z).
+- No new picks: slots full (LMT, MMM, TSLA), Fed on Wednesday.
+- **LMT** $628.15 (+6.9%), above VWAP; keep. **TSLA** $395.57 (+0.2%), holding its gap above VWAP; keep (wrong if it closes below ~$384). **MMM** $172.97 (+1.9%), below VWAP; keep, max hold ends 10-27.
+- scalp_bias **bull**.
+Source: state/market.json (13:04 ET)
