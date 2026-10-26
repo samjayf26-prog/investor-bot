@@ -484,3 +484,4 @@ state/market.json (10:24 ET): broad rally. SPY +0.7% vs Friday (+0.4% vs its ope
 - MRNA reversed its premarket drop (+7.9% vs its open); EWZ -23% on the Brazil election. Neither fits.
 - scalp_bias **neutral**.
 Sources: https://247wallst.com/investing/2026/10/26/tesla-rises-6-as-barclays-upgrade-cites-spacex-merger-potential-lucid-drops-4-rivian-slips/, https://www.tradingkey.com/news/market-movers/262239501-market-movers-tsla-20261026, state/market.json (10:24 ET)
+- Addendum 10:30 ET: the run triggered by this push bought **TSLA at $394.68** (~$11) but its "save state" step failed (GitHub logs aren't readable from here), so the next run adopted it as `adopted-2026-10-26-TSLA` with default exits (stop 10%, target 20%, 5 days) instead of 7%/12%/8. I'll judge my ~$384 wrong-if at each refresh and close it by that id if hit. GitHub's schedule still hasn't fired any workflow today; each research push and the 15:40 check trigger a run in the meantime.
