@@ -485,3 +485,11 @@ state/market.json (10:24 ET): broad rally. SPY +0.7% vs Friday (+0.4% vs its ope
 - scalp_bias **neutral**.
 Sources: https://247wallst.com/investing/2026/10/26/tesla-rises-6-as-barclays-upgrade-cites-spacex-merger-potential-lucid-drops-4-rivian-slips/, https://www.tradingkey.com/news/market-movers/262239501-market-movers-tsla-20261026, state/market.json (10:24 ET)
 - Addendum 10:30 ET: the run triggered by this push bought **TSLA at $394.68** (~$11) but its "save state" step failed (GitHub logs aren't readable from here), so the next run adopted it as `adopted-2026-10-26-TSLA` with default exits (stop 10%, target 20%, 5 days) instead of 7%/12%/8. I'll judge my ~$384 wrong-if at each refresh and close it by that id if hit. GitHub's schedule still hasn't fired any workflow today; each research push and the 15:40 check trigger a run in the meantime.
+
+## 2026-10-26 11:20 ET refresh (LIVE, $73.78)
+GitHub's schedule came back at 15:10Z (first scheduled trade run today). state/market.json (11:23 ET): strong broad rally. QQQ +1.5% vs Friday and +1.08% vs its open, SMH +3.1%, SPY +1.0%, IWM +1.1%, VIXY -3.7%.
+- **No direction call**: QQQ is already ~1.1% above its open, the "stretched" case where the 11:20 entry bought near the high on 10-20 and 10-23. All 3 position slots are full anyway (LMT, MMM, TSLA).
+- **TSLA** (adopted-2026-10-26-TSLA) $396.36 (+0.4% from the $394.68 fill), above VWAP; keep (wrong if it closes below ~$384).
+- **LMT** $625.81 (+6.5%), above VWAP; keep (target 10% ~$646). **MMM** $173.60 (+2.2%), slightly below VWAP; keep, max hold ends 10-27.
+- scalp_bias **bull**.
+Source: state/market.json (11:23 ET)

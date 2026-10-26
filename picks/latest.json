@@ -1,27 +1,9 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-26T14:27:46Z",
+  "generated_at": "2026-10-26T15:24:06Z",
   "expires_at": "2026-10-26T19:30:00Z",
-  "picks": [
-    {
-      "id": "2026-10-26-1020-TSLA",
-      "symbol": "TSLA",
-      "action": "buy",
-      "conviction": 1,
-      "confirm_vwap": true,
-      "max_entry_price": 402,
-      "stop_pct": 0.07,
-      "target_pct": 0.12,
-      "max_hold_days": 8,
-      "thesis": "Big-name good-news gap: Barclays upgraded TSLA to Overweight ($450 target, SpaceX merger potential) and the stock is +6.3% vs Friday and +3.1% vs its open at 10:24 ET, holding above VWAP rather than fading. Per the megacap rule such gaps paid over 5-10 days, so hold for days. Wrong if it closes below ~$384 (half the gap filled).",
-      "sources": [
-        "https://247wallst.com/investing/2026/10/26/tesla-rises-6-as-barclays-upgrade-cites-spacex-merger-potential-lucid-drops-4-rivian-slips/",
-        "https://www.tradingkey.com/news/market-movers/262239501-market-movers-tsla-20261026",
-        "state/market.json 10:24 ET"
-      ]
-    }
-  ],
+  "picks": [],
   "close": [],
-  "scalp_bias": "neutral",
+  "scalp_bias": "bull",
   "watch": ["MMM", "LMT", "TSLA", "MRNA", "EWZ", "MSFT", "GOOGL", "AMZN", "META", "TQQQ"]
 }
