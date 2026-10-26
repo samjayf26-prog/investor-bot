@@ -37,5 +37,9 @@ jobs:
           git add tuning.json research/
           git diff --cached --quiet && exit 0
           git commit -m "learn $(date -u +%F)"
-          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          for wait in 5 10 20 40 60; do
+            git pull --rebase --autostash -X theirs origin main && git push origin HEAD:main && exit 0
+            git rebase --abort 2>/dev/null || true
+            echo "save failed; retrying in ${wait}s"; sleep "$wait"
+          done
           exit 1

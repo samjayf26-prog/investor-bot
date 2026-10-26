@@ -507,3 +507,33 @@ def test_core_off_when_config_null(tmp_path):
     t.cfg = {**CFG, "core": None}
     t.cycle()
     assert not api.orders
+
+
+def test_lost_pick_record_is_restored_not_adopted(tmp_path):
+    # A run bought the pick but its state save failed: the next run must rebuild the pick
+    # with Claude's exits, not adopt the position with the defaults.
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 1,
+                            "stop_pct": 0.07, "target_pct": 0.12, "max_hold_days": 8}])
+    api = FakeAlpaca()
+    api.pos["NVDA"] = {"symbol": "NVDA", "qty": "0.1", "market_value": "15", "unrealized_plpc": "0.01",
+                       "unrealized_pl": "0.15"}
+    api.orders["p1-entry"] = {"symbol": "NVDA", "client_order_id": "p1-entry", "status": "filled",
+                              "filled_qty": "0.1", "filled_at": "2026-10-08T14:28:30Z"}
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    state = json.loads((tmp_path / "state" / "positions.json").read_text())
+    assert list(state) == ["p1"]
+    assert state["p1"]["stop_pct"] == 0.07 and state["p1"]["max_hold_days"] == 8
+    assert state["p1"]["entry_date"] == "2026-10-08"
+    assert len([k for k in api.orders if k.startswith("p1")]) == 1   # not bought twice
+
+
+def test_unknown_position_without_a_pick_is_still_adopted(tmp_path):
+    write_picks(tmp_path, [])
+    api = FakeAlpaca()
+    api.pos["AMD"] = {"symbol": "AMD", "qty": "0.1", "market_value": "15", "unrealized_plpc": "0",
+                      "unrealized_pl": "0"}
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    state = json.loads((tmp_path / "state" / "positions.json").read_text())
+    assert list(state) == ["adopted-2026-10-08-AMD"] and state["adopted-2026-10-08-AMD"]["stop_pct"] == 0.10

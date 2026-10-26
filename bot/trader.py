@@ -176,6 +176,11 @@ class Trader:
         known = {e["broker_symbol"] for e in state.values()}
         for sym, p in positions.items():
             if sym not in known:
+                lost = self.lost_pick(sym, entries)
+                if lost:   # bought by a run whose state save failed (10-26 TSLA)
+                    log(f"Restoring pick {lost['id']} for {sym} (its state was not saved).")
+                    state[lost["id"]] = lost
+                    continue
                 log(f"Adopting unknown position {sym} with default exits.")
                 state[f"adopted-{today.isoformat()}-{sym}"] = {
                     "id": f"adopted-{sym}", "broker_symbol": sym, "action": "buy", "entry_date": today.isoformat(),
@@ -421,6 +426,21 @@ class Trader:
                               limit_price=f"{ask:.2f}", time_in_force="day", client_order_id=cid)
         log(f"Bought 1 put {contract['symbol']} at ${ask:.2f} (${ask * 100:.0f}) for pick {pick['id']}")
         return {**base, "broker_symbol": contract["symbol"], "expiry": contract["expiration_date"]}
+
+    def lost_pick(self, sym, entries):
+        """A position whose entry order belongs to one of today's buy picks: rebuild that
+        pick's record (exits as Claude set them) instead of adopting it with defaults."""
+        for pick in entries:
+            if pick["action"] != "buy" or pick["symbol"] != sym:
+                continue
+            order = self.api.order_by_client_id(f"{pick['id']}-entry")
+            if order and float(order.get("filled_qty") or 0) > 0:
+                opened = (order.get("filled_at") or order.get("submitted_at") or "")[:10]
+                return {"id": pick["id"], "broker_symbol": sym, "action": "buy",
+                        "entry_date": opened or self.now().astimezone(ET).date().isoformat(),
+                        "stop_pct": pick["stop_pct"], "target_pct": pick["target_pct"],
+                        "max_hold_days": pick["max_hold_days"], "expiry": None}
+        return None
 
     def vwap_ok(self, sym, price, bullish):
         """Claude asked to enter only on confirmation. No order is sent while waiting, so the

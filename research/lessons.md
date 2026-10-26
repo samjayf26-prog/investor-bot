@@ -24,7 +24,7 @@ Direction calls (scalp_bias and same-day SQQQ/TQQQ)
 Sizing, regime and process
 - Live equity ~$74: conviction 1 is ~$11, 2 is ~$18, 3 is ~$30; one bad pick costs about $1. Reserve conviction 3 for catalysts confirmed by primary sources.
 - GitHub's cron is unreliable: it skipped 15:35/15:50 on 10-23 (TQQQ held over the weekend) and ran nothing from the open until 11:10 ET on 10-26. If state/account.json is over ~30 minutes old in market hours, dispatch `trade.yml -f command=cycle` (a bare dispatch only runs "status"). A 15:40 ET check covers same-day exits; avoid same-day picks on Fridays until it has proven itself.
-- A run whose state save fails still trades: TSLA 10-26 was bought but its pick record was lost, so the next run adopted it with default exits (10% stop, 20% target, 5 days). Check state/positions.json after each new pick and judge such positions by their journal wrong-if.
+- A run whose state save fails still trades (TSLA 10-26 was adopted with default exits). Since 10-26 the next run rebuilds such a pick from its entry order while the pick is still in picks/latest.json, so keep a bought pick out of "close" lists by its own id; check state/positions.json after new buys.
 - Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge. Puts only fit stocks under ~$15; check the chain.
 - Scalper (paper): no after-cost edge; it follows the bias. Tuner tightened its stop to 0.2% on 10-22 (replay +1.87%/+6.43%).
 - Overnight SPY core (~$39; idle cash goes to SPY after 14:30 ET, sold as picks need it; size picks as usual, never pick SPY): funds picks as designed (10-23 two sales, 10-26 TSLA); lost ~$0.63 its first night (10-22), roughly flat since. Judge it over weeks, not days.
