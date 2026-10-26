@@ -474,3 +474,13 @@ Futures: S&P +0.1%, Nasdaq flat, Dow +0.4%; 10-year ~4.99%; oil -2% (WTI ~$101) 
 - Weekend shocks outside our book: Brazil ADRs -20-29% after Lula's win (EWZ), MRNA -9%, FICO -4.5% on a downgrade, SGRY +21% take-private, EQT buying Range Resources. None fits the account's rules (no bearish bets into fresh gaps; no take-private arbitrage at this size).
 - scalp_bias **neutral** (flat futures, Fed week).
 Sources: https://investrade.com/morning-preview-october-23-2026/ (calendar context), https://www.tikr.com/blog/barclays-spacex-tesla-merger-spacex-stock (Barclays on SpaceX-Tesla; upgrade itself unconfirmed)
+
+## 2026-10-26 10:20 ET refresh (LIVE, $73.60)
+**Ops:** GitHub's cron ran no trade runs from the 13:05Z slot through 14:20Z (none in the Actions list). I dispatched one by hand; the first dispatch ran "status" (a bare workflow_dispatch defaults to status and trades nothing), so the 15:40 check would have failed too. Re-dispatched with `-f command=cycle` and fixed the 15:40 check's prompt to pass it.
+state/market.json (10:24 ET): broad rally. SPY +0.7% vs Friday (+0.4% vs its open), QQQ +0.9%, IWM +0.9%, SMH +1.4%, VIXY -3%, all above VWAP.
+- **TQQQ sold** at the 14:24Z cycle: +$0.12 (+1.1%), so the weekend hold ended up green.
+- **New: TSLA, conviction 1, confirm_vwap** (2026-10-26-1020-TSLA), cap $402, stop 7%, target 12%, up to 8 days. Barclays upgraded it to Overweight ($450 target, SpaceX merger potential), now confirmed by several outlets; TSLA is +6.3% vs Friday and +3.1% vs its open, above VWAP (not the HUM/ELV fade). The megacap rule says good-news gaps pay over 5-10 days. Wrong if it closes below ~$384 (half the gap filled). It is held through the Fed on Wednesday, a known risk at small size.
+- **LMT** $622.57 (+6.0% from the fill), above VWAP; keep (wrong if below ~$575; now nearer its 10% target). **MMM** $174.05 (+2.5%), keep (wrong if it closes below $162; max hold 10-27).
+- MRNA reversed its premarket drop (+7.9% vs its open); EWZ -23% on the Brazil election. Neither fits.
+- scalp_bias **neutral**.
+Sources: https://247wallst.com/investing/2026/10/26/tesla-rises-6-as-barclays-upgrade-cites-spacex-merger-potential-lucid-drops-4-rivian-slips/, https://www.tradingkey.com/news/market-movers/262239501-market-movers-tsla-20261026, state/market.json (10:24 ET)
