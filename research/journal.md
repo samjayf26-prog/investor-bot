@@ -465,3 +465,12 @@ Source: state/market.json (13:52 ET)
 - Problem: the same-day TQQQ ($67.14 fill, ~-1%) was not sold. GitHub ran trade.yml at 15:21 and then not until 16:00 (after the close), skipping 15:35 and 15:50, so the 15:30 day-trade exit never ran. It is held over the weekend; risk.exit_reason sells any day trade held >= 1 day at Monday's first run. Added a 15:40 ET check that dispatches the trade run when a same-day position is open.
 - The SPY core funded both of today's buys ($9.18 and $10.96 sold), as designed.
 - Paper bull bias was right.
+
+## 2026-10-26 morning (LIVE, $72.81 at Friday's close)
+Futures: S&P +0.1%, Nasdaq flat, Dow +0.4%; 10-year ~4.99%; oil -2% (WTI ~$101) on hopes of easing US-Iran tension. FOMC Tue-Wed (decision Wed 10-28, hold expected), GDP and core PCE later in the week; AMZN, GOOGL, MSFT, META, LLY, V, KO, BA, ABBV, CVX, XOM report this week.
+- **No new picks.** Lessons: no edge carrying new picks into a major event, and the FOMC lands Wednesday with megacap earnings right behind it. TSLA has a reported Barclays upgrade (SpaceX merger thesis), but I could not confirm it from a primary or second source this morning, and the rule is not to chase one unconfirmed source; it stays on watch for a confirm_vwap entry if it holds a gap.
+- **TQQQ** (2026-10-23-1120-TQQQ, stuck over the weekend after GitHub skipped Friday's 15:35/15:50 runs) sells at the first market-hours run (day trade held >= 1 day).
+- **LMT** keep (Friday $608.71, +3.6% from the fill; wrong if below ~$575). **MMM** keep (Friday $174.02; wrong if it closes below $162; max hold reaches 10-27).
+- Weekend shocks outside our book: Brazil ADRs -20-29% after Lula's win (EWZ), MRNA -9%, FICO -4.5% on a downgrade, SGRY +21% take-private, EQT buying Range Resources. None fits the account's rules (no bearish bets into fresh gaps; no take-private arbitrage at this size).
+- scalp_bias **neutral** (flat futures, Fed week).
+Sources: https://investrade.com/morning-preview-october-23-2026/ (calendar context), https://www.tikr.com/blog/barclays-spacex-tesla-merger-spacex-stock (Barclays on SpaceX-Tesla; upgrade itself unconfirmed)
