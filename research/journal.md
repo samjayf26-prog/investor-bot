@@ -522,3 +522,12 @@ Futures: S&P +0.2%, Nasdaq 100 +0.3%, Dow +0.2%; WTI ~$101, Brent ~$115, gold ~$
 - **MMM** reaches its 7-day max hold today, so the first run sells it (~+1.7%), freeing a slot. **LMT** keep (Monday ~$630, +7.2%; wrong if below ~$575). **TSLA** keep (+1% premarket; wrong if it closes below ~$384); its record was restored overnight to the pick's 7%/12%/8-day exits.
 - scalp_bias **neutral** (Fed meeting).
 Sources: https://www.tradingkey.com/analysis/stocks/us-stocks/262242150-us-ko-meta-spacex-nvda-intc-tradingkey, https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-27-2026
+
+## 2026-10-27 10:20 ET refresh (LIVE, $73.78)
+state/market.json (10:28 ET, from a hand-dispatched cycle; the schedule last ran at 13:51Z): flat, cautious tape ahead of the Fed. SPY +0.1% vs Monday (-0.2% vs its open), QQQ +0.4% (flat vs its open), SMH +1.5%.
+- **MMM sold** at its 7-day max hold: +$0.14 (+1.2%).
+- **New: CLS, conviction 1, confirm_vwap** (2026-10-27-1020-CLS), cap $282, stop 8%, target 15%, up to 8 days. Q3 revenue +83%, FY26 guide raised to $21B, 2027 target $40B: a large, lasting estimate change (the PENG pattern). It opened well below its +16% premarket level, is +10% vs Monday and +3.6% vs its open, but just below VWAP (~$274.4), so the bot waits until it trades above VWAP. Wrong if it closes below today's open (~$262). Held through the Fed at the smallest size.
+- Passed: SOFI (+12%, above VWAP; the "long-term outlook" is softer than a raised guide), RCL (+6% but below VWAP, fading its open), BA (-3%).
+- **TSLA** $401.38 (+1.7% from the fill), above VWAP; keep (7%/12%/8 days restored). **LMT** $628.50 (+7.0%), below VWAP today; keep.
+- scalp_bias **neutral**.
+Sources: https://www.tradingkey.com/analysis/stocks/us-stocks/262242150-us-ko-meta-spacex-nvda-intc-tradingkey, state/market.json (10:28 ET)

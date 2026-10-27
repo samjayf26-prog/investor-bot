@@ -1,9 +1,26 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-27T13:18:52Z",
+  "generated_at": "2026-10-27T14:28:34Z",
   "expires_at": "2026-10-27T19:30:00Z",
-  "picks": [],
+  "picks": [
+    {
+      "id": "2026-10-27-1020-CLS",
+      "symbol": "CLS",
+      "action": "buy",
+      "conviction": 1,
+      "confirm_vwap": true,
+      "max_entry_price": 282,
+      "stop_pct": 0.08,
+      "target_pct": 0.15,
+      "max_hold_days": 8,
+      "thesis": "Large, lasting estimate change: Q3 revenue +83% y/y, adj EPS $3.30, FY26 revenue guide raised to $21B and a 2027 target of $40B (AI data-center hardware). Up 10% vs Monday at 10:28 ET; buy only once it is back above VWAP (~$274), the LMT day-1/day-2 pattern. Wrong if it closes below today's open (~$262).",
+      "sources": [
+        "https://www.tradingkey.com/analysis/stocks/us-stocks/262242150-us-ko-meta-spacex-nvda-intc-tradingkey",
+        "state/market.json 10:28 ET"
+      ]
+    }
+  ],
   "close": [],
   "scalp_bias": "neutral",
-  "watch": ["CLS", "RCL", "SOFI", "TSLA", "LMT", "MMM", "KO", "BA", "NVDA", "META"]
+  "watch": ["CLS", "RCL", "SOFI", "TSLA", "LMT", "KO", "BA", "NVDA", "META", "MMM"]
 }
