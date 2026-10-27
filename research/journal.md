@@ -531,3 +531,11 @@ state/market.json (10:28 ET, from a hand-dispatched cycle; the schedule last ran
 - **TSLA** $401.38 (+1.7% from the fill), above VWAP; keep (7%/12%/8 days restored). **LMT** $628.50 (+7.0%), below VWAP today; keep.
 - scalp_bias **neutral**.
 Sources: https://www.tradingkey.com/analysis/stocks/us-stocks/262242150-us-ko-meta-spacex-nvda-intc-tradingkey, state/market.json (10:28 ET)
+
+## 2026-10-27 11:20 ET refresh (LIVE, $74.10)
+state/market.json (11:26 ET, hand-dispatched cycle): risk-on. QQQ +1.1% vs Monday (+0.66% vs its open), SMH +2.4%, SPY +0.6%, all above VWAP; BA -9.7% (-7% since its open).
+- **CLS bought** at $277.76 (~$11, conviction 1) once it was back above VWAP; now $278.16, +12.8% on the day and +6% from its open. Keep (wrong if it closes below today's open ~$262).
+- **No direction call**: QQQ is in the 0.5-1% band, but all 3 slots are full (LMT, TSLA, CLS) and the Fed decides tomorrow.
+- **TSLA** $405.22 (+2.7% from the fill), **LMT** $629.89 (+7.2%); both above VWAP, keep.
+- scalp_bias **bull**. Account ~$74.10, the highest since 10-14.
+Source: state/market.json (11:26 ET)
