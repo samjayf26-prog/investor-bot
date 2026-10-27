@@ -515,3 +515,10 @@ Source: state/market.json (13:43 ET)
 - Ops: GitHub's schedule ran nothing from the open to 11:10 ET and then only sparsely (last run 15:21 ET). A bare manual dispatch runs "status", not a trade cycle; fixed the 15:40 check to pass command=cycle. The TSLA buy run failed to save state, so TSLA is managed as an adopted position with default exits.
 - Direction: bull bias right (QQQ +0.92% in the window), 6 of 8. Paper scalper lost a little on an SQQQ stop.
 - Lessons: added two-source confirmation for big-name picks (TSLA), the stale-state check with `-f command=cycle`, and the failed-save adoption note; compressed to 30 lines.
+
+## 2026-10-27 morning (LIVE, $73.66 at Monday's close)
+Futures: S&P +0.2%, Nasdaq 100 +0.3%, Dow +0.2%; WTI ~$101, Brent ~$115, gold ~$4,027. The FOMC meeting starts today; the decision is Wednesday, and markets are watching for talk of further hikes. Earnings: CLS +16% (Q3 revenue +83%, FY26 guide raised to $21B, 2027 target $40B), SOFI +11% (beat, upbeat outlook), RCL +6% (beat, FY EPS raised), UPS +1.6% (beat, FY raised), KO -1.6% despite a beat, BA flat (mixed), XYL -8.6% (cut), WSO -8%, EEFT -6.6%, HSBC -6.8% (miss).
+- **No picks at the open.** CLS is the best candidate (a large, lasting estimate change, the PENG pattern), but it's a +16% gap the day before the Fed and I have no live price for a cap. It's on watch with RCL and SOFI; the 10:20 refresh decides with first-hour prices and VWAP (re-issuing a held-up gap with confirm_vwap worked for LMT).
+- **MMM** reaches its 7-day max hold today, so the first run sells it (~+1.7%), freeing a slot. **LMT** keep (Monday ~$630, +7.2%; wrong if below ~$575). **TSLA** keep (+1% premarket; wrong if it closes below ~$384); its record was restored overnight to the pick's 7%/12%/8-day exits.
+- scalp_bias **neutral** (Fed meeting).
+Sources: https://www.tradingkey.com/analysis/stocks/us-stocks/262242150-us-ko-meta-spacex-nvda-intc-tradingkey, https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-27-2026
