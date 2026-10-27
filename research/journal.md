@@ -546,3 +546,10 @@ state/market.json (13:21 ET, hand-dispatched; GitHub's schedule has not run sinc
 - **TSLA** $406.05 (+2.9%), **LMT** $629.35 (+7.1%); keep both.
 - No new picks: slots full, Fed tomorrow. scalp_bias **bull**.
 Source: state/market.json (13:21 ET)
+
+## 2026-10-27 14:20 ET refresh (LIVE, $74.05)
+state/market.json (14:21 ET, hand-dispatched): QQQ +1.2% vs Monday, SMH +2.9%, SPY +0.5%.
+- **CLS** $278.99 (+0.4% from the fill), +13.2% on the day, above VWAP; hold through the Fed (wrong if it closes below ~$262).
+- **TSLA** $405.61 (+2.8%), above VWAP; hold. **LMT** $624.30 (+6.3%), -1.7% today and below VWAP but far above its ~$575 line; hold.
+- No new picks before the Fed decision. No idle cash for the 14:30 core. scalp_bias **bull**.
+Source: state/market.json (14:21 ET)
