@@ -1,44 +1,36 @@
 {
-  "as_of": "2026-10-26T19:21:01.181053+00:00",
+  "as_of": "2026-10-27T13:51:53.248404+00:00",
   "mode": "live",
-  "equity": "73.68",
-  "cash": "0.35",
+  "equity": "73.91",
+  "cash": "11.52",
   "core": {
     "symbol": "SPY",
-    "value": 39.42
+    "value": 39.46
   },
   "positions": [
     {
       "symbol": "LMT",
       "qty": "0.01848498",
       "avg_entry_price": "587.504",
-      "current_price": "630.08",
-      "unrealized_pl": "0.787016",
-      "unrealized_plpc": "0.07247"
-    },
-    {
-      "symbol": "MMM",
-      "qty": "0.065100331",
-      "avg_entry_price": "169.738",
-      "current_price": "172.7",
-      "unrealized_pl": "0.192827",
-      "unrealized_plpc": "0.01745"
+      "current_price": "632.02",
+      "unrealized_pl": "0.822877",
+      "unrealized_plpc": "0.07577"
     },
     {
       "symbol": "SPY",
       "qty": "0.051489375",
       "avg_entry_price": "768.701236",
-      "current_price": "765.62",
-      "unrealized_pl": "-0.158651",
-      "unrealized_plpc": "-0.00401"
+      "current_price": "766.42",
+      "unrealized_pl": "-0.117459",
+      "unrealized_plpc": "-0.00297"
     },
     {
       "symbol": "TSLA",
       "qty": "0.027921071",
       "avg_entry_price": "394.684",
-      "current_price": "394.62",
-      "unrealized_pl": "-0.001787",
-      "unrealized_plpc": "-0.00016"
+      "current_price": "402.974",
+      "unrealized_pl": "0.231466",
+      "unrealized_plpc": "0.021"
     }
   ]
 }
