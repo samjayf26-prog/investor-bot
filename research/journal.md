@@ -539,3 +539,10 @@ state/market.json (11:26 ET, hand-dispatched cycle): risk-on. QQQ +1.1% vs Monda
 - **TSLA** $405.22 (+2.7% from the fill), **LMT** $629.89 (+7.2%); both above VWAP, keep.
 - scalp_bias **bull**. Account ~$74.10, the highest since 10-14.
 Source: state/market.json (11:26 ET)
+
+## 2026-10-27 13:20 ET refresh (LIVE, $74.13)
+state/market.json (13:21 ET, hand-dispatched; GitHub's schedule has not run since 11:26 ET): steady gains. QQQ +1.2% vs Monday, SMH +2.8%, IWM +1.1%, all above VWAP.
+- **CLS** $278.32 (+0.2% from the fill), +12.9% on the day, above VWAP; keep (wrong if it closes below ~$262).
+- **TSLA** $406.05 (+2.9%), **LMT** $629.35 (+7.1%); keep both.
+- No new picks: slots full, Fed tomorrow. scalp_bias **bull**.
+Source: state/market.json (13:21 ET)
