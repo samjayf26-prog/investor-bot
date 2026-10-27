@@ -553,3 +553,12 @@ state/market.json (14:21 ET, hand-dispatched): QQQ +1.2% vs Monday, SMH +2.9%, S
 - **TSLA** $405.61 (+2.8%), above VWAP; hold. **LMT** $624.30 (+6.3%), -1.7% today and below VWAP but far above its ~$575 line; hold.
 - No new picks before the Fed decision. No idle cash for the 14:30 core. scalp_bias **bull**.
 Source: state/market.json (14:21 ET)
+
+## 2026-10-27 evening review (LIVE, $73.94)
+- Day: bot +$0.28 (+0.4%, 73.66 to 73.94) vs the same money in the S&P 500 +0.6%. Since go-live -1.41% vs S&P -1.04%, behind by $0.28 (was $0.14).
+- Closed: MMM at its 7-day max hold, +$0.14 (+1.2%). The thesis (beat and raise, 10-20) paid a little; the cap raise to $172 cost some edge.
+- Bought: CLS at $277.76 (confirm_vwap, after its +16% premarket gap opened at ~+6%); ~flat at the close.
+- Held: TSLA ~$408 (+3.4%), LMT ~$624 (+6.3%, gave back ~1% today), SPY core ~$39.7.
+- Ops: GitHub's schedule ran trade.yml only a few times (last scheduled run 15:23 ET); every refresh dispatched its own cycle. The new state-save retries had nothing to retry today.
+- Direction: bull bias right (7 of 9). The Fed decides tomorrow at 2pm ET; all three picks are held through it at conviction 1.
+- Lessons: updated evidence, bias count, and the "wait for live prices before a big-gap pick" note (CLS).
