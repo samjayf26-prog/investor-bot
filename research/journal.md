@@ -562,3 +562,9 @@ Source: state/market.json (14:21 ET)
 - Ops: GitHub's schedule ran trade.yml only a few times (last scheduled run 15:23 ET); every refresh dispatched its own cycle. The new state-save retries had nothing to retry today.
 - Direction: bull bias right (7 of 9). The Fed decides tomorrow at 2pm ET; all three picks are held through it at conviction 1.
 - Lessons: updated evidence, bias count, and the "wait for live prices before a big-gap pick" note (CLS).
+
+## 2026-10-28 morning (LIVE, $73.94 at Tuesday's close)
+Fed decision today at 2pm ET: a hold is expected after last month's hike, but traders price at least three more 25bp hikes by late 2027 (energy-driven inflation). Futures (4:53 ET): S&P +0.1%, Nasdaq 100 +0.4%, Dow -0.2%. Chips lead: SK Hynix profit up more than sevenfold, MU +4%, WDC +4.5%; GOOGL +1.2% (report that OpenAI plans to buy Google's AI chips). HOOD -8% (profit miss), V -1.7%, STX -3.7%. MSFT and GOOGL report after the close.
+- **No new picks**: lesson rule, no new picks on an FOMC morning (no edge carrying them into the print), and the two biggest earnings land tonight. scalp_bias **off** for the Fed.
+- **CLS** keep (Tuesday ~$277.45, flat vs the $277.76 fill; wrong if it closes below ~$262). **TSLA** keep (~$408, +3.4%; wrong if it closes below ~$384). **LMT** keep (~$624, +6.3%; wrong if below ~$575).
+Sources: https://srnnews.com/nasdaq-futures-rise-as-sk-hynix-boosts-chips-before-fed-decision-earnings/, https://qz.com/fed-decision-alphabet-microsoft-earnings-wall-street-102826
