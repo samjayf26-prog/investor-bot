@@ -581,3 +581,10 @@ state/market.json (13:21 ET, hand-dispatched): flat waiting on the 2pm Fed; SPY 
 - **CLS** $295.23 (+6.3% from the fill), above VWAP; keep. **LMT** $635.39 (+8.2%, +2% today), above VWAP; keep (10% target ~$646). **TSLA** $401.53 (+1.8%), below VWAP today; keep (wrong if it closes below ~$384).
 - No new picks before the Fed; scalp_bias **off**. Account ~$74.89, best since 10-14.
 Source: state/market.json (13:21 ET)
+
+## 2026-10-28 14:20 ET refresh (LIVE, $74.94)
+The Fed held rates in a split vote with two dissenters, pausing its hikes (CNBC). state/market.json (14:20 ET, hand-dispatched): muted reaction. SPY flat, QQQ flat (-0.4% vs its open), IWM -0.2%, TLT -0.6% (yields up a little), VIXY -1.2%.
+- **CLS** $300.81 (+8.2% from the fill), +8.9% today, above VWAP: the guide raise keeps getting bought. Keep (target ~$319).
+- **LMT** $630.11 (+7.3%), **TSLA** $401.63 (+1.7%); keep both.
+- No new picks: MSFT and GOOGL report after the close, and all 3 slots are full. scalp_bias **neutral**.
+Sources: https://www.cnbc.com/2026/10/28/fed-meeting-today-live-updates.html, state/market.json (14:20 ET)
