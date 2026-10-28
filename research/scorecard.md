@@ -1,11 +1,10 @@
-# Scorecard 2026-10-27
+# Scorecard 2026-10-28
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $73.94 (-1.41%) vs S&P 500 $74.22 (-1.04%): the bot is behind by $0.28.**
+**Bot $74.66 (-0.45%) vs S&P 500 $74.56 (-0.59%): the bot is ahead by $0.10.**
 
 | day | bot $ | $ in S&P 500 (SPY) |
 |---|---|---|
-| 2026-10-14 | 75.02 | 74.17 |
 | 2026-10-15 | 73.91 | 74.43 |
 | 2026-10-16 | 74.00 | 73.62 |
 | 2026-10-19 | 73.83 | 73.94 |
@@ -15,26 +14,27 @@
 | 2026-10-23 | 72.81 | 73.31 |
 | 2026-10-26 | 73.66 | 73.80 |
 | 2026-10-27 | 73.94 | 74.22 |
+| 2026-10-28 | 74.66 | 74.56 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
 | day | trips | winners | P&L $ |
 |---|---|---|---|
-| 2026-10-21 | 5 | 3 | 0.02 |
 | 2026-10-22 | 9 | 4 | -0.05 |
 | 2026-10-23 | 2 | 0 | -0.07 |
 | 2026-10-26 | 1 | 0 | -0.04 |
 | 2026-10-27 | 1 | 0 | -0.03 |
+| 2026-10-28 | 1 | 0 | -0.04 |
 
 | symbol | trips | winners | P&L $ |
 |---|---|---|---|
-| SQQQ | 18 | 7 | -0.17 |
+| SQQQ | 14 | 4 | -0.23 |
 
 | exit reason | trips | winners | P&L $ |
 |---|---|---|---|
-| stop | 11 | 0 | -0.51 |
-| take profit | 3 | 3 | 0.24 |
-| time | 4 | 4 | 0.1 |
+| stop | 10 | 0 | -0.44 |
+| take profit | 2 | 2 | 0.16 |
+| time | 2 | 2 | 0.06 |
 
 ## Research picks, all closed
 | closed | pick | P&L $ | P&L % | why closed |
@@ -59,7 +59,6 @@ Picks: 14 closed, 6 winners, $-0.16 total.
 ## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)
 | day | bias | QQQ move | right? |
 |---|---|---|---|
-| 2026-10-14 | bear | -1.43% | true |
 | 2026-10-15 | bear | +1.41% | false |
 | 2026-10-16 | bear | -1.91% | true |
 | 2026-10-19 | neutral | +0.03% | - |
@@ -69,9 +68,10 @@ Picks: 14 closed, 6 winners, $-0.16 total.
 | 2026-10-23 | bull | +0.40% | true |
 | 2026-10-26 | bull | +0.92% | true |
 | 2026-10-27 | bull | +0.71% | true |
+| 2026-10-28 | neutral | -0.18% | - |
 
 Bull/bear calls: 7 of 9 right.
 
 ## Tuner
-Replayed 10 sessions. Current settings: +7.50% / +1.30% of trade size (earlier / later half, after 0.03% costs per trade).
+Replayed 10 sessions. Current settings: +5.65% / +0.49% of trade size (earlier / later half, after 0.03% costs per trade).
 No setting beat the current one in both halves by enough; kept it.
