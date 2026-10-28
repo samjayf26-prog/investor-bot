@@ -1,6 +1,6 @@
-# Lessons (rewritten by the evening review 2026-10-27; the morning research must follow these)
+# Lessons (rewritten by the evening review 2026-10-28; the morning research must follow these)
 
-Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 8 closed live picks (MMM +$0.14 at its 7-day max hold, AZZ -$0.82, HAL -$0.55, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15, -$0.11 and +$0.12). Open: LMT (10-23, +6.3%), TSLA (10-26, +3.4%), CLS (10-27, flat) and the SPY core. Live account since 10-13: $73.94 (-1.41%) vs $74.22 in the S&P 500 (-1.04%), behind by $0.28. Tiny sample: treat as leanings, not laws.
+Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 8 closed live picks (MMM +$0.14 at its 7-day max hold, AZZ -$0.82, HAL -$0.55, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15, -$0.11 and +$0.12). Open: CLS (10-27, ~+9.6%), LMT (10-23, ~+7%), TSLA (10-26, ~+2%) and the SPY core. Live account since 10-13: $74.66 (-0.45%) vs $74.56 in the S&P 500 (-0.59%), ahead by $0.10 for the first time since 10-16. Tiny sample: treat as leanings, not laws.
 
 Catalysts
 - Prefer lasting estimate changes (guidance raise, rating reversal) over one-day headlines. PENG (+$2.07) is still the only real winner. A raise alone isn't enough: AZZ (beat and raise, ~3% gap) faded in two days for -$0.82 when small caps sold off on rates.
@@ -17,7 +17,7 @@ Exits
 - A sector tailwind doesn't protect a stock in a broad selloff: HAL fell -4% on 10-22 while Brent hit a five-month high (energy sold with everything).
 
 Direction calls (scalp_bias and same-day SQQQ/TQQQ)
-- Bias hit rate 7 of 9 (wrong 10-13 and 10-15; right 10-14, 10-16, 10-20, 10-22, 10-23, 10-26, 10-27; 10-19, 10-21 neutral). Conviction 1 only, with the tape (QQQ vs its open), never fading it; revisit after ~20 scored calls in research/direction_log.csv.
+- Bias hit rate 7 of 9 (wrong 10-13 and 10-15; right 10-14, 10-16, 10-20, 10-22, 10-23, 10-26, 10-27; 10-19, 10-21, 10-28 neutral). Conviction 1 only, with the tape (QQQ vs its open), never fading it; revisit after ~20 scored calls in research/direction_log.csv.
 - But with-the-tape same-day trades are net -$0.03 over 4 (10-16 +$0.11, 10-19 -$0.15, 10-20 -$0.11, 10-23 +$0.12 only after an unplanned weekend hold). On 10-20 the call was right (QQQ +0.65% in the window) yet TQQQ lost: bought near the late-morning high (QQQ +0.99% at 11:00), then the rally cooled to +0.4%. 10-23 (QQQ +0.78% at 11:11) repeated it: bought $67.14 near the high, -1% by 15:21. Leaning: the 11:20 entry buys after most of the move; skip it when QQQ is already ~1% up (stretched, as on 10-26) as well as when it's within ~0.5%.
 - Headline index levels are often stale; trust state/market.json. Watch yields, not just the print (10-15 PPI: SQQQ -$0.25 as yields fell).
 
@@ -25,6 +25,6 @@ Sizing, regime and process
 - Live equity ~$74: conviction 1 is ~$11, 2 is ~$18, 3 is ~$30; one bad pick costs about $1. Reserve conviction 3 for catalysts confirmed by primary sources.
 - GitHub's cron is unreliable: it skipped 15:35/15:50 on 10-23 (TQQQ held over the weekend) and ran nothing from the open until 11:10 ET on 10-26. If state/account.json is over ~30 minutes old in market hours, dispatch `trade.yml -f command=cycle` (a bare dispatch only runs "status"). A 15:40 ET check covers same-day exits; avoid same-day picks on Fridays until it has proven itself.
 - A run whose state save fails still trades (TSLA 10-26 was adopted with default exits). Since 10-26 the next run rebuilds such a pick from its entry order while the pick is still in picks/latest.json, so keep a bought pick out of "close" lists by its own id; check state/positions.json after new buys.
-- Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge. Puts only fit stocks under ~$15; check the chain.
+- Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge; holding already-working multi-day picks through the 10-28 Fed hold was fine (account +$0.72 that day). Puts only fit stocks under ~$15; check the chain.
 - Scalper (paper): no after-cost edge; it follows the bias. Tuner tightened its stop to 0.2% on 10-22 (replay +1.87%/+6.43%).
 - Overnight SPY core (~$39; idle cash goes to SPY after 14:30 ET, sold as picks need it; size picks as usual, never pick SPY): funds picks as designed (10-23 two sales, 10-26 TSLA); lost ~$0.63 its first night (10-22), roughly flat since. Judge it over weeks, not days.

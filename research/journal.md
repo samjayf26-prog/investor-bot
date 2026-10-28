@@ -588,3 +588,10 @@ The Fed held rates in a split vote with two dissenters, pausing its hikes (CNBC)
 - **LMT** $630.11 (+7.3%), **TSLA** $401.63 (+1.7%); keep both.
 - No new picks: MSFT and GOOGL report after the close, and all 3 slots are full. scalp_bias **neutral**.
 Sources: https://www.cnbc.com/2026/10/28/fed-meeting-today-live-updates.html, state/market.json (14:20 ET)
+
+## 2026-10-28 evening review (LIVE, $74.66)
+- Day: bot +$0.72 (+1.0%, 73.94 to 74.66) vs the same money in the S&P 500 +0.5%. Since go-live -0.45% vs S&P -0.59%: **ahead by $0.10**, the first time since 10-16.
+- No trades. Held: CLS ~$304 (+9.6% from the fill, two days after its guide raise), LMT ~$629 (+7%), TSLA ~$403 (+2%), SPY core ~$39.7.
+- The Fed held rates (split vote, two dissents); the market barely moved. No new picks on Fed day, per the rule.
+- Ops: GitHub's schedule ran no trade runs before 11:27 ET again; the refreshes dispatched cycles. No failed runs.
+- Direction: neutral call (QQQ -0.18% in the window), not scored. MSFT and GOOGL report tonight; tomorrow's research checks their reactions as big-name candidates (megacap rule: good-news gaps hold 5-10 days with confirm_vwap).
