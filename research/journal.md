@@ -568,3 +568,10 @@ Fed decision today at 2pm ET: a hold is expected after last month's hike, but tr
 - **No new picks**: lesson rule, no new picks on an FOMC morning (no edge carrying them into the print), and the two biggest earnings land tonight. scalp_bias **off** for the Fed.
 - **CLS** keep (Tuesday ~$277.45, flat vs the $277.76 fill; wrong if it closes below ~$262). **TSLA** keep (~$408, +3.4%; wrong if it closes below ~$384). **LMT** keep (~$624, +6.3%; wrong if below ~$575).
 Sources: https://srnnews.com/nasdaq-futures-rise-as-sk-hynix-boosts-chips-before-fed-decision-earnings/, https://qz.com/fed-decision-alphabet-microsoft-earnings-wall-street-102826
+
+## 2026-10-28 11:20 ET refresh (LIVE, $74.68)
+state/market.json (11:27 ET, hand-dispatched; GitHub's schedule ran no trade run this morning): quiet before the Fed. SPY +0.2%, QQQ +0.1% (-0.3% vs its open), SMH +1.3% (MU +4.8% on SK Hynix), VIXY -1.8%.
+- **CLS** $293.54 (+5.7% from the fill), +6.3% today, above VWAP: the second day confirms the guide raise. Keep (target +15% ~$319; wrong if it closes below ~$262).
+- **LMT** $627.12 (+6.7%), above VWAP; keep. **TSLA** $401.95 (+1.8%), -1.4% today; keep (wrong if it closes below ~$384).
+- No new picks before the 2pm Fed decision; scalp_bias stays **off**.
+Source: state/market.json (11:27 ET)
