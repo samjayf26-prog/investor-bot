@@ -575,3 +575,9 @@ state/market.json (11:27 ET, hand-dispatched; GitHub's schedule ran no trade run
 - **LMT** $627.12 (+6.7%), above VWAP; keep. **TSLA** $401.95 (+1.8%), -1.4% today; keep (wrong if it closes below ~$384).
 - No new picks before the 2pm Fed decision; scalp_bias stays **off**.
 Source: state/market.json (11:27 ET)
+
+## 2026-10-28 13:20 ET refresh (LIVE, $74.89)
+state/market.json (13:21 ET, hand-dispatched): flat waiting on the 2pm Fed; SPY +0.2%, QQQ +0.1%, SMH +1.3%, VIXY -1.8%.
+- **CLS** $295.23 (+6.3% from the fill), above VWAP; keep. **LMT** $635.39 (+8.2%, +2% today), above VWAP; keep (10% target ~$646). **TSLA** $401.53 (+1.8%), below VWAP today; keep (wrong if it closes below ~$384).
+- No new picks before the Fed; scalp_bias **off**. Account ~$74.89, best since 10-14.
+Source: state/market.json (13:21 ET)
