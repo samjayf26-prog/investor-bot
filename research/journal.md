@@ -632,3 +632,11 @@ state/market.json (14:22 ET, hand-dispatched cycle): still heavy. QQQ -1.7%, SPY
 - **MSFT** $530.28 is back above VWAP and the ~$527 line, but it gave back the whole +3.6% gap (-0.4% today). The lesson's fade rule already said skip, and a pick bought now would face the 3:30 expiry; leave it for tomorrow's morning research to judge on fresh news.
 - No new pick; idle cash (~$12) goes to the SPY core from 2:30. scalp_bias **neutral**.
 Source: state/market.json (14:22 ET)
+
+## 2026-10-29 evening review (LIVE, $73.94)
+- Day: bot -$0.72 (-0.96%, 74.66 to 73.94) vs the same money in the S&P 500 -0.86%. Since go-live -1.41% vs S&P -1.45%: **still ahead, by $0.02**.
+- Sold: **LMT at its 10% profit target, +$1.10**, the best live pick (re-issued on day 2 of its gap, held 6 days). Picks now 15 closed, 7 winners, +$0.94.
+- Held: CLS and TSLA (both up a few % from their buys at the 2:55 snapshot, then the market slid into the close), plus the SPY core (~$50 after idle cash went in at 2:30).
+- Skipped: the MSFT pick; its +3.6% gap faded below VWAP by 10:45 (fade rule).
+- Ops: GitHub's schedule again ran nothing before the hand-dispatched 10:45 cycle; all refresh cycles succeeded, no failed runs. The learn run was dispatched by hand at 4:46.
+- Direction: neutral (QQQ +0.03% in the window), not scored. Bull/bear calls 7 of 9.
