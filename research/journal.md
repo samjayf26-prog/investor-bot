@@ -618,3 +618,10 @@ state/market.json (11:42 ET, hand-dispatched cycle; this refresh fired late): th
 - **MSFT** still below VWAP ($523.41, -3.1% from its open) and under the ~$527 wrong-if: stays dropped. GOOGL/MRVL bounced above VWAP after big bad-news gaps, but the rule says no trades either way right after a big name's bad-news gap.
 - No new pick; one slot free. scalp_bias **neutral**.
 Source: state/market.json (11:42 ET)
+
+## 2026-10-29 13:20 ET refresh (LIVE, $74.59)
+state/market.json (13:21 ET, hand-dispatched cycle): the late-morning bounce faded. QQQ -1.6% (below its open and VWAP), SPY -0.5%, SMH -1.4%, IWM +1.0%; nearly everything is below VWAP. Seeking Alpha: the Nasdaq is off more than 1% on Alphabet's results and the latest labor data.
+- **CLS** $284.16 (+2.3% from the fill), -5.4% today, below VWAP; keep (wrong if it closes below ~$262). **TSLA** $404.46 (+2.5%), flat today; keep (wrong if it closes below ~$384).
+- **MSFT** still below VWAP and the ~$527 wrong-if; stays dropped. No new pick into a weak tape; one slot free, idle cash goes to the SPY core at 2:30.
+- scalp_bias **neutral**.
+Sources: https://seekingalpha.com/news/4547681-sp500-nasdaq-dow-jones-outlook-stock-market, state/market.json (13:21 ET)
