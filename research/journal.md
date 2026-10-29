@@ -611,3 +611,10 @@ state/market.json (10:45 ET, hand-dispatched cycle): Nasdaq weak. QQQ -1.4%, SPY
 - **CLS** ~$285 (+2.6% from the fill), -5.4% today with the chip selloff, below VWAP; keep (wrong if it closes below ~$262). **TSLA** $406.28 (+2.9%); keep (wrong if it closes below ~$384).
 - No new pick: nothing big-name with fresh good news is holding above VWAP. scalp_bias **neutral** (no bearish lean).
 Source: state/market.json (10:45 ET)
+
+## 2026-10-29 11:20 ET refresh (LIVE, $74.87)
+state/market.json (11:42 ET, hand-dispatched cycle; this refresh fired late): the gap-down is stabilizing. QQQ -1.2% but +0.1% vs its open and above VWAP, SPY -0.3%, IWM +1.4%, SMH +1% from its open, VIXY -1.8%. Web search found no fresh headline beyond the morning's (PCE/GDP out, no big reaction).
+- **CLS** $287.98 (+3.7% from the fill), -4.1% today but back above VWAP; keep (wrong if it closes below ~$262). **TSLA** $406.68 (+3.0%), above VWAP; keep (wrong if it closes below ~$384).
+- **MSFT** still below VWAP ($523.41, -3.1% from its open) and under the ~$527 wrong-if: stays dropped. GOOGL/MRVL bounced above VWAP after big bad-news gaps, but the rule says no trades either way right after a big name's bad-news gap.
+- No new pick; one slot free. scalp_bias **neutral**.
+Source: state/market.json (11:42 ET)
