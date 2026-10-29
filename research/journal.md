@@ -625,3 +625,10 @@ state/market.json (13:21 ET, hand-dispatched cycle): the late-morning bounce fad
 - **MSFT** still below VWAP and the ~$527 wrong-if; stays dropped. No new pick into a weak tape; one slot free, idle cash goes to the SPY core at 2:30.
 - scalp_bias **neutral**.
 Sources: https://seekingalpha.com/news/4547681-sp500-nasdaq-dow-jones-outlook-stock-market, state/market.json (13:21 ET)
+
+## 2026-10-29 14:20 ET refresh (LIVE, $74.60)
+state/market.json (14:22 ET, hand-dispatched cycle): still heavy. QQQ -1.7%, SPY -0.6%, SMH -1.6%, IWM +0.7%, VIXY -1.1% (no panic).
+- **CLS** $284.66 (+2.5% from the fill), -5.2% today, below VWAP; keep (wrong if it closes below ~$262). **TSLA** $406.01 (+2.9%), above VWAP; keep (wrong if it closes below ~$384).
+- **MSFT** $530.28 is back above VWAP and the ~$527 line, but it gave back the whole +3.6% gap (-0.4% today). The lesson's fade rule already said skip, and a pick bought now would face the 3:30 expiry; leave it for tomorrow's morning research to judge on fresh news.
+- No new pick; idle cash (~$12) goes to the SPY core from 2:30. scalp_bias **neutral**.
+Source: state/market.json (14:22 ET)
