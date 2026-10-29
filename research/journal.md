@@ -603,3 +603,11 @@ Futures: Nasdaq -0.9%, S&P -0.2%, Dow -0.1%. GOOGL -10% (search ads disappointed
 - **CLS** keep (~$304, +9.6%; wrong if it closes below ~$262; a weak chip tape is the risk). **LMT** keep (~$629, +7%). **TSLA** keep (~$403, +2.2%; wrong if it closes below ~$384).
 - scalp_bias **neutral** (Nasdaq gap-down with PCE/GDP to come).
 Sources: https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-slide-mixed-big-083556706.html, https://www.cnbc.com/2026/10/29/alphabet-google-microsoft-msft-shares-today-earnings.html
+
+## 2026-10-29 10:20 ET refresh (LIVE, $74.71)
+state/market.json (10:45 ET, hand-dispatched cycle): Nasdaq weak. QQQ -1.4%, SPY -0.4%, IWM +1.1%; GOOGL -12.4%, NOW -24%, CVNA +15%, CMG +7%.
+- **LMT sold at its profit target: +$1.10 (+10.1%)**, the best closed pick so far. One slot is free.
+- **MSFT dropped**: the +3.6% gap faded. $524, -3% from its open, below VWAP and under the ~$527 wrong-if line (rule: a gap that fades below VWAP in the first hour is a skip).
+- **CLS** ~$285 (+2.6% from the fill), -5.4% today with the chip selloff, below VWAP; keep (wrong if it closes below ~$262). **TSLA** $406.28 (+2.9%); keep (wrong if it closes below ~$384).
+- No new pick: nothing big-name with fresh good news is holding above VWAP. scalp_bias **neutral** (no bearish lean).
+Source: state/market.json (10:45 ET)
