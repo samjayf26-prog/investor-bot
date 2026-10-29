@@ -3,3 +3,4 @@ time,side,symbol,notional,price,reason,mode
 2026-10-22T18:36:51.667067+00:00,buy,SPY,17.87,762.09,idle cash,live
 2026-10-23T13:41:36.139499+00:00,sell,SPY,9.18,,fund pick,live
 2026-10-23T15:22:27.355769+00:00,sell,SPY,10.96,,fund pick,live
+2026-10-29T18:55:20.472128+00:00,buy,SPY,10.36,767.53,idle cash,live
