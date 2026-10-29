@@ -1,20 +1,26 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-28T18:21:18Z",
-  "expires_at": "2026-10-28T19:30:00Z",
-  "picks": [],
+  "generated_at": "2026-10-29T13:13:42Z",
+  "expires_at": "2026-10-29T19:30:00Z",
+  "picks": [
+    {
+      "id": "2026-10-29-MSFT",
+      "symbol": "MSFT",
+      "action": "buy",
+      "conviction": 1,
+      "confirm_vwap": true,
+      "max_entry_price": 556,
+      "stop_pct": 0.06,
+      "target_pct": 0.10,
+      "max_hold_days": 8,
+      "thesis": "Big-name good-news gap: a large cash-flow beat and a strong cloud forecast (AI spending paying off) put MSFT ~+3.6% premarket while Alphabet sank on the same theme. Megacap rule: good-news gaps paid over 5-10 days, enter only above VWAP. Only buys if a slot frees up (3 positions open). Wrong if it closes below Wednesday's ~$527 close (gap filled).",
+      "sources": [
+        "https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-slide-mixed-big-083556706.html",
+        "https://www.cnbc.com/2026/10/29/alphabet-google-microsoft-msft-shares-today-earnings.html"
+      ]
+    }
+  ],
   "close": [],
   "scalp_bias": "neutral",
-  "watch": [
-    "CLS",
-    "TSLA",
-    "LMT",
-    "MU",
-    "GOOGL",
-    "MSFT",
-    "HOOD",
-    "V",
-    "WDC",
-    "NVDA"
-  ]
+  "watch": ["MSFT", "GOOGL", "CLS", "TSLA", "LMT", "CMG", "CVNA", "NOW", "MRVL", "NVDA"]
 }

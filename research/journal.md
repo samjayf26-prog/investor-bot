@@ -595,3 +595,11 @@ Sources: https://www.cnbc.com/2026/10/28/fed-meeting-today-live-updates.html, st
 - The Fed held rates (split vote, two dissents); the market barely moved. No new picks on Fed day, per the rule.
 - Ops: GitHub's schedule ran no trade runs before 11:27 ET again; the refreshes dispatched cycles. No failed runs.
 - Direction: neutral call (QQQ -0.18% in the window), not scored. MSFT and GOOGL report tonight; tomorrow's research checks their reactions as big-name candidates (megacap rule: good-news gaps hold 5-10 days with confirm_vwap).
+
+## 2026-10-29 morning (LIVE, $74.66 at Wednesday's close)
+Futures: Nasdaq -0.9%, S&P -0.2%, Dow -0.1%. GOOGL -10% (search ads disappointed, cash burn up on AI spending), MSFT +3.6% (large cash-flow beat, strong cloud forecast). NOW -18% (profit miss), FTNT -25%, MRVL -9.7% (talks to buy LITE), MU -3.3%, AMD -2.8%, INTC -3.7%; CVNA +7.8%, CMG +6.7%. September PCE and Q3 GDP today. After Wednesday's hold, traders put a December hike above 81%.
+- **New: MSFT, conviction 1, confirm_vwap** (2026-10-29-MSFT), cap $556, stop 6%, target 10%, up to 8 days. A big-name good-news gap (the megacap rule). All 3 slots are full, so it only buys if one frees up (e.g. LMT reaching its ~$646 target). Wrong if it closes below Wednesday's ~$527 close.
+- No bear bet on GOOGL (rule: no bearish bets right after a big name's bad-news gap; they rebounded vs SPY).
+- **CLS** keep (~$304, +9.6%; wrong if it closes below ~$262; a weak chip tape is the risk). **LMT** keep (~$629, +7%). **TSLA** keep (~$403, +2.2%; wrong if it closes below ~$384).
+- scalp_bias **neutral** (Nasdaq gap-down with PCE/GDP to come).
+Sources: https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-slide-mixed-big-083556706.html, https://www.cnbc.com/2026/10/29/alphabet-google-microsoft-msft-shares-today-earnings.html
