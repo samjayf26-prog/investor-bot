@@ -364,7 +364,7 @@ def test_a_refused_cancel_does_not_abort_the_rebalance(tmp_path):
     api.open_orders = lambda: [{"id": "o1", "client_order_id": "core-20261007-1540-TQQQ", "symbol": "TQQQ"}]
 
     def refuse(oid):
-        raise AlpacaError("order already filled")
+        raise AlpacaError(422, "order already filled")
     api.cancel_order = refuse
     qqq = closes(260, 0.002)
     qqq[-3:] = [qqq[-4] * 0.99, qqq[-4] * 0.98, qqq[-4] * 0.97]
