@@ -660,3 +660,10 @@ state/market.json (11:24 ET, hand-dispatched cycle): steadier. QQQ -2.8% but bac
 - **CLS** $265.29 (-4.5% from the fill), -6.3% today, below VWAP, still above the ~$262 wrong-if; keep, close at a later refresh if below ~$262. **TSLA** $401.98 (+1.9%), +2.3% from its open, above VWAP; keep.
 - No new picks (Friday). scalp_bias back to **neutral** (QQQ within ~0.5% of its open and above VWAP: no clear tape).
 Source: state/market.json (11:24 ET)
+
+## 2026-10-30 13:20 ET refresh (LIVE, $72.53)
+state/market.json (13:20 ET, hand-dispatched cycle): the selloff deepened. QQQ -3.7% (-1.1% vs its open), SMH -7.8%, SPY -1.8%, IWM -2%, VIXY +12%. NVDA -4.8%, INTC -30%.
+- **Closing CLS** (2026-10-27-1020-CLS): $258.74, -8.6% today, below VWAP and below its ~$262 wrong-if, -6.9% from the $277.76 fill (about -$0.76). The AI-hardware selloff broke the guide-raise thesis; acting on the stated line rather than waiting for the 8% stop (~$255.5) or a weekend gap.
+- **TSLA** $397.86 (+0.8%), +1.3% from its open, above VWAP; keep (wrong if it closes below ~$384).
+- No new picks (Friday). scalp_bias **bear** (QQQ -1.1% from its open, below VWAP).
+Source: state/market.json (13:20 ET)
