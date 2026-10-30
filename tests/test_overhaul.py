@@ -356,6 +356,25 @@ def test_stale_core_orders_are_cancelled_before_a_rebalance(tmp_path):
     assert cancelled == ["o1"]
 
 
+def test_a_refused_cancel_does_not_abort_the_rebalance(tmp_path):
+    from bot.alpaca import AlpacaError
+    write_picks(tmp_path, [])
+    api = FakeAlpaca(cash=2.0)
+    hold(api, "SPY", 98.0)
+    api.open_orders = lambda: [{"id": "o1", "client_order_id": "core-20261007-1540-TQQQ", "symbol": "TQQQ"}]
+
+    def refuse(oid):
+        raise AlpacaError("order already filled")
+    api.cancel_order = refuse
+    qqq = closes(260, 0.002)
+    qqq[-3:] = [qqq[-4] * 0.99, qqq[-4] * 0.98, qqq[-4] * 0.97]
+    t, api, _ = make(tmp_path, api=api, qqq=qqq[:-1])
+    api.prices["QQQ"] = qqq[-1]
+    assert t.cycle() == "managed"
+    assert "SPY" in api.closed                                    # the dip entry still happened
+    assert json.loads((tmp_path / "state" / "core.json").read_text())["dip_state"] == 1
+
+
 def test_picks_are_funded_from_spy_first_then_tqqq(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
     api = FakeAlpaca(cash=2.0)

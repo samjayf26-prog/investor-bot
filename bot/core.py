@@ -26,6 +26,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 from . import risk
+from .alpaca import AlpacaError
 from .common import ET, log
 
 SIGNAL_KEYS = ("date", "trend", "vol", "weight", "dip_state", "index_close", "lev_target", "rest_target", "halted")
