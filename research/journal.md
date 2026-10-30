@@ -647,3 +647,10 @@ Futures (6 ET): Nasdaq 100 -2.3%, S&P -1%, Dow flat. The AI-spending selloff spr
 - **CLS** keep for now, but it is the most exposed to the AI-hardware selloff: wrong if it closes below ~$262 (the bot's own 8% stop sits at ~$255.5). Judge at 10:20 on the live price. **TSLA** keep (wrong if it closes below ~$384; stop ~$367).
 - scalp_bias **neutral** until the 10:20 snapshot shows the tape.
 Sources: https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-fall-amzn-100738749.html, https://www.investing.com/news/stock-market-news/nasdaq-futures-tumble-as-amazon-intel-results-deepen-ai-spending-woes-4986163
+
+## 2026-10-30 10:20 ET refresh (LIVE, $72.87)
+state/market.json (10:25 ET, hand-dispatched cycle; the first two dispatches got HTTP 500 from GitHub, the third ran): a broad AI-spending selloff. QQQ -3.2% (-0.6% vs its open), SMH -6.2%, SPY -1.6%, IWM -1.4%, VIXY +8.6%. INTC -29%, NVDA -3.6%, AMZN -3.1% (bounced +1.6% from its open); XOM/CVX +2% (oil ~$117).
+- **CLS** $264.37 (-4.8% from the $277.76 fill), -6.6% today, below VWAP: it has given back the whole guide-raise move in the AI-hardware selloff. Its wrong-if (a close below ~$262) has not broken; the bot's 8% stop is at ~$255.5. Keep, but close it at any later refresh if it is below ~$262.
+- **TSLA** $397.05 (+0.6%), +1% from its open, above VWAP; keep (wrong if it closes below ~$384).
+- No new picks (Friday, selloff). scalp_bias **bear** (with the tape: QQQ below its open and VWAP); no same-day SQQQ on a Friday.
+Source: state/market.json (10:25 ET)

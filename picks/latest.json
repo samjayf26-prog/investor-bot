@@ -1,9 +1,20 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-30T13:27:00Z",
+  "generated_at": "2026-10-30T14:29:00Z",
   "expires_at": "2026-10-30T19:30:00Z",
   "picks": [],
   "close": [],
-  "scalp_bias": "neutral",
-  "watch": ["CLS", "TSLA", "AMZN", "INTC", "NVDA", "MSFT", "RIVN", "XOM", "CVX", "QQQ"]
+  "scalp_bias": "bear",
+  "watch": [
+    "CLS",
+    "TSLA",
+    "AMZN",
+    "INTC",
+    "NVDA",
+    "MSFT",
+    "RIVN",
+    "XOM",
+    "CVX",
+    "QQQ"
+  ]
 }
