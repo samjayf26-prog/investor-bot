@@ -1,6 +1,6 @@
-# Lessons (rewritten by the evening review 2026-10-29; the morning research must follow these)
+# Lessons (rewritten by the evening review 2026-10-30; the morning research must follow these)
 
-Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 9 closed live picks (LMT +$1.10 at its 10% target, MMM +$0.14 at its 7-day max hold, AZZ -$0.82, HAL -$0.55, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15, -$0.11 and +$0.12). Open: CLS (10-27) and TSLA (10-26), both up a few % from their buys at the 2:55 snapshot, and the SPY core. Live account since 10-13: $73.94 (-1.41%) vs $73.92 in the S&P 500 (-1.45%), ahead by $0.02. Tiny sample: treat as leanings, not laws.
+Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 10 closed live picks (LMT +$1.10 at its 10% target, CLS -$0.76 at its wrong-if, MMM +$0.14 at its 7-day max hold, AZZ -$0.82, HAL -$0.55, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15, -$0.11 and +$0.12). Open: TSLA (10-26, flat) and the SPY core (~$59). Live account since 10-13: $72.67 (-3.11%) vs $72.91 in the S&P 500 (-2.79%), behind by $0.24 after the 10-30 AI-spending selloff. Tiny sample: treat as leanings, not laws.
 
 Catalysts
 - Prefer lasting estimate changes (guidance raise, rating reversal) over one-day headlines. PENG (+$2.07) is still the only real winner. A raise alone isn't enough: AZZ (beat and raise, ~3% gap) faded in two days for -$0.82 when small caps sold off on rates.
@@ -14,10 +14,10 @@ Entry
 
 Exits
 - Write a concrete "wrong if" for every pick and act on it at the next refresh (AZZ's ~$132 line, -$0.82; HAL's $33 line, -$0.55). Close on the stated kill condition even before the hold limit.
-- A sector tailwind doesn't protect a stock in a broad selloff: HAL fell -4% on 10-22 while Brent hit a five-month high (energy sold with everything).
+- A sector tailwind doesn't protect a stock in a broad selloff: HAL fell -4% on 10-22 while Brent hit a five-month high (energy sold with everything). Company news doesn't protect a stock when its whole theme sells: CLS (AI hardware, guide raise, +9.6% at best) went to -6.9% in two days as AMZN/INTC hit AI names (SMH -8.5% on 10-30). Selling at the wrong-if at 1:20 (-$0.76) beat the close (~$256). When a held pick's theme ETF is down 5%+ by 10:20, judge it against the wrong-if then, not at the close.
 
 Direction calls (scalp_bias and same-day SQQQ/TQQQ)
-- Bias hit rate 7 of 9 (wrong 10-13 and 10-15; right 10-14, 10-16, 10-20, 10-22, 10-23, 10-26, 10-27; 10-19, 10-21, 10-28 neutral). Conviction 1 only, with the tape (QQQ vs its open), never fading it; revisit after ~20 scored calls in research/direction_log.csv.
+- Bias hit rate 8 of 10 (wrong 10-13 and 10-15; right 10-14, 10-16, 10-20, 10-22, 10-23, 10-26, 10-27, 10-30; 10-19, 10-21, 10-28, 10-29 neutral). Conviction 1 only, with the tape (QQQ vs its open), never fading it; revisit after ~20 scored calls in research/direction_log.csv.
 - But with-the-tape same-day trades are net -$0.03 over 4 (10-16 +$0.11, 10-19 -$0.15, 10-20 -$0.11, 10-23 +$0.12 only after an unplanned weekend hold). On 10-20 the call was right (QQQ +0.65% in the window) yet TQQQ lost: bought near the late-morning high (QQQ +0.99% at 11:00), then the rally cooled to +0.4%. 10-23 (QQQ +0.78% at 11:11) repeated it: bought $67.14 near the high, -1% by 15:21. Leaning: the 11:20 entry buys after most of the move; skip it when QQQ is already ~1% up (stretched, as on 10-26) as well as when it's within ~0.5%.
 - Headline index levels are often stale; trust state/market.json. Watch yields, not just the print (10-15 PPI: SQQQ -$0.25 as yields fell).
 
@@ -26,5 +26,5 @@ Sizing, regime and process
 - GitHub's cron is unreliable: it skipped 15:35/15:50 on 10-23 (TQQQ held over the weekend) and ran nothing from the open until 11:10 ET on 10-26. If state/account.json is over ~30 minutes old in market hours, dispatch `trade.yml -f command=cycle` (a bare dispatch only runs "status"). A 15:40 ET check covers same-day exits; avoid same-day picks on Fridays until it has proven itself.
 - A run whose state save fails still trades (TSLA 10-26 was adopted with default exits). Since 10-26 the next run rebuilds such a pick from its entry order while the pick is still in picks/latest.json, so keep a bought pick out of "close" lists by its own id; check state/positions.json after new buys.
 - Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge; holding already-working multi-day picks through the 10-28 Fed hold was fine (account +$0.72 that day). Puts only fit stocks under ~$15; check the chain.
-- Scalper (paper): no after-cost edge; it follows the bias. Tuner tightened its stop to 0.2% on 10-22 (replay +1.87%/+6.43%).
+- Scalper (paper): no after-cost edge; it follows the bias. Tuner tightened its stop to 0.2% on 10-22, then on 10-30 switched to TQQQ+SQQQ with 0.5% stop/target and 10-minute holds (replay +4.20%/+3.51%).
 - Overnight SPY core (~$39; idle cash goes to SPY after 14:30 ET, sold as picks need it; size picks as usual, never pick SPY): funds picks as designed (10-23 two sales, 10-26 TSLA); lost ~$0.63 its first night (10-22), roughly flat since. Judge it over weeks, not days.

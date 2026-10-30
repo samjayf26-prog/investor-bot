@@ -674,3 +674,10 @@ state/market.json (14:21 ET, hand-dispatched cycle): the selloff keeps going. QQ
 - **TSLA** $394.80, flat vs the $394.68 fill, below VWAP; keep (wrong if it closes below ~$384; stop ~$367).
 - No new picks (Friday, selloff). Idle cash (~$12) joins the SPY core from 2:30 per the design. scalp_bias **bear** (with the tape).
 Source: state/market.json (14:21 ET)
+
+## 2026-10-30 evening review (LIVE, $72.67)
+- Day: bot -$1.27 (-1.72%, 73.94 to 72.67) vs the same money in the S&P 500 -1.37%. Since go-live -3.11% vs S&P -2.79%: **behind by $0.24** (ahead by $0.02 yesterday).
+- Sold: **CLS -$0.76** at 1:23 ET when it broke its ~$262 wrong-if in the AI-hardware selloff (SMH -8.5%); it kept falling to ~$256. Held: TSLA (flat vs its buy) and the SPY core (~$59, bought more at 2:30 into a -2.3% day). Picks now 16 closed, 7 winners, +$0.18.
+- Cause: AMZN and INTC results turned the AI-spending worry into a broad tech selloff (QQQ about -4%). No new picks on a Friday selloff.
+- Ops: GitHub's schedule again ran nothing before the hand-dispatched cycles; two dispatches got HTTP 500 at 10:20 and the third ran. The learn run was dispatched by hand at 4:47.
+- Direction: bear from 10:20, QQQ -1.07% in the window: right (8 of 10). Tuner moved the paper scalper to TQQQ+SQQQ with 0.5% stop/target.
