@@ -26,7 +26,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 from . import risk
-from .common import ET, ROOT, log
+from .common import ET, log
 
 SIGNAL_KEYS = ("date", "trend", "vol", "weight", "dip_state", "index_close", "lev_target", "rest_target", "halted")
 
@@ -194,6 +194,17 @@ class Core:
         self.buy(self.rest, amount, now, "idle cash", f"core-{now.astimezone(ET):%Y%m%d-%H%M}")
         return True
 
+    def cancel_stale_orders(self):
+        """An earlier core order still working (a limit that never filled) would double up
+        with today's rebalance: cancel it first."""
+        for o in self.api.open_orders():
+            if str(o.get("client_order_id", "")).startswith("core-") and o["symbol"] in self.symbols:
+                try:
+                    self.api.cancel_order(o["id"])
+                    log(f"Core: cancelled stale order {o.get('client_order_id')} ({o['symbol']}).")
+                except AlpacaError as e:
+                    log(f"Core: could not cancel {o.get('client_order_id')}: {e}")
+
     def in_window(self, now, today):
         lo = datetime.combine(today, datetime.strptime(self.c.get("rebalance_from_et", "15:35"), "%H:%M").time(), ET)
         hi = datetime.combine(today, datetime.strptime(self.c.get("rebalance_until_et", "15:58"), "%H:%M").time(), ET)
@@ -244,16 +255,18 @@ class Core:
         if not in_window:
             log(f"Core: the {as_of} close was never acted on; catching up now.")
         want = 1.0 if sig["dip_state"] else sig["weight"]
+        self.cancel_stale_orders()
         held = self.held()
         acct = self.api.account()
-        cash = float(acct["cash"])
+        cash = min(float(acct["cash"]), float(acct.get("buying_power") or acct["cash"]))
         idle = sum(held.values()) + max(0.0, cash - self.reserve)
         if self.idle_cap:
             idle = min(idle, self.idle_cap)
         held_w = held[self.lev] / idle if idle > 0 else 0.0
         lev_target, rest_target = risk.core_target(idle, sig["weight"], bool(sig["dip_state"]))
-        if halted:   # a halt may cut leverage, never add it or buy anything
-            lev_target = min(lev_target, held[self.lev])
+        if halted:   # a halt may cut leverage, never add it or buy anything: so the SPY
+            lev_target = min(lev_target, held[self.lev])   # sleeve is never sold to fund a
+            rest_target = held[self.rest]                  # TQQQ buy the halt would block
         min_order = float(self.cfg["min_order_notional"])
         new_cash = max(0.0, cash - self.reserve) >= min_order
         reason = (f"rebalance trend={sig['trend']} vol={sig['vol']} w={want:.2f} dip={sig['dip_state']}"

@@ -308,6 +308,54 @@ def test_halt_only_reduces_leverage(tmp_path):
     assert not [o for o in api.orders.values() if o["side"] == "buy"]              # proceeds stay in cash
 
 
+def test_halt_never_sells_spy_to_fund_a_blocked_tqqq_buy(tmp_path):
+    """Review finding: under a halt the rule may want MORE TQQQ (a dip signal on a crash
+    day, or a rising weight); the SPY sleeve must stay put, not be sold into cash."""
+    write_picks(tmp_path, [])
+    qqq = closes(260, 0.002)
+    qqq[-3:] = [qqq[-4] * 0.99, qqq[-4] * 0.98, qqq[-4] * 0.97]   # dip signal: wants 100% TQQQ
+    for held_tqqq in (0.0, 20.0):
+        root = tmp_path / f"held{int(held_tqqq)}"
+        root.mkdir()
+        write_picks(root, [])
+        api = FakeAlpaca(cash=2.0)
+        api.account = lambda: {"equity": "70", "last_equity": "100", "cash": str(api.cash), "status": "ACTIVE"}
+        if held_tqqq:
+            hold(api, "TQQQ", held_tqqq)
+        hold(api, "SPY", 68.0 - held_tqqq)
+        t, api, _ = make(root, api=api, qqq=qqq[:-1])
+        api.prices["QQQ"] = qqq[-1]
+        assert t.cycle() == "halted"
+        assert not api.orders and not api.closed, held_tqqq
+        state = json.loads((root / "state" / "core.json").read_text())
+        assert state["dip_state"] == 1 and state["halted"] and state["rest_target"] == 68.0 - held_tqqq
+        assert state["lev_target"] == held_tqqq
+    # the same with no dip but a weight rising above what is held (calm uptrend wants 100%)
+    api = FakeAlpaca(cash=2.0)
+    api.account = lambda: {"equity": "70", "last_equity": "100", "cash": str(api.cash), "status": "ACTIVE"}
+    hold(api, "TQQQ", 30.0)
+    hold(api, "SPY", 38.0)
+    t, api, _ = make(tmp_path, api=api)
+    assert t.cycle() == "halted"
+    assert not api.orders and not api.closed
+
+
+def test_stale_core_orders_are_cancelled_before_a_rebalance(tmp_path):
+    write_picks(tmp_path, [])
+    api = FakeAlpaca(cash=2.0)
+    hold(api, "SPY", 98.0)
+    cancelled = []
+    api.open_orders = lambda: [{"id": "o1", "client_order_id": "core-20261007-1540-TQQQ", "symbol": "TQQQ"},
+                               {"id": "o2", "client_order_id": "pick-x", "symbol": "NVDA"}]
+    api.cancel_order = lambda oid: cancelled.append(oid)
+    qqq = closes(260, 0.002)
+    qqq[-3:] = [qqq[-4] * 0.99, qqq[-4] * 0.98, qqq[-4] * 0.97]
+    t, api, _ = make(tmp_path, api=api, qqq=qqq[:-1])
+    api.prices["QQQ"] = qqq[-1]
+    t.cycle()
+    assert cancelled == ["o1"]
+
+
 def test_picks_are_funded_from_spy_first_then_tqqq(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
     api = FakeAlpaca(cash=2.0)
