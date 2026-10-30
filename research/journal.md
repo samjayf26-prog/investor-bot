@@ -654,3 +654,9 @@ state/market.json (10:25 ET, hand-dispatched cycle; the first two dispatches got
 - **TSLA** $397.05 (+0.6%), +1% from its open, above VWAP; keep (wrong if it closes below ~$384).
 - No new picks (Friday, selloff). scalp_bias **bear** (with the tape: QQQ below its open and VWAP); no same-day SQQQ on a Friday.
 Source: state/market.json (10:25 ET)
+
+## 2026-10-30 11:20 ET refresh (LIVE, $73.15)
+state/market.json (11:24 ET, hand-dispatched cycle): steadier. QQQ -2.8% but back above VWAP (-0.2% vs its open), SPY -1.4%, SMH -6.3%, VIXY +7%. AMZN bounced to -1.1% (+3.7% from its open); INTC -28%.
+- **CLS** $265.29 (-4.5% from the fill), -6.3% today, below VWAP, still above the ~$262 wrong-if; keep, close at a later refresh if below ~$262. **TSLA** $401.98 (+1.9%), +2.3% from its open, above VWAP; keep.
+- No new picks (Friday). scalp_bias back to **neutral** (QQQ within ~0.5% of its open and above VWAP: no clear tape).
+Source: state/market.json (11:24 ET)
