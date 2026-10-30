@@ -667,3 +667,10 @@ state/market.json (13:20 ET, hand-dispatched cycle): the selloff deepened. QQQ -
 - **TSLA** $397.86 (+0.8%), +1.3% from its open, above VWAP; keep (wrong if it closes below ~$384).
 - No new picks (Friday). scalp_bias **bear** (QQQ -1.1% from its open, below VWAP).
 Source: state/market.json (13:20 ET)
+
+## 2026-10-30 14:20 ET refresh (LIVE, $72.18)
+state/market.json (14:21 ET, hand-dispatched cycle): the selloff keeps going. QQQ -4.2% (-1.7% vs its open), SMH -8.5%, SPY -2.3%, IWM -2.4%, VIXY +16%. NVDA -5.6%, INTC -31%; only energy is up.
+- CLS sold at 13:23 for -$0.76; it has since fallen to $256.65 (-9.3% today), so acting on the wrong-if saved about $0.08 and the weekend risk.
+- **TSLA** $394.80, flat vs the $394.68 fill, below VWAP; keep (wrong if it closes below ~$384; stop ~$367).
+- No new picks (Friday, selloff). Idle cash (~$12) joins the SPY core from 2:30 per the design. scalp_bias **bear** (with the tape).
+Source: state/market.json (14:21 ET)
