@@ -1,36 +1,36 @@
 {
-  "as_of": "2026-10-30T14:27:46.816336+00:00",
+  "as_of": "2026-10-30T15:24:03.880286+00:00",
   "mode": "live",
-  "equity": "72.91",
+  "equity": "73.15",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 49.22
+    "value": 49.31
   },
   "positions": [
     {
       "symbol": "CLS",
       "qty": "0.039962269",
       "avg_entry_price": "277.762",
-      "current_price": "265.115",
-      "unrealized_pl": "-0.505403",
-      "unrealized_plpc": "-0.04553"
+      "current_price": "265.23",
+      "unrealized_pl": "-0.500807",
+      "unrealized_plpc": "-0.04512"
     },
     {
       "symbol": "SPY",
       "qty": "0.064973346",
       "avg_entry_price": "768.46813",
-      "current_price": "757.58",
-      "unrealized_pl": "-0.707439",
-      "unrealized_plpc": "-0.01417"
+      "current_price": "758.98",
+      "unrealized_pl": "-0.616476",
+      "unrealized_plpc": "-0.01235"
     },
     {
       "symbol": "TSLA",
       "qty": "0.027921071",
       "avg_entry_price": "394.684",
-      "current_price": "396.89",
-      "unrealized_pl": "0.061594",
-      "unrealized_plpc": "0.00559"
+      "current_price": "402.0237",
+      "unrealized_pl": "0.204932",
+      "unrealized_plpc": "0.0186"
     }
   ]
 }
