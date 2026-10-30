@@ -38,7 +38,7 @@
 | 2025 | +18% | +21% | +34% | +31% | +28% | +29% | +40% | +40% | +29% |
 | 2026 | +12% | +13% | +18% | +10% | +13% | +15% | +29% | +32% | +37% |
  B30+dip target moved by more than 10 points on 13.0% of days; overlay active on 8.0% of days; TQQQ weight today 44% (trend 1, 20d vol 23%, overlay 0).
-Dip rule alone since 2011: 352 trades, win rate 39%, mean +0.70%/trade, t=+3.7, excess vs SPY +0.55%/trade (claimed 176 trades, 74%, +1.39%, t 3.8).
+Dip rule alone since 2011: 189 trades, win rate 73%, mean +1.36%/trade, t=+4.0, excess vs SPY +1.02%/trade (claimed 176 trades, 74%, +1.39%, t 3.8).
  ## B. Timing and look-ahead shifts (B30 + dip, band 10, 2011 to now)  If the result survives acting a day late it does not depend on knowing the close before it prints. 
  ### Shifted signals 
 | strategy | CAGR | vol | Sharpe | max DD | DD vs 1y peak | worst day | worst year | 1st half | 2nd half | $75 becomes | longest underwater |
@@ -73,14 +73,14 @@ Dip rule alone since 2011: 352 trades, win rate 39%, mean +0.70%/trade, t=+3.7, 
  Dip rule alone, by execution lag (TQQQ return per trade minus 0.06%): 
 | variant | trades | win rate | mean/trade | t | excess vs SPY |
 |---|---|---|---|---|---|
-| 3 down, max 5, any trend (spec) | 352 | 39% | +0.70% | +3.7 | +0.55% |
-| 3 down, max 5, only above SMA200 | 213 | 49% | +0.57% | +2.6 | +0.44% |
-| 2 down, max 5 | 792 | 39% | +0.37% | +2.9 | +0.31% |
-| 4 down, max 5 | 146 | 37% | +0.41% | +1.6 | +0.31% |
-| 3 down, max 3 | 352 | 39% | +0.70% | +3.7 | +0.55% |
-| 3 down, max 10 | 352 | 39% | +0.70% | +3.7 | +0.55% |
-| spec rule, entered 1 day(s) late | 352 | 31% | +0.13% | +0.6 | +0.12% |
-| spec rule, entered 2 day(s) late | 352 | 31% | +0.23% | +1.0 | +0.19% |
+| 3 down, max 5, any trend (spec) | 189 | 73% | +1.36% | +4.0 | +1.02% |
+| 3 down, max 5, only above SMA200 | 142 | 73% | +0.89% | +2.7 | +0.66% |
+| 2 down, max 5 | 440 | 71% | +0.72% | +3.1 | +0.55% |
+| 4 down, max 5 | 75 | 72% | +0.85% | +1.7 | +0.61% |
+| 3 down, max 3 | 189 | 73% | +1.36% | +4.0 | +1.02% |
+| 3 down, max 10 | 189 | 73% | +1.36% | +4.0 | +1.02% |
+| spec rule, entered 1 day(s) late | 189 | 57% | +0.30% | +0.7 | +0.22% |
+| spec rule, entered 2 day(s) late | 189 | 58% | +0.48% | +1.1 | +0.35% |
  ## C. Trading costs (B30 + dip, band 10, 2011 to now) 
  ### Cost multiples 
 | strategy | CAGR | vol | Sharpe | max DD | DD vs 1y peak | worst day | worst year | 1st half | 2nd half | $75 becomes | longest underwater |
@@ -301,6 +301,34 @@ Dip rule alone 1986-1999: 201 trades, win rate 65%, mean +0.00%/trade, t=+0.0, e
 | 2025 | +18% | +21% | +36% | +32% | +30% | +42% | +41% | +30% |
 | 2026 | +12% | +13% | +19% | +11% | +16% | +33% | +15% | +38% |
 Dip rule alone 1986 to now (simulated 3x throughout): 545 trades, win rate 69%, mean +1.21%/trade, t=+4.2, excess vs S&P +1.01%/trade.
+ ## E2. How often does the rule beat buy-and-hold? Rolling windows, 1986 to now (simulated 3x throughout) 
+| strategy | window | windows | beat S&P | median excess CAGR | worst window CAGR | share of windows with a 50%+ drawdown |
+|---|---|---|---|---|---|---|
+| B30 (band 10) | 3y | 9531 | 75% | +11.3% | -31.4% | 23% |
+| B30 (band 10) | 5y | 9027 | 79% | +9.2% | -14.9% | 36% |
+| B30 (band 10) | 10y | 7767 | 91% | +9.8% | -5.8% | 60% |
+| B30 + dip (band 10) | 3y | 9531 | 84% | +23.9% | -41.7% | 23% |
+| B30 + dip (band 10) | 5y | 9027 | 88% | +22.8% | -16.8% | 34% |
+| B30 + dip (band 10) | 10y | 7767 | 98% | +22.9% | +8.5% | 56% |
+| B30 + dip, one day later | 3y | 9531 | 73% | +10.8% | -47.1% | 49% |
+| B30 + dip, one day later | 5y | 9027 | 76% | +12.4% | -25.9% | 70% |
+| B30 + dip, one day later | 10y | 7767 | 90% | +13.6% | -11.5% | 100% |
+ ### Simulated 3x, 2000 to now 
+| strategy | CAGR | vol | Sharpe | max DD | DD vs 1y peak | worst day | worst year | 1st half | 2nd half | $75 becomes | longest underwater |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S&P 500 buy & hold | +8.2% | 19% | 0.51 | -55% | -51% | -10.9% (2020-03-16) | -37% (2008) | +2.7% | +14.0% | $617 | 6.6y |
+| Nasdaq-100 buy & hold | +8.5% | 27% | 0.44 | -83% | -70% | -12.0% (2020-03-16) | -42% (2008) | -1.2% | +19.2% | $673 | 14.9y |
+| B30 (band 10) | +15.9% | 35% | 0.60 | -75% | -59% | -12.4% (2016-06-24) | -48% (2008) | +2.1% | +31.6% | $3,895 | 12.0y |
+| B30 + dip (band 10) | +32.3% | 47% | 0.83 | -61% | -61% | -26.0% (2000-04-14) | -39% (2008) | +23.1% | +42.1% | $133,647 | 2.6y |
+| B30 + dip, one day later | +14.7% | 46% | 0.53 | -89% | -75% | -26.0% (2000-04-14) | -55% (2008) | +0.7% | +30.6% | $2,946 | 13.5y |
+ ### Simulated 3x, 1986-1999 
+| strategy | CAGR | vol | Sharpe | max DD | DD vs 1y peak | worst day | worst year | 1st half | 2nd half | $75 becomes | longest underwater |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S&P 500 buy & hold | +15.9% | 17% | 0.97 | -34% | -34% | -20.5% (1987-10-19) | -7% (1990) | +10.9% | +21.0% | $594 | 1.9y |
+| Nasdaq-100 buy & hold | +26.6% | 23% | 1.14 | -40% | -40% | -15.1% (1987-10-19) | -10% (1990) | +15.3% | +39.1% | $2,068 | 1.6y |
+| B30 (band 10) | +26.6% | 35% | 0.85 | -49% | -46% | -20.5% (1987-10-19) | -22% (1990) | +13.1% | +41.6% | $2,054 | 3.3y |
+| B30 + dip (band 10) | +27.0% | 44% | 0.77 | -80% | -70% | -45.3% (1987-10-19) | -51% (1990) | +2.4% | +57.4% | $2,145 | 7.7y |
+| B30 + dip, one day later | +30.7% | 43% | 0.84 | -76% | -68% | -31.7% (1987-10-19) | -41% (1990) | +4.9% | +63.0% | $3,237 | 7.7y |
  ## F. Interplay with the hard limits (B30 + dip, band 10)  The bot halts new entries after a 25% loss from the previous close and stops at a 60% drawdown from the peak of the last year's equity (Alpaca portfolio history, 1 year). Neither can stop an overnight gap. 
 | sample | max DD (all-time peak) | max DD (1-year peak) | worst day | days at or below -25% | nights TQQQ gapped below -10% |
 |---|---|---|---|---|---|

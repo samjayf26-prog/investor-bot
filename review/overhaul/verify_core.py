@@ -189,7 +189,8 @@ def overlay_trades(close, lev_ret, rest_ret, down_days=3, max_days=5, needs_tren
     sig = signals(close, sma_n=sma_n, down_days=down_days, max_days=max_days, overlay_needs_trend=needs_trend)
     ov = sig["overlay"].values
     lr, rr = lev_ret.reindex(close.index).fillna(0).values, rest_ret.reindex(close.index).fillna(0).values
-    rets, exc, i = [], [], 0
+    first = lev_ret.first_valid_index()
+    rets, exc, i = [], [], (int(close.index.searchsorted(first)) if first is not None else 0)
     n = len(ov)
     while i < n - 1:
         if ov[i] == 1.0:
@@ -379,6 +380,37 @@ def main():
                 window_table(series, wins, "Stress windows before 2011")
     else:
         say("Nasdaq-100 index data missing; only the 1999-2010 QQQ period can be tested.")
+
+    # ---- E2. consistency across rolling windows
+    if ndx is not None:
+        say("", "## E2. How often does the rule beat buy-and-hold? Rolling windows, 1986 to now (simulated 3x throughout)", "")
+        ii = index_close.index[index_close.index >= pd.Timestamp("1986-01-01")]
+        s = signals(index_close)
+        ww = pd.concat([s["w"], s["overlay"]], axis=1).max(axis=1)
+        lr, rr = lev_all.reindex(ii), rest_close.pct_change().reindex(ii)
+        strat = {"B30 (band 10)": simulate(lr, rr, s["w"], band=0.10), "B30 + dip (band 10)": simulate(lr, rr, ww, band=0.10),
+                 "B30 + dip, one day later": simulate(lr, rr, ww.shift(1), band=0.10)}
+        spy_r = rr.fillna(0)
+        say("| strategy | window | windows | beat S&P | median excess CAGR | worst window CAGR | share of windows with a 50%+ drawdown |")
+        say("|---|---|---|---|---|---|---|")
+        for name, r in strat.items():
+            for yrs in (3, 5, 10):
+                n = yrs * 252
+                eq, eqs = (1 + r).cumprod(), (1 + spy_r).cumprod()
+                g = (eq / eq.shift(n)) ** (1 / yrs) - 1
+                gs = (eqs / eqs.shift(n)) ** (1 / yrs) - 1
+                dd = (eq / eq.rolling(n, min_periods=1).max() - 1)
+                wdd = dd.rolling(n).min()
+                ok = g.notna() & gs.notna()
+                say(f"| {name} | {yrs}y | {int(ok.sum())} | {float((g[ok] > gs[ok]).mean()):.0%} | {float((g[ok] - gs[ok]).median()):+.1%} | "
+                    f"{float(g[ok].min()):+.1%} | {float((wdd[ok] <= -0.5).mean()):.0%} |")
+        for lab, a in (("2000 to now", "2000-01-03"), ("1986-1999", "1986-01-01")):
+            jj = ii[ii >= pd.Timestamp(a)] if lab != "1986-1999" else ii[ii <= pd.Timestamp("1999-12-31")]
+            rows = [metrics(rr.reindex(jj).fillna(0), "S&P 500 buy & hold"), metrics(index_close.pct_change().reindex(jj).fillna(0), "Nasdaq-100 buy & hold"),
+                    metrics(simulate(lr.reindex(jj), rr.reindex(jj), s["w"], band=0.10), "B30 (band 10)"),
+                    metrics(simulate(lr.reindex(jj), rr.reindex(jj), ww, band=0.10), "B30 + dip (band 10)"),
+                    metrics(simulate(lr.reindex(jj), rr.reindex(jj), ww.shift(1), band=0.10), "B30 + dip, one day later")]
+            table(rows, f"Simulated 3x, {lab}")
 
     # ---- F. halts
     say("", "## F. Interplay with the hard limits (B30 + dip, band 10)", "",
