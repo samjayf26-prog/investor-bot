@@ -14,3 +14,4 @@ closed,id,symbol,action,opened,cost,pnl_approx,pnl_pct,reason,mode
 2026-10-26,2026-10-23-1120-TQQQ,TQQQ,buy,2026-10-23,10.92,0.12,0.0111,day trade: end of day,live
 2026-10-27,2026-10-20-MMM,MMM,buy,2026-10-20,11.05,0.14,0.0124,max hold of 7 days,live
 2026-10-29,2026-10-23-LMT,LMT,buy,2026-10-23,10.86,1.1,0.1013,profit target (10.1%),live
+2026-10-30,2026-10-27-1020-CLS,CLS,buy,2026-10-27,11.1,-0.76,-0.0688,Claude asked to close,live
