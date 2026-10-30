@@ -640,3 +640,10 @@ Source: state/market.json (14:22 ET)
 - Skipped: the MSFT pick; its +3.6% gap faded below VWAP by 10:45 (fade rule).
 - Ops: GitHub's schedule again ran nothing before the hand-dispatched 10:45 cycle; all refresh cycles succeeded, no failed runs. The learn run was dispatched by hand at 4:46.
 - Direction: neutral (QQQ +0.03% in the window), not scored. Bull/bear calls 7 of 9.
+
+## 2026-10-30 morning (LIVE, $73.94 at Thursday's close; run fired late, 9:22 ET)
+Futures (6 ET): Nasdaq 100 -2.3%, S&P -1%, Dow flat. The AI-spending selloff spread: AMZN -7% (revenue and EPS miss, free cash flow -$42B, $220B capex kept), INTC -26% (weak guide), RDDT -22%, RBLX -18%, NVDA -2.7%; RIVN +9% (raised delivery forecast). Brent +2.2% to ~$117 on Houthi attacks on Saudi Arabia. Q3 Employment Cost Index today; XOM, CVX, ABBV report. Last trading day of October.
+- **No new picks**: a Friday (lesson: avoid same-day picks on Fridays), a big Nasdaq gap-down, and no big name with good news. No bear bets on AMZN/INTC (rule: no bearish bets right after a big name's bad-news gap).
+- **CLS** keep for now, but it is the most exposed to the AI-hardware selloff: wrong if it closes below ~$262 (the bot's own 8% stop sits at ~$255.5). Judge at 10:20 on the live price. **TSLA** keep (wrong if it closes below ~$384; stop ~$367).
+- scalp_bias **neutral** until the 10:20 snapshot shows the tape.
+Sources: https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-fall-amzn-100738749.html, https://www.investing.com/news/stock-market-news/nasdaq-futures-tumble-as-amazon-intel-results-deepen-ai-spending-woes-4986163
