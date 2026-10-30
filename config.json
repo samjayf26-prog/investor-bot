@@ -2,29 +2,62 @@
   "mode": "live",
   "confirm_live": true,
   "kill": false,
-  "learning": true,
-
+  "learning": false,
   "max_picks_per_run": 3,
   "max_open_positions": 3,
-  "max_hold_days": 10,
+  "max_hold_days": 30,
+  "min_hold_days": 3,
+  "default_hold_days": 28,
+  "earliest_entry_et": "10:00",
   "min_stock_price": 2.0,
-  "options_enabled": true,
+  "options_enabled": false,
   "no_entries_after_et": "15:30",
-
   "daily_loss_cap_pct": 0.25,
-  "drawdown_halt_pct": 0.60,
+  "drawdown_halt_pct": 0.6,
   "min_order_notional": 1.0,
   "max_order_notional": 500.0,
   "sizing_equity_cap": 75.0,
-  "benchmark": {"since": "2026-10-13T16:40:00Z", "start_equity": 75.0},
-  "core": {"symbol": "SPY", "buy_after_et": "14:30", "reserve": 2.0},
-
+  "benchmark": {
+    "since": "2026-10-13T16:40:00Z",
+    "start_equity": 75.0
+  },
+  "core": {
+    "leverage": false,
+    "symbol": "SPY",
+    "buy_after_et": "14:30",
+    "reserve": 2.0,
+    "lev_symbol": "TQQQ",
+    "index": "QQQ",
+    "sma_days": 200,
+    "vol_days": 20,
+    "vol_target": 0.3,
+    "max_lev": 3.0,
+    "band": 0.1,
+    "dip": {
+      "down_days": 3,
+      "max_days": 5
+    },
+    "rebalance_from_et": "15:35",
+    "rebalance_until_et": "15:58",
+    "feed": "sip"
+  },
   "scalper": {
     "mode": "paper",
     "enabled": true,
-    "symbols": ["SPY", "QQQ", "TQQQ", "SQQQ"],
-    "bull_symbols": ["SPY", "QQQ", "TQQQ"],
-    "bear_symbols": ["SQQQ"],
+    "symbols": [
+      "SPY",
+      "QQQ",
+      "TQQQ",
+      "SQQQ"
+    ],
+    "bull_symbols": [
+      "SPY",
+      "QQQ",
+      "TQQQ"
+    ],
+    "bear_symbols": [
+      "SQQQ"
+    ],
     "start_et": "09:35",
     "minutes": 340,
     "trade_notional": 15.0,

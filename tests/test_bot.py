@@ -9,7 +9,10 @@ from bot.trader import Trader, load_config, make_client, scalper_symbols
 
 NOW = datetime(2026, 10, 8, 14, 50, tzinfo=timezone.utc)  # 10:50 ET, a Thursday
 TODAY = date(2026, 10, 8)
-CFG = load_config()
+LIVE_CFG = load_config()
+# Most tests run the pre-overhaul pick rules (puts, short holds, same-day trades), which the
+# code still supports behind these settings; the overhaul's defaults are tested separately.
+CFG = {**LIVE_CFG, "options_enabled": True, "max_hold_days": 10, "min_hold_days": 0, "default_hold_days": 5}
 
 
 # risk
@@ -118,7 +121,8 @@ class FakeAlpaca:
         self.cash, self.options_level, self.open_ = cash, options_level, open_
         self.orders, self.pos, self.closed = {}, {}, []
         self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5, "TQQQ": 80.0, "WHOLE": 10.0,
-                       "SPY": 700.0}
+                       "SPY": 700.0, "QQQ": 600.0}
+        self.closes = []   # QQQ daily closes for the leveraged core, oldest first
 
     def clock(self):
         return {"is_open": self.open_}
@@ -157,6 +161,10 @@ class FakeAlpaca:
         return {s: {"latestTrade": {"p": self.prices.get(s, 100.0)},
                     "dailyBar": {"o": 99.0, "vw": self.vwaps.get(s, 1.0)}, "prevDailyBar": {"c": 98.0}}
                 for s in syms}
+
+    def daily_bars(self, sym, start, end, adjustment="all", feed="sip"):
+        first = date.fromisoformat(end) - timedelta(days=len(self.closes))
+        return [{"t": (first + timedelta(days=i)).isoformat() + "T04:00:00Z", "c": c} for i, c in enumerate(self.closes)]
 
     def put_contracts(self, und, a, b):
         return [contract("F261030P00011000", 11, 22), contract("F261030P00010000", 10, 22)]
@@ -241,7 +249,7 @@ def test_stop_loss_and_claude_close(tmp_path):
                            {"id": "p3", "symbol": "F", "action": "buy"}])
     t, api, clock = make(tmp_path)
     t.cycle()
-    api.pos["NVDA"]["unrealized_plpc"] = "-0.09"
+    api.pos["NVDA"]["unrealized_plpc"] = "-0.16"
     write_picks(tmp_path, [], close=["p3"])
     clock.t += timedelta(hours=1)
     t.cycle()
@@ -332,12 +340,12 @@ class RejectsSecondOrder(FakeAlpaca):
 
 def test_refused_order_skips_that_pick_and_keeps_the_others(tmp_path):
     # review finding: a refused 2nd order used to crash the run before pick 1 was saved
-    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "stop_pct": 0.03},
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "stop_pct": 0.12},
                            {"id": "p2", "symbol": "F", "action": "buy"}])
     t, api, _ = make(tmp_path, RejectsSecondOrder())
     assert t.cycle() == "traded"
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
-    assert set(state) == {"p1"} and state["p1"]["stop_pct"] == 0.03
+    assert set(state) == {"p1"} and state["p1"]["stop_pct"] == 0.12
 
 
 def test_scalper_symbols_reserved_only_on_its_own_account(tmp_path):
@@ -346,13 +354,13 @@ def test_scalper_symbols_reserved_only_on_its_own_account(tmp_path):
     same = {**CFG, "mode": "live", "scalper": {**CFG["scalper"], "mode": "live"}}
     assert scalper_symbols(same) == {"SPY", "QQQ", "TQQQ", "SQQQ"}
     assert scalper_symbols({**same, "scalper": {**same["scalper"], "enabled": False}}) == set()
-    write_picks(tmp_path, [{"id": "p1", "symbol": "TQQQ", "action": "buy"}])
+    write_picks(tmp_path, [{"id": "p1", "symbol": "QQQ", "action": "buy"}])
     t, api, _ = make(tmp_path)
     t.cfg = live
     t.cycle()
     assert "p1-entry" in api.orders
     (tmp_path / "x").mkdir()
-    write_picks(tmp_path / "x", [{"id": "p1", "symbol": "TQQQ", "action": "buy"}])
+    write_picks(tmp_path / "x", [{"id": "p1", "symbol": "QQQ", "action": "buy"}])
     t2, api2, _ = make(tmp_path / "x")
     t2.cfg = same
     t2.cycle()
@@ -360,7 +368,7 @@ def test_scalper_symbols_reserved_only_on_its_own_account(tmp_path):
 
 
 def test_day_trade_held_until_late_then_sold(tmp_path):
-    write_picks(tmp_path, [{"id": "d1", "symbol": "TQQQ", "action": "buy", "max_hold_days": 0}])
+    write_picks(tmp_path, [{"id": "d1", "symbol": "QQQ", "action": "buy", "max_hold_days": 0}])
     t, api, clock = make(tmp_path)
     t.cycle()
     clock.t += timedelta(minutes=15)
@@ -368,7 +376,7 @@ def test_day_trade_held_until_late_then_sold(tmp_path):
     assert not api.closed
     clock.t = datetime(2026, 10, 8, 19, 35, tzinfo=timezone.utc)   # 15:35 ET
     t.cycle()
-    assert api.closed == ["TQQQ"]
+    assert api.closed == ["QQQ"]
 
 
 # market snapshot and VWAP-confirmed entries (review proposals, Sam chose "Ship all" 2026-10-15)
@@ -422,7 +430,7 @@ def test_market_json_written_and_never_breaks_trading(tmp_path):
     t.cycle()
     m = json.loads((tmp_path / "state" / "market.json").read_text())
     assert {"SPY", "QQQ", "IWM", "NVDA", "AMD"} <= set(m["symbols"]) and "BAD;SYM" not in m["symbols"]
-    assert m["symbols"]["QQQ"]["pct_vs_open"] == 1.01
+    assert m["symbols"]["IWM"]["pct_vs_open"] == 1.01
 
     def broken(syms):
         raise RuntimeError("data down")
@@ -446,7 +454,7 @@ def test_core_buys_only_after_1430_and_keeps_reserve(tmp_path):
     assert order["symbol"] == "SPY" and order["notional"] == "98.00" and order["type"] == "limit"
     assert api.cash == pytest.approx(2.0)
     snap = json.loads((tmp_path / "state" / "account.json").read_text())
-    assert snap["core"] == {"symbol": "SPY", "value": 98.0}
+    assert snap["core"]["symbol"] == "SPY" and snap["core"]["value"] == 98.0 and snap["core"]["leverage"] is False
     assert "idle cash" in (tmp_path / "ledger" / "core.csv").read_text()
     t.cycle()   # cash is at the reserve: no second buy
     assert len([k for k in api.orders if k.startswith("core-")]) == 1
@@ -513,7 +521,7 @@ def test_lost_pick_record_is_restored_not_adopted(tmp_path):
     # A run bought the pick but its state save failed: the next run must rebuild the pick
     # with Claude's exits, not adopt the position with the defaults.
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 1,
-                            "stop_pct": 0.07, "target_pct": 0.12, "max_hold_days": 8}])
+                            "stop_pct": 0.12, "target_pct": 0.12, "max_hold_days": 8}])
     api = FakeAlpaca()
     api.pos["NVDA"] = {"symbol": "NVDA", "qty": "0.1", "market_value": "15", "unrealized_plpc": "0.01",
                        "unrealized_pl": "0.15"}
@@ -523,7 +531,7 @@ def test_lost_pick_record_is_restored_not_adopted(tmp_path):
     t.cycle()
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
     assert list(state) == ["p1"]
-    assert state["p1"]["stop_pct"] == 0.07 and state["p1"]["max_hold_days"] == 8
+    assert state["p1"]["stop_pct"] == 0.12 and state["p1"]["max_hold_days"] == 8
     assert state["p1"]["entry_date"] == "2026-10-08"
     assert len([k for k in api.orders if k.startswith("p1")]) == 1   # not bought twice
 
@@ -536,4 +544,6 @@ def test_unknown_position_without_a_pick_is_still_adopted(tmp_path):
     t, api, _ = make(tmp_path, api)
     t.cycle()
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
-    assert list(state) == ["adopted-2026-10-08-AMD"] and state["adopted-2026-10-08-AMD"]["stop_pct"] == 0.10
+    adopted = state["adopted-2026-10-08-AMD"]
+    assert list(state) == ["adopted-2026-10-08-AMD"] and adopted["stop_pct"] == 0.15
+    assert adopted["target_pct"] is None and adopted["max_hold_days"] == CFG["default_hold_days"]

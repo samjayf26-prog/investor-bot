@@ -9,7 +9,13 @@ from datetime import datetime, timedelta
 
 ACTIONS = ("buy", "buy_put")
 SYMBOL = re.compile(r"^[A-Z]{1,5}(\.[A-Z])?$")
+HHMM = re.compile(r"^([01]\d|2[0-3]):[0-5]\d$")
 MAX_TTL = timedelta(hours=30)
+# Inverse and single-stock bear ETFs: bearish bets lost in every study we ran
+# (review/profit-overhaul.md 3.2), so the bot refuses them whatever the picks file says.
+BEAR_ETFS = {"SQQQ", "SPXU", "SPXS", "SDOW", "SDS", "SH", "PSQ", "QID", "SOXS", "TZA", "SRTY", "RWM",
+             "DOG", "TECS", "FAZ", "LABD", "DRIP", "DUST", "JDST", "ERY", "SCO", "KOLD", "TBT", "TMV",
+             "TSLQ", "TSLS", "TSLZ", "NVDS", "NVD", "MSTZ", "CONL", "UVXY", "VIXY", "VXX", "UVIX"}
 
 
 def _ts(value):
@@ -48,6 +54,9 @@ def load(path, now, cfg):
         return [], close_ids, ["picks expired; no new entries"]
 
     entries, seen = [], set()
+    blocked = BEAR_ETFS | {str(b).upper() for b in cfg.get("blocked_symbols", [])}
+    min_hold, default_hold = int(cfg.get("min_hold_days", 0)), int(cfg.get("default_hold_days", 5))
+    earliest = cfg.get("earliest_entry_et", "10:00")
     for raw in data.get("picks", [])[: cfg["max_picks_per_run"]]:
         try:
             pid, sym, action = str(raw["id"]), str(raw["symbol"]).upper(), raw["action"]
@@ -59,16 +68,30 @@ def load(path, now, cfg):
             continue
         seen.add(pid)
         put = action == "buy_put"
+        if put and not cfg.get("options_enabled", False):
+            notes.append(f"dropped {pid!r}: options are off (no bearish trades)")
+            continue
+        if sym in blocked:
+            notes.append(f"dropped {pid!r}: {sym} is an inverse/bear ETF (no bearish trades)")
+            continue
+        when = str(raw.get("earliest_et") or earliest)
+        if not HHMM.match(when):
+            when = earliest
+        when = min(max(when, "09:30"), "15:30")
+        # No profit target unless Claude sets one: a 20-day time exit kept the post-news
+        # drift that 10-15% targets gave away (review/profit-overhaul.md 3.2).
+        target = raw.get("target_pct")
         entries.append({
             "id": pid,
             "symbol": sym,
             "action": action,
             "conviction": int(_clamp(raw.get("conviction"), 1, 3, 1)),
-            "stop_pct": _clamp(raw.get("stop_pct"), 0.02, 0.6 if put else 0.25, 0.5 if put else 0.08),
-            "target_pct": _clamp(raw.get("target_pct"), 0.03, 5.0, 1.0 if put else 0.15),
-            "max_hold_days": int(_clamp(raw.get("max_hold_days"), 0, cfg["max_hold_days"], 5)),
+            "stop_pct": _clamp(raw.get("stop_pct"), 0.02 if put else 0.10, 0.6 if put else 0.25, 0.5 if put else 0.15),
+            "target_pct": (1.0 if put else None) if target is None else _clamp(target, 0.10, 5.0, None),
+            "max_hold_days": int(_clamp(raw.get("max_hold_days"), min_hold, cfg["max_hold_days"], default_hold)),
             "max_entry_price": _clamp(raw.get("max_entry_price"), 0, 1e6, 0) or None,
             "confirm_vwap": raw.get("confirm_vwap") is True,
+            "earliest_et": when,
         })
     return entries, close_ids, notes
 

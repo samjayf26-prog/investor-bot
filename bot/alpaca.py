@@ -134,6 +134,30 @@ class Alpaca:
             if not token:
                 return out
 
+    def daily_bars(self, symbol, start, end, adjustment="all", feed="sip"):
+        """Completed daily bars in [start, end] (dates), split- and dividend-adjusted by default.
+        Free accounts get SIP data older than 15 minutes, which completed sessions always are;
+        if the feed is refused the IEX bars are used instead (closes differ by cents)."""
+        try:
+            return self._bars(symbol, "1Day", start, end, feed, adjustment)
+        except AlpacaError as e:
+            if feed == "iex" or e.status not in (400, 402, 403):
+                raise
+            return self._bars(symbol, "1Day", start, end, "iex", adjustment)
+
+    def _bars(self, symbol, timeframe, start, end, feed, adjustment):
+        out, token = [], None
+        while True:
+            params = {"timeframe": timeframe, "start": start, "end": end, "feed": feed,
+                      "adjustment": adjustment, "limit": 10000}
+            if token:
+                params["page_token"] = token
+            page = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/bars", params)
+            out += page.get("bars") or []
+            token = page.get("next_page_token")
+            if not token:
+                return out
+
     def snapshots(self, symbols):
         """Latest trade, today's bar (o/h/l/c/v and vw = VWAP) and the previous day's bar per symbol."""
         return self._req("GET", f"{DATA_URL}/v2/stocks/snapshots",
