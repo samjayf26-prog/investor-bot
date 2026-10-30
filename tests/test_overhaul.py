@@ -363,7 +363,6 @@ def test_picks_are_funded_from_spy_first_then_tqqq(tmp_path):
     hold(api, "TQQQ", 78.0)
     t, api, _ = make(tmp_path, api=api, start=NOW)
     assert t.cycle() == "traded"
-    sells = [o for o in api.orders.values() if o["side"] == "sell"] + api.closed
     assert "SPY" in api.closed                                    # all $20 of SPY went first
     tqqq_sells = [o for o in api.orders.values() if o["side"] == "sell" and o["symbol"] == "TQQQ"]
     assert len(tqqq_sells) == 1 and 18 < float(tqqq_sells[0]["notional"]) < 22   # ~$40 pick - $2 cash - $20 SPY
