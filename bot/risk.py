@@ -59,10 +59,11 @@ def exit_reason(plpc, stop_pct, target_pct, held_days, max_hold_days, close_requ
                 days_to_expiry=None, min_days_to_expiry=2, late_in_day=False):
     """Why a position should be closed now, or None to keep it.
 
-    max_hold_days 0 is a day trade: held until late_in_day (15:30 ET), never overnight."""
+    max_hold_days 0 is a day trade: held until late_in_day (15:30 ET), never overnight.
+    target_pct None means no profit target: the time exit does the work."""
     if plpc <= -stop_pct:
         return f"stop loss ({plpc:.1%})"
-    if plpc >= target_pct:
+    if target_pct is not None and plpc >= target_pct:
         return f"profit target ({plpc:.1%})"
     if close_requested:
         return "Claude asked to close"
@@ -121,3 +122,97 @@ def market_row(snap):
     vwap = day.get("vw")
     return {"last": last, "pct_vs_prev_close": pct(prev.get("c")), "pct_vs_open": pct(day.get("o")),
             "vwap": vwap, "vwap_side": None if not vwap else ("above" if last > vwap else "below")}
+
+
+# leveraged core (review/profit-overhaul.md 3.1): signals as pure functions, closes oldest first
+def sma_trend(closes, days=200):
+    """1 when the last close is above the simple average of the last `days` closes (the
+    last close included), else 0. Too little history counts as no trend (no leverage)."""
+    if len(closes) < days:
+        return 0
+    return 1 if closes[-1] > sum(closes[-days:]) / days else 0
+
+
+def realized_vol(closes, days=20):
+    """Annualized sample standard deviation of the last `days` daily returns, or None."""
+    if len(closes) < days + 1:
+        return None
+    rets = [closes[i] / closes[i - 1] - 1 for i in range(len(closes) - days, len(closes))]
+    mean = sum(rets) / days
+    var = sum((r - mean) ** 2 for r in rets) / (days - 1)
+    return math.sqrt(var) * math.sqrt(252)
+
+
+def core_weight(trend, vol, target=0.30, lev=3.0):
+    """Share of the core in the 3x fund: lever it so that its own volatility is about
+    `target`, never above 100%, and nothing while the index is below its trend."""
+    if not trend or vol is None:
+        return 0.0
+    if vol <= 0:
+        return 1.0
+    return min(1.0, target / (lev * vol))
+
+
+def dip_state(closes, prev_state, down_days=3, max_days=5):
+    """Dip overlay: after `down_days` lower closes in a row the core goes all-in the 3x fund
+    and stays until the first close above the one before, or `max_days` sessions.
+    State is 0 (off) or the number of sessions the overlay will have been held after
+    this close (1 on entry). Call once per session with that session's close last."""
+    if prev_state > 0:
+        if len(closes) >= 2 and closes[-1] > closes[-2]:
+            return 0
+        return 0 if prev_state >= max_days else prev_state + 1
+    if len(closes) < down_days + 1:
+        return 0
+    tail = closes[-(down_days + 1):]
+    return 1 if all(tail[i] < tail[i - 1] for i in range(1, len(tail))) else 0
+
+
+def dip_replay(closes, down_days=3, max_days=5):
+    """dip_state replayed over the whole series from a cold start: the overlay state after
+    the last close, whatever earlier evaluations were missed (self-healing)."""
+    state = 0
+    for i in range(1, len(closes) + 1):
+        state = dip_state(closes[max(0, i - down_days - 1):i], state, down_days, max_days)
+    return state
+
+
+def rebalance_needed(held_weight, target_weight, band=0.10):
+    """Trade only when the target moved more than `band` from what is held, or when the
+    3x sleeve switches between zero and something (same rule as the backtest's band)."""
+    if target_weight == 0 and held_weight > 0:
+        return True
+    if held_weight == 0 and target_weight > 0:
+        return True
+    return abs(target_weight - held_weight) > band
+
+
+def core_target(idle, weight, in_dip):
+    """Dollars for (3x fund, rest) out of `idle` core dollars: the overlay means 100% 3x."""
+    idle = max(0.0, idle)
+    lev = idle if in_dip else idle * weight
+    return round(float(lev), 2), round(float(idle - lev), 2)
+
+
+def simulate_core(index_closes, lev_closes, rest_closes, start_value, sma_days=200, vol_days=20,
+                  target=0.30, lev=3.0, band=0.10, down_days=3, max_days=5, start_at=None):
+    """The core rule replayed on aligned daily closes (oldest first): returns the value
+    path from `start_at` (index into the lists; default: the first day with signals).
+    Weight over day t is set from closes through t-1; the overlay follows dip_state."""
+    n = min(len(index_closes), len(lev_closes), len(rest_closes))
+    first = max(sma_days, vol_days + 1, down_days + 1)
+    if start_at is None:
+        start_at = first
+    values, held, dip, value = [], 0.0, 0, float(start_value)
+    for t in range(first, n):
+        hist = index_closes[:t]                       # through t-1
+        w = core_weight(sma_trend(hist, sma_days), realized_vol(hist, vol_days), target, lev)
+        dip = dip_state(hist, dip, down_days, max_days)
+        want = 1.0 if dip else w
+        if rebalance_needed(held, want, band):
+            held = want
+        if t >= start_at:
+            r = held * (lev_closes[t] / lev_closes[t - 1] - 1) + (1 - held) * (rest_closes[t] / rest_closes[t - 1] - 1)
+            value *= 1 + r
+            values.append(value)
+    return values

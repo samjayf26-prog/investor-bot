@@ -16,7 +16,7 @@ import json
 from collections import defaultdict
 from datetime import datetime, time as dtime, timedelta, timezone
 
-from . import tuning
+from . import risk, tuning
 from .trader import ET, ROOT, load_config, log, make_client
 
 LOOKBACK = 10        # trading sessions replayed
@@ -211,20 +211,74 @@ def benchmark(api, cfg, today, root=ROOT):
     start, spy_start = float(b["start_equity"]), start_bars[0]["o"]
     equity, spy_now = float(api.account()["equity"]), api.last_price("SPY")
     spy_value = start * spy_now / spy_start
-    rows.append({"date": today.isoformat(), "bot": f"{equity:.2f}", "sp500": f"{spy_value:.2f}"})
+    row = {"date": today.isoformat(), "bot": f"{equity:.2f}", "sp500": f"{spy_value:.2f}"}
+    qqq_value = same_money_in(api, "QQQ", since, start)
+    if qqq_value:
+        row["qqq"] = f"{qqq_value:.2f}"
+    model = core_model(api, cfg, since, start, today)
+    if model:
+        row["core_model"] = f"{model:.2f}"
+    rows.append(row)
     rows.sort(key=lambda r: r["date"])
     with open(path, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["date", "bot", "sp500"])
+        w = csv.DictWriter(f, fieldnames=["date", "bot", "sp500", "qqq", "core_model"], restval="")
         w.writeheader()
         w.writerows(rows)
     lines = ["", f"## Bot vs S&P 500 (${start:.0f} since {since.astimezone(ET):%Y-%m-%d %H:%M} ET)",
              f"**Bot ${equity:.2f} ({equity / start - 1:+.2%}) vs S&P 500 ${spy_value:.2f} "
              f"({spy_value / start - 1:+.2%}): the bot is {'ahead' if equity >= spy_value else 'behind'} "
-             f"by ${abs(equity - spy_value):.2f}.**",
-             "", "| day | bot $ | $ in S&P 500 (SPY) |", "|---|---|---|"]
-    lines += [f"| {r['date']} | {r['bot']} | {r['sp500']} |" for r in rows[-10:]]
+             f"by ${abs(equity - spy_value):.2f}.**"]
+    if qqq_value:
+        lines.append(f"Same money in the Nasdaq 100 (QQQ): ${qqq_value:.2f} ({qqq_value / start - 1:+.2%}).")
+    if model:
+        lines.append(f"Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): "
+                     f"${model:.2f} ({model / start - 1:+.2%}). The gap between this and the account is the picks "
+                     f"plus execution slippage.")
+    lines += ["", "| day | bot $ | $ in S&P 500 (SPY) | $ in QQQ | core rule $ |", "|---|---|---|---|---|"]
+    lines += [f"| {r['date']} | {r['bot']} | {r['sp500']} | {r.get('qqq') or '-'} | {r.get('core_model') or '-'} |"
+              for r in rows[-10:]]
     lines.append("(Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)")
     return lines
+
+
+def same_money_in(api, sym, since, start):
+    """`start` dollars put in `sym` at `since`, valued now; None when no start price is found."""
+    try:
+        bars = api.bars_between(sym, "1Min", since.isoformat(), (since + timedelta(minutes=30)).isoformat())
+        return start * api.last_price(sym) / bars[0]["o"] if bars else None
+    except Exception:  # noqa: BLE001 - a benchmark column must never break the scorecard
+        return None
+
+
+def core_model(api, cfg, since, start, today):
+    """What `start` dollars would be worth under the core rule (review/profit-overhaul.md 3.1)
+    applied at official closes from the go-live day's close, with no picks. Daily closes
+    come from Alpaca (adjusted); today's value uses the latest trades. None if data is short."""
+    c = (cfg.get("core") or {}) if isinstance(cfg.get("core"), dict) else {}
+    index, lev, rest = c.get("index", "QQQ"), c.get("lev_symbol", "TQQQ"), c.get("rest_symbol") or c.get("symbol", "SPY")
+    sma, vol_days = int(c.get("sma_days", 200)), int(c.get("vol_days", 20))
+    try:
+        first = (since.astimezone(ET).date() - timedelta(days=int(c.get("history_days", 420)))).isoformat()
+        yesterday = (today - timedelta(days=1)).isoformat()
+        series = {}
+        for sym in (index, lev, rest):
+            bars = api.daily_bars(sym, first, yesterday, feed=c.get("feed", "sip"))
+            series[sym] = {str(b["t"])[:10]: float(b["c"]) for b in bars if str(b["t"])[:10] < today.isoformat()}
+            series[sym][today.isoformat()] = api.last_price(sym)
+        dates = sorted(set.intersection(*(set(v) for v in series.values())))
+        start_day = since.astimezone(ET).date().isoformat()
+        after = [i for i, d in enumerate(dates) if d > start_day]
+        if not after or after[0] < max(sma, vol_days + 1):
+            return None
+        values = risk.simulate_core([series[index][d] for d in dates], [series[lev][d] for d in dates],
+                                    [series[rest][d] for d in dates], start, sma_days=sma, vol_days=vol_days,
+                                    target=float(c.get("vol_target", 0.30)), lev=float(c.get("max_lev", 3.0)),
+                                    band=float(c.get("band", 0.10)),
+                                    down_days=int((c.get("dip") or {}).get("down_days", 3)),
+                                    max_days=int((c.get("dip") or {}).get("max_days", 5)), start_at=after[0])
+        return values[-1] if values else None
+    except Exception:  # noqa: BLE001 - a benchmark column must never break the scorecard
+        return None
 
 
 # run

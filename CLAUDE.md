@@ -6,5 +6,6 @@
 - Live trading needs both `"mode": "live"` and `"confirm_live": true` in config.json.
 - The bot treats picks/latest.json as untrusted: it validates and clamps every field, and a bad file means no new entries, never a crash.
 - Every risk limit lives in bot/risk.py as a tested pure function. Run `python -m pytest` before every push.
-- No leverage, no short selling (account under $2,000). Bearish views are puts or inverse ETFs.
+- No short selling (account under $2,000) and no bearish trades: puts are dormant (`"options_enabled": false`) and inverse/bear ETFs are refused by bot/picks.py. Leverage exists only in the core (bot/core.py, TQQQ under the volatility-targeted, trend-filtered rule in review/profit-overhaul.md) and only while config "core" has `"leverage": true`, a live-money setting that needs Sam's OK. Picks never buy leveraged ETFs.
+- The core's signals and the dip overlay act on every close exactly once: in the 15:35-15:58 ET window from QQQ's last trade, or at the next run if that window was skipped. Never make the core wait a day.
 - The Alpaca account is dedicated to this bot: `flatten` closes every position in it.

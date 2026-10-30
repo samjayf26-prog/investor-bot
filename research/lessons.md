@@ -1,30 +1,54 @@
-# Lessons (rewritten by the evening review 2026-10-30; the morning research must follow these)
+# Rulebook (frozen 2026-10-30 by the profit overhaul; the research runs must follow it)
 
-Evidence base: 6 closed paper picks (10-07 to 10-13, net +$0.89: PENG +2.07, UNH +0.42, SH +0.03, SOXS -0.11, HUM -0.32, CEG -0.74) and 10 closed live picks (LMT +$1.10 at its 10% target, CLS -$0.76 at its wrong-if, MMM +$0.14 at its 7-day max hold, AZZ -$0.82, HAL -$0.55, SQQQ same-day -$0.25 and +$0.11, TQQQ same-day -$0.15, -$0.11 and +$0.12). Open: TSLA (10-26, flat) and the SPY core (~$59). Live account since 10-13: $72.67 (-3.11%) vs $72.91 in the S&P 500 (-2.79%), behind by $0.24 after the 10-30 AI-spending selloff. Tiny sample: treat as leanings, not laws.
+These rules come from review/profit-overhaul.md: a news-gap study of 201 stocks, 2016-2026,
+12,603 gaps of 3%+ net of SPY, plus our own 16 closed picks (net about -$0.3, 6 paper + 10
+live). Our own sample is far too small to set rules; it is listed as observations only.
+A rule changes only when research/scorecard.md shows at least 30 closed trades bearing on
+the claim and a t-statistic above 2. The evening review appends observations to the
+journal and may add one line under "Proposed changes" below; it does not rewrite this file.
 
-Catalysts
-- Prefer lasting estimate changes (guidance raise, rating reversal) over one-day headlines. PENG (+$2.07) is still the only real winner. A raise alone isn't enough: AZZ (beat and raise, ~3% gap) faded in two days for -$0.82 when small caps sold off on rates.
-- Big names with fresh news are first-class candidates (PROMPT.md, review/megacap-results.md): good-news gaps paid over 5-10 days, not on the day (LMT: re-issued on day 2, held 6 days, +10.1% at target, the best live pick); no bearish bets right after a big name's bad-news gap. Confirm the news from two outlets first: TSLA 10-26 (Barclays upgrade) was skipped at 8:50 on one source, then bought at $394.68 once confirmed and holding +6% above VWAP. Never chase a gap on one unconfirmed source: CEG (+12% gap, -$0.74) is the largest loss.
-- Don't cancel an unbought confirm_vwap pick on an early dip: CLF 10-19 dipped -5.6% early, I dropped it, and it finished ~+18% vs Friday. Keep such picks until the stated wrong-if breaks.
-- If a capped pick runs past its cap while the tape confirms the thesis, raising the cap once is fine (MMM 10-20: cap $166 to $172, filled $169.74, $173.26 on 10-21).
-- Check beat quality before trusting a big EPS beat: ELV 10-21 (adj EPS $6.99 vs ~$4.70, guide raised) gapped to ~$448 and sank to $428 in the first hour; GAAP included a $1.85/share non-operating benefit and membership fell. confirm_vwap kept us out. A post-earnings gap that fades below VWAP in the first hour has twice been the right skip (HUM, ELV); LMT 10-22 (+7.6%, raised guide) stayed below VWAP all day in a -2.7% Nasdaq; the pick was re-issued on day 2, filled at $587.50 once above VWAP, and closed the week at $608.71 (+3.6%). Re-issuing a held-up gap on day 2 with confirm_vwap worked. On a big gap with no live price yet, wait for the 10:20 snapshot: CLS 10-27 (+16% premarket) opened ~+6%, and confirm_vwap bought it at $277.76 once back above VWAP. MSFT 10-29 (+3.6% premarket on a cloud beat) faded to -3% from its open and below VWAP by 10:45 in a -1.4% Nasdaq; dropped; it was still red at 2:20 (-0.4%). A gap that fully fades in the first hour is also a sell signal for a position already held (UNH 10-13, +$0.42).
+## Rules
+1. Buy only. No puts, no inverse or bear ETFs, no shorting, no same-day direction trades.
+   Evidence: betting against a bad-news gap lost 1.56% vs SPY at 10 days and 2.17% at 20
+   days (t -10); the same-day reaction to news is a coin flip (+0.00%, 48% paid, 6,658
+   events). Our own direction calls: 5 same-day trades, net -$0.28.
+2. Prefer gaps of 6% or more on a concrete estimate change (guidance raise, rating reversal,
+   decision). Evidence: 10-day drift vs SPY, gap 3-6% +0.22% (not significant); 6-12% +1.12%
+   (t 3.1); 12%+ +2.08% (t 3.1). Big names qualify on fresh news; mega-caps after a good-news
+   gap beat SPY by +1.2% at 10 days.
+3. Hold about 20 trading days (max_hold_days default 28, 14-30 allowed, never under 3).
+   Evidence: 5 days -0.03%, 10 days +0.53% (t 3.5), 20 days +1.33% (t 6.1); the median is
+   negative and the hit rate 48-49%, so the edge is a right tail. Do not sell winners early.
+4. Wide disaster stop (15%), no default target. Evidence over 20-day holds: no stop or
+   target +1.20%; 10% target only +0.67%; 7% stop only +0.48%; 7% stop + 10% target +0.18%.
+   The old defaults (5-8% stop, 10-15% target, under 10 days) were the worst combination.
+5. Buy on day 0 from 10:00 ET, not the next morning. Evidence: the day-1 open entry after a
+   held gap was the worst entry tested (5 days -0.30%, t -2.1). Do not wait for VWAP by
+   default: faded gaps drifted as well as held ones (10 days +0.65% vs +0.43%).
+6. Close only on a stated wrong-if judged on a close (or the 14:20 price), or a reversal of
+   the news. Intraday dips are not exits. Evidence: rule 3; our own intraday exits (CLS,
+   HAL, AZZ) were taken in broad selloffs, not on company news.
+7. Conviction 1/2/3 = 15/25/40% of equity, at most 3 open; conviction 3 only on catalysts
+   confirmed by primary sources. Confirm every story from two outlets (CEG, bought on one
+   unconfirmed source, is still the largest paper loss).
+8. The core is not yours to time: no SPY/TQQQ/QQQ picks, no hedging it. Its rule (TQQQ
+   weight = min(1, 0.30 / (3 x QQQ 20-day vol)) above the 200-day average, 100% TQQQ for up
+   to 5 sessions after three lower closes) made 39.9%/yr vs 13.9% for SPY in 2011-2026 and
+   its whole edge is in acting the first session after the signal.
+9. Experiment lane, flagged "[experiment]", conviction 1-2: a mega-cap bought the day it gaps
+   down on an earnings or guidance miss, 20-day hold. Evidence +1.6% vs SPY at 10 days
+   (t 9.7) but this is the most survivorship-biased number in the study.
 
-Entry
-- Picks execute within minutes as limit orders capped at max_entry_price. Give every gap pick a cap and judge the thesis on the first-hour price. Check state/market.json's as_of_et before setting a cap; on a moving tape set a 3x ETF's cap 2-3% over the snapshot (10-16 SQQQ missed its stale cap).
+## Observations (not rules; our own trades, n = 16)
+- Winners: PENG +$2.07 (guidance raise), LMT +$1.10 (raised guide, re-issued on day 2 and
+  sold at a 10% target, which rule 4 now says was early), UNH +$0.42, MMM +$0.14.
+- Losers: AZZ -$0.82 and HAL -$0.55 (small caps in rate and sector selloffs), CLS -$0.76 and
+  CEG -$0.74 (bought high after large gaps, one unconfirmed), HUM -$0.32.
+- Beat quality matters: ELV's big EPS beat (10-21) was a non-operating benefit; it fell 4%
+  in the first hour. Read the release, not the headline number.
+- GitHub's cron skips runs; if state/account.json is over ~30 minutes old in market hours,
+  dispatch `trade.yml -f command=cycle`.
+- Headline index levels are often stale; trust state/market.json.
 
-Exits
-- Write a concrete "wrong if" for every pick and act on it at the next refresh (AZZ's ~$132 line, -$0.82; HAL's $33 line, -$0.55). Close on the stated kill condition even before the hold limit.
-- A sector tailwind doesn't protect a stock in a broad selloff: HAL fell -4% on 10-22 while Brent hit a five-month high (energy sold with everything). Company news doesn't protect a stock when its whole theme sells: CLS (AI hardware, guide raise, +9.6% at best) went to -6.9% in two days as AMZN/INTC hit AI names (SMH -8.5% on 10-30). Selling at the wrong-if at 1:20 (-$0.76) beat the close (~$256). When a held pick's theme ETF is down 5%+ by 10:20, judge it against the wrong-if then, not at the close.
-
-Direction calls (scalp_bias and same-day SQQQ/TQQQ)
-- Bias hit rate 8 of 10 (wrong 10-13 and 10-15; right 10-14, 10-16, 10-20, 10-22, 10-23, 10-26, 10-27, 10-30; 10-19, 10-21, 10-28, 10-29 neutral). Conviction 1 only, with the tape (QQQ vs its open), never fading it; revisit after ~20 scored calls in research/direction_log.csv.
-- But with-the-tape same-day trades are net -$0.03 over 4 (10-16 +$0.11, 10-19 -$0.15, 10-20 -$0.11, 10-23 +$0.12 only after an unplanned weekend hold). On 10-20 the call was right (QQQ +0.65% in the window) yet TQQQ lost: bought near the late-morning high (QQQ +0.99% at 11:00), then the rally cooled to +0.4%. 10-23 (QQQ +0.78% at 11:11) repeated it: bought $67.14 near the high, -1% by 15:21. Leaning: the 11:20 entry buys after most of the move; skip it when QQQ is already ~1% up (stretched, as on 10-26) as well as when it's within ~0.5%.
-- Headline index levels are often stale; trust state/market.json. Watch yields, not just the print (10-15 PPI: SQQQ -$0.25 as yields fell).
-
-Sizing, regime and process
-- Live equity ~$74: conviction 1 is ~$11, 2 is ~$18, 3 is ~$30; one bad pick costs about $1. Reserve conviction 3 for catalysts confirmed by primary sources.
-- GitHub's cron is unreliable: it skipped 15:35/15:50 on 10-23 (TQQQ held over the weekend) and ran nothing from the open until 11:10 ET on 10-26. If state/account.json is over ~30 minutes old in market hours, dispatch `trade.yml -f command=cycle` (a bare dispatch only runs "status"). A 15:40 ET check covers same-day exits; avoid same-day picks on Fridays until it has proven itself.
-- A run whose state save fails still trades (TSLA 10-26 was adopted with default exits). Since 10-26 the next run rebuilds such a pick from its entry order while the pick is still in picks/latest.json, so keep a bought pick out of "close" lists by its own id; check state/positions.json after new buys.
-- Before CPI/FOMC/major event mornings, carrying new picks into the print has had no edge; holding already-working multi-day picks through the 10-28 Fed hold was fine (account +$0.72 that day). Puts only fit stocks under ~$15; check the chain.
-- Scalper (paper): no after-cost edge; it follows the bias. Tuner tightened its stop to 0.2% on 10-22, then on 10-30 switched to TQQQ+SQQQ with 0.5% stop/target and 10-minute holds (replay +4.20%/+3.51%).
-- Overnight SPY core (~$39; idle cash goes to SPY after 14:30 ET, sold as picks need it; size picks as usual, never pick SPY): funds picks as designed (10-23 two sales, 10-26 TSLA); lost ~$0.63 its first night (10-22), roughly flat since. Judge it over weeks, not days.
+## Proposed changes (evening review; each line needs n >= 30 and t > 2 in the scorecard)
+- none yet

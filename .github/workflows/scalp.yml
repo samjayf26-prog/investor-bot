@@ -1,10 +1,9 @@
 name: scalp
 
 on:
-  schedule:
-    # 13:35 and 14:35 UTC cover 9:35 ET in both daylight-saving seasons; the
-    # scalper exits at once from the run that lands outside its window.
-    - cron: "35 13,14 * * 1-5"
+  # Retired 2026-10-30 (profit overhaul): 70 sessions of replays found no setting that
+  # made money after costs, so the paper scalper no longer runs on a schedule. Run it by
+  # hand from the Actions tab if you want to watch it; it only ever touches the paper account.
   workflow_dispatch:
     inputs:
       minutes:

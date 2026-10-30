@@ -5,7 +5,7 @@ from datetime import date, timedelta
 from bot import learn, scalper, tuning
 from bot.trader import load_config
 
-CFG = load_config()
+CFG = {**load_config(), "learning": True}   # the tuner tests exercise the (now frozen) learning loop
 SC = CFG["scalper"]
 TODAY = date(2026, 10, 12)
 
@@ -149,6 +149,7 @@ def test_benchmark_compares_with_spy(tmp_path):
     learn.benchmark(FakeData(), cfg, TODAY, tmp_path)
     lines = learn.benchmark(FakeData(), cfg, TODAY, tmp_path)    # rerun replaces today's row
     rows = list(csv.DictReader(open(tmp_path / "research" / "benchmark.csv")))
-    assert rows == [{"date": "2026-10-12", "bot": "80.00", "sp500": "82.50"}]   # SPY 100 -> 110
+    # SPY and QQQ 100 -> 110; FakeData has no daily bars, so the core-rule column stays blank
+    assert rows == [{"date": "2026-10-12", "bot": "80.00", "sp500": "82.50", "qqq": "82.50", "core_model": ""}]
     assert any("Bot $80.00 (+6.67%) vs S&P 500 $82.50 (+10.00%)" in l and "behind by $2.50" in l for l in lines)
     assert learn.benchmark(FakeData(), {**CFG, "benchmark": {}}, TODAY, tmp_path) == []
