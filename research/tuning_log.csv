@@ -10,3 +10,8 @@ date,setting,old,new,reason
 2026-10-13,ema_slow,21,13,replay of 10 sessions: +0.96%/+0.10% vs current +0.46%/-6.16% (82 trades)
 2026-10-13,enabled_symbols,"['SPY', 'QQQ', 'TQQQ', 'SQQQ']",['SQQQ'],replay of 10 sessions: +0.96%/+0.10% vs current +0.46%/-6.16% (82 trades)
 2026-10-22,stop_pct,0.003,0.002,replay of 10 sessions: +1.87%/+6.43% vs current +0.19%/+5.99% (94 trades)
+2026-10-30,stop_pct,0.002,0.005,replay of 10 sessions: +4.20%/+3.51% vs current +3.55%/-0.47% (131 trades)
+2026-10-30,max_hold_minutes,20,10,replay of 10 sessions: +4.20%/+3.51% vs current +3.55%/-0.47% (131 trades)
+2026-10-30,ema_fast,5,8,replay of 10 sessions: +4.20%/+3.51% vs current +3.55%/-0.47% (131 trades)
+2026-10-30,ema_slow,13,21,replay of 10 sessions: +4.20%/+3.51% vs current +3.55%/-0.47% (131 trades)
+2026-10-30,enabled_symbols,['SQQQ'],"['TQQQ', 'SQQQ']",replay of 10 sessions: +4.20%/+3.51% vs current +3.55%/-0.47% (131 trades)

@@ -1,13 +1,14 @@
 {
   "scalper": {
     "take_profit_pct": 0.005,
-    "stop_pct": 0.002,
-    "max_hold_minutes": 20,
-    "ema_fast": 5,
-    "ema_slow": 13,
+    "stop_pct": 0.005,
+    "max_hold_minutes": 10,
+    "ema_fast": 8,
+    "ema_slow": 21,
     "enabled_symbols": [
+      "TQQQ",
       "SQQQ"
     ]
   },
-  "updated": "2026-10-29"
+  "updated": "2026-10-30"
 }
