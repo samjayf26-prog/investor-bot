@@ -37,8 +37,11 @@ sys.path.insert(0, str(ROOT))
 
 START = "2000-01-01"
 CORE_START = "2011-01-03"      # TQQQ has traded since Feb 2010; a common sample for all core tests
-COST = {"SPY": 0.0001, "QQQ": 0.0001, "TQQQ": 0.0003, "QLD": 0.0003, "SSO": 0.0003, "UPRO": 0.0003,
-        "SQQQ": 0.0003, "TLT": 0.0002, "IWM": 0.0001, "EFA": 0.0002, "EEM": 0.0002, "GLD": 0.0001}
+COST = {"SPY": 0.00005, "QQQ": 0.00005, "TQQQ": 0.0001, "QLD": 0.0001, "SSO": 0.0001, "UPRO": 0.0001,
+        "SQQQ": 0.0001, "TLT": 0.0001, "IWM": 0.00005, "EFA": 0.0001, "EEM": 0.0001, "GLD": 0.00005}
+# one-way cost per trade as a fraction of the amount traded. SPY/QQQ quote 1 cent wide on $680-750 (half-spread
+# 0.0007%); TQQQ 1-2 cents on ~$70 (half-spread 0.007-0.014%). Market orders at NBBO pay the half-spread; the
+# figures above add slippage on top. Section 2 is also shown at 3x these costs.
 LINES = []
 SOURCES = {}
 
@@ -270,13 +273,13 @@ def overnight_section(data):
 
 
 # ----------------------------------------------------------------------------- 2. core strategies
-def core_section(data):
-    say("", "## 2. What to do with the idle cash (the 'core'), daily data since 2011", "",
-        "All strategies trade at the official open/close (section 7 measures the cost of the bot's "
-        "real run times). Costs: one-way spread+slippage per trade of 0.01% (SPY/QQQ), 0.03% (3x ETFs), "
-        "0.02% (TLT), charged on every position change; the overnight-only strategies pay a round trip "
-        "every day. Sharpe uses a 0% cash rate. 'worst year' is the worst calendar year. Dividends "
-        "included; TQQQ's fees and financing are in its prices. No taxes.", "")
+def core_section(data, mult=1.0, label="base costs"):
+    say("", f"## 2. What to do with the idle cash (the 'core'), daily data since 2011 ({label})", "",
+        "All strategies trade at the official open/close (section 7 measures the cost of the bot's real run "
+        f"times). One-way costs this run: SPY/QQQ {COST['SPY'] * mult:.3%}, 3x ETFs {COST['TQQQ'] * mult:.3%}, "
+        "charged on every position change; the overnight-only strategies pay a round trip every day. Sharpe uses a "
+        "0% cash rate. 'worst year' is the worst calendar year. Dividends included; TQQQ's fees and financing are "
+        "in its prices. No taxes. Signals use only data known at the prior close.", "")
     need = ["SPY", "QQQ", "TQQQ", "QLD", "TLT"]
     if any(data.get(s) is None for s in need):
         say(f"Missing data for {[s for s in need if data.get(s) is None]}; section skipped.")
@@ -287,78 +290,123 @@ def core_section(data):
     on = {s: (D[s]["open"] / D[s]["close"].shift(1) - 1) for s in need}      # overnight leg
     cc = {s: (D[s]["close"] / D[s]["close"].shift(1) - 1) for s in need}     # full day
     q = data["QQQ"]["close"]
-    sma200 = q.rolling(200).mean().reindex(idx)
-    trend = (q.reindex(idx) > sma200).shift(1).fillna(False).astype(bool)     # known at the prior close
-    rv20 = (q.pct_change().rolling(20).std() * math.sqrt(252)).reindex(idx).shift(1)
-    rows = []
+    qr = q.pct_change()
 
-    def bh(sym):
-        return cc[sym].fillna(0)
+    def trend_sig(n):
+        return (q > q.rolling(n).mean()).reindex(idx).shift(1).fillna(False).astype(bool).astype(float)
+
+    def vol_sig(n):
+        return (qr.rolling(n).std() * math.sqrt(252)).reindex(idx).shift(1)
+
+    trend, rv20 = trend_sig(200), vol_sig(20)
+    cost = {s: COST[s] * mult for s in need}
 
     def overnight(sym, w=None):
         w = pd.Series(1.0, index=idx) if w is None else w
-        return (w * on[sym] - w * 2 * COST[sym]).fillna(0)
+        return (w * on[sym] - w * 2 * cost[sym]).fillna(0)
 
     def switching(weights, syms):
         """weights: {sym: Series of weight held over day t (set at close t-1)}; charges turnover."""
         r = pd.Series(0.0, index=idx)
         for s in syms:
             w = weights[s].fillna(0)
-            r += w * cc[s].fillna(0) - (w - w.shift(1).fillna(0)).abs() * COST[s]
+            r += w * cc[s].fillna(0) - (w - w.shift(1).fillna(0)).abs() * cost[s]
         return r
 
-    rows.append(metrics(bh("SPY"), "SPY buy & hold (today's core)"))
-    rows.append(metrics(bh("QQQ"), "QQQ buy & hold"))
-    rows.append(metrics(bh("TQQQ"), "TQQQ buy & hold"))
-    rows.append(metrics(overnight("SPY"), "SPY overnight only"))
+    def lev_weight(target, vol, trend_w, cap=3.0):
+        return (target / vol).clip(upper=cap).fillna(0) / cap * trend_w
+
+    def banded(w, band=0.10):
+        """Rebalance only when the target moves by more than `band` (fewer, larger trades)."""
+        out, cur = [], 0.0
+        for x in w.fillna(0).values:
+            if abs(x - cur) > band or (x == 0 and cur != 0) or (cur == 0 and x > 0):
+                cur = x
+            out.append(cur)
+        return pd.Series(out, index=w.index)
+
+    rows = []
+    rows.append(metrics(cc["SPY"].fillna(0), "SPY buy & hold (today's core)"))
+    rows.append(metrics(cc["QQQ"].fillna(0), "QQQ buy & hold"))
+    rows.append(metrics(cc["TQQQ"].fillna(0), "TQQQ buy & hold"))
     rows.append(metrics(overnight("QQQ"), "QQQ overnight only"))
-    rows.append(metrics(overnight("QLD"), "QLD (2x) overnight only"))
     rows.append(metrics(overnight("TQQQ"), "TQQQ overnight only"))
-    # trend filter: TQQQ overnight when QQQ > 200d SMA, else SPY overnight / cash
-    w = trend.astype(float)
-    rows.append(metrics(overnight("TQQQ", w), "TQQQ overnight only, only when QQQ > 200d SMA (else cash)"))
-    rows.append(metrics(overnight("TQQQ", w) + overnight("SPY", 1 - w), "TQQQ overnight when QQQ > SMA200, else SPY overnight"))
-    # vol targeting: leverage = min(3, target / realized vol), via TQQQ weight
+    rows.append(metrics(overnight("TQQQ", trend), "TQQQ overnight only, when QQQ > SMA200 (else cash)"))
+    rows.append(metrics(overnight("TQQQ", lev_weight(0.30, rv20, trend)), "TQQQ overnight only, vol-target 30% + SMA200"))
+    rows.append(metrics(overnight("TQQQ", lev_weight(0.40, rv20, trend)), "TQQQ overnight only, vol-target 40% + SMA200"))
+    rows.append(metrics(switching({"TQQQ": trend, "SPY": 1 - trend}, ["TQQQ", "SPY"]), "A. TQQQ when QQQ > SMA200, else SPY (full-time)"))
+    rows.append(metrics(switching({"TQQQ": trend}, ["TQQQ"]), "TQQQ when QQQ > SMA200, else cash (full-time)"))
+    rows.append(metrics(switching({"QLD": trend, "SPY": 1 - trend}, ["QLD", "SPY"]), "QLD (2x) when QQQ > SMA200, else SPY (full-time)"))
     for tgt in (0.20, 0.30, 0.40):
-        lev = (tgt / rv20).clip(upper=3.0).fillna(0)
-        wt = (lev / 3.0)
-        rows.append(metrics(overnight("TQQQ", wt), f"TQQQ overnight only, vol-targeted {tgt:.0%} (QQQ 20d vol)"))
-        rows.append(metrics(overnight("TQQQ", wt * w), f"TQQQ overnight only, vol-targeted {tgt:.0%} + SMA200 filter"))
-    # classic full-time leveraged with trend filter
-    rows.append(metrics(switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"]), "TQQQ when QQQ > SMA200, else SPY (full-time)"))
-    rows.append(metrics(switching({"TQQQ": w, "TLT": 1 - w}, ["TQQQ", "TLT"]), "TQQQ when QQQ > SMA200, else TLT (full-time)"))
-    rows.append(metrics(switching({"QLD": w, "SPY": 1 - w}, ["QLD", "SPY"]), "QLD (2x) when QQQ > SMA200, else SPY (full-time)"))
-    lev = (0.30 / rv20).clip(upper=3.0).fillna(0)
-    rows.append(metrics(switching({"TQQQ": lev / 3 * w, "SPY": 1 - lev / 3 * w}, ["TQQQ", "SPY"]),
-                        "TQQQ vol-targeted 30% + SMA200, rest SPY (full-time)"))
-    # the overnight TQQQ with daytime SPY: sell TQQQ at the open, hold SPY during the day
-    dy_spy = (D["SPY"]["close"] / D["SPY"]["open"] - 1).fillna(0)
-    rows.append(metrics(overnight("TQQQ", w) + (dy_spy - 2 * COST["SPY"]), "TQQQ overnight (SMA200 filter) + SPY during the day"))
-    table(rows, "Core strategies, 2011 to now")
-    y = yearly_table(rows[:9], "Core strategies")
-    y.to_csv(OUT / "yearly.csv")
-    # stress windows
-    say("", "Stress windows (total return of each strategy):", "")
-    wins = [("2018 Q4", "2018-10-01", "2018-12-31"), ("Covid 2020-02-19..03-23", "2020-02-19", "2020-03-23"),
-            ("2022 bear", "2022-01-01", "2022-12-31"), ("2025-04 tariff shock", "2025-03-01", "2025-04-30"),
-            ("last 12 months", str(idx[-252].date()), "2100-01-01")]
-    say("| strategy | " + " | ".join(w[0] for w in wins) + " |")
-    say("|---|" + "---|" * len(wins))
-    series = {"SPY buy & hold": bh("SPY"), "TQQQ buy & hold": bh("TQQQ"), "TQQQ overnight only": overnight("TQQQ"),
-              "TQQQ overnight, SMA200 filter": overnight("TQQQ", w),
-              "TQQQ overnight, vol 30% + SMA200": overnight("TQQQ", (0.30 / rv20).clip(upper=3.0).fillna(0) / 3 * w),
-              "TQQQ>SMA200 else SPY (full-time)": switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"])}
-    for name, r in series.items():
-        cells = []
-        for _, a, b in wins:
-            rr = r[(r.index >= pd.Timestamp(a)) & (r.index <= pd.Timestamp(b))]
-            cells.append(f"{(1 + rr).prod() - 1:+.0%}" if len(rr) else "n/a")
-        say(f"| {name} | " + " | ".join(cells) + " |")
-    # how often does an overnight gap blow through the daily-loss cap?
-    tq = on["TQQQ"].dropna()
-    say("", f"TQQQ overnight gaps since 2011: {len(tq)} nights; worst {tq.min():+.1%} ({tq.idxmin().date()}), "
-        f"nights below -10%: {(tq < -0.10).sum()}, below -15%: {(tq < -0.15).sum()}, below -25%: {(tq < -0.25).sum()}; "
-        f"best {tq.max():+.1%}.")
+        w = lev_weight(tgt, rv20, trend)
+        rows.append(metrics(switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"]),
+                            f"B{int(tgt * 100)}. TQQQ vol-target {tgt:.0%} + SMA200, rest SPY (full-time)"))
+    w30 = lev_weight(0.30, rv20, trend)
+    rows.append(metrics(switching({"TQQQ": w30, "QQQ": 1 - w30}, ["TQQQ", "QQQ"]), "B30q. same, rest QQQ instead of SPY"))
+    rows.append(metrics(switching({"TQQQ": w30}, ["TQQQ"]), "B30c. same, rest cash"))
+    wb = banded(w30)
+    rows.append(metrics(switching({"TQQQ": wb, "SPY": 1 - wb}, ["TQQQ", "SPY"]), "B30 with a 10-point rebalance band"))
+    # vol target without the trend filter, and trend filter variants
+    w = lev_weight(0.30, rv20, pd.Series(1.0, index=idx))
+    rows.append(metrics(switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"]), "TQQQ vol-target 30%, no trend filter, rest SPY"))
+    for n in (100, 150, 250):
+        w = lev_weight(0.30, rv20, trend_sig(n))
+        rows.append(metrics(switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"]), f"B30 with SMA{n} instead of SMA200"))
+    for n in (10, 60):
+        w = lev_weight(0.30, vol_sig(n), trend)
+        rows.append(metrics(switching({"TQQQ": w, "SPY": 1 - w}, ["TQQQ", "SPY"]), f"B30 with {n}-day vol instead of 20-day"))
+    # dip-buying overlay on B30: after 3 down QQQ closes, go 100% TQQQ until the first up close (max 5 days)
+    down = (q < q.shift(1)).reindex(idx).fillna(False)
+    d3 = (down & down.shift(1).fillna(False) & down.shift(2).fillna(False))
+    overlay, k = pd.Series(0.0, index=idx), 0
+    vals = d3.values
+    qv = q.reindex(idx).ffill().values
+    i = 0
+    while i < len(idx) - 1:
+        if vals[i]:
+            j = i + 1
+            while j < min(i + 5, len(idx) - 1) and not qv[j] > qv[j - 1]:
+                j += 1
+            overlay.iloc[i + 1:j + 1] = 1.0   # held over days i+1..j (entered at close i)
+            i = j
+        i += 1
+    wo = pd.concat([w30, overlay], axis=1).max(axis=1)
+    rows.append(metrics(switching({"TQQQ": wo, "SPY": 1 - wo}, ["TQQQ", "SPY"]), "B30 + dip overlay (3 down closes: all-in TQQQ until an up close, max 5 days)"))
+    table(rows, f"Core strategies, 2011 to now ({label})")
+    if mult == 1.0:
+        y = yearly_table([rows[i] for i in (0, 1, 2, 4, 5, 6, 8, 11, 12, 13, 16)], "Core strategies")
+        y.to_csv(OUT / "yearly.csv")
+        say("", "Stress windows (total return of each strategy):", "")
+        wins = [("2015-08 flash crash", "2015-08-17", "2015-08-25"), ("2018 Q4", "2018-10-01", "2018-12-24"),
+                ("Covid 2020-02-19..03-23", "2020-02-19", "2020-03-23"), ("2022 bear", "2022-01-01", "2022-12-31"),
+                ("2025 tariff shock", "2025-02-19", "2025-04-08"), ("last 12 months", str(idx[-252].date()), "2100-01-01")]
+        say("| strategy | " + " | ".join(w_[0] for w_ in wins) + " |")
+        say("|---|" + "---|" * len(wins))
+        series = {"SPY buy & hold": cc["SPY"].fillna(0), "QQQ buy & hold": cc["QQQ"].fillna(0),
+                  "TQQQ buy & hold": cc["TQQQ"].fillna(0),
+                  "TQQQ overnight only, vol 30% + SMA200": overnight("TQQQ", lev_weight(0.30, rv20, trend)),
+                  "A. TQQQ>SMA200 else SPY (full-time)": switching({"TQQQ": trend, "SPY": 1 - trend}, ["TQQQ", "SPY"]),
+                  "B20. vol 20% + SMA200, rest SPY": switching({"TQQQ": lev_weight(0.20, rv20, trend), "SPY": 1 - lev_weight(0.20, rv20, trend)}, ["TQQQ", "SPY"]),
+                  "B30. vol 30% + SMA200, rest SPY": switching({"TQQQ": w30, "SPY": 1 - w30}, ["TQQQ", "SPY"]),
+                  "B40. vol 40% + SMA200, rest SPY": switching({"TQQQ": lev_weight(0.40, rv20, trend), "SPY": 1 - lev_weight(0.40, rv20, trend)}, ["TQQQ", "SPY"]),
+                  "B30 + dip overlay": switching({"TQQQ": wo, "SPY": 1 - wo}, ["TQQQ", "SPY"])}
+        for name, r in series.items():
+            cells = []
+            for _, a_, b_ in wins:
+                rr = r[(r.index >= pd.Timestamp(a_)) & (r.index <= pd.Timestamp(b_))]
+                cells.append(f"{(1 + rr).prod() - 1:+.0%}" if len(rr) else "n/a")
+            say(f"| {name} | " + " | ".join(cells) + " |")
+        # exposure profile of B30
+        say("", f"B30 exposure: average TQQQ weight {w30.mean():.0%} (i.e. average leverage {1 + 2 * w30.mean():.2f}x counting "
+            f"the SPY rest), fully in TQQQ on {(w30 >= 0.999).mean():.0%} of days, zero TQQQ on {(w30 <= 0.001).mean():.0%} of "
+            f"days; the weight changed by more than 10 points on {(w30.diff().abs() > 0.10).mean():.1%} of days "
+            f"(banded version trades on {(wb.diff().abs() > 0).mean():.1%} of days).")
+        say(f"B30 weight today: {w30.iloc[-1]:.0%} TQQQ (QQQ 20d vol {rv20.iloc[-1]:.0%}, QQQ {'above' if trend.iloc[-1] else 'below'} its 200-day SMA).")
+        tq = on["TQQQ"].dropna()
+        say("", f"TQQQ overnight gaps since 2011: {len(tq)} nights; worst {tq.min():+.1%} ({tq.idxmin().date()}), "
+            f"nights below -10%: {(tq < -0.10).sum()}, below -15%: {(tq < -0.15).sum()}, below -25%: {(tq < -0.25).sum()}; "
+            f"best {tq.max():+.1%}. Worst TQQQ days (close to close): " +
+            ", ".join(f"{d.date()} {v:+.0%}" for d, v in cc["TQQQ"].nsmallest(5).items()) + ".")
     return rows
 
 
@@ -596,8 +644,25 @@ def gap_section(data):
 
 
 # ----------------------------------------------------------------------------- 7. minute bars (Alpaca)
+def minute_bars(api, sym, start_iso, end_iso):
+    """All 1-minute bars in [start, end], SIP feed, split/dividend adjusted (bot.alpaca.bars_between is raw)."""
+    out, token = [], None
+    while True:
+        params = {"timeframe": "1Min", "start": start_iso, "end": end_iso, "feed": "sip", "limit": 10000,
+                  "adjustment": "all"}
+        if token:
+            params["page_token"] = token
+        page = api._req("GET", f"https://data.alpaca.markets/v2/stocks/{sym}/bars", params)
+        out += page.get("bars") or []
+        token = page.get("next_page_token")
+        if not token:
+            return out
+
+
 def minute_section():
-    say("", "## 7. Cost of the bot's run times (Alpaca minute bars, SIP)", "")
+    say("", "## 7. Cost of the bot's run times (Alpaca minute bars, SIP, split-adjusted)", "",
+        "The bot's first run lands about 9:35 ET and its last useful run about 15:50 ET. These legs show what "
+        "that timing costs or earns versus trading at the official open and close. t = mean / std * sqrt(n).", "")
     try:
         from bot.alpaca import Alpaca
         api = Alpaca.from_env(False)
@@ -607,11 +672,11 @@ def minute_section():
     from zoneinfo import ZoneInfo
     ET = ZoneInfo("America/New_York")
     today = datetime.now(ET).date()
-    for sym, years in (("QQQ", 5), ("TQQQ", 3)):
+    for sym, years in (("QQQ", 5), ("TQQQ", 5)):
         try:
             lo = datetime.combine(today - timedelta(days=365 * years), dtime(9, 30), ET).astimezone(timezone.utc).isoformat()
             hi = datetime.combine(today - timedelta(days=1), dtime(16, 0), ET).astimezone(timezone.utc).isoformat()
-            bars = api.bars_between(sym, "1Min", lo, hi, feed="sip")
+            bars = minute_bars(api, sym, lo, hi)
         except Exception as e:  # noqa: BLE001
             say(f"{sym}: minute bars unavailable ({e})")
             continue
@@ -623,12 +688,13 @@ def minute_section():
         marks = [dtime(9, 35), dtime(9, 50), dtime(10, 0), dtime(10, 20), dtime(15, 30), dtime(15, 45), dtime(15, 50)]
         rows = {m: [] for m in marks}
         prev_close = None
-        on_ideal, on_real, dy_ideal = [], [], []
+        on_ideal, on_real, on_1530, dy_ideal, skipped = [], [], [], [], 0
         for d in sorted(days):
             bd = days[d]
             times = sorted(bd)
             if len(times) < 300:
                 prev_close = None
+                skipped += 1
                 continue
             op, cl = bd[times[0]]["o"], bd[times[-1]]["c"]
             px = {}
@@ -641,24 +707,29 @@ def minute_section():
                     rows[m].append(px[m] / op - 1)
                 for m in marks[4:]:
                     rows[m].append(cl / px[m] - 1)
-                if prev_close is not None:
+                if prev_close is not None and abs(op / prev_close[0] - 1) < 0.35:   # guard against an unadjusted split
                     on_ideal.append(op / prev_close[0] - 1)
                     on_real.append(px[dtime(9, 35)] / prev_close[1] - 1)
+                    on_1530.append(px[dtime(9, 35)] / prev_close[2] - 1)
                     dy_ideal.append(cl / op - 1)
-                prev_close = (cl, px[dtime(15, 50)])
-        say(f"### {sym}, last {years} years ({len(rows[marks[0]])} sessions)", "")
-        say("| leg | mean per day | total compounded | std per day |")
-        say("|---|---|---|---|")
+                prev_close = (cl, px[dtime(15, 50)], px[dtime(15, 30)])
+        say(f"### {sym}, last {years} years ({len(rows[marks[0]])} full sessions; {skipped} short sessions skipped)", "")
+        say("| leg | mean per day | t | total compounded | std per day |")
+        say("|---|---|---|---|---|")
+
+        def row(name, xs):
+            xs = np.array(xs)
+            t = xs.mean() / xs.std() * math.sqrt(len(xs)) if xs.std() > 0 else float("nan")
+            say(f"| {name} | {xs.mean():+.3%} | {t:+.1f} | {np.prod(1 + xs) - 1:+.1%} | {xs.std():.2%} |")
+
         for m in marks[:4]:
-            xs = np.array(rows[m])
-            say(f"| open to {m:%H:%M} | {xs.mean():+.3%} | {np.prod(1 + xs) - 1:+.1%} | {xs.std():.2%} |")
+            row(f"open to {m:%H:%M}", rows[m])
         for m in marks[4:]:
-            xs = np.array(rows[m])
-            say(f"| {m:%H:%M} to close | {xs.mean():+.3%} | {np.prod(1 + xs) - 1:+.1%} | {xs.std():.2%} |")
-        a, b, c = np.array(on_ideal), np.array(on_real), np.array(dy_ideal)
-        say(f"| overnight, close to open (ideal) | {a.mean():+.3%} | {np.prod(1 + a) - 1:+.1%} | {a.std():.2%} |")
-        say(f"| overnight, 15:50 to 9:35 next day (the bot's runs) | {b.mean():+.3%} | {np.prod(1 + b) - 1:+.1%} | {b.std():.2%} |")
-        say(f"| intraday, open to close | {c.mean():+.3%} | {np.prod(1 + c) - 1:+.1%} | {c.std():.2%} |")
+            row(f"{m:%H:%M} to close", rows[m])
+        row("overnight, close to open (ideal)", on_ideal)
+        row("overnight, 15:50 to 9:35 next day (the bot's runs)", on_real)
+        row("overnight, 15:30 to 9:35 next day (if the 15:50 run is late)", on_1530)
+        row("intraday, open to close", dy_ideal)
         say("")
 
 
@@ -673,11 +744,12 @@ def main():
         src[v] = src.get(v, 0) + 1
     say(f"Data: {len(data)} symbols loaded ({src}); SPY from {data['SPY'].index[0].date() if 'SPY' in data else 'n/a'} "
         f"to {data['SPY'].index[-1].date() if 'SPY' in data else 'n/a'}.")
-    for fn in (overnight_section, core_section, tom_section, meanrev_section, momentum_section, gap_section):
+    for fn in (overnight_section, core_section, lambda d: core_section(d, 3.0, "3x costs"), tom_section,
+               meanrev_section, momentum_section, gap_section):
         try:
             fn(data)
         except Exception:  # noqa: BLE001
-            say("", f"Section {fn.__name__} failed:", "```", traceback.format_exc(), "```")
+            say("", f"Section {getattr(fn, '__name__', 'core_section(3x)')} failed:", "```", traceback.format_exc(), "```")
     try:
         minute_section()
     except Exception:  # noqa: BLE001
