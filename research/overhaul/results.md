@@ -1,4 +1,4 @@
-# Profit overhaul: evidence (real market data)  Generated 2026-10-30 21:11 UTC by research/overhaul/overhaul_backtest.py on GitHub Actions. 
+# Profit overhaul: evidence (real market data)  Generated 2026-10-30 21:22 UTC by research/overhaul/overhaul_backtest.py on GitHub Actions. 
 Data: 213 symbols loaded ({'yahoo': 207, 'alpaca': 6}); SPY from 2000-01-03 to 2026-10-30.
  ## 1. Overnight (close to next open) vs intraday (open to close)  Total-return adjusted daily bars (dividends land in the overnight leg). This extends review/overnight-results.md (which used 1 and 5 years) to the full sample. 
 | ETF | period | days | overnight total | intraday total | overnight CAGR | intraday CAGR | nights up | mean night | mean day | night vol | day vol |
@@ -38,60 +38,97 @@ Data: 213 symbols loaded ({'yahoo': 207, 'alpaca': 6}); SPY from 2000-01-03 to 2
 | down 1%+ | 600 | +0.076% | 59% | +51% |
 | down 0-1% | 1151 | +0.048% | 57% | +68% |
 | up 0-1% | 1512 | +0.048% | 56% | +101% |
-| up 1%+ | 718 | +0.030% | 56% | +21% |
- ## 2. What to do with the idle cash (the 'core'), daily data since 2011  All strategies trade at the official open/close (section 7 measures the cost of the bot's real run times). Costs: one-way spread+slippage per trade of 0.01% (SPY/QQQ), 0.03% (3x ETFs), 0.02% (TLT), charged on every position change; the overnight-only strategies pay a round trip every day. Sharpe uses a 0% cash rate. 'worst year' is the worst calendar year. Dividends included; TQQQ's fees and financing are in its prices. No taxes. 
- ### Core strategies, 2011 to now 
+| up 1%+ | 718 | +0.030% | 57% | +21% |
+ ## 2. What to do with the idle cash (the 'core'), daily data since 2011 (base costs)  All strategies trade at the official open/close (section 7 measures the cost of the bot's real run times). One-way costs this run: SPY/QQQ 0.005%, 3x ETFs 0.010%, charged on every position change; the overnight-only strategies pay a round trip every day. Sharpe uses a 0% cash rate. 'worst year' is the worst calendar year. Dividends included; TQQQ's fees and financing are in its prices. No taxes. Signals use only data known at the prior close. 
+ ### Core strategies, 2011 to now (base costs) 
 | strategy | CAGR | vol | Sharpe | max DD | worst day | worst year | 1st half CAGR | 2nd half CAGR | $75 becomes | last 1y | last 3y |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | SPY buy & hold (today's core) | +13.9% | 17% | 0.85 | -34% | -10.9% | -18% (2022) | +12.1% | +15.7% | $588 | +11.1% | +87.7% |
 | QQQ buy & hold | +18.3% | 21% | 0.92 | -35% | -12.0% | -33% (2022) | +15.9% | +20.8% | $1,071 | +9.1% | +100.5% |
 | TQQQ buy & hold | +38.0% | 61% | 0.84 | -82% | -34.5% | -79% (2022) | +40.0% | +36.1% | $12,179 | +3.6% | +290.9% |
-| SPY overnight only | +3.4% | 11% | 0.37 | -30% | -10.5% | -18% (2022) | +2.4% | +4.4% | $128 | +5.1% | +33.5% |
-| QQQ overnight only | +6.6% | 13% | 0.57 | -31% | -9.5% | -25% (2022) | +6.4% | +6.9% | $207 | +4.1% | +52.2% |
-| QLD (2x) overnight only | +3.0% | 25% | 0.24 | -61% | -20.9% | -52% (2022) | +4.9% | +1.1% | $119 | -1.4% | +60.6% |
-| TQQQ overnight only | +12.8% | 38% | 0.51 | -74% | -28.9% | -64% (2022) | +18.8% | +7.1% | $501 | -0.1% | +125.9% |
-| TQQQ overnight only, only when QQQ > 200d SMA (else cash) | +19.2% | 29% | 0.76 | -50% | -20.0% | -20% (2022) | +16.4% | +22.1% | $1,204 | -11.1% | +161.1% |
-| TQQQ overnight when QQQ > SMA200, else SPY overnight | +18.2% | 30% | 0.72 | -56% | -20.0% | -31% (2022) | +17.7% | +18.7% | $1,052 | -7.7% | +154.0% |
-| TQQQ overnight only, vol-targeted 20% (QQQ 20d vol) | +8.1% | 13% | 0.67 | -24% | -7.3% | -17% (2022) | +8.9% | +7.3% | $257 | -1.2% | +56.7% |
-| TQQQ overnight only, vol-targeted 20% + SMA200 filter | +8.4% | 12% | 0.74 | -21% | -7.3% | -11% (2016) | +7.5% | +9.2% | $267 | -5.2% | +58.1% |
-| TQQQ overnight only, vol-targeted 30% (QQQ 20d vol) | +11.3% | 19% | 0.67 | -34% | -10.6% | -25% (2022) | +12.6% | +10.1% | $410 | -2.6% | +87.6% |
-| TQQQ overnight only, vol-targeted 30% + SMA200 filter | +11.9% | 17% | 0.74 | -30% | -10.6% | -16% (2016) | +10.6% | +13.2% | $442 | -8.3% | +90.7% |
-| TQQQ overnight only, vol-targeted 40% (QQQ 20d vol) | +13.9% | 23% | 0.67 | -43% | -11.7% | -32% (2022) | +15.6% | +12.2% | $584 | -3.7% | +110.1% |
-| TQQQ overnight only, vol-targeted 40% + SMA200 filter | +14.8% | 21% | 0.76 | -35% | -10.6% | -18% (2016) | +13.1% | +16.4% | $659 | -11.2% | +115.5% |
-| TQQQ when QQQ > SMA200, else SPY (full-time) | +35.5% | 48% | 0.87 | -61% | -20.3% | -48% (2022) | +29.4% | +41.9% | $9,113 | -3.3% | +254.0% |
-| TQQQ when QQQ > SMA200, else TLT (full-time) | +28.9% | 48% | 0.77 | -64% | -20.3% | -58% (2022) | +23.3% | +34.8% | $4,158 | -5.7% | +223.1% |
-| QLD (2x) when QQQ > SMA200, else SPY (full-time) | +27.4% | 34% | 0.89 | -49% | -13.8% | -37% (2022) | +22.9% | +32.1% | $3,457 | +4.4% | +172.7% |
-| TQQQ vol-targeted 30% + SMA200, rest SPY (full-time) | +30.0% | 35% | 0.92 | -45% | -12.2% | -31% (2022) | +26.6% | +33.5% | $4,717 | +3.5% | +188.7% |
-| TQQQ overnight (SMA200 filter) + SPY during the day | +18.7% | 31% | 0.70 | -54% | -20.4% | -28% (2022) | +15.2% | +22.3% | $1,124 | -15.0% | +172.2% |
+| QQQ overnight only | +9.4% | 13% | 0.77 | -29% | -9.5% | -23% (2022) | +9.1% | +9.6% | $309 | +6.7% | +64.2% |
+| TQQQ overnight only | +24.7% | 38% | 0.78 | -70% | -28.8% | -60% (2022) | +31.3% | +18.4% | $2,459 | +10.5% | +205.6% |
+| TQQQ overnight only, when QQQ > SMA200 (else cash) | +29.9% | 29% | 1.06 | -50% | -19.9% | -19% (2022) | +27.3% | +32.4% | $4,649 | -2.1% | +245.2% |
+| TQQQ overnight only, vol-target 30% + SMA200 | +18.7% | 17% | 1.09 | -28% | -10.6% | -11% (2016) | +18.4% | +19.0% | $1,123 | -3.3% | +126.7% |
+| TQQQ overnight only, vol-target 40% + SMA200 | +23.2% | 21% | 1.10 | -32% | -10.6% | -12% (2016) | +22.5% | +24.0% | $2,034 | -4.7% | +168.9% |
+| A. TQQQ when QQQ > SMA200, else SPY (full-time) | +35.7% | 48% | 0.88 | -61% | -20.3% | -48% (2022) | +29.7% | +42.0% | $9,315 | -3.3% | +254.6% |
+| TQQQ when QQQ > SMA200, else cash (full-time) | +30.8% | 47% | 0.81 | -56% | -20.3% | -43% (2022) | +23.7% | +38.4% | $5,229 | -7.2% | +229.3% |
+| QLD (2x) when QQQ > SMA200, else SPY (full-time) | +27.6% | 34% | 0.90 | -49% | -13.8% | -37% (2022) | +23.1% | +32.3% | $3,533 | +4.5% | +173.2% |
+| B20. TQQQ vol-target 20% + SMA200, rest SPY (full-time) | +25.7% | 29% | 0.94 | -42% | -10.9% | -27% (2022) | +23.4% | +28.1% | $2,790 | +6.9% | +152.5% |
+| B30. TQQQ vol-target 30% + SMA200, rest SPY (full-time) | +30.2% | 35% | 0.93 | -45% | -12.2% | -31% (2022) | +26.8% | +33.7% | $4,856 | +3.7% | +190.1% |
+| B40. TQQQ vol-target 40% + SMA200, rest SPY (full-time) | +32.7% | 40% | 0.91 | -49% | -13.7% | -35% (2022) | +28.4% | +37.3% | $6,586 | +0.4% | +214.6% |
+| B30q. same, rest QQQ instead of SPY | +31.4% | 37% | 0.92 | -47% | -12.2% | -42% (2022) | +27.7% | +35.3% | $5,634 | +1.6% | +193.4% |
+| B30c. same, rest cash | +22.3% | 29% | 0.83 | -38% | -12.2% | -19% (2022) | +19.5% | +25.1% | $1,796 | -3.6% | +118.3% |
+| B30 with a 10-point rebalance band | +29.8% | 35% | 0.92 | -46% | -12.2% | -32% (2022) | +26.5% | +33.0% | $4,594 | +5.3% | +190.4% |
+| TQQQ vol-target 30%, no trend filter, rest SPY | +33.2% | 39% | 0.93 | -51% | -14.4% | -47% (2022) | +32.5% | +33.9% | $6,964 | +6.4% | +196.6% |
+| B30 with SMA100 instead of SMA200 | +25.0% | 34% | 0.83 | -46% | -12.2% | -32% (2022) | +23.0% | +27.0% | $2,553 | -2.5% | +144.1% |
+| B30 with SMA150 instead of SMA200 | +31.3% | 35% | 0.96 | -45% | -12.2% | -28% (2022) | +27.9% | +34.7% | $5,505 | +0.7% | +167.6% |
+| B30 with SMA250 instead of SMA200 | +29.9% | 36% | 0.92 | -45% | -12.2% | -33% (2022) | +27.4% | +32.5% | $4,700 | +3.7% | +184.1% |
+| B30 with 10-day vol instead of 20-day | +28.1% | 36% | 0.88 | -46% | -14.5% | -32% (2022) | +26.5% | +29.7% | $3,751 | -8.6% | +156.8% |
+| B30 with 60-day vol instead of 20-day | +27.3% | 35% | 0.87 | -50% | -12.7% | -33% (2022) | +26.0% | +28.6% | $3,393 | -0.1% | +164.7% |
+| B30 + dip overlay (3 down closes: all-in TQQQ until an up close, max 5 days) | +39.9% | 39% | 1.06 | -42% | -13.9% | -17% (2016) | +28.8% | +51.9% | $15,033 | +18.7% | +274.3% |
  ### Core strategies: calendar-year returns 
-| year | SPY buy & hold (today's core) | QQQ buy & hold | TQQQ buy & hold | SPY overnight only | QQQ overnight only | QLD (2x) overnight only | TQQQ overnight only | TQQQ overnight only, only when QQQ > 200d SMA (else cash) | TQQQ overnight when QQQ > SMA200, else SPY overnight |
-|---|---|---|---|---|---|---|---|---|---|
-| 2011 | +1% | +2% | -12% | -1% | -4% | -12% | -9% | -9% | -6% |
-| 2012 | +16% | +18% | +52% | +1% | +8% | +12% | +30% | +21% | +23% |
-| 2013 | +32% | +37% | +140% | +9% | +14% | +23% | +49% | +49% | +49% |
-| 2014 | +13% | +19% | +57% | +6% | +12% | +16% | +34% | +34% | +34% |
-| 2015 | +1% | +9% | +17% | -3% | +7% | +2% | +18% | +16% | +18% |
-| 2016 | +12% | +7% | +11% | -8% | -5% | -20% | -17% | -19% | -20% |
-| 2017 | +22% | +33% | +118% | +9% | +15% | +18% | +46% | +46% | +46% |
-| 2018 | -5% | -0% | -20% | +9% | +10% | +11% | +24% | +8% | +13% |
-| 2019 | +31% | +39% | +134% | +9% | +10% | +11% | +26% | +33% | +32% |
-| 2020 | +18% | +48% | +110% | +9% | +20% | +21% | +39% | +58% | +51% |
-| 2021 | +29% | +27% | +83% | +12% | +11% | +14% | +30% | +30% | +30% |
-| 2022 | -18% | -33% | -79% | -18% | -25% | -52% | -64% | -20% | -31% |
-| 2023 | +26% | +55% | +198% | +1% | +6% | -1% | +5% | +4% | +4% |
-| 2024 | +25% | +26% | +58% | +18% | +26% | +37% | +68% | +68% | +68% |
-| 2025 | +18% | +21% | +34% | +3% | +10% | +8% | +14% | +48% | +39% |
-| 2026 | +12% | +13% | +18% | +4% | +2% | -3% | -3% | -13% | -10% |
+| year | SPY buy & hold (today's core) | QQQ buy & hold | TQQQ buy & hold | TQQQ overnight only | TQQQ overnight only, when QQQ > SMA200 (else cash) | TQQQ overnight only, vol-target 30% + SMA200 | A. TQQQ when QQQ > SMA200, else SPY (full-time) | B20. TQQQ vol-target 20% + SMA200, rest SPY (full-time) | B30. TQQQ vol-target 30% + SMA200, rest SPY (full-time) | B40. TQQQ vol-target 40% + SMA200, rest SPY (full-time) | B30 with a 10-point rebalance band |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2011 | +1% | +2% | -12% | +0% | -2% | -3% | -27% | -7% | -12% | -18% | -13% |
+| 2012 | +16% | +18% | +52% | +44% | +32% | +22% | +34% | +31% | +34% | +31% | +33% |
+| 2013 | +32% | +37% | +140% | +64% | +64% | +43% | +140% | +76% | +103% | +125% | +105% |
+| 2014 | +13% | +19% | +57% | +49% | +49% | +33% | +57% | +31% | +39% | +47% | +39% |
+| 2015 | +1% | +9% | +17% | +31% | +27% | +13% | +4% | -1% | -3% | -0% | -1% |
+| 2016 | +12% | +7% | +11% | -8% | -13% | -11% | +1% | +2% | -2% | -2% | -1% |
+| 2017 | +22% | +33% | +118% | +61% | +61% | +55% | +118% | +84% | +107% | +116% | +103% |
+| 2018 | -5% | -0% | -20% | +37% | +18% | +7% | -22% | -7% | -10% | -14% | -11% |
+| 2019 | +31% | +39% | +134% | +40% | +45% | +19% | +73% | +48% | +55% | +61% | +49% |
+| 2020 | +18% | +48% | +110% | +54% | +73% | +33% | +117% | +52% | +69% | +82% | +65% |
+| 2021 | +29% | +27% | +83% | +44% | +44% | +19% | +83% | +49% | +59% | +65% | +60% |
+| 2022 | -18% | -33% | -79% | -60% | -19% | -7% | -48% | -27% | -31% | -35% | -32% |
+| 2023 | +26% | +55% | +198% | +15% | +14% | +14% | +128% | +61% | +81% | +100% | +85% |
+| 2024 | +25% | +26% | +58% | +86% | +86% | +44% | +58% | +40% | +45% | +50% | +42% |
+| 2025 | +18% | +21% | +34% | +26% | +61% | +47% | +31% | +23% | +28% | +29% | +30% |
+| 2026 | +12% | +13% | +18% | +6% | -6% | -6% | +10% | +13% | +13% | +12% | +13% |
  Stress windows (total return of each strategy): 
-| strategy | 2018 Q4 | Covid 2020-02-19..03-23 | 2022 bear | 2025-04 tariff shock | last 12 months |
-|---|---|---|---|---|---|
-| SPY buy & hold | -14% | -33% | -18% | -6% | +11% |
-| TQQQ buy & hold | -48% | -69% | -79% | -27% | +4% |
-| TQQQ overnight only | +4% | -64% | -64% | -38% | -0% |
-| TQQQ overnight, SMA200 filter | -10% | -48% | -20% | -6% | -11% |
-| TQQQ overnight, vol 30% + SMA200 | -4% | -18% | -8% | -3% | -8% |
-| TQQQ>SMA200 else SPY (full-time) | -49% | -60% | -48% | -18% | -3% |
- TQQQ overnight gaps since 2011: 3980 nights; worst -28.8% (2020-03-16), nights below -10%: 14, below -15%: 6, below -25%: 1; best +16.7%.
+| strategy | 2015-08 flash crash | 2018 Q4 | Covid 2020-02-19..03-23 | 2022 bear | 2025 tariff shock | last 12 months |
+|---|---|---|---|---|---|---|
+| SPY buy & hold | -11% | -19% | -33% | -18% | -19% | +11% |
+| QQQ buy & hold | -11% | -23% | -27% | -33% | -23% | +9% |
+| TQQQ buy & hold | -31% | -57% | -69% | -79% | -57% | +4% |
+| TQQQ overnight only, vol 30% + SMA200 | -7% | -4% | -18% | -7% | -1% | -3% |
+| A. TQQQ>SMA200 else SPY (full-time) | -25% | -52% | -60% | -48% | -39% | -3% |
+| B20. vol 20% + SMA200, rest SPY | -18% | -33% | -41% | -27% | -27% | +7% |
+| B30. vol 30% + SMA200, rest SPY | -21% | -39% | -44% | -31% | -31% | +4% |
+| B40. vol 40% + SMA200, rest SPY | -24% | -43% | -47% | -35% | -34% | +0% |
+| B30 + dip overlay | -30% | -41% | -40% | +3% | -31% | +19% |
+ B30 exposure: average TQQQ weight 59% (i.e. average leverage 2.17x counting the SPY rest), fully in TQQQ on 13% of days, zero TQQQ on 15% of days; the weight changed by more than 10 points on 5.8% of days (banded version trades on 9.3% of days).
+B30 weight today: 50% TQQQ (QQQ 20d vol 20%, QQQ above its 200-day SMA).
+ TQQQ overnight gaps since 2011: 3980 nights; worst -28.8% (2020-03-16), nights below -10%: 14, below -15%: 6, below -25%: 1; best +16.7%. Worst TQQQ days (close to close): 2020-03-16 -34%, 2020-03-12 -27%, 2020-03-09 -20%, 2025-04-04 -18%, 2011-08-08 -18%.
+ ## 2. What to do with the idle cash (the 'core'), daily data since 2011 (3x costs)  All strategies trade at the official open/close (section 7 measures the cost of the bot's real run times). One-way costs this run: SPY/QQQ 0.015%, 3x ETFs 0.030%, charged on every position change; the overnight-only strategies pay a round trip every day. Sharpe uses a 0% cash rate. 'worst year' is the worst calendar year. Dividends included; TQQQ's fees and financing are in its prices. No taxes. Signals use only data known at the prior close. 
+ ### Core strategies, 2011 to now (3x costs) 
+| strategy | CAGR | vol | Sharpe | max DD | worst day | worst year | 1st half CAGR | 2nd half CAGR | $75 becomes | last 1y | last 3y |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| SPY buy & hold (today's core) | +13.9% | 17% | 0.85 | -34% | -10.9% | -18% (2022) | +12.1% | +15.7% | $588 | +11.1% | +87.7% |
+| QQQ buy & hold | +18.3% | 21% | 0.92 | -35% | -12.0% | -33% (2022) | +15.9% | +20.8% | $1,071 | +9.1% | +100.5% |
+| TQQQ buy & hold | +38.0% | 61% | 0.84 | -82% | -34.5% | -79% (2022) | +40.0% | +36.1% | $12,179 | +3.6% | +290.9% |
+| QQQ overnight only | +4.0% | 13% | 0.37 | -33% | -9.5% | -27% (2022) | +3.8% | +4.2% | $139 | +1.5% | +41.2% |
+| TQQQ overnight only | +12.8% | 38% | 0.51 | -74% | -28.9% | -64% (2022) | +18.8% | +7.1% | $501 | -0.1% | +125.9% |
+| TQQQ overnight only, when QQQ > SMA200 (else cash) | +19.2% | 29% | 0.76 | -50% | -20.0% | -20% (2022) | +16.4% | +22.1% | $1,204 | -11.1% | +161.1% |
+| TQQQ overnight only, vol-target 30% + SMA200 | +11.9% | 17% | 0.74 | -30% | -10.6% | -16% (2016) | +10.6% | +13.2% | $442 | -8.3% | +90.7% |
+| TQQQ overnight only, vol-target 40% + SMA200 | +14.8% | 21% | 0.76 | -35% | -10.6% | -18% (2016) | +13.1% | +16.4% | $659 | -11.2% | +115.5% |
+| A. TQQQ when QQQ > SMA200, else SPY (full-time) | +35.5% | 48% | 0.87 | -61% | -20.3% | -48% (2022) | +29.4% | +41.8% | $9,073 | -3.3% | +253.9% |
+| TQQQ when QQQ > SMA200, else cash (full-time) | +30.7% | 47% | 0.81 | -56% | -20.3% | -43% (2022) | +23.5% | +38.3% | $5,139 | -7.2% | +228.9% |
+| QLD (2x) when QQQ > SMA200, else SPY (full-time) | +27.4% | 34% | 0.89 | -49% | -13.8% | -37% (2022) | +22.9% | +32.1% | $3,441 | +4.4% | +172.7% |
+| B20. TQQQ vol-target 20% + SMA200, rest SPY (full-time) | +25.5% | 29% | 0.93 | -42% | -10.9% | -27% (2022) | +23.1% | +27.9% | $2,711 | +6.8% | +151.5% |
+| B30. TQQQ vol-target 30% + SMA200, rest SPY (full-time) | +29.9% | 35% | 0.92 | -45% | -12.2% | -31% (2022) | +26.5% | +33.4% | $4,689 | +3.5% | +188.5% |
+| B40. TQQQ vol-target 40% + SMA200, rest SPY (full-time) | +32.5% | 40% | 0.90 | -49% | -13.7% | -35% (2022) | +28.1% | +37.0% | $6,369 | +0.2% | +212.8% |
+| B30q. same, rest QQQ instead of SPY | +31.2% | 37% | 0.92 | -47% | -12.2% | -42% (2022) | +27.4% | +35.0% | $5,441 | +1.4% | +191.8% |
+| B30c. same, rest cash | +22.1% | 29% | 0.83 | -38% | -12.2% | -19% (2022) | +19.3% | +25.0% | $1,754 | -3.7% | +117.4% |
+| B30 with a 10-point rebalance band | +29.6% | 35% | 0.91 | -46% | -12.2% | -32% (2022) | +26.3% | +32.9% | $4,480 | +5.2% | +189.4% |
+| TQQQ vol-target 30%, no trend filter, rest SPY | +33.0% | 39% | 0.93 | -52% | -14.4% | -47% (2022) | +32.3% | +33.7% | $6,790 | +6.2% | +195.1% |
+| B30 with SMA100 instead of SMA200 | +24.6% | 34% | 0.82 | -46% | -12.2% | -32% (2022) | +22.6% | +26.7% | $2,430 | -2.9% | +141.9% |
+| B30 with SMA150 instead of SMA200 | +30.9% | 35% | 0.95 | -45% | -12.2% | -28% (2022) | +27.5% | +34.5% | $5,307 | +0.4% | +165.6% |
+| B30 with SMA250 instead of SMA200 | +29.7% | 36% | 0.91 | -45% | -12.2% | -33% (2022) | +27.1% | +32.3% | $4,544 | +3.5% | +182.4% |
+| B30 with 10-day vol instead of 20-day | +27.7% | 36% | 0.87 | -46% | -14.5% | -32% (2022) | +26.1% | +29.3% | $3,557 | -9.0% | +154.2% |
+| B30 with 60-day vol instead of 20-day | +27.1% | 35% | 0.87 | -50% | -12.7% | -33% (2022) | +25.7% | +28.5% | $3,323 | -0.2% | +164.1% |
+| B30 + dip overlay (3 down closes: all-in TQQQ until an up close, max 5 days) | +39.1% | 39% | 1.04 | -42% | -13.9% | -17% (2016) | +28.1% | +51.1% | $13,813 | +18.0% | +269.1% |
  ## 3. Turn of the month  TOM days = the last trading day of a month and the first three of the next. Position held over the day (prior close to close). Does the old finding (most of the market's return lands in those 4 days) still hold? 
 | ETF | period | TOM days | mean TOM day | other days | mean other day | TOM total | other total | TOM share of days |
 |---|---|---|---|---|---|---|---|---|
@@ -110,7 +147,7 @@ Data: 213 symbols loaded ({'yahoo': 207, 'alpaca': 6}); SPY from 2000-01-03 to 2
 | 3 down closes, QQQ > SMA200; exit first up close or 5 days | 134 | 74% | +0.93% | +2.5 | +125% | +0.63% | +49% | +75% | 6% |
 | 3 down closes, any trend; exit first up close or 5 days | 176 | 74% | +1.39% | +3.8 | +244% | +0.98% | +58% | +186% | 7% |
 | RSI(2) < 10, QQQ > SMA200; exit RSI(2) > 60 or 5 days | 343 | 71% | +0.77% | +2.3 | +265% | +0.51% | +79% | +186% | 28% |
-| RSI(2) < 10, any trend; exit RSI(2) > 60 or 5 days | 414 | 70% | +1.02% | +3.0 | +422% | +0.69% | +96% | +326% | 33% |
+| RSI(2) < 10, any trend; exit RSI(2) > 60 or 5 days | 414 | 70% | +1.02% | +3.0 | +422% | +0.69% | +95% | +326% | 33% |
 | QQQ 3%+ below its 5-day high, > SMA200; exit first up close or 5 days | 133 | 74% | +1.31% | +3.4 | +174% | +0.95% | +34% | +140% | 5% |
  ## 5. Monthly ETF momentum rotation (for completeness)  At each month end, rank SPY, QQQ, IWM, EFA, EEM, GLD, TLT by trailing total return and hold the leader for the next month; cash when the leader's trailing return is negative. Costs 0.02% per switch. 
  ### ETF momentum rotation vs buy & hold, 2011 to now 
@@ -185,33 +222,35 @@ Universe with data: 201 stocks, 2016 to now. Events: 12603 (up 6658, down 5945).
 | buy at the open, day 0 | 5 | 5945 | +1.11% | +8.8 | 52% |
 | buy at the open, day 0 | 10 | 5945 | +1.56% | +9.7 | 52% |
 | buy at the open, day 0 | 20 | 5945 | +2.17% | +10.1 | 51% |
- ## 7. Cost of the bot's run times (Alpaca minute bars, SIP) 
-### QQQ, last 5 years (1252 sessions) 
-| leg | mean per day | total compounded | std per day |
-|---|---|---|---|
-| open to 09:35 | +0.001% | +1.0% | 0.24% |
-| open to 09:50 | +0.003% | +2.5% | 0.41% |
-| open to 10:00 | +0.008% | +8.6% | 0.48% |
-| open to 10:20 | +0.004% | +3.1% | 0.60% |
-| 15:30 to close | +0.002% | +2.2% | 0.31% |
-| 15:45 to close | +0.009% | +11.7% | 0.24% |
-| 15:50 to close | +0.007% | +8.7% | 0.22% |
-| overnight, close to open (ideal) | +0.037% | +51.3% | 0.86% |
-| overnight, 15:50 to 9:35 next day (the bot's runs) | +0.044% | +65.1% | 0.88% |
-| intraday, open to close | +0.025% | +25.0% | 1.20% |
+ ## 7. Cost of the bot's run times (Alpaca minute bars, SIP, split-adjusted)  The bot's first run lands about 9:35 ET and its last useful run about 15:50 ET. These legs show what that timing costs or earns versus trading at the official open and close. t = mean / std * sqrt(n). 
+### QQQ, last 5 years (1252 full sessions; 2 short sessions skipped) 
+| leg | mean per day | t | total compounded | std per day |
+|---|---|---|---|---|
+| open to 09:35 | +0.001% | +0.2 | +1.0% | 0.24% |
+| open to 09:50 | +0.003% | +0.2 | +2.5% | 0.41% |
+| open to 10:00 | +0.008% | +0.6 | +8.5% | 0.48% |
+| open to 10:20 | +0.004% | +0.2 | +3.1% | 0.60% |
+| 15:30 to close | +0.002% | +0.3 | +2.1% | 0.31% |
+| 15:45 to close | +0.009% | +1.3 | +11.7% | 0.24% |
+| 15:50 to close | +0.007% | +1.1 | +8.6% | 0.22% |
+| overnight, close to open (ideal) | +0.039% | +1.6 | +56.2% | 0.86% |
+| overnight, 15:50 to 9:35 next day (the bot's runs) | +0.047% | +1.9 | +70.4% | 0.88% |
+| overnight, 15:30 to 9:35 next day (if the 15:50 run is late) | +0.042% | +1.6 | +60.6% | 0.90% |
+| intraday, open to close | +0.025% | +0.7 | +25.0% | 1.20% |
 
-### TQQQ, last 3 years (752 sessions) 
-| leg | mean per day | total compounded | std per day |
-|---|---|---|---|
-| open to 09:35 | -0.012% | -10.2% | 0.62% |
-| open to 09:50 | -0.004% | -7.2% | 1.06% |
-| open to 10:00 | -0.008% | -11.3% | 1.28% |
-| open to 10:20 | +0.011% | -2.2% | 1.67% |
-| 15:30 to close | +0.018% | +12.1% | 0.80% |
-| 15:45 to close | +0.040% | +32.9% | 0.65% |
-| 15:50 to close | +0.007% | +3.7% | 0.60% |
-| overnight, close to open (ideal) | +0.132% | +81.2% | 3.01% |
-| overnight, 15:50 to 9:35 next day (the bot's runs) | +0.124% | +69.1% | 3.05% |
-| intraday, open to close | +0.067% | +16.5% | 3.10% |
+### TQQQ, last 5 years (1254 full sessions; 0 short sessions skipped) 
+| leg | mean per day | t | total compounded | std per day |
+|---|---|---|---|---|
+| open to 09:35 | +0.004% | +0.2 | +2.4% | 0.71% |
+| open to 09:50 | +0.010% | +0.3 | +2.4% | 1.24% |
+| open to 10:00 | +0.024% | +0.6 | +18.3% | 1.44% |
+| open to 10:20 | +0.015% | +0.3 | -2.3% | 1.83% |
+| 15:30 to close | +0.004% | +0.2 | +0.2% | 0.92% |
+| 15:45 to close | +0.028% | +1.4 | +37.4% | 0.73% |
+| 15:50 to close | +0.021% | +1.1 | +27.2% | 0.66% |
+| overnight, close to open (ideal) | +0.078% | +1.1 | +73.5% | 2.59% |
+| overnight, 15:50 to 9:35 next day (the bot's runs) | +0.100% | +1.3 | +125.4% | 2.65% |
+| overnight, 15:30 to 9:35 next day (if the 15:50 run is late) | +0.083% | +1.1 | +77.4% | 2.70% |
+| intraday, open to close | +0.070% | +0.7 | +7.1% | 3.61% |
 
- Done in 243s.
+ Done in 142s.
