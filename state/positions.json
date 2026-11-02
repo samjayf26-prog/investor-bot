@@ -18,5 +18,15 @@
     "max_hold_days": 28,
     "stop_pct": 0.15,
     "target_pct": null
+  },
+  "2026-11-02-IDXX": {
+    "action": "buy",
+    "broker_symbol": "IDXX",
+    "entry_date": "2026-11-02",
+    "expiry": null,
+    "id": "2026-11-02-IDXX",
+    "max_hold_days": 28,
+    "stop_pct": 0.15,
+    "target_pct": null
   }
 }
