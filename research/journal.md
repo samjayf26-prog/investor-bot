@@ -697,3 +697,12 @@ state/market.json (11:24 ET): a modest rebound. SPY +0.6%, QQQ +0.5% (just below
 - **EL** bought $10.99 at $108.55 (limit $109.48) at 11:24: the +5% premarket gap has fully reversed (-0.8% vs Friday, -3.6% vs its open, below VWAP). Faded gaps drifted as well as held ones in the study (rule 5), so it stays; wrong if it closes below Friday's close (~$109.2), judged at 14:20 on the day's price, not on this dip.
 - **TSLA** $411.32 (+4.2% vs the $394.68 fill), above VWAP; keep. Its legacy 8-day hold ends tomorrow at the latest.
 Source: state/market.json (11:24 ET); run log of the hand-dispatched cycle.
+
+## 2026-11-02 14:20 ET refresh (LIVE, $72.94)
+state/market.json (14:21 ET, hand-dispatched cycle; GitHub's schedule has still run nothing today): the rebound faded. SPY -0.1% (-0.6% vs its open), QQQ -0.7%, SMH -1.9%, AMD -6.2% ahead of tomorrow's report, AAPL -2.4% ahead of tonight's.
+- **IDXX** $662.21 (+20.1% on the day, +1.5% vs the $652.24 fill), above VWAP; keep. Time exit 28 days, 15% stop.
+- **EL** $106.48 (-2.5% vs Friday, -2.1% vs the $108.55 fill), below VWAP. This morning's "wrong if it closes below Friday's close" is withdrawn: it contradicts rule 5 (faded gaps drifted as well as held ones, 10 days +0.65% vs +0.43%) and rule 6 (the edge is in the 20-day hold, not the day-0 price), and closing at -2% on day 0 is exactly the churn the overhaul removed. The real wrong-if is the news reversing (the raised outlook walked back, a guidance cut) or the 15% stop. Keep. Going forward, wrong-ifs are news conditions, not a price line on day 0.
+- **TSLA** $404.97 (+2.6% vs the $394.68 fill); keep. It still carries its pre-overhaul exits (8-day hold from 10-26, 7% stop, 12% target), so the bot sells it tomorrow at the latest.
+- No new picks: nothing else gapped 6%+ on an estimate change today, and AAPL/PLTR/AMD report within a day (no edge before a print).
+- Paper rehearsal of the leveraged core runs at 15:36 ET (core-paper.yml); its result goes in the evening review.
+Source: state/market.json (14:21 ET)

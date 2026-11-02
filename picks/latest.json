@@ -1,13 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-02T16:30:00Z",
+  "generated_at": "2026-11-02T19:24:00Z",
   "expires_at": "2026-11-02T20:30:00Z",
-  "picks": [
-    {"id": "2026-11-02-IDXX", "symbol": "IDXX", "action": "buy", "conviction": 2,
-     "max_entry_price": 662, "earliest_et": "10:05",
-     "thesis": "Q3 beat (revenue +10% to $1.21B, EPS $4.01 vs $3.40) with full-year revenue and EPS guidance raised ($14.96-15.16 from $14.69-14.94); +17.8% at 11:24 ET ($649.84, above VWAP, +4.4% vs its open), a 12%+ gap, the bucket with the best 10-20 day drift. Cap raised from the blind $605 to $662 (about 2% over the live price). Wrong if it closes below Friday's close (~$551) or the guidance is walked back.",
-     "sources": ["https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_ex99-1.htm", "https://finance.yahoo.com/healthcare/articles/idexx-laboratories-shares-rise-2-131810094.html"]}
-  ],
+  "picks": [],
   "close": [],
-  "watch": ["IDXX", "EL", "TSLA", "AAPL", "PLTR", "AMD", "RIVN", "ECHO", "NVDA", "QQQ"]
+  "watch": ["IDXX", "EL", "TSLA", "AAPL", "PLTR", "AMD", "RIVN", "NVDA", "QQQ", "SMH"]
 }
