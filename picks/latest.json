@@ -1,22 +1,17 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-10-30T18:24:00Z",
-  "expires_at": "2026-10-30T19:30:00Z",
-  "picks": [],
-  "close": [
-    "2026-10-27-1020-CLS"
+  "generated_at": "2026-11-02T13:58:00Z",
+  "expires_at": "2026-11-02T20:30:00Z",
+  "picks": [
+    {"id": "2026-11-02-IDXX", "symbol": "IDXX", "action": "buy", "conviction": 2,
+     "max_entry_price": 605, "earliest_et": "10:05",
+     "thesis": "Q3 beat (revenue +10% to $1.21B, EPS $4.01 vs $3.40) with full-year revenue and EPS guidance raised ($14.96-15.16 from $14.69-14.94); ~+6% premarket after a -2% market week. Rule 2/3: a 6% gap on a concrete estimate change, held ~20 trading days. Wrong if it closes below Friday's close (the gap fully reverses) or the guidance is walked back.",
+     "sources": ["https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_ex99-1.htm", "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-02-2026"]},
+    {"id": "2026-11-02-EL", "symbol": "EL", "action": "buy", "conviction": 1,
+     "max_entry_price": 118, "earliest_et": "10:05",
+     "thesis": "Q1 FY27 adjusted EPS $0.72 vs $0.51 expected (+41%), sales $3.72B vs $3.64B, and the full-year outlook raised (organic growth 4-5.5% from 3-5%, EPS $3.20-3.45 from $3.10-3.35); +5.2% premarket. Below the 6% bar, so conviction 1 only: the estimate change is unusually large. Wrong if it closes below Friday's close.",
+     "sources": ["https://finance.yahoo.com/markets/stocks/articles/est-e-lauder-shares-rise-115315318.html", "https://za.investing.com/news/stock-market-news/premarket-movers-estee-lauder-rivian-rise-premarket-check-point-falls-4542623"]}
   ],
-  "scalp_bias": "bear",
-  "watch": [
-    "CLS",
-    "TSLA",
-    "AMZN",
-    "INTC",
-    "NVDA",
-    "MSFT",
-    "RIVN",
-    "XOM",
-    "CVX",
-    "QQQ"
-  ]
+  "close": [],
+  "watch": ["IDXX", "EL", "TSLA", "AAPL", "PLTR", "AMD", "RIVN", "ECHO", "NVDA", "QQQ"]
 }
