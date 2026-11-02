@@ -706,3 +706,11 @@ state/market.json (14:21 ET, hand-dispatched cycle; GitHub's schedule has still 
 - No new picks: nothing else gapped 6%+ on an estimate change today, and AAPL/PLTR/AMD report within a day (no edge before a print).
 - Paper rehearsal of the leveraged core runs at 15:36 ET (core-paper.yml); its result goes in the evening review.
 Source: state/market.json (14:21 ET)
+
+## 2026-11-02 evening review (LIVE, $73.07; first day on the overhaul rulebook)
+- Day: bot +$0.40 (+0.55%, 72.67 to 73.07) vs the same money in the S&P 500 -0.37%. Since go-live -2.57% vs S&P -3.15%: **ahead by $0.43** (behind by $0.24 on Friday). Same money in QQQ: -8.09%.
+- Bought: **IDXX** $18.32 at $652.24 (closed ~$666.64, +$0.40, +2.2%): the +6% premarket read became a +20% day; the blind $605 cap cost the 11:24 fill, the re-issue at 11:26 caught it 2 points later. **EL** $10.99 at $108.55 (closed ~$104.75, -$0.38, -3.5%): the +5% premarket gap reversed into a -2.5% day. Held: TSLA (+$0.19 vs its buy; its pre-overhaul 8-day hold expires tomorrow), SPY core $31.6 after $27.9 was sold to fund the two picks. No closes: the day-0 "below Friday's close" wrong-if was withdrawn as contrary to rules 5-6 (see the 14:20 entry); wrong-ifs are news conditions from now on.
+- Scorecard's new column: the core rule run at official closes from the go-live day (no picks) stands at **$62.04 (-17.3%)** vs the account's $73.07, because QQQ fell 8% over the period and the rule held 45-100% TQQQ through it. That is the regime risk the spec quotes (a -30% to -45% bad year); it is also exactly the window the rule's dip overlay is built for: QQQ closed lower a third day running today, so the rule is 100% TQQQ into tomorrow.
+- Paper rehearsal day 1 (core-paper.yml, hand-dispatched at 15:41 ET since GitHub's schedule did not fire): signals trend=1, vol 22.4%, weight 0.45, dip_state 1; bought $75 TQQQ at $59.31 (limit $59.89), state and ledger saved. Mechanics worked; two more sessions to go (an exit on the first up close is the next thing to see).
+- Ops: GitHub's cron ran NOTHING today (trade, core-paper, learn all hand-dispatched); the 10:20 research run itself fired an hour late. Picks were bought at 11:24-11:26 instead of 10:05 as a result.
+- Picks now 16 closed (unchanged), 3 open.
