@@ -1,16 +1,12 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-02T13:58:00Z",
+  "generated_at": "2026-11-02T16:30:00Z",
   "expires_at": "2026-11-02T20:30:00Z",
   "picks": [
     {"id": "2026-11-02-IDXX", "symbol": "IDXX", "action": "buy", "conviction": 2,
-     "max_entry_price": 605, "earliest_et": "10:05",
-     "thesis": "Q3 beat (revenue +10% to $1.21B, EPS $4.01 vs $3.40) with full-year revenue and EPS guidance raised ($14.96-15.16 from $14.69-14.94); ~+6% premarket after a -2% market week. Rule 2/3: a 6% gap on a concrete estimate change, held ~20 trading days. Wrong if it closes below Friday's close (the gap fully reverses) or the guidance is walked back.",
-     "sources": ["https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_ex99-1.htm", "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-02-2026"]},
-    {"id": "2026-11-02-EL", "symbol": "EL", "action": "buy", "conviction": 1,
-     "max_entry_price": 118, "earliest_et": "10:05",
-     "thesis": "Q1 FY27 adjusted EPS $0.72 vs $0.51 expected (+41%), sales $3.72B vs $3.64B, and the full-year outlook raised (organic growth 4-5.5% from 3-5%, EPS $3.20-3.45 from $3.10-3.35); +5.2% premarket. Below the 6% bar, so conviction 1 only: the estimate change is unusually large. Wrong if it closes below Friday's close.",
-     "sources": ["https://finance.yahoo.com/markets/stocks/articles/est-e-lauder-shares-rise-115315318.html", "https://za.investing.com/news/stock-market-news/premarket-movers-estee-lauder-rivian-rise-premarket-check-point-falls-4542623"]}
+     "max_entry_price": 662, "earliest_et": "10:05",
+     "thesis": "Q3 beat (revenue +10% to $1.21B, EPS $4.01 vs $3.40) with full-year revenue and EPS guidance raised ($14.96-15.16 from $14.69-14.94); +17.8% at 11:24 ET ($649.84, above VWAP, +4.4% vs its open), a 12%+ gap, the bucket with the best 10-20 day drift. Cap raised from the blind $605 to $662 (about 2% over the live price). Wrong if it closes below Friday's close (~$551) or the guidance is walked back.",
+     "sources": ["https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_ex99-1.htm", "https://finance.yahoo.com/healthcare/articles/idexx-laboratories-shares-rise-2-131810094.html"]}
   ],
   "close": [],
   "watch": ["IDXX", "EL", "TSLA", "AAPL", "PLTR", "AMD", "RIVN", "ECHO", "NVDA", "QQQ"]
