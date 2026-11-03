@@ -721,3 +721,11 @@ Futures (5:40 ET): Nasdaq 100 +0.4%, S&P flat, Dow -0.5%. Midterm election day; 
 - Skipped: PFE (EPS $0.87 vs $0.73, revenue guide +$1.5B at the midpoint to $62-64B, but shares only "edged higher": a 3-6% gap at best, rule 2); DD (EPS beat, FY guide to $7.47-7.52 from $7.17-7.32, +2%); AAPL -3.7% qualifies for the rule 9 experiment lane (mega-cap bad-news gap on a guidance miss) but the account's third slot goes to RVTY, the main lane; PLTR's fall is on contract growth, not an earnings miss.
 - **TSLA**: its pre-overhaul 8-day hold from 10-26 expires today, so the bot sells it at the first run (+1.7% vs the fill at Monday's close). **IDXX** (+2.2%) and **EL** (-3.5%) carry; 20-day holds.
 Sources: https://www.tipranks.com/news/stock-market-today-nov-3-futures-mixed-on-midterm-election-day-apple-and-palantir-shares-slide-after-earnings, https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-slip-apple-100605100.html, https://finwire.io/news/stock-markets-news/why-is-revvity-stock-surging-today, https://www.sec.gov/Archives/edgar/data/0000078003/000007800326000125/pfe-9272026xex99.htm, https://www.aol.com/articles/dupont-raises-full-profit-forecasts-110743000.html
+
+## 2026-11-03 10:20 ET refresh (LIVE, $72.94; cycle dispatched by hand at 10:21, GitHub's schedule again ran nothing since the open)
+state/market.json (10:21 ET): a firmer tape. SPY +0.35%, QQQ +0.75%, SMH +2.5% (AMD +5% ahead of its report), IWM +0.7%. AAPL -1.9% (bounced +2% from its open), PLTR -4.2%, DD +4.6%, PFE -0.3%.
+- **TSLA** sold at 10:21 by the pre-overhaul 8-day hold: +$0.20 (+1.8%; bought $394.68 on 10-26, sold ~$401.7). Picks now 17 closed, 8 winners, +$0.38 net.
+- **RVTY** bought $18.23 at $169.18 (limit $170.76) at 10:21: +11.45% vs Monday's close, +2.5% vs its open, above VWAP; the gap held and is in the 6-12% bucket. 28-day hold, 15% stop.
+- **IDXX** $668.51 (-0.5% today, +2.4% vs the fill) and **EL** $106.00 (+1.2% today, -2.3% vs the fill) carry.
+- Three positions open (the maximum), so no further picks today. Not taken: AAPL (experiment lane; no slot), DD (+4.6% on a raised guide, under the 6% bar and no slot).
+Source: state/market.json (10:21 ET); run log of the hand-dispatched cycle.
