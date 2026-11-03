@@ -1,8 +1,13 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-02T19:24:00Z",
-  "expires_at": "2026-11-02T20:30:00Z",
-  "picks": [],
+  "generated_at": "2026-11-03T13:57:00Z",
+  "expires_at": "2026-11-03T20:30:00Z",
+  "picks": [
+    {"id": "2026-11-03-RVTY", "symbol": "RVTY", "action": "buy", "conviction": 2,
+     "max_entry_price": 180, "earliest_et": "10:05",
+     "thesis": "Q3 revenue $729M vs $695M expected (+10%), adjusted EPS $1.37 vs $1.30, operating margin 13.1% from 11.7%, and full-year EPS guidance raised to $5.40-5.45 (midpoint above the prior $5.35); +5% to +9% premarket. Rule 2: a 6%+ gap on a concrete estimate change; rule 3: hold ~20 trading days. Wrong if the raised guidance is walked back.",
+     "sources": ["https://finwire.io/news/stock-markets-news/why-is-revvity-stock-surging-today", "https://www.investing.com/news/earnings/revvity-stock-rises-5-on-strong-earnings-beat-and-raised-guidance-93CH-4994484"]}
+  ],
   "close": [],
-  "watch": ["IDXX", "EL", "TSLA", "AAPL", "PLTR", "AMD", "RIVN", "NVDA", "QQQ", "SMH"]
+  "watch": ["RVTY", "PFE", "DD", "AAPL", "PLTR", "AMD", "TSLA", "IDXX", "EL", "QQQ"]
 }
