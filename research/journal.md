@@ -736,3 +736,12 @@ state/market.json (14:21 ET): steady. SPY +0.5%, QQQ +0.8%, SMH +2.1%, AMD +4.6%
 - No new picks (three open, the maximum). DD at +9.9% is the kind of gap rule 2 wants and would have been the pick had a slot been free; noted for the scorecard's sake, not traded.
 - Paper rehearsal day 2 at 15:36 ET: QQQ is up on the day, so the rule should sell the paper TQQQ (first higher close ends the dip overlay) back to its 45% weight if it runs in the window.
 Source: state/market.json (14:21 ET)
+
+## 2026-11-03 evening review (LIVE)
+- Day: account $73.07 -> $72.44 (-$0.63, -0.86%) vs the same money in SPY +$0.11 (+0.15%). Since go-live: bot -3.41% vs S&P -3.01%, behind by $0.31 (was ahead $0.43 yesterday). QQQ -7.37%.
+- Closed today: TSLA +$0.20 (+1.8%) by the legacy 8-day max hold. Thesis (10-26: Roadster/AI headlines, big-name momentum) gave a small gain; it never reached a target and the hold rule ended it, which is the intended behaviour under the new rulebook.
+- Open at the close vs fill: IDXX +3.5% (day-1 gap pick still working), EL -3.5% (gap faded, held per rules 5/6), RVTY -1.3% (bought $18.23 @169.18 on an +11% gap at 11:21 ET; drifted lower into the close). The day's -0.86% is EL and RVTY giving back plus SPY -0.8%.
+- Core, real: leverage is off, so the real core only sold $6.92 of SPY to fund RVTY (ledger/core.csv). It cannot match the model by design until the leverage flag is switched on.
+- Core, model vs paper rehearsal: the model (official closes) went $62.04 -> $64.00 (+3.2%), fully in TQQQ by the dip rule into today's up close. The paper rehearsal did the same trades a bit off the closes: bought $75 TQQQ @59.305 at 15:41 on 11-02, sold back to 45% weight at 15:43 today with TQQQ ~60.51, so +2.0% on the TQQQ; the rest of the model's gain is the 11-02 close being below the 15:41 fill. The dip exit and the 10-point band rebalance (w=0.445, trend=1, vol 0.2247) fired exactly as the rule says. Paper day 2 of 3 done; the decision card for Sam comes after Wednesday's session.
+- Scorecard: 17 closed picks, 8 winners, +$0.38 net. Far below n=30, so no proposed rule changes.
+- Ops: GitHub cron fired nothing on time today (trade cycles, core-paper, learn were all dispatched by hand); git fetch/push to github.com stalled from this session this evening, API calls fine.
