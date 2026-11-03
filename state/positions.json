@@ -1,14 +1,4 @@
 {
-  "2026-10-26-1020-TSLA": {
-    "action": "buy",
-    "broker_symbol": "TSLA",
-    "entry_date": "2026-10-26",
-    "expiry": null,
-    "id": "2026-10-26-1020-TSLA",
-    "max_hold_days": 8,
-    "stop_pct": 0.07,
-    "target_pct": 0.12
-  },
   "2026-11-02-EL": {
     "action": "buy",
     "broker_symbol": "EL",
@@ -25,6 +15,16 @@
     "entry_date": "2026-11-02",
     "expiry": null,
     "id": "2026-11-02-IDXX",
+    "max_hold_days": 28,
+    "stop_pct": 0.15,
+    "target_pct": null
+  },
+  "2026-11-03-RVTY": {
+    "action": "buy",
+    "broker_symbol": "RVTY",
+    "entry_date": "2026-11-03",
+    "expiry": null,
+    "id": "2026-11-03-RVTY",
     "max_hold_days": 28,
     "stop_pct": 0.15,
     "target_pct": null
