@@ -729,3 +729,10 @@ state/market.json (10:21 ET): a firmer tape. SPY +0.35%, QQQ +0.75%, SMH +2.5% (
 - **IDXX** $668.51 (-0.5% today, +2.4% vs the fill) and **EL** $106.00 (+1.2% today, -2.3% vs the fill) carry.
 - Three positions open (the maximum), so no further picks today. Not taken: AAPL (experiment lane; no slot), DD (+4.6% on a raised guide, under the 6% bar and no slot).
 Source: state/market.json (10:21 ET); run log of the hand-dispatched cycle.
+
+## 2026-11-03 14:20 ET refresh (LIVE, $73.17; cycle dispatched by hand at 14:21, GitHub's schedule still silent)
+state/market.json (14:21 ET): steady. SPY +0.5%, QQQ +0.8%, SMH +2.1%, AMD +4.6% into its report, DD +9.9% (its raised guide gap grew through the day; no slot), AAPL -1.8%, PLTR -2%.
+- **IDXX** $681.07 (+1.3% today, +4.4% vs the fill); **RVTY** $167.62 (+10.5% today, -0.9% vs the fill); **EL** $105.71 (+0.9% today, -2.6% vs the fill). All carry; no wrong-if is near.
+- No new picks (three open, the maximum). DD at +9.9% is the kind of gap rule 2 wants and would have been the pick had a slot been free; noted for the scorecard's sake, not traded.
+- Paper rehearsal day 2 at 15:36 ET: QQQ is up on the day, so the rule should sell the paper TQQQ (first higher close ends the dip overlay) back to its 45% weight if it runs in the window.
+Source: state/market.json (14:21 ET)
