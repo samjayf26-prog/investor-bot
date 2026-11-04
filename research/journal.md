@@ -752,3 +752,9 @@ Pre-market (Morning Brief, currentlogic.substack.com): SPY +1.1%, QQQ +0.9%, IWM
 - Candidates had a slot been free (rule 2, 6%+ gap on an estimate change): ANET and XYZ first, SMCI second (lower-quality beat history), NVO (mega-cap on raised outlook). Each would still need the gap confirmed from a second outlet and a live 10:20 price. Logged for the scorecard's sake, not traded.
 - Paper rehearsal day 3 of the leveraged core runs at 15:36 ET; after today's session Sam gets the decision card on switching it on.
 Sources: https://currentlogic.substack.com/p/the-morning-brief-november-04-2026 ; https://stocktwits.com/news-articles/markets/equity/amd-q3-revenue-beats-earnings-in-line/cJ2DAZsRJH
+
+## 2026-11-04 10:20 ET refresh (LIVE, $73.47; cycle dispatched by hand at 10:21, GitHub's schedule ran nothing again this morning)
+state/market.json (10:21 ET): broad rally. SPY +1.8%, QQQ +2.1%, IWM +1.1%, VIXY -8.6%. Gaps held: ANET +9.9% (above VWAP), XYZ +15.8%, NVO +6.2%, AAPL +6.3% (no company release found; broad mega-cap bid), AMD +3.2% (below VWAP; the mixed read was right), SMCI only +1.9% (its +7% premarket faded), DDOG -9.9%.
+- **EL** $111.58 (+5.9% today, +2.8% vs the fill, above VWAP): no company news found; consumer names bid with the tape. **IDXX** $688.69 (+2.5%, +5.5% vs the fill). **RVTY** $159.40 (-2.6% today, -4.1% vs its open, -5.7% vs the fill): the gap is fading on day 1; no reversal of the news (the raised FY guide stands; the only Barclays downgrade found is from April). Rule 6: a fade is not an exit. All three carry.
+- No new picks: three open is the maximum. ANET (+9.9% on revenue +58%) and XYZ (+15.8% on a beat and raise) are the gaps rule 2 wants and would have been the picks with a free slot; logged, not traded.
+Sources: state/market.json (10:21 ET); https://currentlogic.substack.com/p/the-morning-brief-november-04-2026
