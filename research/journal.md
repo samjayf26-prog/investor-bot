@@ -758,3 +758,10 @@ state/market.json (10:21 ET): broad rally. SPY +1.8%, QQQ +2.1%, IWM +1.1%, VIXY
 - **EL** $111.58 (+5.9% today, +2.8% vs the fill, above VWAP): no company news found; consumer names bid with the tape. **IDXX** $688.69 (+2.5%, +5.5% vs the fill). **RVTY** $159.40 (-2.6% today, -4.1% vs its open, -5.7% vs the fill): the gap is fading on day 1; no reversal of the news (the raised FY guide stands; the only Barclays downgrade found is from April). Rule 6: a fade is not an exit. All three carry.
 - No new picks: three open is the maximum. ANET (+9.9% on revenue +58%) and XYZ (+15.8% on a beat and raise) are the gaps rule 2 wants and would have been the picks with a free slot; logged, not traded.
 Sources: state/market.json (10:21 ET); https://currentlogic.substack.com/p/the-morning-brief-november-04-2026
+
+## 2026-11-04 14:20 ET refresh (LIVE, $74.46; cycle dispatched by hand at 14:21, GitHub's schedule still silent)
+state/market.json (14:21 ET): SPY +1.8%, QQQ +1.3% (off its highs; SMH -2.7%, AMD now -0.3% after +3% this morning, SMCI -4.9%, DDOG -14.8%), IWM +1.5%, VIXY -9.9%. ANET held at +6.2% (was +9.9%), XYZ +15.8%, NVO +6.3%, AAPL +6.5%.
+- **EL** $112.81 (+7.1% today, +3.9% vs the fill); **IDXX** $707.85 (+5.3% today, +8.5% vs the fill, the best open pick); **RVTY** $162.40 (-0.8% today, -4.1% vs the fill, recovering from -5.7% this morning). No wrong-if (news reversal) for any of them; all carry. Account +2.8% on the day so far, ahead of SPY's +1.8%.
+- No new picks (three open, the maximum). Nothing to close.
+- The paper rehearsal (day 3) runs at 15:36 ET; QQQ is up on the day, trend 1, so the rule should only rebalance if the weight moves 10 points (no trade expected). The decision card for Sam follows this evening.
+Source: state/market.json (14:21 ET)
