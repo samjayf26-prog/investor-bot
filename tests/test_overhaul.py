@@ -14,6 +14,7 @@ from test_bot import LIVE_CFG, NOW, FakeAlpaca, FakeClock, write_picks
 WINDOW = datetime(2026, 10, 8, 19, 40, tzinfo=timezone.utc)      # 15:40 ET, inside 15:35-15:58
 LATE = datetime(2026, 10, 8, 20, 0, tzinfo=timezone.utc)         # 16:00 ET, past the window
 LEV_CFG = {**LIVE_CFG, "core": {**LIVE_CFG["core"], "leverage": True}}
+PLAIN_CFG = {**LIVE_CFG, "core": {**LIVE_CFG["core"], "leverage": False}}
 
 
 def closes(n=260, drift=0.001, start=100.0):
@@ -406,7 +407,7 @@ def test_leverage_off_unwinds_tqqq_into_spy(tmp_path):
     api = FakeAlpaca(cash=2.0)
     hold(api, "TQQQ", 50.0)
     hold(api, "SPY", 48.0)
-    t, api, _ = make(tmp_path, cfg=LIVE_CFG, api=api)             # leverage false, 15:40 ET
+    t, api, _ = make(tmp_path, cfg=PLAIN_CFG, api=api)            # leverage false, 15:40 ET
     t.cycle()
     assert "TQQQ" in api.closed
     spy = [o for o in api.orders.values() if o["side"] == "buy" and o["symbol"] == "SPY"]
@@ -433,8 +434,10 @@ def test_core_buys_are_capped_and_whole_shares_when_not_fractionable(tmp_path):
     assert float(tqqq["qty"]) >= 6
 
 
-def test_core_config_shape_defaults_to_plain_spy():
-    assert LIVE_CFG["core"]["leverage"] is False and LIVE_CFG["core"]["symbol"] == "SPY"
+def test_core_config_shape_is_the_leveraged_core():
+    # Sam switched the leveraged core on 2026-11-05 (decision card after the three-day paper rehearsal)
+    assert LIVE_CFG["core"]["leverage"] is True and LIVE_CFG["core"]["symbol"] == "SPY"
+    assert LIVE_CFG["core"]["lev_symbol"] == "TQQQ" and LIVE_CFG["core"]["index"] == "QQQ"
     assert LIVE_CFG["options_enabled"] is False and LIVE_CFG["learning"] is False
     assert (LIVE_CFG["min_hold_days"], LIVE_CFG["default_hold_days"], LIVE_CFG["max_hold_days"]) == (3, 28, 30)
     # the hard limits are untouched
@@ -446,7 +449,7 @@ def test_core_snapshot_without_leverage_keeps_the_old_keys(tmp_path):
     write_picks(tmp_path, [])
     api = FakeAlpaca(cash=2.0)
     hold(api, "SPY", 98.0)
-    t, api, _ = make(tmp_path, cfg=LIVE_CFG, api=api, start=NOW)
+    t, api, _ = make(tmp_path, cfg=PLAIN_CFG, api=api, start=NOW)
     t.cycle()
-    core = Core(t, LIVE_CFG).snapshot()
+    core = Core(t, PLAIN_CFG).snapshot()
     assert core["symbol"] == "SPY" and core["value"] == 98.0 and core["held"] == {"SPY": 98.0, "TQQQ": 0.0}

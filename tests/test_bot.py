@@ -12,7 +12,8 @@ TODAY = date(2026, 10, 8)
 LIVE_CFG = load_config()
 # Most tests run the pre-overhaul pick rules (puts, short holds, same-day trades), which the
 # code still supports behind these settings; the overhaul's defaults are tested separately.
-CFG = {**LIVE_CFG, "options_enabled": True, "max_hold_days": 10, "min_hold_days": 0, "default_hold_days": 5}
+CFG = {**LIVE_CFG, "options_enabled": True, "max_hold_days": 10, "min_hold_days": 0, "default_hold_days": 5,
+       "core": {**LIVE_CFG["core"], "leverage": False}}   # the plain SPY core; leverage is tested in test_overhaul
 
 
 # risk

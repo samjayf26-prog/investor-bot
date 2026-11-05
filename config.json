@@ -22,7 +22,7 @@
     "start_equity": 75.0
   },
   "core": {
-    "leverage": false,
+    "leverage": true,
     "symbol": "SPY",
     "buy_after_et": "14:30",
     "reserve": 2.0,
