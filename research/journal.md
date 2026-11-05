@@ -787,3 +787,10 @@ state/market.json (10:21 ET): a sharp risk-off open. SPY -2.4%, QQQ -4.5%, IWM -
 - No new picks: three open is the maximum. Had a slot been free, APP's +32% on its Q3 would have needed the beat confirmed from the 8-K (sec.gov exhibit found, not read) and a second outlet; on a -4.5% Nasdaq day a new gap buy is also what rule 2's drift numbers least support (gaps in broad selloffs were our losers). Logged, not traded.
 - Core: real core is SPY only (-2.4% today). If the leveraged core were on, today would be a down close (dip counter 1 of 3) with trend still 1 unless QQQ closes under its 200-day average; the paper rehearsal is over and Sam's card is unanswered.
 Source: state/market.json (10:21 ET)
+
+## 2026-11-05 14:20 ET refresh (LIVE, $71.02; cycle dispatched by hand at 14:21)
+state/market.json (14:21 ET): the selloff deepened. SPY -3.9%, QQQ -5.5% (the Nasdaq's worst day in over a year per the wires), IWM -4.2%, SMH -9.3%, VIXY +24%, TLT +0.4%. Chips led it down after Qualcomm's guide; AI-power and memory names extended Wednesday's drop. Gap names: APP still +30%, TM +10%, TPR +7% (but -6.7% vs its open), QCOM -9%, ANET -9.6%, XYZ -3.7%, NVO -4.4%.
+- **EL** $108.95 (-2.8% today, +0.4% vs the fill); **IDXX** $670.71 (-4.2%, +2.8% vs the fill); **RVTY** $153.02 (-4.1%, -9.5% vs the fill; the 15% stop is at ~$143.80, 6% below). No company news on any of them; a market-wide -4% day is not a wrong-if (rule 6). All three carry; the time exits are 11-30 and 12-01.
+- No new picks (three open, the maximum). Nothing to close.
+- Core: real core is SPY (-3.9% today), $24.22. If the leveraged core were on it would be a down close, dip counter 1; trend depends on QQQ's close vs its 200-day average (QQQ ~654 vs an average that was near 600 recently per the 11-02 signal; still above). Sam's decision card remains unanswered.
+Source: state/market.json (14:21 ET); https://www.heygotrade.com/en/news/nasdaq-drops-4-percent-chip-stock-selloff/
