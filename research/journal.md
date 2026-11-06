@@ -813,3 +813,10 @@ Pre-market (TradingKey; the Morning Brief and CNBC pages would not load): Nasdaq
 - Candidates had a slot been free (rule 2): Cloudflare (+20% on a beat and raised FY guide, confirmed by one outlet so far) first, Airbnb second (mega-cap, +12%). Logged, not traded.
 - Core: leverage is on from today. The first cycle (triggered by this push) should catch up on Thursday's close: trend 0 (QQQ 650.98 under its 200-day average), weight 0, so all SPY and no trade expected; the 10:20 run checks state/core.json.
 Sources: https://www.tradingkey.com/analysis/stocks/us-stocks/262291918-us-premarket-chip-stocks-rebound-micron-amd-sandisk-october-nonfarm-payrolls-tradingkey
+
+## 2026-11-06 10:20 ET refresh (LIVE, $71.39; cycle dispatched by hand at 10:21)
+state/market.json (10:21 ET): bounce. SPY +1.0%, QQQ +2.1%, IWM +0.7%, SMH +4.9% (AMD +11.6%, NVDA +5.8%, MU +7%), VIXY -7.9%. Jobs report: the unemployment rate rose (Kiplinger: "stocks chop as the unemployment rate jumps"); the tape shrugged. Gaps: NET +12.9% (fading, -3.5% vs its open), ABNB +9.7% (-2.8% vs open), IREN +20%, APP +5.4%, DKNG -27%, TEAM -14.5%.
+- **Core, first live run with leverage on**: the 10:21 cycle caught up on Thursday's close as designed: "the 2026-11-05 close was never acted on; catching up now", trend 0 (QQQ 647.05 under its 200-day average), vol 0.3143, weight 0, dip 0, held 0% TQQQ, within the band, nothing to do; state/core.json written. The SPY sleeve ($24.35) stays until the first close back above the average or a 3-down-close dip.
+- **EL** $109.10 (+1.3% today, +0.5% vs the fill); **IDXX** $669.54 (-0.2%, +2.7% vs the fill); **RVTY** $155.52 (+3.1%, -8.1% vs the fill). No news; all carry.
+- No new picks (three open, the maximum). NET would have been the pick (+12.9% on a beat and raised FY guide, the same shape as its August gap), ABNB second; logged, not traded.
+Source: state/market.json (10:21 ET); run log 42242244303; https://kiplinger.com/investing/stocks/stocks-chop-as-the-unemployment-rate-jumps-stock-market-today
