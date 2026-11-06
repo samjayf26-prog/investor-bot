@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-05T19:24:00Z",
-  "expires_at": "2026-11-05T20:30:00Z",
+  "generated_at": "2026-11-06T13:56:00Z",
+  "expires_at": "2026-11-06T20:30:00Z",
   "picks": [],
   "close": [],
-  "watch": ["APP", "TM", "TPR", "QCOM", "ANET", "XYZ", "NVO", "AAPL", "MCK", "SMH"]
+  "watch": ["NET", "ABNB", "IREN", "DKNG", "TEAM", "AMD", "MU", "NVDA", "SMH", "APP"]
 }
