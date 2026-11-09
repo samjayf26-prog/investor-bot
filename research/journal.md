@@ -937,3 +937,16 @@ Holdings judged on today's price (rule 6):
 No closes. No new picks: three open positions is the maximum (rule 7) and cash is $0.46; nothing today met the bar anyway. CEG (+9.9%) and AMD (+13.5%) are now full 6%+ gaps on rule-2 news from the morning, but both would have needed a free slot; noted for the record, not actionable. VIR +16% on trial results (Seeking Alpha movers, Nov 9) is a decision-type catalyst for a $14 stock; kept on watch. GEV +7% with no confirmed company catalyst; NET, MU moving with the chip rally.
 Bot plumbing today: Claude's hourly scan ran at 10:52, 11:53, 12:51 and 13:51 ET ($0.82 of the $75 month budget so far), each finding nothing new; GitHub's own 15-minute trade schedule did not fire during market hours, so the build thread now dispatches stop checks at :20 and :50 by hand.
 Sources: https://seekingalpha.com/news/4668828-biggest-stock-movers-monday-nvda-and-more ; https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_8k.htm ; state/market.json 13:52 ET.
+
+### 14:51 ET hourly scan (Claude API, bot/scan.py)
+14:51 ET hourly scan. No new picks and no closes.
+
+No new picks: all three slots are taken (EL, IDXX, RVTY), the most rule 7 allows, and cash is about $0.46, so nothing can be bought this hour. The last research run was at 14:25 ET. CEG (+11.0%), AMD (+13.1%), VIR (+14.7%), GEV (+6.9%) and NET (+9.5%) are all earlier news already on the watch list, and none would be actionable without a free slot.
+
+Holdings (checked only for news that reverses the story, because the saved thesis and wrong-if text are still empty):
+- EL $114.54 (+4.0%). Nothing new since the earlier scans. The only items are the HSBC target raise ('raises TP to $110 but remains cautious', marketscreener) and a routine director sale filing (MarketBeat). Carry.
+- IDXX $705.00 (+4.3%). The only items today are MarketBeat 13F notes on small sales by Pictet and Kornitzer. These are routine and do not reverse the Q3 beat and raised-outlook story. Carry.
+- RVTY $160.95 (+3.8%). No new company news. The latest items are the Simply Wall St pieces on analysts raising estimates after the Q3 beat. Carry.
+
+Sources: https://marketscreener.com/news/estee-lauder-hsbc-raises-tp-to-110-but-remains-cautious-ce785fd2dd8cf125 ; https://www.marketbeat.com/instant-alerts/filing-idexx-laboratories-inc-idxx-shares-sold-by-pictet-asset-management-holding-sa-2026-11-09/ ; https://simplywall.st/stocks/us/pharmaceuticals-biotech/nyse-rvty/revvity/news/revvity-inc-just-beat-analyst-forecasts-and-analysts-have-be
+- No new picks, no closes.
