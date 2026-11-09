@@ -33,6 +33,39 @@ def spend_ok(month_spent_usd, monthly_budget_usd):
     return True, ""
 
 
+def scan_gap_ok(gap_pct, min_gap_pct, last_price, min_price):
+    """A scan candidate needs a real gap on live prices and a listed-stock price."""
+    if gap_pct is None or last_price is None:
+        return False, "no live price"
+    if gap_pct < min_gap_pct:
+        return False, f"gap {gap_pct}% on live prices, under {min_gap_pct}%"
+    if last_price < min_price:
+        return False, "under the minimum price"
+    return True, ""
+
+
+def scan_entry_cap(last_price, proposed, slack=0.03):
+    """The model's max entry price, if it is between the last trade and 3% above it; else 1% over."""
+    try:
+        cap = float(proposed)
+    except (TypeError, ValueError):
+        cap = 0.0
+    return round(cap, 2) if last_price <= cap <= last_price * (1 + slack) else round(last_price * 1.01, 2)
+
+
+def scan_conviction(raw, cap=2):
+    """Scan picks never get the top conviction: 1 by default, at most `cap`."""
+    try:
+        return int(min(max(int(float(raw)), 1), cap))
+    except (TypeError, ValueError):
+        return 1
+
+
+def scan_room(max_picks_per_run, current_count, max_per_scan):
+    """How many picks a scan may add: the bot reads only the first max_picks_per_run."""
+    return max(0, min(max_per_scan, max_picks_per_run - current_count))
+
+
 def pick_budget(equity, cash, conviction, max_notional, min_notional):
     """Dollars for one pick: a share of equity set by conviction, never more than the
     cash on hand (no leverage) or the hard ceiling. 0.0 when below the broker minimum."""

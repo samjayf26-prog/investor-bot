@@ -25,11 +25,21 @@
     "enabled": true,
     "model": "claude-opus-5-5",
     "effort": "medium",
-    "monthly_budget_usd": 15.0,
+    "monthly_budget_usd": 75.0,
     "max_tokens": 4000,
     "timeout_seconds": 30,
     "news_hours": 72,
-    "max_headlines": 15
+    "max_headlines": 15,
+    "scan": {
+      "enabled": true,
+      "max_searches": 8,
+      "max_picks": 2,
+      "min_gap_pct": 6.0,
+      "max_tokens": 12000,
+      "effort": "medium",
+      "timeout_seconds": 300,
+      "from_et": "10:30"
+    }
   },
   "core": {
     "leverage": true,

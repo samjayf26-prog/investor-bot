@@ -20,6 +20,12 @@ Feasibility Study" project, reworked so Claude picks trades.
   stops the buy; price action never does, and any API problem means the buy goes ahead as
   before. Calls are logged with their cost in ledger/claude_calls.csv and stop for the month
   at the config "claude" budget.
+- Hourly from 10:50 to 14:50 ET, scan.yml runs Claude's news-gap scan (bot/scan.py): a web
+  search for stocks that gapped 6%+ today on concrete news since the last research run, and a
+  check whether news has reversed any open pick's thesis. Gaps are re-checked on live Alpaca
+  prices before a pick is added (conviction at most 2, two per scan); closes only name picks
+  that are really open. Results go into picks/latest.json and research/journal.md and the same
+  job then runs a trade cycle. Both Claude features share one monthly budget (config "claude").
 - The scalper (bot/scalper.py) is retired: it only ever trades the paper account and no
   longer runs on a schedule (replays showed it loses after costs). Run scalp.yml by hand to watch it.
 - Picks are buys only: the stock or ETF (fractional when allowed), bought from 10:00 ET

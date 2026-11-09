@@ -73,15 +73,18 @@ def claude_cfg(cfg):
     return {**DEFAULTS, **block} if isinstance(block, dict) else dict(DEFAULTS)
 
 
-def call_cost(model, usage):
-    """Dollar cost of one call from the API's usage block (object or dict)."""
+SEARCH_PRICE = 0.01   # $ per web search (server tool), on top of tokens
+
+
+def call_cost(model, usage, searches=0):
+    """Dollar cost of one call from the API's usage block (object or dict) plus its web searches."""
     get = usage.get if isinstance(usage, dict) else lambda k, d=0: getattr(usage, k, d)
     inp, out = PRICES.get(model, UNKNOWN_PRICE)
     tokens = {k: float(get(k, 0) or 0) for k in ("input_tokens", "output_tokens",
                                                 "cache_read_input_tokens", "cache_creation_input_tokens")}
     usd = (tokens["input_tokens"] * inp + tokens["output_tokens"] * out
            + tokens["cache_read_input_tokens"] * inp * 0.1 + tokens["cache_creation_input_tokens"] * inp * 1.25) / 1e6
-    return round(usd, 6), tokens
+    return round(usd + searches * SEARCH_PRICE, 6), tokens
 
 
 def month_to_date_spend(path, now):
@@ -169,11 +172,11 @@ class Advisor:
         self.memo_path.parent.mkdir(exist_ok=True)
         self.memo_path.write_text(json.dumps(memo, indent=2, sort_keys=True) + "\n")
 
-    def budget_ok(self, now):
+    def budget_ok(self, now, what="Claude pre-buy check"):
         spent = month_to_date_spend(self.ledger_path, now)
         ok, why = risk.spend_ok(spent, self.cfg["monthly_budget_usd"])
         if not ok and not self.budget_logged:
-            log(f"Claude pre-buy check skipped: {why}")
+            log(f"{what} skipped: {why}")
             self.budget_logged = True
         return ok
 
