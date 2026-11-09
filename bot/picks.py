@@ -30,6 +30,10 @@ def _clamp(value, lo, hi, default):
     return min(max(v, lo), hi)
 
 
+def _list(value):
+    return value if isinstance(value, list) else []
+
+
 def _text(value, limit):
     return str(value)[:limit] if isinstance(value, (str, int, float)) else ""
 
@@ -99,7 +103,7 @@ def load(path, now, cfg):
             # Text for the pre-buy news check (bot/advisor.py); never used to size or exit.
             "thesis": _text(raw.get("thesis"), 800),
             "wrong_if": _text(raw.get("wrong_if"), 400),
-            "sources": [_text(u, 300) for u in (raw.get("sources") or [])[:5]
+            "sources": [_text(u, 300) for u in _list(raw.get("sources"))[:5]
                         if isinstance(u, str) and u.startswith("http")],
         })
     return entries, close_ids, notes

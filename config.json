@@ -26,8 +26,8 @@
     "model": "claude-opus-5-5",
     "effort": "medium",
     "monthly_budget_usd": 15.0,
-    "max_tokens": 400,
-    "timeout_seconds": 45,
+    "max_tokens": 4000,
+    "timeout_seconds": 30,
     "news_hours": 72,
     "max_headlines": 15
   },

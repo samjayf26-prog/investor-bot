@@ -140,5 +140,23 @@ def test_ping_logs_a_row(tmp_path):
     client = FakeClient(["pong"])
     adv = Advisor(ADV_CFG, api=None, root=tmp_path, client=client, now=lambda: NOW)
     assert adv.ping() == "pong"
-    assert rows(tmp_path)[0]["purpose"] == "ping" and client.calls[0]["max_tokens"] == 64
+    assert rows(tmp_path)[0]["purpose"] == "ping" and client.calls[0]["max_tokens"] == 1024
     assert TODAY.isoformat() in rows(tmp_path)[0]["at"]
+
+
+def test_cut_off_answer_and_corrupt_memo_fail_open(tmp_path):
+    write_picks(tmp_path, [PICK])
+    t, api, adv, _ = make(tmp_path, FakeClient([""], stop_reason="max_tokens"))
+    (tmp_path / "state").mkdir()
+    (tmp_path / "state" / "advisor.json").write_text('{"p1": "veto"}')   # hand-edited garbage
+    assert t.cycle() == "traded"
+    row = rows(tmp_path)[0]
+    assert row["decision"] == "unclear" and "max_tokens" in row["note"] and row["headlines"] == "1"
+    adv.record = lambda **row: 1 / 0   # even broken bookkeeping does not stop the buy
+    assert adv.check_entry(PICK, 180.0, TODAY + timedelta(days=1))[0]
+
+
+def test_picks_with_odd_sources_do_not_crash(tmp_path):
+    p = write_picks(tmp_path, [{**PICK, "sources": {"a": 1}}, {**PICK, "id": "p2", "sources": 5}])
+    entries = picks.load(p, NOW, CFG)[0]
+    assert [e["sources"] for e in entries] == [[], []]
