@@ -94,7 +94,7 @@ the scorecard shows at least 30 closed trades bearing on the claim and a t-stati
   "expires_at": "2026-10-08T19:30:00Z",
   "picks": [
     {"id": "2026-10-08-NVDA", "symbol": "NVDA", "action": "buy", "conviction": 3,
-     "max_entry_price": 190, "thesis": "...", "sources": ["https://..."]},
+     "max_entry_price": 190, "thesis": "...", "wrong_if": "closes below $170", "sources": ["https://..."]},
     {"id": "2026-10-08-1020-CLS", "symbol": "CLS", "action": "buy", "conviction": 2,
      "max_entry_price": 280, "stop_pct": 0.15, "max_hold_days": 28, "earliest_et": "10:30",
      "thesis": "...", "sources": ["https://..."]}
@@ -107,6 +107,11 @@ the scorecard shows at least 30 closed trades bearing on the claim and a t-stati
   "max_hold_days" (3-30 calendar days, default 28), "earliest_et" ("09:30"-"15:30", default
   "10:00"), "confirm_vwap" (default false), "max_entry_price" (recommended on every gap pick;
   without it the bot pays up to 1% over the last trade).
+- "thesis", "wrong_if" (the closing-price or news condition that would prove the pick wrong) and
+  "sources" are read by the bot's pre-buy check: right before buying, Claude (bot/advisor.py)
+  compares them with the headlines since the pick was written and vetoes only if the news has
+  been reversed, the wrong-if has already happened or the stock is halted. Write them for every
+  pick; a veto is logged in ledger/claude_calls.csv and the journal should note it the next run.
 - "watch" (optional, up to 10 symbols) adds symbols to state/market.json for the next runs;
   the bot never trades them.
 - ids must be new each day (date prefix). expires_at = 15:30 ET today in UTC.

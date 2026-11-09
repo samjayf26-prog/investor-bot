@@ -21,6 +21,16 @@
     "since": "2026-10-13T16:40:00Z",
     "start_equity": 75.0
   },
+  "claude": {
+    "enabled": true,
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "monthly_budget_usd": 15.0,
+    "max_tokens": 4000,
+    "timeout_seconds": 30,
+    "news_hours": 72,
+    "max_headlines": 15
+  },
   "core": {
     "leverage": true,
     "symbol": "SPY",

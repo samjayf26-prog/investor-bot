@@ -30,6 +30,14 @@ def _clamp(value, lo, hi, default):
     return min(max(v, lo), hi)
 
 
+def _list(value):
+    return value if isinstance(value, list) else []
+
+
+def _text(value, limit):
+    return str(value)[:limit] if isinstance(value, (str, int, float)) else ""
+
+
 def load(path, now, cfg):
     """Returns (entries, close_ids, notes). Entries only when the file is fresh."""
     notes = []
@@ -92,6 +100,11 @@ def load(path, now, cfg):
             "max_entry_price": _clamp(raw.get("max_entry_price"), 0, 1e6, 0) or None,
             "confirm_vwap": raw.get("confirm_vwap") is True,
             "earliest_et": when,
+            # Text for the pre-buy news check (bot/advisor.py); never used to size or exit.
+            "thesis": _text(raw.get("thesis"), 800),
+            "wrong_if": _text(raw.get("wrong_if"), 400),
+            "sources": [_text(u, 300) for u in _list(raw.get("sources"))[:5]
+                        if isinstance(u, str) and u.startswith("http")],
         })
     return entries, close_ids, notes
 
