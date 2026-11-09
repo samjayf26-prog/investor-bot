@@ -40,7 +40,6 @@ def _text(value, limit):
 
 def load(path, now, cfg):
     """Returns (entries, close_ids, notes). Entries only when the file is fresh."""
-    notes = []
     try:
         with open(path) as f:
             data = json.load(f)
@@ -48,6 +47,12 @@ def load(path, now, cfg):
         return [], set(), ["no picks file"]
     except (OSError, ValueError) as e:
         return [], set(), [f"picks file unreadable: {e}"]
+    return load_data(data, now, cfg)
+
+
+def load_data(data, now, cfg):
+    """The validation behind load(), on an already parsed picks document."""
+    notes = []
     if not isinstance(data, dict) or data.get("schema_version") != 2:
         return [], set(), ["picks file has wrong schema_version"]
 

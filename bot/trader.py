@@ -295,7 +295,8 @@ class Trader:
         price = self.api.last_price(sym)
         base = {"id": pick["id"], "action": pick["action"], "entry_date": today.isoformat(),
                 "stop_pct": pick["stop_pct"], "target_pct": pick["target_pct"],
-                "max_hold_days": pick["max_hold_days"], "expiry": None}
+                "max_hold_days": pick["max_hold_days"], "expiry": None,
+                "thesis": pick.get("thesis", ""), "wrong_if": pick.get("wrong_if", "")}
 
         if pick["action"] == "buy":
             if price < self.cfg["min_stock_price"]:

@@ -72,6 +72,10 @@ filings or files other than this one.
   written now should be ones you'd hold for weeks (the bot stops new entries at 15:30 ET).
 - If an 11:20 or 13:20 run still fires (kept until Sam decides), treat it as a carry run:
   no closes on intraday dips, new picks only for news that broke after 10:20.
+Between your runs the bot's own hourly scan (bot/scan.py, 10:50-14:50 ET) may add picks
+(ids containing "-scan-") and closes, with a journal entry headed "hourly scan". Read those
+entries like your own earlier reasoning: keep a scan pick only under the same rule as any other
+unbought pick, and judge its thesis as you would your own.
 Rewrite picks/latest.json from scratch each run: keep an earlier pick only if it has not
 been bought yet and its thesis still holds (reuse its id so it is not bought twice); give
 new picks new ids with a time suffix (e.g. 2026-10-08-1020-AMD).
