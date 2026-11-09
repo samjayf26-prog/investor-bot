@@ -855,3 +855,15 @@ Holdings: **EL**, **IDXX**, **RVTY** carry. No company news on any of them over 
 New today: Claude's pre-buy news check (bot/advisor.py) is live on every buy, and the hourly news-gap scan (bot/scan.py) runs 10:50-14:50 ET; its entries appear below headed "hourly scan".
 
 Sources: https://finance.yahoo.com/markets/stocks/articles/premarket-movers-nvidia-slides-huang-113609873.html ; https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-09-202 ; https://www.sec.gov/Archives/edgar/data/0001868275/000186827526000116/ceg-20261109991.htm ; https://www.investing.com/news/economy-news/kkr-profit-hits-record-as-asset-sales-fees-surge-5011467 ; https://www.sec.gov/Archives/edgar/data/0001404912/000140491226000030/q326earningsrelease_vf.htm ; https://www.sec.gov/Archives/edgar/data/0001013871/000101387126000022/nrgq32026ex991.htm ; https://247wallst.com/investing/2026/11/09/buy-sell-or-hold-mondays-top-upgrades-and-downgrades-advanced-micro-devices-airbnb-draftkings-l3-harris-technologies-molson-coors-nvidia-take-two-interactive-uber-technologies-and-more/
+
+### 10:20 ET refresh
+Live (state/market.json 10:23 ET): SPY 749.28 (+1.9%), QQQ 674.19 (+2.7%), SMH +3.6%, IWM +2.1%, VIXY -9.9%. A broad rebound from last week's AI selloff; Nvidia is the exception (-4.4%, Huang probe).
+Since 8:50:
+- **CEG** $264.26, +5.8% on the guidance-midpoint raise (above VWAP). Under the 6% line, and the midpoint move is small for a stock that fell 9% last week; it stays on watch. If it holds 6%+ into the afternoon the scan or the 14:20 run can revisit, but three open is the maximum anyway.
+- **AMD** $492.15, +10.0% on Oppenheimer's upgrade to Outperform ($600) on top of Friday's +11%. A rating reversal is rule-2 news, but it is the second large up day in a row and we have no room; watch.
+- **NVR** $6,290, -0.3%. The "+26% premarket" in the Yahoo/Investing.com premarket piece did not survive the open (likely a bad print or a thin pre-market quote); nothing there.
+- **VIR** +16% premarket on trial results (Seeking Alpha movers). A decision-type catalyst I would normally check from the company release; added to watch for the scan and the 14:20 run since nothing can be bought today.
+- **KKR** $98.45, +2.1% on the record quarter: no gap.
+Holdings: **EL** $113.52 (+3.1% today, +4.5% vs the fill), **IDXX** $686.11 (+1.5%, +5.2%), **RVTY** $156.74 (+1.0%, -7.4%). No company news, no wrong-if; all carry. Account $72.70 (+1.7% on the day) vs SPY +1.9%: the three stocks are lagging the rebound a little, the SPY sleeve matches it.
+No new picks: three open positions is the limit and cash is $0.46. Watch list refreshed.
+Sources: https://seekingalpha.com/news/4668828-biggest-stock-movers-monday-nvda-and-more ; https://247wallst.com/investing/2026/11/09/buy-sell-or-hold-mondays-top-upgrades-and-downgrades-advanced-micro-devices-airbnb-draftkings-l3-harris-technologies-molson-coors-nvidia-take-two-interactive-uber-technologies-and-more/ ; state/market.json 10:23 ET.
