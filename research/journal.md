@@ -888,3 +888,22 @@ Holdings:
 
 The saved state has empty thesis and wrong-if text for all three positions, so they could only be checked for news that reverses the story. None has any, and all three are up today. All three carry. No closes.
 - No new picks, no closes.
+
+### 12:51 ET hourly scan (Claude API, bot/scan.py)
+Hourly scan at 12:51 ET. No new picks. All three slots are taken (EL, IDXX, RVTY) and cash is about $0.46, so nothing can be bought this hour whatever the news. I did not look for new candidates in depth.
+
+Watch list, no action. All of these are earlier news already on the list:
+- CEG: +9.4% on the guidance-midpoint raise. That news came before the last research run.
+- AMD: +12.3% on the Oppenheimer upgrade.
+- VIR: +12.2% on trial data, still below VWAP.
+- NET (+10.7%), GEV (+7.2%) and MU (+6.4%): still no fresh company-specific catalyst confirmed by two outlets. They are moving with the broad rally (SPY +2.3%, SMH +4.7%).
+
+Holdings:
+- EL: $113.88 (+3.4%). The only news since the last scan is still the marketscreener headline 'Estée Lauder: HSBC raises TP to $110 but remains cautious', plus the Wall Street Zen upgrade 2 days ago (MarketBeat). Neither reverses the story.
+- IDXX: $692.83 (+2.5%). The only recent item is a GuruFocus valuation piece from 3 days ago. No company news.
+- RVTY: $159.97 (+3.1%). Nothing new since the Q3 beat and guidance raise 5-6 days ago (Seeking Alpha, Benzinga). That story is intact.
+
+The saved state still has empty thesis and wrong-if text for all three positions, so they could only be checked for news that reverses the story. None has any, and all three are up today and above VWAP. All three carry. No closes.
+
+Sources: https://marketscreener.com/news/estee-lauder-hsbc-raises-tp-to-110-but-remains-cautious-ce785fd2dd8cf125 ; https://www.gurufocus
+- No new picks, no closes.
