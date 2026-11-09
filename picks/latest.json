@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-06T19:26:00Z",
-  "expires_at": "2026-11-06T20:30:00Z",
+  "generated_at": "2026-11-09T13:55:00Z",
+  "expires_at": "2026-11-09T20:30:00Z",
   "picks": [],
   "close": [],
-  "watch": ["NET", "ABNB", "IREN", "DKNG", "TEAM", "AMD", "MU", "NVDA", "SMH", "APP"]
+  "watch": ["CEG", "KKR", "NVR", "AMD", "NVDA", "SMH", "NET", "ABNB", "APP", "MU"]
 }
