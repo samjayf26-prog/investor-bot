@@ -927,3 +927,13 @@ Holdings:
 
 The saved state still has empty thesis and wrong-if text for all three positions, so I cou
 - No new picks, no closes.
+
+### 14:20 ET refresh (closes and carries)
+Live (state/market.json 13:52 ET): SPY 753.04 (+2.4%), QQQ 677.96 (+3.3%), SMH +4.7%, IWM +3.2%, VIXY -11.9%. The rebound from last week's AI selloff broadened through the day; Nvidia stays the exception (-5.6%, Huang probe).
+Holdings judged on today's price (rule 6):
+- **EL** $114.93 (+4.4% today, +5.8% vs the fill). No company news today beyond a routine director sale filing (MarketBeat) and the HSBC target raise noted by the scans; an Argus upgrade headline in the search results dates from Nov 2025 and was discarded. Wrong-if (a walked-back raise or a reversal of the Q1 beat) not met. Carry.
+- **IDXX** $703.58 (+4.0%, +7.9% vs the fill). No company news since the Q3 beat and raised 2026 outlook. Carry.
+- **RVTY** $160.95 (+3.8%, -4.9% vs the fill, recovering from -7.6% on Friday). No news since the Q3 beat and guidance raise; nothing on the investor-day or dividend releases changes the estimate. Carry.
+No closes. No new picks: three open positions is the maximum (rule 7) and cash is $0.46; nothing today met the bar anyway. CEG (+9.9%) and AMD (+13.5%) are now full 6%+ gaps on rule-2 news from the morning, but both would have needed a free slot; noted for the record, not actionable. VIR +16% on trial results (Seeking Alpha movers, Nov 9) is a decision-type catalyst for a $14 stock; kept on watch. GEV +7% with no confirmed company catalyst; NET, MU moving with the chip rally.
+Bot plumbing today: Claude's hourly scan ran at 10:52, 11:53, 12:51 and 13:51 ET ($0.82 of the $75 month budget so far), each finding nothing new; GitHub's own 15-minute trade schedule did not fire during market hours, so the build thread now dispatches stop checks at :20 and :50 by hand.
+Sources: https://seekingalpha.com/news/4668828-biggest-stock-movers-monday-nvda-and-more ; https://www.sec.gov/Archives/edgar/data/0000874716/000110465926120892/tm2628647d1_8k.htm ; state/market.json 13:52 ET.
