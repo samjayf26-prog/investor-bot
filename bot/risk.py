@@ -26,6 +26,13 @@ def drawdown_ok(equity, peak_equity, halt_pct):
     return True, ""
 
 
+def spend_ok(month_spent_usd, monthly_budget_usd):
+    """The Claude API calls stop for the month once the config budget is spent."""
+    if month_spent_usd >= monthly_budget_usd:
+        return False, f"Claude API spend ${month_spent_usd:.2f} has reached the ${monthly_budget_usd:.2f} monthly budget"
+    return True, ""
+
+
 def pick_budget(equity, cash, conviction, max_notional, min_notional):
     """Dollars for one pick: a share of equity set by conviction, never more than the
     cash on hand (no leverage) or the hard ceiling. 0.0 when below the broker minimum."""

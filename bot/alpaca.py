@@ -167,6 +167,13 @@ class Alpaca:
         out = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", {"feed": "iex"})
         return float(out["trade"]["p"])
 
+    def news(self, symbols, start, limit=20):
+        """Latest news items (headline, summary, source, created_at, url) for the symbols since start."""
+        out = self._req("GET", f"{DATA_URL}/v1beta1/news",
+                        {"symbols": ",".join(symbols), "start": start, "limit": limit, "sort": "desc",
+                         "include_content": "false"})
+        return (out or {}).get("news") or []
+
     def option_quotes(self, symbols):
         out = self._req("GET", f"{DATA_URL}/v1beta1/options/quotes/latest",
                         {"symbols": ",".join(symbols), "feed": "indicative"})

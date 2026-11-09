@@ -14,6 +14,12 @@ Feasibility Study" project, reworked so Claude picks trades.
   with "confirm_vwap": true waits (no order) until the price is above today's VWAP (below
   it for a put). Each run also writes state/market.json, live index and pick prices that
   the research runs read instead of headline numbers.
+- Right before each buy, Claude (via the API, bot/advisor.py) reads the pick's thesis, the live
+  quote and the headlines since the pick was written and confirms or vetoes the entry. Only a
+  clear veto on the news (reversed story, wrong-if already met, halt or regulatory action)
+  stops the buy; price action never does, and any API problem means the buy goes ahead as
+  before. Calls are logged with their cost in ledger/claude_calls.csv and stop for the month
+  at the config "claude" budget.
 - The scalper (bot/scalper.py) is retired: it only ever trades the paper account and no
   longer runs on a schedule (replays showed it loses after costs). Run scalp.yml by hand to watch it.
 - Picks are buys only: the stock or ETF (fractional when allowed), bought from 10:00 ET

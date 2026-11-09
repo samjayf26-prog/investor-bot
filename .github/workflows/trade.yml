@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       command:
-        description: "cycle, flatten or status"
+        description: "cycle, flatten, status or ping-claude"
         default: status
 
 concurrency:
@@ -33,6 +33,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: pip install -q -r requirements.txt
       - name: Pick command
         id: cmd
         env:
@@ -40,7 +41,7 @@ jobs:
           INPUT_COMMAND: ${{ inputs.command }}
         run: |
           if [ "$EVENT" = "workflow_dispatch" ]; then
-            case "$INPUT_COMMAND" in cycle|flatten|status) echo "command=$INPUT_COMMAND" >> "$GITHUB_OUTPUT" ;; *) exit 1 ;; esac
+            case "$INPUT_COMMAND" in cycle|flatten|status|ping-claude) echo "command=$INPUT_COMMAND" >> "$GITHUB_OUTPUT" ;; *) exit 1 ;; esac
           else
             echo "command=cycle" >> "$GITHUB_OUTPUT"
           fi
@@ -50,7 +51,10 @@ jobs:
           ALPACA_PAPER_SECRET: ${{ secrets.ALPACA_PAPER_SECRET }}
           ALPACA_LIVE_KEY_ID: ${{ secrets.ALPACA_LIVE_KEY_ID }}
           ALPACA_LIVE_SECRET: ${{ secrets.ALPACA_LIVE_SECRET }}
-        run: python -m bot.trader "${{ steps.cmd.outputs.command }}"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CMD: ${{ steps.cmd.outputs.command }}
+        run: |
+          if [ "$CMD" = ping-claude ]; then python -m bot.advisor ping; else python -m bot.trader "$CMD"; fi
       - name: Save state and trade log
         if: always()
         run: |

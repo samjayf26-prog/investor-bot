@@ -14,6 +14,7 @@ import time
 from datetime import date, datetime, timedelta, timezone
 
 from . import picks, risk
+from .advisor import Advisor
 from .alpaca import Alpaca, AlpacaError
 from .common import ET, ROOT, log
 from .core import Core, core_cfg
@@ -54,8 +55,9 @@ def make_client(cfg):
 
 
 class Trader:
-    def __init__(self, api, cfg, now=lambda: datetime.now(timezone.utc), sleep=time.sleep, root=ROOT):
+    def __init__(self, api, cfg, now=lambda: datetime.now(timezone.utc), sleep=time.sleep, root=ROOT, advisor=None):
         self.api, self.cfg, self.now, self.sleep, self.root = api, cfg, now, sleep, root
+        self.advisor = advisor   # Claude's pre-buy check (bot/advisor.py); None = buy as before
         self.picks_path = root / "picks" / "latest.json"
         self.state_path = root / "state" / "positions.json"
         self.ledger_path = root / "ledger" / "trades.csv"
@@ -304,6 +306,11 @@ class Trader:
                 return None
             if pick.get("confirm_vwap") and not self.vwap_ok(sym, price, bullish=True):
                 return None
+            if self.advisor:   # Claude reads the fresh news; only a clear veto stops the buy
+                ok, why = self.advisor.check_entry(pick, price, today)
+                if not ok:
+                    log(f"Skip {pick['id']}: Claude's pre-buy check vetoed it: {why}")
+                    return None
             if fund:   # sell core only now, once the pick is really about to be bought
                 budget = fund(budget)
                 if budget < self.cfg["min_order_notional"]:
@@ -398,7 +405,8 @@ class Trader:
 def main(argv):
     cmd = argv[1] if len(argv) > 1 else "cycle"
     cfg = load_config()
-    t = Trader(make_client(cfg), cfg)
+    api = make_client(cfg)
+    t = Trader(api, cfg, advisor=Advisor.from_env(cfg, api))
     if cmd == "cycle":
         log(f"Result: {t.cycle()}")
     elif cmd == "flatten":
