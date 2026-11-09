@@ -907,3 +907,23 @@ The saved state still has empty thesis and wrong-if text for all three positions
 
 Sources: https://marketscreener.com/news/estee-lauder-hsbc-raises-tp-to-110-but-remains-cautious-ce785fd2dd8cf125 ; https://www.gurufocus
 - No new picks, no closes.
+
+### 13:51 ET hourly scan (Claude API, bot/scan.py)
+Hourly scan at 13:51 ET. No new picks and no closes.
+
+No new picks: all three slots are taken (EL, IDXX, RVTY), the most rule 7 allows, and cash is about $0.46, so nothing can be bought this hour whatever the news. I did not look for new candidates in depth.
+
+Watch list, no action. All of these are earlier news already on the list:
+- CEG +10.1% on the guidance-midpoint raise. That news came before the last research run.
+- AMD +12.3% on the Oppenheimer upgrade.
+- VIR +12.2% on trial data, still below VWAP.
+- NET +9.6% and GEV +6.4%: still no fresh company-specific catalyst confirmed by two outlets. They are moving with the broad rally (SPY +2.3%, SMH +4.2%).
+- NVDA is -5.6% today. It is not a candidate: this scan does not run the gap-down experiment.
+
+Holdings:
+- EL $114.62 (+4.1%). One new item: a MarketBeat filing alert today that director Paul Fribourg sold 20,972 shares. That is a routine insider sale and does not reverse the story. The HSBC headline 'raises TP to $110 but remains cautious' (marketscreener) and the Wall Street Zen upgrade 2 days ago were both covered in earlier scans.
+- IDXX $700.23 (+3.5%). No new company news. The latest item is still the GuruFocus valuation piece from 3 days ago.
+- RVTY $160.25 (+3.3%). The only item today is the MarketBeat note on Allspring adding to its holding, which is routine. The Q3 beat and guidance raise story from 5-6 days ago is intact.
+
+The saved state still has empty thesis and wrong-if text for all three positions, so I cou
+- No new picks, no closes.
