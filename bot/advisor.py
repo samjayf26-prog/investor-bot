@@ -172,11 +172,11 @@ class Advisor:
         self.memo_path.parent.mkdir(exist_ok=True)
         self.memo_path.write_text(json.dumps(memo, indent=2, sort_keys=True) + "\n")
 
-    def budget_ok(self, now):
+    def budget_ok(self, now, what="Claude pre-buy check"):
         spent = month_to_date_spend(self.ledger_path, now)
         ok, why = risk.spend_ok(spent, self.cfg["monthly_budget_usd"])
         if not ok and not self.budget_logged:
-            log(f"Claude pre-buy check skipped: {why}")
+            log(f"{what} skipped: {why}")
             self.budget_logged = True
         return ok
 

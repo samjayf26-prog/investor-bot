@@ -3,7 +3,9 @@ import csv
 import json
 from types import SimpleNamespace
 
-from bot import picks
+from datetime import timedelta
+
+from bot import picks, risk
 from bot.scan import Scanner, expiry_utc, extract_json, rulebook
 
 from test_bot import CFG, NOW, TODAY, FakeAlpaca, write_picks
@@ -82,7 +84,8 @@ def test_scan_keeps_only_data_backed_picks_and_real_closes(tmp_path):
     assert nvda["conviction"] == 2 and nvda["max_entry_price"] == 181.0 and nvda["scan"] is True
     assert data["picks"][2]["max_entry_price"] == 10.1          # model's cap was silly; 1% over the last trade
     assert data["close"] == ["old-EL"] and data["watch"] == ["AMD"]
-    assert data["expires_at"] == "2026-10-08T19:30:00Z" and data["generated_at"] == "2026-10-08T14:50:00Z"
+    assert data["expires_at"] == "2026-10-08T19:30:00Z" and data["generated_at"] == "2026-10-08T14:20:00Z"
+    assert data["scan_at"] == "2026-10-08T14:50:00Z"
     entries, close, notes = picks.load(tmp_path / "picks" / "latest.json", NOW, CFG)
     assert [e["symbol"] for e in entries] == ["TSLA", "NVDA", "WHOLE"] and close == {"old-EL"} and notes == []
     # the model saw the rulebook, the open position's thesis and today's picks; the call used web search
@@ -136,7 +139,7 @@ def test_schema_fallback_when_search_and_format_do_not_mix(tmp_path):
     class Picky(FakeClient):
         def create(self, **kw):
             if "format" in kw.get("output_config", {}):
-                raise type("BadRequestError", (Exception,), {"status_code": 400})("no format with tools")
+                raise type("BadRequestError", (Exception,), {"status_code": 400})("output_config.format: not supported with tools")
             return super().create(**kw)
     sc, api = setup(tmp_path, Picky(ANSWER))
     assert sc.run() is True
@@ -146,3 +149,40 @@ def test_schema_fallback_when_search_and_format_do_not_mix(tmp_path):
 def test_helpers():
     assert rulebook("# R\n\n## Rules\n1. a\n2. b\n\n## Observations\nx") == "1. a\n2. b"
     assert expiry_utc(TODAY) == "2026-10-08T19:30:00Z"
+
+
+def test_scan_adds_nothing_when_the_picks_file_is_full(tmp_path):
+    sc, api = setup(tmp_path, FakeClient(ANSWER))
+    write_picks(tmp_path, [{"id": f"r{i}", "symbol": s, "action": "buy"} for i, s in enumerate(("TSLA", "AMD", "MU"))],
+                generated_at="2026-10-08T14:20:00Z")
+    assert sc.run() is True   # the close still goes through
+    data = json.loads((tmp_path / "picks" / "latest.json").read_text())
+    assert [p["symbol"] for p in data["picks"]] == ["TSLA", "AMD", "MU"] and data["close"] == ["old-EL"]
+    assert "no room" in (tmp_path / "research" / "journal.md").read_text()
+
+
+def test_scan_survives_odd_fallback_answers(tmp_path):
+    odd = {"picks": [{"symbol": "NVDA", "conviction": "high", "max_entry_price": "n/a", "thesis": 1, "wrong_if": None, "sources": "x"}],
+           "close": [{"id": ["old-EL"], "reason": "r"}, {"id": "old-EL", "reason": "   "}], "notes": 5}
+    sc, api = setup(tmp_path, FakeClient(text="Sure. " + json.dumps(odd)))
+    assert sc.run() is True
+    data = json.loads((tmp_path / "picks" / "latest.json").read_text())
+    nvda = data["picks"][1]
+    assert nvda["conviction"] == 1 and nvda["max_entry_price"] == 181.8 and nvda["sources"] == [] and data["close"] == []
+
+
+def test_scan_hours_and_unrelated_400s():
+    assert risk.scan_room(3, 1, 2) == 2 and risk.scan_room(3, 3, 2) == 0 and risk.scan_room(3, 2, 2) == 1
+    assert risk.scan_conviction(3) == 2 and risk.scan_conviction("2") == 2 and risk.scan_conviction(None) == 1
+    assert risk.scan_entry_cap(100.0, 102.0) == 102.0 and risk.scan_entry_cap(100.0, 110.0) == 101.0
+    assert risk.scan_gap_ok(6.0, 6.0, 50.0, 2.0)[0] and not risk.scan_gap_ok(5.9, 6.0, 50.0, 2.0)[0]
+    assert not risk.scan_gap_ok(None, 6.0, 50.0, 2.0)[0] and not risk.scan_gap_ok(9.0, 6.0, 1.5, 2.0)[0]
+
+
+def test_scan_skips_early_runs_and_rethrows_unrelated_400s(tmp_path):
+    sc, api = setup(tmp_path, FakeClient(ANSWER))
+    sc.now = lambda: NOW - timedelta(hours=1)   # 9:50 ET
+    assert sc.run() is False and sc.client.calls == []
+    sc.now = lambda: NOW
+    sc.client = FakeClient(error=type("BadRequestError", (Exception,), {"status_code": 400})("max_tokens too large"))
+    assert sc.run() is False and rows(tmp_path)[0]["note"].startswith("error: BadRequestError: max_tokens")

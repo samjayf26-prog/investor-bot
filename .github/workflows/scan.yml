@@ -2,9 +2,10 @@ name: scan
 
 on:
   schedule:
-    # Hourly news-gap scan at :50 from 10:50 to 14:50 ET (UTC cron; the build thread also
-    # dispatches it by hand because GitHub's cron is unreliable). Picks stop at 15:30 ET.
-    - cron: "50 15-19 * * 1-5"
+    # Hourly news-gap scan at :50. UTC cron covering 10:50-14:50 ET in both daylight-saving
+    # seasons; bot/scan.py skips runs outside 10:30-15:30 ET. The build thread also dispatches
+    # it by hand because GitHub's cron is unreliable.
+    - cron: "50 14-19 * * 1-5"
   workflow_dispatch:
 
 concurrency:

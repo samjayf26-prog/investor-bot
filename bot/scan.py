@@ -25,7 +25,7 @@ from .advisor import Advisor, call_cost, month_to_date_spend
 from .common import ET, ROOT, log
 
 SCAN_DEFAULTS = {"enabled": False, "max_searches": 8, "max_picks": 2, "min_gap_pct": 6.0,
-                 "max_tokens": 12000, "effort": "medium"}
+                 "max_tokens": 12000, "effort": "medium", "timeout_seconds": 300, "from_et": "10:30"}
 
 SYSTEM = """You are the hourly news scan of a small automated swing-trading bot that buys US stocks on \
 news-driven gaps and holds them about 20 trading days. A research run already chose today's picks \
@@ -119,10 +119,11 @@ def expiry_utc(today, hhmm="15:30"):
 
 
 class Scanner:
-    def __init__(self, cfg, api, root=ROOT, client=None, now=lambda: datetime.now(timezone.utc)):
-        self.cfg, self.api, self.root, self.client, self.now = cfg, api, root, client, now
+    def __init__(self, cfg, api, root=ROOT, client=None, now=lambda: datetime.now(timezone.utc), advisor=None):
+        self.cfg, self.api, self.root, self.now = cfg, api, root, now
         self.sc = scan_cfg(cfg)
-        self.advisor = Advisor(cfg, api, root=root, client=client, now=now)   # ledger + budget
+        self.advisor = advisor or Advisor(cfg, api, root=root, client=client, now=now)   # ledger + budget
+        self.client = self.advisor.client
         self.picks_path = root / "picks" / "latest.json"
         self.state_path = root / "state" / "positions.json"
         self.market_path = root / "state" / "market.json"
@@ -144,10 +145,10 @@ class Scanner:
         if not self.api.clock()["is_open"]:
             log("Market is closed; no scan.")
             return False
-        if hhmm >= self.cfg.get("no_entries_after_et", "15:30"):
-            log("Past the entry cutoff; no scan.")
+        if hhmm >= self.cfg.get("no_entries_after_et", "15:30") or hhmm < self.sc["from_et"]:
+            log(f"{hhmm} ET is outside the scan hours ({self.sc['from_et']}-{self.cfg.get('no_entries_after_et', '15:30')}); no scan.")
             return False
-        if not self.advisor.budget_ok(now):
+        if not self.advisor.budget_ok(now, what="Claude news scan"):
             return False
 
         state = self.read_json(self.state_path, {})
@@ -208,7 +209,8 @@ class Scanner:
             log(f"Scan gave no usable answer (stop {resp.stop_reason}); picks unchanged.")
             return False
 
-        new_picks, dropped = self.vet_picks(data.get("picks") or [], held | picked, today, hhmm)
+        room = risk.scan_room(int(self.cfg["max_picks_per_run"]), len(cur_picks), int(self.sc["max_picks"]))
+        new_picks, dropped = self.vet_picks(data.get("picks") or [], held | picked, today, hhmm, room)
         closes = self.vet_closes(data.get("close") or [], state)
         self.journal(hhmm, data.get("notes", ""), new_picks, closes, dropped)
         if not new_picks and not closes:
@@ -222,30 +224,40 @@ class Scanner:
         kwargs = dict(model=c["model"], max_tokens=int(sc["max_tokens"]), system=SYSTEM,
                       messages=[{"role": "user", "content": content}],
                       tools=[{"type": "web_search_20260209", "name": "web_search", "max_uses": int(sc["max_searches"])}])
+        # A search-backed answer takes minutes, and a retried timeout would bill a second run,
+        # so this call gets its own long timeout and no retries.
+        client = self.client
+        if hasattr(client, "with_options"):
+            client = client.with_options(timeout=float(sc["timeout_seconds"]), max_retries=0)
         try:
-            return self.client.messages.create(
+            return client.messages.create(
                 output_config={"effort": sc["effort"], "format": {"type": "json_schema", "schema": SCHEMA}}, **kwargs)
         except Exception as e:  # noqa: BLE001 - if the schema cannot be combined with search, ask for JSON in text
-            if getattr(e, "status_code", None) != 400:
+            msg = str(e)
+            if getattr(e, "status_code", None) != 400 or not any(k in msg for k in ("format", "output_config", "schema")):
                 raise
-            log(f"Scan: structured output refused ({str(e)[:120]}); asking for JSON in text.")
+            log(f"Scan: structured output refused ({msg[:120]}); asking for JSON in text.")
             kwargs["messages"][0]["content"] += "\nReturn only a JSON object with keys picks, close, notes."
-            return self.client.messages.create(output_config={"effort": sc["effort"]}, **kwargs)
+            return client.messages.create(output_config={"effort": sc["effort"]}, **kwargs)
 
-    def vet_picks(self, raw, taken, today, hhmm):
+    def vet_picks(self, raw, taken, today, hhmm, room):
         """Candidates the data backs up: a real gap on live prices, not held or picked, in the rules."""
         out, dropped = [], []
         syms = [str(p.get("symbol", "")).upper() for p in raw if isinstance(p, dict)]
+        if not syms:
+            return [], []
+        if room <= 0:
+            return [], [f"{s}: no room, the picks file already holds {self.cfg['max_picks_per_run']}" for s in syms]
         snaps = {}
         try:
-            snaps = self.api.snapshots([s for s in syms if picks.SYMBOL.match(s)]) or {}
+            snaps = self.api.snapshots([s for s in syms if picks.SYMBOL.match(s)] or ["SPY"]) or {}
         except Exception as e:  # noqa: BLE001 - no data = no pick
             log(f"Scan: snapshots failed ({e}); no picks added.")
             return [], [f"{s}: no price data" for s in syms]
         core = {(self.cfg.get("core") or {}).get("symbol"), (self.cfg.get("core") or {}).get("lev_symbol"),
                 (self.cfg.get("core") or {}).get("index")}
         for p in raw:
-            if not isinstance(p, dict) or len(out) >= int(self.sc["max_picks"]):
+            if not isinstance(p, dict) or len(out) >= room:
                 continue
             sym = str(p.get("symbol", "")).upper()
             if not picks.SYMBOL.match(sym) or sym in picks.BEAR_ETFS or sym in core:
@@ -254,22 +266,16 @@ class Scanner:
             if sym in taken:
                 dropped.append(f"{sym}: already held or picked")
                 continue
-            row = risk.market_row(snaps.get(sym))
-            gap = (row or {}).get("pct_vs_prev_close")
-            if gap is None or gap < float(self.sc["min_gap_pct"]):
-                dropped.append(f"{sym}: gap {gap}% on live prices, under {self.sc['min_gap_pct']}%")
+            row = risk.market_row(snaps.get(sym)) or {}
+            ok, why = risk.scan_gap_ok(row.get("pct_vs_prev_close"), float(self.sc["min_gap_pct"]), row.get("last"),
+                                       float(self.cfg.get("min_stock_price", 2.0)))
+            if not ok:
+                dropped.append(f"{sym}: {why}")
                 continue
             last = row["last"]
-            if last < float(self.cfg.get("min_stock_price", 2.0)):
-                dropped.append(f"{sym}: under the minimum price")
-                continue
-            try:
-                cap = float(p.get("max_entry_price") or 0)
-            except (TypeError, ValueError):
-                cap = 0.0
-            cap = cap if last <= cap <= last * 1.03 else round(last * 1.01, 2)
             out.append({"id": f"{today.isoformat()}-{hhmm.replace(':', '')}-scan-{sym}", "symbol": sym, "action": "buy",
-                        "conviction": int(min(max(int(p.get("conviction") or 1), 1), 2)), "max_entry_price": cap,
+                        "conviction": risk.scan_conviction(p.get("conviction")),
+                        "max_entry_price": risk.scan_entry_cap(last, p.get("max_entry_price")),
                         "thesis": str(p.get("thesis", ""))[:800], "wrong_if": str(p.get("wrong_if", ""))[:400],
                         "sources": [str(u)[:300] for u in (p.get("sources") or []) if isinstance(u, str) and u.startswith("http")][:5],
                         "scan": True})
@@ -279,14 +285,17 @@ class Scanner:
     def vet_closes(self, raw, state):
         out = []
         for c in raw:
-            if isinstance(c, dict) and c.get("id") in state and str(c.get("reason", "")).strip():
+            if isinstance(c, dict) and isinstance(c.get("id"), str) and c["id"] in state and str(c.get("reason", "")).strip():
                 out.append({"id": str(c["id"]), "reason": str(c["reason"])[:300]})
         return out
 
     def write_picks(self, current, cur_picks, new_picks, closes, now, today):
         data = {
             "schema_version": 2,
-            "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            # generated_at stays the research run's time (the next scan's "since" window);
+            # scan_at records this write
+            "generated_at": current.get("generated_at") or now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "scan_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "expires_at": expiry_utc(today, self.cfg.get("no_entries_after_et", "15:30")),
             "picks": cur_picks + new_picks,
             "close": sorted({str(c) for c in (current.get("close") or []) if isinstance(c, str)} | {c["id"] for c in closes}),
@@ -326,7 +335,7 @@ def main(argv):
     adv = Advisor.from_env(cfg, api)
     if adv is None:
         raise SystemExit("Claude is off or ANTHROPIC_API_KEY is missing")
-    changed = Scanner(cfg, api, client=adv.client).run()
+    changed = Scanner(cfg, api, advisor=adv).run()
     print("SCAN_CHANGED=1" if changed else "SCAN_CHANGED=0")
 
 
