@@ -5,3 +5,5 @@ time,side,symbol,notional,price,reason,mode
 2026-11-04T20:41:42.852628+00:00,sell,TQQQ,1.83,,rebalance trend=1 vol=0.2307 w=0.43 dip=0,paper
 2026-11-05T20:40:55.018529+00:00,sell,TQQQ,26.71,,rebalance trend=0 vol=0.3008 w=0.00 dip=0,paper
 2026-11-05T20:40:55.018529+00:00,buy,SPY,34.44,734.805,rebalance trend=0 vol=0.3008 w=0.00 dip=0,paper
+2026-11-09T20:41:02.877064+00:00,sell,SPY,23.03,,rebalance trend=1 vol=0.3565 w=0.28 dip=0,paper
+2026-11-09T20:41:02.877064+00:00,buy,TQQQ,21.04,58.06,rebalance trend=1 vol=0.3565 w=0.28 dip=0,paper
