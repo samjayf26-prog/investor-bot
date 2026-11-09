@@ -99,8 +99,7 @@ def pick_budget(equity, cash, conviction, max_notional, min_notional, room=None)
 
 
 def picks_that_fit(equity, room, max_notional, min_notional, limit=10):
-    """How many smallest-size picks the room under the picks cap can still take. The scan
-    uses it so it never adds a pick the trader would then refuse for lack of room."""
+    """How many smallest-size picks the room under the picks cap can still take."""
     n = 0
     while n < limit:
         size = pick_budget(equity, equity, 1, max_notional, min_notional, room=room)
@@ -108,6 +107,21 @@ def picks_that_fit(equity, room, max_notional, min_notional, limit=10):
             break
         n, room = n + 1, room - size
     return n
+
+
+def scan_capacity(max_open, n_open, waiting, equity, picks_value, max_notional, min_notional):
+    """What a scan may still add, as (free slots, dollars of room), so it never adds a pick
+    the trader would then refuse. `waiting` lists the convictions of picks already in the
+    file that the bot has yet to buy: each holds a slot and its share of the room. With no
+    usable equity (no account snapshot) the room is None and only the slot count applies."""
+    slots = max(0, max_open - n_open - len(waiting))
+    if equity is None or equity <= 0:
+        return slots, None
+    room = picks_room(equity, picks_value)
+    for conviction in waiting:
+        room -= pick_budget(equity, equity, conviction, max_notional, min_notional, room=room)
+    room = max(0.0, room)
+    return min(slots, picks_that_fit(equity, room, max_notional, min_notional)), room
 
 
 def sizing_view(equity, cash, positions_value, cap):

@@ -48,6 +48,13 @@ def test_picks_together_leave_the_core_its_share():
     assert risk.pick_budget(10_000, 10_000, 3, 500, 1, room=300) == 300   # half of the $500 ceiling, not of 20%
     assert risk.scan_room(3, 1, 2, free_slots=1) == 1 and risk.scan_room(3, 1, 2, free_slots=0) == 0
     assert risk.scan_room(3, 1, 2, free_slots=9) == 2 and risk.scan_room(3, 3, 2, free_slots=2) == 0
+    # what a scan may still add: (free slots, dollars of room) after the waiting picks take theirs
+    assert risk.scan_capacity(5, 3, [1], None, 0, 500, 1) == (1, None)        # no account snapshot: slots only
+    assert risk.scan_capacity(5, 1, [1], 100, 60, 500, 1) == (1, 5.0)         # $15 of room, $10 spoken for
+    assert risk.scan_capacity(5, 1, [3], 100, 40, 500, 1) == (2, 15.0)        # a waiting conviction 3 takes $20
+    assert risk.scan_capacity(5, 5, [], 100, 0, 500, 1) == (0, 75.0)          # room but no slot
+    assert risk.scan_capacity(5, 1, [], 100, 72, 500, 1) == (0, pytest.approx(3.0))   # a slot but no room
+    assert risk.scan_capacity(5, 4, [1, 1], 100, 0, 500, 1)[0] == 0           # never negative
     # how many smallest picks the room still takes (the last one may be trimmed to half size)
     assert [risk.picks_that_fit(100, r, 500, 1) for r in (0, 3, 5, 15, 35, 75)] == [0, 0, 1, 2, 4, 8]
     assert risk.picks_that_fit(0, 50, 500, 1) == 0 and risk.picks_that_fit(100, 1e9, 500, 1) == 10
@@ -336,6 +343,62 @@ def test_picks_cap_counts_orders_sent_in_the_same_run(tmp_path):
     t, api, _ = make(tmp_path, api)
     t.cycle()
     assert api.orders["p1-entry"]["notional"] == "20.00" and api.orders["p2-entry"]["notional"] == "10.00"
+
+
+class PartialFills(FakeAlpaca):
+    """A fresh order shows up as a position worth only what has filled so far."""
+    def positions(self):
+        return [{**p, "market_value": "4"} if p["symbol"] == "NVDA" else p for p in super().positions()]
+
+
+def test_picks_cap_counts_a_partly_filled_order_in_full(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3},
+                           {"id": "p2", "symbol": "F", "action": "buy", "conviction": 3}])
+    api = PartialFills()
+    for sym in ("AAA", "BBB"):
+        held_pick(api, sym, 22.5)
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    # p1 is $20 ordered even while only $4 of it shows as a position: $10 is left for p2
+    assert api.orders["p1-entry"]["notional"] == "20.00" and api.orders["p2-entry"]["notional"] == "10.00"
+
+
+class SlowWhole(FakeAlpaca):
+    def positions(self):
+        return [p for p in super().positions() if p["symbol"] != "WHOLE"]
+
+
+def test_picks_cap_counts_what_was_really_ordered(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "WHOLE", "action": "buy", "conviction": 3},
+                           {"id": "p2", "symbol": "F", "action": "buy", "conviction": 3}])
+    api = SlowWhole(cash=2000.0)                   # the fake bills a share order like an option contract
+    for sym in ("AAA", "BBB"):
+        held_pick(api, sym, 22.5)
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    # WHOLE trades in whole shares: $20 buys one share at the $10.10 limit, so $19.90 is left for p2
+    assert api.orders["p1-entry"]["qty"] == "1" and 19.88 < float(api.orders["p2-entry"]["notional"]) <= 19.90
+    state = json.loads((tmp_path / "state" / "positions.json").read_text())
+    assert "ordered_usd" not in state["p1"] and "ordered_usd" not in state["p2"]   # a sizing aid, never saved
+
+
+class LateSells(FakeAlpaca):
+    """A closed position is still listed by the broker until its sell order fills."""
+    def close_position(self, sym):
+        self.closed.append(sym)
+
+
+def test_a_pick_sold_in_this_run_frees_its_room_at_once(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}], close=["old"])
+    api = LateSells()
+    for sym in ("AAA", "BBB", "CCC"):              # $66 in picks: $9 of room, under half of p1's $20
+        held_pick(api, sym, 22.0)
+    t, api, _ = make(tmp_path, api)
+    t.save_state({"old": {"id": "old", "broker_symbol": "AAA", "action": "buy", "entry_date": TODAY.isoformat(),
+                          "stop_pct": 0.15, "target_pct": None, "max_hold_days": 28, "expiry": None}})
+    t.cycle()
+    assert api.closed == ["AAA"]                              # Claude asked to close it
+    assert api.orders["p1-entry"]["notional"] == "20.00"      # its $22 no longer counts against the cap
 
 
 def test_no_entries_after_cutoff(tmp_path):

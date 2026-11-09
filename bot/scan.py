@@ -43,8 +43,9 @@ the catalyst. No bearish trades, no inverse ETFs, no SPY/QQQ/TQQQ, no same-day d
 mega-cap gap-down experiments from this scan. Give each pick a max_entry_price a little above the \
 current price, a two-sentence thesis, a wrong-if written as a closing-price or news condition, and \
 the source URLs. Zero picks is the normal answer on most hours. STATE.slots.free is how many more \
-picks the bot can still buy and STATE.room_for_new_picks_usd the dollars left for them; propose no \
-new pick when either is zero, and say so in notes.
+picks the bot can still buy and STATE.room_for_new_picks_usd the dollars left for them; when either \
+is zero propose no new pick and say so in notes, unless you close an open pick in the same answer \
+(that frees its slot and its dollars).
 
 Closes: list an open pick id only when news since it was bought reverses the story behind it, or its \
 stated wrong-if has already happened on today's price. Intraday dips, sector selloffs and market \
@@ -183,29 +184,18 @@ class Scanner:
         except OSError:
             rules = ""
 
-        # What the bot could still buy: a free open-position slot (not already spoken for by an
-        # unbought pick in the file) and dollar room under the picks cap, counted in
-        # smallest-size picks and less the picks already waiting in the file.
-        open_ids = {pid for pid, e in state.items() if isinstance(e, dict)}
-        waiting = sum(1 for p in cur_picks if p.get("id") not in open_ids)
-        max_open = int(self.cfg.get("max_open_positions", 3))
-        free_slots = max(0, max_open - len(open_ids) - waiting)
-        try:
-            equity = float(account.get("equity") or 0)
-        except (AttributeError, TypeError, ValueError):
-            equity = 0.0
-        room_usd = risk.picks_room(equity, picks_value(account, held)) if equity > 0 else None
-        if room_usd is not None:
-            fits = risk.picks_that_fit(equity, room_usd, float(self.cfg["max_order_notional"]),
-                                       float(self.cfg["min_order_notional"]))
-            free_slots = max(0, min(free_slots, fits - waiting))
+        # What the bot could still buy (risk.scan_capacity): a free open-position slot and
+        # dollar room under the picks cap, after the picks still waiting in the file take theirs.
+        waiting = self.waiting(current, state, now)
+        free_slots, equity, room_usd = self.capacity(state, waiting, account)
 
         payload = {
             "now_et": now.astimezone(ET).strftime("%Y-%m-%d %H:%M ET"),
             "last_research_run_utc": current.get("generated_at"),
             "equity": account.get("equity") if isinstance(account, dict) else None,
-            "slots": {"max_open_positions": max_open, "open": len(open_ids), "waiting_in_picks_file": waiting,
-                      "free": free_slots},
+            "slots": {"max_open_positions": int(self.cfg["max_open_positions"]),
+                      "open": sum(1 for e in state.values() if isinstance(e, dict)),
+                      "waiting_in_picks_file": len(waiting), "free": free_slots},
             "room_for_new_picks_usd": None if room_usd is None else round(room_usd, 2),
             "open_positions": [{"id": pid, "symbol": e.get("broker_symbol"), "entry_date": e.get("entry_date"),
                                 "thesis": e.get("thesis", ""), "wrong_if": e.get("wrong_if", "")}
@@ -243,16 +233,52 @@ class Scanner:
             log(f"Scan gave no usable answer (stop {resp.stop_reason}); picks unchanged.")
             return False
 
+        closes = self.vet_closes(data.get("close") or [], state)
+        if closes:   # a pick this scan closes is sold first: its slot and its dollars are free again
+            free_slots, equity, room_usd = self.capacity(state, waiting, account, closing={c["id"] for c in closes})
         room = risk.scan_room(int(self.cfg["max_picks_per_run"]), len(cur_picks), int(self.sc["max_picks"]),
                               free_slots=free_slots)
-        new_picks, dropped = self.vet_picks(data.get("picks") or [], held | picked, today, hhmm, room)
-        closes = self.vet_closes(data.get("close") or [], state)
+        new_picks, dropped = self.vet_picks(data.get("picks") or [], held | picked, today, hhmm, room,
+                                            equity, room_usd)
         self.journal(hhmm, data.get("notes", ""), new_picks, closes, dropped)
         if not new_picks and not closes:
             log(f"Scan: nothing to add. {str(data.get('notes', ''))[:200]}")
             return False
         self.write_picks(current, cur_picks, new_picks, closes, now, today)
         return True
+
+    def waiting(self, current, state, now):
+        """Convictions of the picks in the file that the bot may still buy: valid, not open,
+        and with no entry order at the broker yet (the trader never retries one that has)."""
+        entries, _, _ = picks.load_data(current, now, self.cfg)
+        out = []
+        for e in entries:
+            if e["id"] in state:
+                continue
+            try:
+                if self.api.order_by_client_id(f"{e['id']}-entry"):
+                    continue
+            except Exception:  # noqa: BLE001 - unknown counts as still waiting (the cautious side)
+                pass
+            out.append(e["conviction"])
+        return out
+
+    def capacity(self, state, waiting, account, closing=()):
+        """(free slots, sizing equity, dollars of room) for new scan picks, from the saved
+        account snapshot. Picks in `closing` are about to be sold and no longer count."""
+        still = [e for pid, e in state.items() if isinstance(e, dict) and pid not in closing]
+        try:
+            equity = float(account.get("equity") or 0)
+        except (AttributeError, TypeError, ValueError):
+            equity = 0.0
+        if self.cfg.get("mode") == "paper":   # the paper account sizes like the small live one
+            equity = min(equity, float(self.cfg.get("sizing_equity_cap", equity)))
+        equity = equity if equity > 0 else None
+        free, room_usd = risk.scan_capacity(
+            int(self.cfg["max_open_positions"]), len(still), waiting, equity,
+            picks_value(account, {e.get("broker_symbol") for e in still}),
+            float(self.cfg["max_order_notional"]), float(self.cfg["min_order_notional"]))
+        return free, equity, room_usd
 
     def ask(self, content):
         c, sc = self.advisor.cfg, self.sc
@@ -275,8 +301,10 @@ class Scanner:
             kwargs["messages"][0]["content"] += "\nReturn only a JSON object with keys picks, close, notes."
             return client.messages.create(output_config={"effort": sc["effort"]}, **kwargs)
 
-    def vet_picks(self, raw, taken, today, hhmm, room):
-        """Candidates the data backs up: a real gap on live prices, not held or picked, in the rules."""
+    def vet_picks(self, raw, taken, today, hhmm, room, equity=None, room_usd=None):
+        """Candidates the data backs up: a real gap on live prices, not held or picked, in the
+        rules, and small enough for the dollars left under the picks cap (`room_usd`, None =
+        unknown)."""
         out, dropped = [], []
         syms = [str(p.get("symbol", "")).upper() for p in raw if isinstance(p, dict)]
         if not syms:
@@ -308,8 +336,20 @@ class Scanner:
                 dropped.append(f"{sym}: {why}")
                 continue
             last = row["last"]
+            conviction = risk.scan_conviction(p.get("conviction"))
+            if room_usd is not None:   # the trader would refuse a pick the room cannot take
+                def fits(c):
+                    return risk.pick_budget(equity, equity, c, float(self.cfg["max_order_notional"]),
+                                            float(self.cfg["min_order_notional"]), room=room_usd)
+                size = fits(conviction)
+                if size <= 0 and conviction > 1:   # the smallest size may still fit
+                    conviction, size = 1, fits(1)
+                if size <= 0:
+                    dropped.append(f"{sym}: no room under the picks cap (${room_usd:.2f} left)")
+                    continue
+                room_usd -= size
             out.append({"id": f"{today.isoformat()}-{hhmm.replace(':', '')}-scan-{sym}", "symbol": sym, "action": "buy",
-                        "conviction": risk.scan_conviction(p.get("conviction")),
+                        "conviction": conviction,
                         "max_entry_price": risk.scan_entry_cap(last, p.get("max_entry_price")),
                         "thesis": str(p.get("thesis", ""))[:800], "wrong_if": str(p.get("wrong_if", ""))[:400],
                         "sources": [str(u)[:300] for u in (p.get("sources") or []) if isinstance(u, str) and u.startswith("http")][:5],

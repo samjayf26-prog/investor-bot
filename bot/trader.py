@@ -179,6 +179,7 @@ class Trader:
 
         # exits
         cutoff = datetime.combine(today, datetime.strptime(cfg["no_entries_after_et"], "%H:%M").time(), ET)
+        sold = set()   # symbols closed in this run; the broker may still list them for a moment
         for pid, e in list(state.items()):
             pos = positions.get(e["broker_symbol"])
             if not pos:
@@ -192,6 +193,7 @@ class Trader:
                 self.close(e, pos, reason, today)
                 del state[pid]
                 positions.pop(e["broker_symbol"])
+                sold.add(e["broker_symbol"])
 
         # entries
         result = "managed"
@@ -207,7 +209,7 @@ class Trader:
             entries, result = [], "halted"
         elif now > cutoff:
             entries = []
-        sent = {}   # symbol -> dollars ordered in this run; a fresh order is not a position yet
+        sent = {}   # symbol -> dollars ordered in this run; a fresh order is not a full position yet
         for pick in entries:
             if len(state) >= cfg["max_open_positions"]:
                 log("At the open-position limit; remaining picks wait.")
@@ -223,10 +225,12 @@ class Trader:
             if now < pick_earliest(pick, today):
                 log(f"Waiting on {pick['id']}: not before {pick['earliest_et']} ET.")
                 continue
-            open_now = self.api.positions()
-            held = sum(abs(float(p.get("market_value") or 0)) for p in open_now
-                       if p["symbol"] not in scalp and p["symbol"] not in core_syms)
-            held += sum(v for s, v in sent.items() if s not in {p["symbol"] for p in open_now})
+            # Dollars in picks right now: what the broker lists, less what this run just sold,
+            # and at least the dollars ordered for each pick this run just bought.
+            values = {p["symbol"]: abs(float(p.get("market_value") or 0)) for p in self.api.positions()
+                      if p["symbol"] not in scalp and p["symbol"] not in core_syms and p["symbol"] not in sold}
+            held = sum(max(v, sent.get(s, 0.0)) for s, v in values.items())
+            held += sum(v for s, v in sent.items() if s not in values)
             # Live picks size off real equity so gains compound (Sam's call, 2026-10-13);
             # the cap only makes the big paper account trade like the small live one.
             cap = cfg["sizing_equity_cap"] if cfg["mode"] == "paper" else float("inf")
@@ -234,11 +238,14 @@ class Trader:
             core_total = core.total() if core else 0.0
             size_eq, size_cash = risk.sizing_view(equity, cash + core_total, held, cap)
             room = risk.picks_room(size_eq, held)   # the picks together leave the core its share
-            budget = risk.pick_budget(size_eq, size_cash, pick["conviction"], cfg["max_order_notional"],
-                                      cfg["min_order_notional"], room=room)
+            sizing = (size_eq, size_cash, pick["conviction"], cfg["max_order_notional"], cfg["min_order_notional"])
+            budget = risk.pick_budget(*sizing, room=room)
             if budget <= 0:
-                log(f"Skip {pick['id']}: not enough cash, or no room left under the picks cap "
-                    f"(${held:.2f} in picks of ${size_eq:.2f}, ${room:.2f} free).")
+                if risk.pick_budget(*sizing) <= 0:
+                    log(f"Skip {pick['id']}: not enough cash.")
+                else:
+                    log(f"Skip {pick['id']}: no room left under the picks cap "
+                        f"(${held:.2f} in picks of ${size_eq:.2f}, ${room:.2f} free); it waits.")
                 continue
             fund = core.fund if core else None
             try:
@@ -247,8 +254,8 @@ class Trader:
                 log(f"Skip {pick['id']}: Alpaca refused it: {e}")
                 continue
             if entry:
+                sent[entry["broker_symbol"]] = entry.pop("ordered_usd", budget)
                 state[pick["id"]] = entry
-                sent[entry["broker_symbol"]] = budget
                 self.save_state(state)
                 result = "traded"
                 acct = self.api.account()
@@ -327,13 +334,13 @@ class Trader:
             # price, or more than 1% over the last trade when there is none.
             limit = risk.entry_limit(price, pick["max_entry_price"])
             if asset.get("fractionable"):
-                order = dict(notional=f"{budget:.2f}")
+                order, ordered = dict(notional=f"{budget:.2f}"), budget
             else:
                 qty = risk.whole_shares(budget, limit)
                 if qty < 1:
                     log(f"Skip {pick['id']}: one share of {sym} (${price}) costs more than ${budget}.")
                     return None
-                order = dict(qty=str(qty))
+                order, ordered = dict(qty=str(qty)), qty * limit
             try:
                 self.api.submit_order(symbol=sym, side="buy", type="limit", limit_price=f"{limit:.2f}",
                                       time_in_force="day", client_order_id=cid, **order)
@@ -346,7 +353,8 @@ class Trader:
                 self.api.submit_order(symbol=sym, side="buy", type="market", time_in_force="day",
                                       client_order_id=cid, **order)
             log(f"Bought {sym} ({order}, limit ${limit:.2f}) for pick {pick['id']}")
-            return {**base, "broker_symbol": sym}
+            # ordered_usd is for the caller's picks-cap count in this run; it is not saved
+            return {**base, "broker_symbol": sym, "ordered_usd": ordered}
 
         # buy_put: the bearish trade available to a small cash account (shorting needs $2k+)
         if not self.cfg["options_enabled"] or int(acct.get("options_trading_level") or 0) < 2:
@@ -371,7 +379,8 @@ class Trader:
         self.api.submit_order(symbol=contract["symbol"], qty="1", side="buy", type="limit",
                               limit_price=f"{ask:.2f}", time_in_force="day", client_order_id=cid)
         log(f"Bought 1 put {contract['symbol']} at ${ask:.2f} (${ask * 100:.0f}) for pick {pick['id']}")
-        return {**base, "broker_symbol": contract["symbol"], "expiry": contract["expiration_date"]}
+        return {**base, "broker_symbol": contract["symbol"], "expiry": contract["expiration_date"],
+                "ordered_usd": ask * 100}
 
     def lost_pick(self, sym, entries):
         """A position whose entry order belongs to one of today's buy picks: rebuild that
