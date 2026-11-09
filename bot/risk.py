@@ -2,7 +2,11 @@
 import math
 from datetime import date
 
-CONVICTION_FRAC = {1: 0.15, 2: 0.25, 3: 0.40}
+# Share of equity per pick by conviction. With five slots (config max_open_positions) the
+# picks are smaller than the old 15/25/40% so that, together, they still leave the core its
+# share: Sam's choice of 2026-11-09 ("5 smaller slots").
+CONVICTION_FRAC = {1: 0.10, 2: 0.15, 3: 0.20}
+PICKS_MAX_FRAC = 0.75    # all open picks together never take more of the account than this
 
 
 def daily_loss_ok(equity, start_of_day_equity, cap_pct):
@@ -61,19 +65,63 @@ def scan_conviction(raw, cap=2):
         return 1
 
 
-def scan_room(max_picks_per_run, current_count, max_per_scan):
-    """How many picks a scan may add: the bot reads only the first max_picks_per_run."""
-    return max(0, min(max_per_scan, max_picks_per_run - current_count))
+def scan_room(max_picks_per_run, current_count, max_per_scan, free_slots=None):
+    """How many picks a scan may add: the bot reads only the first max_picks_per_run, and a
+    pick with no open-position slot left to buy it into is never added (`free_slots`)."""
+    room = min(max_per_scan, max_picks_per_run - current_count)
+    if free_slots is not None:
+        room = min(room, free_slots)
+    return max(0, room)
 
 
-def pick_budget(equity, cash, conviction, max_notional, min_notional):
+def picks_room(equity, picks_value, max_frac=PICKS_MAX_FRAC):
+    """Dollars still free for new picks: the open picks together stay under max_frac of
+    equity, so the core always keeps the rest."""
+    if equity <= 0:
+        return 0.0
+    return max(0.0, equity * max_frac - max(0.0, picks_value))
+
+
+def pick_budget(equity, cash, conviction, max_notional, min_notional, room=None):
     """Dollars for one pick: a share of equity set by conviction, never more than the
-    cash on hand (no leverage) or the hard ceiling. 0.0 when below the broker minimum."""
+    cash on hand (no leverage), the hard ceiling or the `room` left under the picks cap
+    (picks_room). 0.0 when below the broker minimum, and when the room would cut the pick
+    to under half its size: a sliver must not hold a slot for a month."""
     if equity <= 0 or cash <= 0:
         return 0.0
-    size = min(equity * CONVICTION_FRAC.get(conviction, 0.15), cash * 0.98, max_notional)
+    size = min(equity * CONVICTION_FRAC.get(conviction, CONVICTION_FRAC[1]), cash * 0.98, max_notional)
+    if room is not None:
+        if room < size * 0.5:
+            return 0.0
+        size = min(size, room)
     size = math.floor(size * 100) / 100
     return size if size >= min_notional else 0.0
+
+
+def picks_that_fit(equity, room, max_notional, min_notional, limit=10):
+    """How many smallest-size picks the room under the picks cap can still take."""
+    n = 0
+    while n < limit:
+        size = pick_budget(equity, equity, 1, max_notional, min_notional, room=room)
+        if size <= 0:
+            break
+        n, room = n + 1, room - size
+    return n
+
+
+def scan_capacity(max_open, n_open, waiting, equity, picks_value, max_notional, min_notional):
+    """What a scan may still add, as (free slots, dollars of room), so it never adds a pick
+    the trader would then refuse. `waiting` lists the convictions of picks already in the
+    file that the bot has yet to buy: each holds a slot and its share of the room. With no
+    usable equity (no account snapshot) the room is None and only the slot count applies."""
+    slots = max(0, max_open - n_open - len(waiting))
+    if equity is None or equity <= 0:
+        return slots, None
+    room = picks_room(equity, picks_value)
+    for conviction in waiting:
+        room -= pick_budget(equity, equity, conviction, max_notional, min_notional, room=room)
+    room = max(0.0, room)
+    return min(slots, picks_that_fit(equity, room, max_notional, min_notional)), room
 
 
 def sizing_view(equity, cash, positions_value, cap):
