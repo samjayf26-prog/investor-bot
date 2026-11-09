@@ -52,8 +52,12 @@ on top of it. The news-gap study behind these rules is review/profit-overhaul.md
      mega-cap (over $100B) the day it gaps down on an earnings or guidance miss, held 20
      trading days. The backtest says +1.6% vs the market at 10 days but this number is the
      most survivorship-biased in the study.
-   - Conviction 1/2/3 = 15%/25%/40% of equity; at most 3 open positions. Reserve
-     conviction 3 for catalysts confirmed by primary sources.
+   - Conviction 1/2/3 = 10%/15%/20% of equity; at most 5 open positions, and all open
+     picks together at most 75% of the account, so the core keeps its share. When less
+     room than a pick's size is left the bot buys it smaller, and it makes the pick wait
+     when under half its size fits: check the positions in state/account.json before
+     writing a pick that cannot be bought. Reserve conviction 3 for catalysts confirmed by
+     primary sources.
 5. Write picks/latest.json (schema below), then run `python -m bot.picks picks/latest.json`;
    it must exit 0 with your picks listed. Append a dated entry to research/journal.md:
    each pick, the thesis in two sentences, the wrong-if as a closing-price condition, and

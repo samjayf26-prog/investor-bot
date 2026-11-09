@@ -186,3 +186,60 @@ def test_scan_skips_early_runs_and_rethrows_unrelated_400s(tmp_path):
     sc.now = lambda: NOW
     sc.client = FakeClient(error=type("BadRequestError", (Exception,), {"status_code": 400})("max_tokens too large"))
     assert sc.run() is False and rows(tmp_path)[0]["note"].startswith("error: BadRequestError: max_tokens")
+
+
+def open_state(*symbols):
+    return {f"old-{s}": {"broker_symbol": s, "entry_date": "2026-10-01"} for s in symbols}
+
+
+def test_scan_adds_only_what_the_free_slots_allow(tmp_path):
+    # three open and one research pick still waiting: one of the five slots is free
+    sc, api = setup(tmp_path, FakeClient(ANSWER), state=open_state("EL", "AAA", "BBB"))
+    assert sc.run() is True
+    data = json.loads((tmp_path / "picks" / "latest.json").read_text())
+    assert [p["id"] for p in data["picks"]] == ["r1", "2026-10-08-1050-scan-NVDA"]
+    sent = sc.client.calls[0]["messages"][0]["content"]
+    assert '"max_open_positions": 5' in sent and '"free": 1' in sent and '"waiting_in_picks_file": 1' in sent
+
+
+def test_scan_adds_nothing_without_a_free_slot(tmp_path):
+    sc, api = setup(tmp_path, FakeClient(ANSWER), state=open_state("EL", "AAA", "BBB", "CCC", "DDD"))
+    assert sc.run() is True                                   # the close still goes through
+    data = json.loads((tmp_path / "picks" / "latest.json").read_text())
+    assert [p["symbol"] for p in data["picks"]] == ["TSLA"] and data["close"] == ["old-EL"]
+    assert '"free": 0' in sc.client.calls[0]["messages"][0]["content"]
+    assert "no room" in (tmp_path / "research" / "journal.md").read_text()
+
+
+def test_scan_respects_the_picks_cap(tmp_path):
+    def account(el_price):
+        return json.dumps({"equity": "100", "positions": [{"symbol": "EL", "qty": "1", "current_price": str(el_price)},
+                                                          {"symbol": "SPY", "qty": "0.03", "current_price": "700"}]})
+    sc, api = setup(tmp_path, FakeClient(ANSWER))
+    (tmp_path / "state" / "account.json").write_text(account(72))    # picks hold $72 of $100: $3 left under 75%
+    assert sc.run() is True                                           # only the close
+    data = json.loads((tmp_path / "picks" / "latest.json").read_text())
+    assert [p["symbol"] for p in data["picks"]] == ["TSLA"]
+    sent = sc.client.calls[0]["messages"][0]["content"]
+    assert '"room_for_new_picks_usd": 3.0' in sent and '"free": 0' in sent
+    (tmp_path / "b").mkdir()
+    sc2, api2 = setup(tmp_path / "b", FakeClient(ANSWER))
+    # $15 left holds two smallest picks ($10, then a trimmed $5); one is spoken for by the pick
+    # already waiting in the file, so the scan may add one
+    (tmp_path / "b" / "state" / "account.json").write_text(account(60))
+    assert sc2.run() is True
+    data = json.loads((tmp_path / "b" / "picks" / "latest.json").read_text())
+    assert [p["symbol"] for p in data["picks"]] == ["TSLA", "NVDA"]
+    assert '"free": 1' in sc2.client.calls[0]["messages"][0]["content"]
+    (tmp_path / "d").mkdir()
+    sc4, api4 = setup(tmp_path / "d", FakeClient(ANSWER))
+    (tmp_path / "d" / "state" / "account.json").write_text(account(40))   # $35 left: room for both
+    assert sc4.run() is True
+    data = json.loads((tmp_path / "d" / "picks" / "latest.json").read_text())
+    assert [p["symbol"] for p in data["picks"]] == ["TSLA", "NVDA", "WHOLE"]
+    # an unreadable account snapshot never blocks the scan: the slot count still applies
+    (tmp_path / "c").mkdir()
+    sc3, api3 = setup(tmp_path / "c", FakeClient(ANSWER))
+    (tmp_path / "c" / "state" / "account.json").write_text('{"equity": "n/a", "positions": "x"}')
+    assert sc3.run() is True
+    assert len(json.loads((tmp_path / "c" / "picks" / "latest.json").read_text())["picks"]) == 3

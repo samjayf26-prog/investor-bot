@@ -379,14 +379,14 @@ def test_a_refused_cancel_does_not_abort_the_rebalance(tmp_path):
 def test_picks_are_funded_from_spy_first_then_tqqq(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3}])
     api = FakeAlpaca(cash=2.0)
-    hold(api, "SPY", 20.0)
-    hold(api, "TQQQ", 78.0)
+    hold(api, "SPY", 10.0)
+    hold(api, "TQQQ", 88.0)
     t, api, _ = make(tmp_path, api=api, start=NOW)
     assert t.cycle() == "traded"
-    assert "SPY" in api.closed                                    # all $20 of SPY went first
+    assert "SPY" in api.closed                                    # all $10 of SPY went first
     tqqq_sells = [o for o in api.orders.values() if o["side"] == "sell" and o["symbol"] == "TQQQ"]
-    assert len(tqqq_sells) == 1 and 18 < float(tqqq_sells[0]["notional"]) < 22   # ~$40 pick - $2 cash - $20 SPY
-    assert api.orders["p1-entry"]["notional"] == "40.00"
+    assert len(tqqq_sells) == 1 and 7 < float(tqqq_sells[0]["notional"]) < 10   # ~$20 pick - $2 cash - $10 SPY
+    assert api.orders["p1-entry"]["notional"] == "20.00"
     assert "fund pick" in (tmp_path / "ledger" / "core.csv").read_text()
 
 

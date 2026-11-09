@@ -42,7 +42,9 @@ sources, and not already held or picked. Conviction 1 normally, 2 only when prim
 the catalyst. No bearish trades, no inverse ETFs, no SPY/QQQ/TQQQ, no same-day direction bets, no \
 mega-cap gap-down experiments from this scan. Give each pick a max_entry_price a little above the \
 current price, a two-sentence thesis, a wrong-if written as a closing-price or news condition, and \
-the source URLs. Zero picks is the normal answer on most hours.
+the source URLs. Zero picks is the normal answer on most hours. STATE.slots.free is how many more \
+picks the bot can still buy and STATE.room_for_new_picks_usd the dollars left for them; propose no \
+new pick when either is zero, and say so in notes.
 
 Closes: list an open pick id only when news since it was bought reverses the story behind it, or its \
 stated wrong-if has already happened on today's price. Intraday dips, sector selloffs and market \
@@ -95,6 +97,18 @@ def rulebook(text):
     """The "## Rules" section of research/lessons.md (the frozen rulebook)."""
     m = re.search(r"## Rules\n(.*?)(?:\n## |\Z)", text, re.S)
     return (m.group(1) if m else text).strip()
+
+
+def picks_value(account, symbols):
+    """Market value of the open picks in the saved account snapshot (0.0 for anything unreadable)."""
+    total = 0.0
+    for p in (account.get("positions") or []) if isinstance(account, dict) else []:
+        try:
+            if p.get("symbol") in symbols:
+                total += abs(float(p["qty"]) * float(p["current_price"]))
+        except (AttributeError, KeyError, TypeError, ValueError):
+            continue
+    return total
 
 
 def extract_json(text):
@@ -169,10 +183,30 @@ class Scanner:
         except OSError:
             rules = ""
 
+        # What the bot could still buy: a free open-position slot (not already spoken for by an
+        # unbought pick in the file) and dollar room under the picks cap, counted in
+        # smallest-size picks and less the picks already waiting in the file.
+        open_ids = {pid for pid, e in state.items() if isinstance(e, dict)}
+        waiting = sum(1 for p in cur_picks if p.get("id") not in open_ids)
+        max_open = int(self.cfg.get("max_open_positions", 3))
+        free_slots = max(0, max_open - len(open_ids) - waiting)
+        try:
+            equity = float(account.get("equity") or 0)
+        except (AttributeError, TypeError, ValueError):
+            equity = 0.0
+        room_usd = risk.picks_room(equity, picks_value(account, held)) if equity > 0 else None
+        if room_usd is not None:
+            fits = risk.picks_that_fit(equity, room_usd, float(self.cfg["max_order_notional"]),
+                                       float(self.cfg["min_order_notional"]))
+            free_slots = max(0, min(free_slots, fits - waiting))
+
         payload = {
             "now_et": now.astimezone(ET).strftime("%Y-%m-%d %H:%M ET"),
             "last_research_run_utc": current.get("generated_at"),
-            "equity": account.get("equity"),
+            "equity": account.get("equity") if isinstance(account, dict) else None,
+            "slots": {"max_open_positions": max_open, "open": len(open_ids), "waiting_in_picks_file": waiting,
+                      "free": free_slots},
+            "room_for_new_picks_usd": None if room_usd is None else round(room_usd, 2),
             "open_positions": [{"id": pid, "symbol": e.get("broker_symbol"), "entry_date": e.get("entry_date"),
                                 "thesis": e.get("thesis", ""), "wrong_if": e.get("wrong_if", "")}
                                for pid, e in state.items() if isinstance(e, dict)],
@@ -209,7 +243,8 @@ class Scanner:
             log(f"Scan gave no usable answer (stop {resp.stop_reason}); picks unchanged.")
             return False
 
-        room = risk.scan_room(int(self.cfg["max_picks_per_run"]), len(cur_picks), int(self.sc["max_picks"]))
+        room = risk.scan_room(int(self.cfg["max_picks_per_run"]), len(cur_picks), int(self.sc["max_picks"]),
+                              free_slots=free_slots)
         new_picks, dropped = self.vet_picks(data.get("picks") or [], held | picked, today, hhmm, room)
         closes = self.vet_closes(data.get("close") or [], state)
         self.journal(hhmm, data.get("notes", ""), new_picks, closes, dropped)
@@ -247,7 +282,7 @@ class Scanner:
         if not syms:
             return [], []
         if room <= 0:
-            return [], [f"{s}: no room, the picks file already holds {self.cfg['max_picks_per_run']}" for s in syms]
+            return [], [f"{s}: no room (picks file full, no free slot, or the picks cap is reached)" for s in syms]
         snaps = {}
         try:
             snaps = self.api.snapshots([s for s in syms if picks.SYMBOL.match(s)] or ["SPY"]) or {}

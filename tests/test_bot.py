@@ -28,12 +28,29 @@ def test_drawdown_halt():
 
 
 def test_budget():
-    assert risk.pick_budget(100, 100, 3, 500, 1) == 40.0
-    assert risk.pick_budget(100, 100, 1, 500, 1) == 15.0
-    assert risk.pick_budget(100, 100, 99, 500, 1) == 15.0   # unknown conviction = smallest
+    assert risk.pick_budget(100, 100, 3, 500, 1) == 20.0    # five smaller slots: 10 / 15 / 20% of equity
+    assert risk.pick_budget(100, 100, 2, 500, 1) == 15.0
+    assert risk.pick_budget(100, 100, 1, 500, 1) == 10.0
+    assert risk.pick_budget(100, 100, 99, 500, 1) == 10.0   # unknown conviction = smallest
     assert risk.pick_budget(100, 10, 3, 500, 1) == 9.8      # no leverage
     assert risk.pick_budget(10_000, 10_000, 3, 500, 1) == 500
     assert risk.pick_budget(100, 0.5, 3, 500, 1) == 0.0
+
+
+def test_picks_together_leave_the_core_its_share():
+    assert risk.PICKS_MAX_FRAC == 0.75 and 5 * risk.CONVICTION_FRAC[2] <= risk.PICKS_MAX_FRAC
+    assert risk.picks_room(100, 66) == pytest.approx(9.0) and risk.picks_room(100, 80) == 0.0
+    assert risk.picks_room(100, -5) == 75.0 and risk.picks_room(0, 0) == 0.0
+    assert risk.pick_budget(100, 100, 2, 500, 1, room=50) == 15.0    # room to spare: full size
+    assert risk.pick_budget(100, 100, 2, 500, 1, room=9) == 9.0      # trimmed to the room left
+    assert risk.pick_budget(100, 100, 2, 500, 1, room=7.4) == 0.0    # under half its size: it waits
+    assert risk.pick_budget(100, 100, 1, 500, 1, room=0) == 0.0
+    assert risk.pick_budget(10_000, 10_000, 3, 500, 1, room=300) == 300   # half of the $500 ceiling, not of 20%
+    assert risk.scan_room(3, 1, 2, free_slots=1) == 1 and risk.scan_room(3, 1, 2, free_slots=0) == 0
+    assert risk.scan_room(3, 1, 2, free_slots=9) == 2 and risk.scan_room(3, 3, 2, free_slots=2) == 0
+    # how many smallest picks the room still takes (the last one may be trimmed to half size)
+    assert [risk.picks_that_fit(100, r, 500, 1) for r in (0, 3, 5, 15, 35, 75)] == [0, 0, 1, 2, 4, 8]
+    assert risk.picks_that_fit(0, 50, 500, 1) == 0 and risk.picks_that_fit(100, 1e9, 500, 1) == 10
 
 
 def test_sizing_cap_makes_paper_trade_like_100_dollars():
@@ -205,10 +222,10 @@ def test_buy_and_put_entries(tmp_path):
     t, api, _ = make(tmp_path)
     assert t.cycle() == "traded"
     # live picks size off real equity ($100 here), so gains compound
-    assert api.orders["p1-entry"]["notional"] == "40.00"
+    assert api.orders["p1-entry"]["notional"] == "20.00"
     put = api.orders["p2-entry"]
-    # the nearest-the-money put that fits the $40 budget
-    assert (put["symbol"], put["limit_price"]) == ("F261030P00011000", "0.35") and put["type"] == "limit"
+    # the nearest-the-money put that fits the $20 budget ($35 for the 11 strike is too much)
+    assert (put["symbol"], put["limit_price"]) == ("F261030P00010000", "0.15") and put["type"] == "limit"
     state = json.loads((tmp_path / "state" / "positions.json").read_text())
     assert state["p2"]["expiry"] and state["p1"]["broker_symbol"] == "NVDA"
 
@@ -218,7 +235,7 @@ def test_paper_sizes_like_the_capped_stake(tmp_path):
     t, api, _ = make(tmp_path, FakeAlpaca(cash=100_000))
     t.cfg = {**CFG, "mode": "paper", "sizing_equity_cap": 75.0}
     t.cycle()
-    assert api.orders["p1-entry"]["notional"] == "30.00"
+    assert api.orders["p1-entry"]["notional"] == "15.00"   # 20% of the $75 stake, not of $100,000
 
 
 def test_rerun_does_not_double_buy(tmp_path):
@@ -277,6 +294,50 @@ def test_position_limit(tmp_path):
     assert len(api.orders) == 1
 
 
+def held_pick(api, sym, value):
+    api.pos[sym] = {"symbol": sym, "qty": "1", "market_value": str(value), "unrealized_plpc": "0", "unrealized_pl": "0"}
+
+
+def test_five_slots_by_default(tmp_path):
+    assert LIVE_CFG["max_open_positions"] == 5
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy"}, {"id": "p2", "symbol": "F", "action": "buy"}])
+    api = FakeAlpaca()
+    for sym in ("AAA", "BBB", "CCC", "DDD"):       # four picks already open, small enough to leave room
+        held_pick(api, sym, 5.0)
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    assert "p1-entry" in api.orders and "p2-entry" not in api.orders   # the fifth slot fills, a sixth does not exist
+
+
+def test_picks_cap_trims_then_stops_new_picks(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 1},
+                           {"id": "p2", "symbol": "F", "action": "buy", "conviction": 1}])
+    api = FakeAlpaca()
+    for sym in ("AAA", "BBB", "CCC"):              # three older, larger picks: $66 of the $100 account
+        held_pick(api, sym, 22.0)
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    assert api.orders["p1-entry"]["notional"] == "9.00"    # $10 wanted, $9 left under the 75% cap
+    assert "p2-entry" not in api.orders                     # the cap is reached: it waits, the core keeps its share
+
+
+class SlowFills(FakeAlpaca):
+    """Orders that are accepted but not yet positions when the next pick is sized."""
+    def positions(self):
+        return [p for p in super().positions() if p["symbol"] not in ("NVDA", "F")]
+
+
+def test_picks_cap_counts_orders_sent_in_the_same_run(tmp_path):
+    write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "conviction": 3},
+                           {"id": "p2", "symbol": "F", "action": "buy", "conviction": 3}])
+    api = SlowFills()
+    for sym in ("AAA", "BBB"):
+        held_pick(api, sym, 22.5)                  # $45 held: room for one $20 pick and half of another
+    t, api, _ = make(tmp_path, api)
+    t.cycle()
+    assert api.orders["p1-entry"]["notional"] == "20.00" and api.orders["p2-entry"]["notional"] == "10.00"
+
+
 def test_no_entries_after_cutoff(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy"}])
     t, api, _ = make(tmp_path, start=datetime(2026, 10, 8, 19, 50, tzinfo=timezone.utc))  # 15:50 ET
@@ -312,7 +373,7 @@ def test_entry_limit():
 
 def test_stock_entries_are_limit_orders_capped_at_max_entry(tmp_path):
     write_picks(tmp_path, [{"id": "p1", "symbol": "NVDA", "action": "buy", "max_entry_price": 181},
-                           {"id": "p2", "symbol": "WHOLE", "action": "buy"}])
+                           {"id": "p2", "symbol": "WHOLE", "action": "buy", "conviction": 2}])   # $15 buys one $10 share
     t, api, _ = make(tmp_path)
     t.cycle()
     assert api.orders["p1-entry"]["type"] == "limit" and api.orders["p1-entry"]["limit_price"] == "181.00"
@@ -481,9 +542,9 @@ def test_core_sold_just_enough_to_fund_a_pick(tmp_path):
     t, api, _ = make(tmp_path, api)
     assert t.cycle() == "traded"
     sell = next(o for o in api.orders.values() if o["side"] == "sell")
-    assert sell["symbol"] == "SPY" and 30 < float(sell["notional"]) < 32   # ~$40 pick minus $9.80 cash
-    assert api.orders["p1-entry"]["notional"] == "40.00"
-    assert float(api.pos["SPY"]["market_value"]) > 55                       # the rest stays parked
+    assert sell["symbol"] == "SPY" and 10 < float(sell["notional"]) < 11   # ~$20 pick minus $9.80 cash
+    assert api.orders["p1-entry"]["notional"] == "20.00"
+    assert float(api.pos["SPY"]["market_value"]) > 75                       # the rest stays parked
     assert "fund pick" in (tmp_path / "ledger" / "core.csv").read_text()
 
 

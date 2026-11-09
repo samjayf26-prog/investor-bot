@@ -79,7 +79,7 @@ def test_confirm_buys_as_before(tmp_path):
     write_picks(tmp_path, [PICK])
     t, api, adv, _ = make(tmp_path, FakeClient())
     assert t.cycle() == "traded"
-    assert api.orders["p1-entry"]["notional"] == "25.00"
+    assert api.orders["p1-entry"]["notional"] == "15.00"
     assert rows(tmp_path)[0]["decision"] == "confirm"
 
 

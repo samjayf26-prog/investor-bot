@@ -32,9 +32,12 @@ Feasibility Study" project, reworked so Claude picks trades.
   (`earliest_et`), held about 20 trading days by default (max 30) with a 15% disaster stop
   and no profit target unless Claude sets one. Bearish trades (puts, inverse or bear ETFs)
   are off: the news-gap study found they lose. Real short selling needs $2,000 at Alpaca.
-- Size by conviction: 15% / 25% / 40% of equity per pick, never more than cash on hand,
-  never more than $500, at most 3 open positions. Live picks size off the real account so
-  gains compound; sizing_equity_cap only applies to the paper account.
+- Size by conviction: 10% / 15% / 20% of equity per pick, never more than cash on hand,
+  never more than $500, at most 5 open positions (`max_open_positions`), and all open picks
+  together at most 75% of the account (risk.picks_room), so the core always keeps a share:
+  a pick is trimmed to the room left and waits when under half its size fits. Live picks
+  size off the real account so gains compound; sizing_equity_cap only applies to the paper
+  account.
 - New entries stop for the day after a 25% daily loss, and stop entirely after a 60% fall
   from the peak.
 - Every run commits state/ (account snapshot) and ledger/trades.csv. Errors fail the job and GitHub emails you.

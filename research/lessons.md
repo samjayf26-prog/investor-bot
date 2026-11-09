@@ -28,9 +28,14 @@ journal and may add one line under "Proposed changes" below; it does not rewrite
 6. Close only on a stated wrong-if judged on a close (or the 14:20 price), or a reversal of
    the news. Intraday dips are not exits. Evidence: rule 3; our own intraday exits (CLS,
    HAL, AZZ) were taken in broad selloffs, not on company news.
-7. Conviction 1/2/3 = 15/25/40% of equity, at most 3 open; conviction 3 only on catalysts
+7. Conviction 1/2/3 = 10/15/20% of equity, at most 5 open, and all open picks together at
+   most 75% of the account so the core keeps its share (the bot trims a pick to the room
+   left and makes it wait when less than half its size fits); conviction 3 only on catalysts
    confirmed by primary sources. Confirm every story from two outlets (CEG, bought on one
-   unconfirmed source, is still the largest paper loss).
+   unconfirmed source, is still the largest paper loss). The slots and sizes are Sam's
+   choice of 2026-11-09 (before: 15/25/40%, 3 open), a structural limit and not a finding:
+   with 3 slots and 20-day holds every slot was full for weeks and qualifying gaps went
+   unbought. Positions opened before the change keep their size.
 8. The core is not yours to time: no SPY/TQQQ/QQQ picks, no hedging it. Its rule (TQQQ
    weight = min(1, 0.30 / (3 x QQQ 20-day vol)) above the 200-day average, 100% TQQQ for up
    to 5 sessions after three lower closes) made 39.9%/yr vs 13.9% for SPY in 2011-2026 and
