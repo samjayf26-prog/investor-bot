@@ -1,0 +1,2 @@
+at,purpose,pick_id,symbol,model,input_tokens,cache_read_tokens,cache_write_tokens,output_tokens,cost_usd,decision,confidence,headlines,note,request_id
+2026-11-09T00:24:02.051584+00:00,ping,,,claude-opus-5-5,18,,,4,0.000152,,,,pong,req_011CgrQG9CzNa93ohMrybCmT
