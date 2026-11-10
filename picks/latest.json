@@ -1,24 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-10T13:54:45Z",
+  "generated_at": "2026-11-10T15:24:17Z",
   "expires_at": "2026-11-10T20:30:00Z",
-  "picks": [
-    {
-      "id": "2026-11-10-SANM",
-      "symbol": "SANM",
-      "action": "buy",
-      "conviction": 1,
-      "max_entry_price": 186,
-      "thesis": "Sanmina's fiscal Q4, reported Nov 9 after the close, beat widely (non-GAAP EPS $4.43 vs about $3.27 expected, revenue $3.86B vs $3.48B) and its first fiscal 2027 outlook (non-GAAP EPS $15.50-17.50, revenue $17.5-19.5B) sits about 17% above the $14.07 EPS consensus, with Q1 EPS guided to $3.50-3.85 vs $2.95 expected. A gap of about 20% on a guidance reset this large is the rulebook's best bucket (12%+ on a concrete estimate change), held about 20 trading days.",
-      "wrong_if": "closes below $150 (the whole gap given back), or Sanmina cuts or withdraws its fiscal 2027 outlook",
-      "sources": [
-        "https://www.prnewswire.com/news-releases/sanmina-reports-fourth-quarter-and-fiscal-2026-financial-results-302933746.html",
-        "https://seekingalpha.com/news/4669596-biggest-stock-movers-tuesday-rklb-sanm-and-more",
-        "https://www.tradingpedia.com/2026/11/10/sanmina-soars-21-on-q4-earnings-beat-strong-outlook/",
-        "https://startupfortune.com/sanmina-shares-jump-20-after-ai-server-sales-lift-quarterly-revenue-84/"
-      ]
-    }
-  ],
+  "picks": [],
   "close": [],
   "watch": [
     "AAON",
@@ -29,7 +13,7 @@
     "SMH",
     "MU",
     "TTWO",
-    "VIR",
-    "NET"
+    "NET",
+    "CRWV"
   ]
 }
