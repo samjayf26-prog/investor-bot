@@ -1,19 +1,19 @@
 {
-  "as_of": "2026-11-10T19:24:33.413810+00:00",
+  "as_of": "2026-11-10T19:24:49.761459+00:00",
   "as_of_et": "2026-11-10 14:24 ET",
   "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
   "symbols": {
     "SPY": {
-      "last": 748.41,
-      "pct_vs_prev_close": -0.57,
+      "last": 748.38,
+      "pct_vs_prev_close": -0.58,
       "pct_vs_open": 0.01,
       "vwap": 747.875019,
       "vwap_side": "above"
     },
     "QQQ": {
-      "last": 671.97,
-      "pct_vs_prev_close": -1.0,
-      "pct_vs_open": -0.1,
+      "last": 672.04,
+      "pct_vs_prev_close": -0.99,
+      "pct_vs_open": -0.09,
       "vwap": 673.67042,
       "vwap_side": "below"
     },
@@ -46,9 +46,9 @@
       "vwap_side": "below"
     },
     "EL": {
-      "last": 112.79,
-      "pct_vs_prev_close": -0.31,
-      "pct_vs_open": 1.13,
+      "last": 112.83,
+      "pct_vs_prev_close": -0.27,
+      "pct_vs_open": 1.17,
       "vwap": 112.547483,
       "vwap_side": "above"
     },
@@ -88,16 +88,16 @@
       "vwap_side": "below"
     },
     "AMD": {
-      "last": 512.88,
-      "pct_vs_prev_close": 0.83,
-      "pct_vs_open": 1.99,
+      "last": 513.08,
+      "pct_vs_prev_close": 0.87,
+      "pct_vs_open": 2.03,
       "vwap": 520.608682,
       "vwap_side": "below"
     },
     "GEV": {
-      "last": 778.59,
-      "pct_vs_prev_close": -6.05,
-      "pct_vs_open": 3.5,
+      "last": 778.51,
+      "pct_vs_prev_close": -6.06,
+      "pct_vs_open": 3.49,
       "vwap": 772.90339,
       "vwap_side": "above"
     },
@@ -130,9 +130,9 @@
       "vwap_side": "above"
     },
     "CRWV": {
-      "last": 47.53,
-      "pct_vs_prev_close": -3.0,
-      "pct_vs_open": -1.14,
+      "last": 47.48,
+      "pct_vs_prev_close": -3.1,
+      "pct_vs_open": -1.25,
       "vwap": 48.788634,
       "vwap_side": "below"
     }
