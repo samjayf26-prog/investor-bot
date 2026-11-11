@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-11-11T15:23:42.268543+00:00",
+  "as_of": "2026-11-11T15:23:59.570614+00:00",
   "mode": "live",
-  "equity": "73.27",
+  "equity": "73.28",
   "cash": "2.02",
   "core": {
     "symbol": "SPY",
@@ -52,17 +52,17 @@
       "symbol": "SANM",
       "qty": "0.041269037",
       "avg_entry_price": "165.984",
-      "current_price": "160.24",
-      "unrealized_pl": "-0.23705",
-      "unrealized_plpc": "-0.03461"
+      "current_price": "160.355",
+      "unrealized_pl": "-0.232304",
+      "unrealized_plpc": "-0.03391"
     },
     {
       "symbol": "SPY",
       "qty": "0.021433148",
       "avg_entry_price": "753.075672",
-      "current_price": "755.815",
-      "unrealized_pl": "0.058713",
-      "unrealized_plpc": "0.00364"
+      "current_price": "756.02",
+      "unrealized_pl": "0.063107",
+      "unrealized_plpc": "0.00391"
     }
   ]
 }
