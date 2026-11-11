@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-10T20:41:33.133439+00:00",
+  "as_of": "2026-11-11T15:21:36.048044+00:00",
   "mode": "live",
-  "equity": "72.72",
+  "equity": "73.18",
   "cash": "2.02",
   "core": {
     "symbol": "SPY",
-    "value": 16.06,
+    "value": 16.19,
     "leverage": true,
     "held": {
-      "SPY": 16.06,
+      "SPY": 16.19,
       "TQQQ": 0.0
     },
     "signals": {
@@ -28,41 +28,41 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "113.35",
-      "unrealized_pl": "0.48595",
-      "unrealized_plpc": "0.04426"
+      "current_price": "112.84",
+      "unrealized_pl": "0.434361",
+      "unrealized_plpc": "0.03956"
     },
     {
       "symbol": "IDXX",
       "qty": "0.028072574",
       "avg_entry_price": "652.238",
-      "current_price": "696.72",
-      "unrealized_pl": "1.248724",
-      "unrealized_plpc": "0.0682"
+      "current_price": "698.185",
+      "unrealized_pl": "1.28985",
+      "unrealized_plpc": "0.07045"
     },
     {
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "159.68",
-      "unrealized_pl": "-1.022908",
-      "unrealized_plpc": "-0.05614"
+      "current_price": "161.07",
+      "unrealized_pl": "-0.873209",
+      "unrealized_plpc": "-0.04793"
     },
     {
       "symbol": "SANM",
       "qty": "0.041269037",
       "avg_entry_price": "165.984",
-      "current_price": "155.65",
-      "unrealized_pl": "-0.426474",
-      "unrealized_plpc": "-0.06226"
+      "current_price": "160.055",
+      "unrealized_pl": "-0.244684",
+      "unrealized_plpc": "-0.03572"
     },
     {
       "symbol": "SPY",
       "qty": "0.021433148",
-      "avg_entry_price": "756.102511",
-      "current_price": "749.2675",
-      "unrealized_pl": "-0.146496",
-      "unrealized_plpc": "-0.00904"
+      "avg_entry_price": "753.075672",
+      "current_price": "755.51",
+      "unrealized_pl": "0.052176",
+      "unrealized_plpc": "0.00323"
     }
   ]
 }
