@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-11-11T19:22:49.188744+00:00",
+  "as_of": "2026-11-11T19:23:07.133352+00:00",
   "mode": "live",
-  "equity": "73.25",
+  "equity": "73.24",
   "cash": "2.02",
   "core": {
     "symbol": "SPY",
@@ -60,9 +60,9 @@
       "symbol": "SPY",
       "qty": "0.021433148",
       "avg_entry_price": "753.075672",
-      "current_price": "760.17",
-      "unrealized_pl": "0.152054",
-      "unrealized_plpc": "0.00942"
+      "current_price": "760.03",
+      "unrealized_pl": "0.149053",
+      "unrealized_plpc": "0.00923"
     }
   ]
 }
