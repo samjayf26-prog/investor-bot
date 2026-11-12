@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-12T19:22:59.371044+00:00",
+  "as_of": "2026-11-12T19:23:16.183107+00:00",
   "mode": "live",
-  "equity": "73.05",
+  "equity": "73.04",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
     "value": 16.3,
     "leverage": true,
     "held": {
-      "SPY": 11.79,
+      "SPY": 11.78,
       "TQQQ": 4.51
     },
     "signals": {
@@ -28,9 +28,9 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "110.3858",
-      "unrealized_pl": "0.186105",
-      "unrealized_plpc": "0.01695"
+      "current_price": "110.32",
+      "unrealized_pl": "0.179449",
+      "unrealized_plpc": "0.01634"
     },
     {
       "symbol": "IDXX",
@@ -60,17 +60,17 @@
       "symbol": "SPY",
       "qty": "0.015526435",
       "avg_entry_price": "753.075672",
-      "current_price": "759.03",
-      "unrealized_pl": "0.09245",
-      "unrealized_plpc": "0.00791"
+      "current_price": "758.94",
+      "unrealized_pl": "0.091053",
+      "unrealized_plpc": "0.00779"
     },
     {
       "symbol": "TQQQ",
       "qty": "0.075086703",
       "avg_entry_price": "59.398",
-      "current_price": "60.1127",
-      "unrealized_pl": "0.053664",
-      "unrealized_plpc": "0.01203"
+      "current_price": "60.09",
+      "unrealized_pl": "0.05196",
+      "unrealized_plpc": "0.01165"
     }
   ]
 }
