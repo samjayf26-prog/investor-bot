@@ -1,13 +1,12 @@
-# Scorecard 2026-11-11
+# Scorecard 2026-11-12
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $73.01 (-2.65%) vs S&P 500 $73.31 (-2.26%): the bot is behind by $0.30.**
-Same money in the Nasdaq 100 (QQQ): $69.63 (-7.16%).
-Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $59.61 (-20.52%). The gap between this and the account is the picks plus execution slippage.
+**Bot $72.70 (-3.07%) vs S&P 500 $73.04 (-2.61%): the bot is behind by $0.34.**
+Same money in the Nasdaq 100 (QQQ): $69.55 (-7.26%).
+Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $59.38 (-20.83%). The gap between this and the account is the picks plus execution slippage.
 
 | day | bot $ | $ in S&P 500 (SPY) | $ in QQQ | core rule $ |
 |---|---|---|---|---|
-| 2026-10-29 | 73.94 | 73.92 | - | - |
 | 2026-10-30 | 72.67 | 72.91 | - | - |
 | 2026-11-02 | 73.07 | 72.64 | 68.93 | 62.04 |
 | 2026-11-03 | 72.44 | 72.75 | 69.48 | 64.00 |
@@ -17,6 +16,7 @@ Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's clos
 | 2026-11-09 | 73.76 | 72.59 | 68.46 | 59.03 |
 | 2026-11-10 | 72.76 | 72.32 | 68.11 | 58.81 |
 | 2026-11-11 | 73.01 | 73.31 | 69.63 | 59.61 |
+| 2026-11-12 | 72.70 | 73.04 | 69.55 | 59.38 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
@@ -63,7 +63,6 @@ Picks: 17 closed, 8 winners, $0.38 total.
 ## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)
 | day | bias | QQQ move | right? |
 |---|---|---|---|
-| 2026-10-29 | neutral | +0.03% | - |
 | 2026-10-30 | bear | -1.07% | true |
 | 2026-11-02 | neutral | -1.45% | - |
 | 2026-11-03 | neutral | -0.14% | - |
@@ -73,6 +72,7 @@ Picks: 17 closed, 8 winners, $0.38 total.
 | 2026-11-09 | neutral | +2.34% | - |
 | 2026-11-10 | neutral | -0.02% | - |
 | 2026-11-11 | neutral | +0.64% | - |
+| 2026-11-12 | neutral | +0.36% | - |
 
 Bull/bear calls: 8 of 10 right.
 
