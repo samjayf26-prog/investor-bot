@@ -1,12 +1,12 @@
 {
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "dip_state": 0,
   "halted": false,
-  "index_close": 673.56,
-  "lev_target": 0.0,
+  "index_close": 690.38,
+  "lev_target": 20.73,
   "ordered": true,
-  "rest_target": 75.0,
-  "trend": 0,
-  "vol": 0.3536,
-  "weight": 0.0
+  "rest_target": 54.27,
+  "trend": 1,
+  "vol": 0.3618,
+  "weight": 0.2764
 }
