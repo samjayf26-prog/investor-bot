@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-11-12T20:41:32.310170+00:00",
+  "as_of": "2026-11-12T20:45:19.261542+00:00",
   "mode": "live",
-  "equity": "72.71",
+  "equity": "72.74",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 16.23,
+    "value": 16.24,
     "leverage": true,
     "held": {
       "SPY": 11.75,
@@ -28,49 +28,49 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "110.28",
-      "unrealized_pl": "0.175403",
-      "unrealized_plpc": "0.01597"
+      "current_price": "110.44",
+      "unrealized_pl": "0.191588",
+      "unrealized_plpc": "0.01745"
     },
     {
       "symbol": "IDXX",
       "qty": "0.028072574",
       "avg_entry_price": "652.238",
-      "current_price": "699.14",
-      "unrealized_pl": "1.316659",
-      "unrealized_plpc": "0.07191"
+      "current_price": "699.76",
+      "unrealized_pl": "1.334064",
+      "unrealized_plpc": "0.07286"
     },
     {
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "157.2325",
-      "unrealized_pl": "-1.286497",
-      "unrealized_plpc": "-0.07061"
+      "current_price": "157.145",
+      "unrealized_pl": "-1.295921",
+      "unrealized_plpc": "-0.07113"
     },
     {
       "symbol": "SANM",
       "qty": "0.041269037",
       "avg_entry_price": "165.984",
-      "current_price": "163.48",
-      "unrealized_pl": "-0.103338",
-      "unrealized_plpc": "-0.01509"
+      "current_price": "163.55",
+      "unrealized_pl": "-0.100449",
+      "unrealized_plpc": "-0.01466"
     },
     {
       "symbol": "SPY",
       "qty": "0.015526435",
       "avg_entry_price": "753.075672",
-      "current_price": "757.04",
-      "unrealized_pl": "0.061552",
-      "unrealized_plpc": "0.00526"
+      "current_price": "757.05",
+      "unrealized_pl": "0.061708",
+      "unrealized_plpc": "0.00528"
     },
     {
       "symbol": "TQQQ",
       "qty": "0.075086703",
       "avg_entry_price": "59.398",
-      "current_price": "59.66",
-      "unrealized_pl": "0.019673",
-      "unrealized_plpc": "0.00441"
+      "current_price": "59.7",
+      "unrealized_pl": "0.022676",
+      "unrealized_plpc": "0.00508"
     }
   ]
 }
