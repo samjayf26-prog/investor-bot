@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-11-12T15:22:00.213535+00:00",
+  "as_of": "2026-11-12T15:22:18.192981+00:00",
   "mode": "live",
-  "equity": "72.93",
+  "equity": "72.88",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 16.22,
+    "value": 16.21,
     "leverage": true,
     "held": {
       "SPY": 11.75,
@@ -44,9 +44,9 @@
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "157.28",
-      "unrealized_pl": "-1.281382",
-      "unrealized_plpc": "-0.07033"
+      "current_price": "156.93",
+      "unrealized_pl": "-1.319076",
+      "unrealized_plpc": "-0.0724"
     },
     {
       "symbol": "SANM",
@@ -60,17 +60,17 @@
       "symbol": "SPY",
       "qty": "0.015526435",
       "avg_entry_price": "753.075672",
-      "current_price": "757.05",
-      "unrealized_pl": "0.061708",
-      "unrealized_plpc": "0.00528"
+      "current_price": "756.9",
+      "unrealized_pl": "0.059379",
+      "unrealized_plpc": "0.00508"
     },
     {
       "symbol": "TQQQ",
       "qty": "0.075086703",
       "avg_entry_price": "59.398",
-      "current_price": "59.46",
-      "unrealized_pl": "0.004655",
-      "unrealized_plpc": "0.00104"
+      "current_price": "59.39",
+      "unrealized_pl": "-0.000601",
+      "unrealized_plpc": "-0.00013"
     }
   ]
 }
