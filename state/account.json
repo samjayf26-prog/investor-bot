@@ -1,15 +1,15 @@
 {
-  "as_of": "2026-11-13T15:52:28.525106+00:00",
+  "as_of": "2026-11-13T15:54:58.413959+00:00",
   "mode": "live",
   "equity": "71.69",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 15.91,
+    "value": 15.86,
     "leverage": true,
     "held": {
-      "SPY": 11.66,
-      "TQQQ": 4.24
+      "SPY": 11.65,
+      "TQQQ": 4.22
     },
     "signals": {
       "date": "2026-11-12",
@@ -28,9 +28,9 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "112.14",
-      "unrealized_pl": "0.363552",
-      "unrealized_plpc": "0.03311"
+      "current_price": "112.11",
+      "unrealized_pl": "0.360517",
+      "unrealized_plpc": "0.03283"
     },
     {
       "symbol": "IDXX",
@@ -44,33 +44,33 @@
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "151.44",
-      "unrealized_pl": "-1.910333",
-      "unrealized_plpc": "-0.10485"
+      "current_price": "151.8025",
+      "unrealized_pl": "-1.871293",
+      "unrealized_plpc": "-0.10271"
     },
     {
       "symbol": "SANM",
       "qty": "0.041269037",
       "avg_entry_price": "165.984",
-      "current_price": "153.36",
-      "unrealized_pl": "-0.52098",
-      "unrealized_plpc": "-0.07606"
+      "current_price": "153.605",
+      "unrealized_pl": "-0.51087",
+      "unrealized_plpc": "-0.07458"
     },
     {
       "symbol": "SPY",
       "qty": "0.015526435",
       "avg_entry_price": "750.45307",
-      "current_price": "751.25",
-      "unrealized_pl": "0.012373",
-      "unrealized_plpc": "0.00106"
+      "current_price": "750.17",
+      "unrealized_pl": "-0.004395",
+      "unrealized_plpc": "-0.00038"
     },
     {
       "symbol": "TQQQ",
       "qty": "0.075086703",
       "avg_entry_price": "59.398",
-      "current_price": "56.52",
-      "unrealized_pl": "-0.2161",
-      "unrealized_plpc": "-0.04845"
+      "current_price": "56.1599",
+      "unrealized_pl": "-0.243138",
+      "unrealized_plpc": "-0.05452"
     }
   ]
 }
