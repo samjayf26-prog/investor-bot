@@ -1,15 +1,15 @@
 {
-  "as_of": "2026-11-13T18:21:02.987121+00:00",
+  "as_of": "2026-11-13T18:51:39.060439+00:00",
   "mode": "live",
-  "equity": "72.04",
+  "equity": "72.28",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 15.93,
+    "value": 16.0,
     "leverage": true,
     "held": {
-      "SPY": 11.67,
-      "TQQQ": 4.26
+      "SPY": 11.7,
+      "TQQQ": 4.31
     },
     "signals": {
       "date": "2026-11-12",
@@ -28,49 +28,49 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "112.24",
-      "unrealized_pl": "0.373668",
-      "unrealized_plpc": "0.03403"
+      "current_price": "112.475",
+      "unrealized_pl": "0.397439",
+      "unrealized_plpc": "0.0362"
     },
     {
       "symbol": "IDXX",
       "qty": "0.028072574",
       "avg_entry_price": "652.238",
-      "current_price": "706.67",
-      "unrealized_pl": "1.528046",
-      "unrealized_plpc": "0.08345"
+      "current_price": "705.92",
+      "unrealized_pl": "1.506991",
+      "unrealized_plpc": "0.0823"
     },
     {
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "153.72",
-      "unrealized_pl": "-1.664784",
-      "unrealized_plpc": "-0.09137"
+      "current_price": "154.55",
+      "unrealized_pl": "-1.575395",
+      "unrealized_plpc": "-0.08647"
     },
     {
       "symbol": "SANM",
       "qty": "0.041269037",
       "avg_entry_price": "165.984",
-      "current_price": "154.175",
-      "unrealized_pl": "-0.487346",
-      "unrealized_plpc": "-0.07115"
+      "current_price": "155.84",
+      "unrealized_pl": "-0.418633",
+      "unrealized_plpc": "-0.06111"
     },
     {
       "symbol": "SPY",
       "qty": "0.015526435",
       "avg_entry_price": "750.45307",
-      "current_price": "751.3",
-      "unrealized_pl": "0.01315",
-      "unrealized_plpc": "0.00113"
+      "current_price": "753.2705",
+      "unrealized_pl": "0.043744",
+      "unrealized_plpc": "0.00375"
     },
     {
       "symbol": "TQQQ",
       "qty": "0.075086703",
       "avg_entry_price": "59.398",
-      "current_price": "56.7499",
-      "unrealized_pl": "-0.198837",
-      "unrealized_plpc": "-0.04458"
+      "current_price": "57.3866",
+      "unrealized_pl": "-0.151029",
+      "unrealized_plpc": "-0.03386"
     }
   ]
 }
