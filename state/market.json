@@ -1,33 +1,33 @@
 {
-  "as_of": "2026-11-13T19:23:35.168786+00:00",
+  "as_of": "2026-11-13T19:23:51.899138+00:00",
   "as_of_et": "2026-11-13 14:23 ET",
   "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
   "symbols": {
     "SPY": {
-      "last": 753.335,
-      "pct_vs_prev_close": -0.51,
-      "pct_vs_open": -0.88,
+      "last": 753.365,
+      "pct_vs_prev_close": -0.5,
+      "pct_vs_open": -0.87,
       "vwap": 751.988259,
       "vwap_side": "above"
     },
     "QQQ": {
-      "last": 679.71,
+      "last": 679.73,
       "pct_vs_prev_close": -1.23,
       "pct_vs_open": -1.25,
       "vwap": 677.124446,
       "vwap_side": "above"
     },
     "IWM": {
-      "last": 277.165,
+      "last": 277.175,
       "pct_vs_prev_close": -0.45,
-      "pct_vs_open": -0.64,
+      "pct_vs_open": -0.63,
       "vwap": 276.560424,
       "vwap_side": "above"
     },
     "SMH": {
-      "last": 486.34,
-      "pct_vs_prev_close": -3.1,
-      "pct_vs_open": -2.61,
+      "last": 486.07,
+      "pct_vs_prev_close": -3.16,
+      "pct_vs_open": -2.66,
       "vwap": 482.299052,
       "vwap_side": "above"
     },
@@ -74,9 +74,9 @@
       "vwap_side": "above"
     },
     "CBRS": {
-      "last": 110.025,
-      "pct_vs_prev_close": 12.3,
-      "pct_vs_open": 0.96,
+      "last": 109.9,
+      "pct_vs_prev_close": 12.18,
+      "pct_vs_open": 0.84,
       "vwap": 108.117214,
       "vwap_side": "above"
     },
@@ -88,23 +88,23 @@
       "vwap_side": "below"
     },
     "NVDA": {
-      "last": 162.6,
-      "pct_vs_prev_close": -2.09,
-      "pct_vs_open": -4.25,
+      "last": 162.56,
+      "pct_vs_prev_close": -2.11,
+      "pct_vs_open": -4.27,
       "vwap": 161.297268,
       "vwap_side": "above"
     },
     "AMD": {
-      "last": 532.97,
-      "pct_vs_prev_close": -9.0,
-      "pct_vs_open": -5.93,
+      "last": 533.11,
+      "pct_vs_prev_close": -8.98,
+      "pct_vs_open": -5.91,
       "vwap": 534.811088,
       "vwap_side": "below"
     },
     "CSCO": {
-      "last": 95.89,
-      "pct_vs_prev_close": -5.96,
-      "pct_vs_open": -4.4,
+      "last": 95.86,
+      "pct_vs_prev_close": -5.99,
+      "pct_vs_open": -4.43,
       "vwap": 97.227948,
       "vwap_side": "below"
     },
@@ -116,9 +116,9 @@
       "vwap_side": "above"
     },
     "DELL": {
-      "last": 343.405,
-      "pct_vs_prev_close": -7.55,
-      "pct_vs_open": -6.93,
+      "last": 342.92,
+      "pct_vs_prev_close": -7.68,
+      "pct_vs_open": -7.06,
       "vwap": 340.970473,
       "vwap_side": "above"
     },
