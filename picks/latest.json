@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-16T15:25:02Z",
+  "generated_at": "2026-11-16T19:23:15Z",
   "expires_at": "2026-11-16T20:30:00Z",
   "picks": [],
   "close": [],
@@ -14,6 +14,6 @@
     "CRWV",
     "CBRS",
     "MOH",
-    "COIN"
+    "CNC"
   ]
 }
