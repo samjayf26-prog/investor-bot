@@ -1,19 +1,19 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-16T19:23:15Z",
-  "expires_at": "2026-11-16T20:30:00Z",
+  "generated_at": "2026-11-17T13:54:20Z",
+  "expires_at": "2026-11-17T20:30:00Z",
   "picks": [],
   "close": [],
   "watch": [
-    "TSN",
+    "ACM",
+    "AS",
+    "DIS",
+    "HD",
     "NVDA",
     "INTC",
-    "AMD",
-    "MU",
     "SMH",
-    "CRWV",
+    "MU",
     "CBRS",
-    "MOH",
-    "CNC"
+    "MOH"
   ]
 }
