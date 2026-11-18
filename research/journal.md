@@ -1389,7 +1389,7 @@ Live (state/market.json 14:20 ET): SPY 730.59 (-0.3%), QQQ 659.07 (+0.3%), SMH 4
 - Closes: none. Each wrong-if judged on the 14:20 price:
   - **SANM** 155.87 (+2.2% today, -6.1% vs the fill): $5.87 above the $150 line, and yesterday's close ($152.59, confirmed this morning) was above it too. No cut or withdrawal of the fiscal 2027 outlook in my searches or the four scans'. Carry.
   - **RVTY** 152.18 (+3.0% today, -10.0% vs the fill; the stop near $143.80 is 5.5% below): no walked-back guide; the newest items are its Jefferies conference remarks and the investor-day notice. Carry.
-  - **EL** 103.87 (-0.6% today, -4.3% vs the fill, below VWAP): fifth lower day in a row with no guidance change or downgrade found; the scans' items are a store opening and a director's share sale. No wrong-if is written, so it carries to the stop (about $92.26) or the 11-30 time-out.
+  - **EL** 103.87 (-0.6% today, -4.3% vs the fill, below VWAP): lower for a third day running (it also fell on 11-16 and 11-17) with no guidance change or downgrade found; the scans' items are a store opening and a director's share sale. No wrong-if is written, so it carries to the stop (about $92.26) or the 11-30 time-out.
   - **IDXX** 701.61 (+1.7% today, +7.4% vs the fill): no company news. Carry.
 - No new picks. The four picks are $53.00 of the $70.47 account, 75.2%; room under the cap is -$0.15.
   - **TJX** 143.20 (+10.3%, above VWAP): held its gap all day; the missed-for-room case from 10:20 (reference $142.66).
