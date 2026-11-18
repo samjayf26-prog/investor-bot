@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-11-18T19:23:29.841924+00:00",
+  "as_of": "2026-11-18T19:23:46.152601+00:00",
   "as_of_et": "2026-11-18 14:23 ET",
   "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
   "symbols": {
     "SPY": {
-      "last": 730.855,
-      "pct_vs_prev_close": -0.21,
-      "pct_vs_open": -0.35,
+      "last": 730.79,
+      "pct_vs_prev_close": -0.22,
+      "pct_vs_open": -0.36,
       "vwap": 730.936988,
       "vwap_side": "below"
     },
@@ -32,9 +32,9 @@
       "vwap_side": "below"
     },
     "TLT": {
-      "last": 80.19,
-      "pct_vs_prev_close": 0.79,
-      "pct_vs_open": 0.36,
+      "last": 80.2,
+      "pct_vs_prev_close": 0.8,
+      "pct_vs_open": 0.38,
       "vwap": 80.086811,
       "vwap_side": "above"
     },
@@ -74,9 +74,9 @@
       "vwap_side": "above"
     },
     "TJX": {
-      "last": 142.95,
-      "pct_vs_prev_close": 10.08,
-      "pct_vs_open": 4.55,
+      "last": 142.94,
+      "pct_vs_prev_close": 10.07,
+      "pct_vs_open": 4.54,
       "vwap": 142.171668,
       "vwap_side": "above"
     },
@@ -88,16 +88,16 @@
       "vwap_side": "above"
     },
     "TTWO": {
-      "last": 218.135,
-      "pct_vs_prev_close": 6.98,
-      "pct_vs_open": 2.71,
+      "last": 219.15,
+      "pct_vs_prev_close": 7.47,
+      "pct_vs_open": 3.19,
       "vwap": 217.986588,
       "vwap_side": "above"
     },
     "NVDA": {
-      "last": 151.89,
-      "pct_vs_prev_close": -2.32,
-      "pct_vs_open": -4.59,
+      "last": 151.84,
+      "pct_vs_prev_close": -2.35,
+      "pct_vs_open": -4.63,
       "vwap": 153.423904,
       "vwap_side": "below"
     },
