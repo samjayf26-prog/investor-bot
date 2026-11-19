@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-19T15:23:28.313841+00:00",
+  "as_of": "2026-11-19T15:23:49.003328+00:00",
   "mode": "live",
-  "equity": "70.86",
+  "equity": "70.87",
   "cash": "2.01",
   "core": {
     "symbol": "SPY",
-    "value": 15.47,
+    "value": 15.48,
     "leverage": true,
     "held": {
-      "SPY": 15.47,
+      "SPY": 15.48,
       "TQQQ": 0.0
     },
     "signals": {
@@ -60,9 +60,9 @@
       "symbol": "SPY",
       "qty": "0.021146307",
       "avg_entry_price": "730.624",
-      "current_price": "731.78",
-      "unrealized_pl": "0.024446",
-      "unrealized_plpc": "0.00158"
+      "current_price": "732.11",
+      "unrealized_pl": "0.031424",
+      "unrealized_plpc": "0.00203"
     }
   ]
 }
