@@ -1450,3 +1450,18 @@ Sources: state/market.json and state/account.json (10:21 ET) ; https://za.invest
 ### 10:51 ET hourly scan (Claude API, bot/scan.py)
 10:51 ET scan, 28 minutes after the 10:23 ET research run. No new picks and no closes. No new pick could be bought anyway: free slots are 0 of 5, room is $0.00, and the four open picks use about 75% of the account. No pick replaced a position this hour because none of them met a close condition. Open positions: SANM is at 165.06 (+4.8%), well above the $150 wrong-if. Yesterday's close was about $157.50, so that did not trigger either. My searches found no fresh company news; the last Sanmina items are about the Nov 9 earnings beat and outlook, and nothing about a cut or a withdrawn outlook. RVTY is at 155.42 (+1.9%). The only recent items are a 6-day losing-streak piece dated 11-18 and a routine dividend notice, and neither reverses the story. EL is at 103.67 (-0.4%) and IDXX at 690.77 (-1.1%). Searches turned up no new company headlines for either, and these small moves are not exit reasons under rule 6. So all four carry. Their price conditions are judged on the close. EL, IDXX and RVTY have no recorded thesis or wrong-if, so only a news reversal or the 15% disaster stop could close them. Movers seen since the research run: BE at 181.65 (+6.3%, below VWAP) on the BMO upgrade is already logged as a missed-for-room case. PDD at 85.66 (+10.6%) is a profit beat with flat revenue and no guidance, which is not a rule 2 estimate change. PANW at 354.73 (+4.4%) is under the 6% line. Search was thin this hour: it mostly returned quote pages, and none of the results showed a new catal
 - No new picks, no closes.
+
+### 11:51 ET hourly scan (Claude API, bot/scan.py)
+11:51 ET scan, 28 minutes after the 11:23 ET (15:23Z) research run. There are no new picks and no closes. No new pick could be bought anyway. Free slots are 0 of 5, room is $0.00, and the four open picks fill about 75% of the account. Nothing frees a slot, because none of the open positions meets a close condition.
+
+Open positions:
+- SANM is at 156.86 (-0.4% on the day, -3.2% from the open, below VWAP). Its wrong-if is a close below $150, judged on the close, and the price is still above that. A search for Sanmina news found no new company headline. The newest items are the Nov 9 earnings and the ZT Systems acquisition, and none of them cuts or withdraws the fiscal 2027 outlook. Under rule 6 an intraday fade is not an exit, so it carries.
+- RVTY is at 155.36 (+1.9%). Its newest company items are the Investor Day announcement and a strategy preview from about 6 days ago, and neither reverses the story. It carries.
+- EL is at 103.22 (-0.8%) and IDXX at 691.32 (-1.0%). Searches returned only quote pages and old press-release lists, with no fresh headline for either. They carry.
+- EL, IDXX and RVTY have no recorded thesis or wrong-if, so only a news reversal or the 15% disaster stop can close them.
+
+Movers since the research run:
+- BE is at 175.77, now only +2.9% and below VWAP, on the BMO upgrade. It is already logged as the fifth missed-for-room case at $181.38.
+- PDD is at 86.61 (+11.9%). It is a profit beat with no guidance raise, so it is not a rule 2 estimate change.
+- PANW
+- No new picks, no closes.
