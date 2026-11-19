@@ -1469,3 +1469,17 @@ Movers since the research run:
 ### 12:51 ET hourly scan (Claude API, bot/scan.py)
 12:51 ET scan, 28 minutes after the 12:23 ET (15:23Z) research run. No new picks and no closes. No new pick could be bought this hour: free slots are 0 of 5 and room is $0.00. Nothing frees a slot, because none of the open positions meets a close condition. Open positions: SANM is at 154.80 (-1.7% on the day, -4.5% from the open, below VWAP). That is still above the $150 wrong-if, which is judged on the close. A search found no new Sanmina headline: the newest items are still the Nov 9 earnings and outlook, and nothing cuts or withdraws the fiscal 2027 outlook. Under rule 6 an intraday fade in a broad selloff (SPY -1.2%, SMH -4.2% from the open, VIXY +7.5%) is not an exit, so it carries. RVTY is at 153.44 (+0.6%). Its newest items are an Investor Day preview, notes from the Jefferies healthcare conference describing a stronger outlook, and a dividend notice, and none of them reverses the story. EL is at 102.91 (-1.1%). The only items are trader pieces from the last 1-2 days on insider selling and the downtrend, which are commentary and not a company news reversal. IDXX is at 688.69 (-1.4%) and searches turned up no fresh company headline. All four carry. EL, IDXX and RVTY have no recorded thesis or wrong-if, so only a news reversal or the 15% disaster stop can close them. Movers: PANW is at 357.82 (+5.3%) on a revenue beat, a raised annual forecast and the Applied Compute acquisition. That is still below the 6% line, and there is no room for it anyway. PDD is at 86.69 (+12.0%
 - No new picks, no closes.
+
+### 13:51 ET hourly scan (Claude API, bot/scan.py)
+13:51 ET scan, about 2.5 hours after the 15:23Z (11:23 ET) research run. No new picks and no closes. No new pick could be bought this hour anyway: free slots are 0 of 5, room is $0.00, and no open position meets a close condition, so nothing frees a slot.
+
+Open positions:
+- SANM is at 157.13 (-0.2% on the day, -3.0% from the open, below VWAP). That is still above the $150 wrong-if, which is judged on the close. The Sanmina search turned up only quote pages and no new headline. Nothing cuts or withdraws the fiscal 2027 outlook. Under rule 6 an intraday fade during a broad selloff is not an exit (SPY -1.4%, QQQ -3.2% from the open, SMH -4.3% from the open, VIXY +7.9%). It carries.
+- EL is at 103.09 (-0.9%). The only new item is a FashionNetwork report that Estee Lauder plans dozens of voluntary redundancies in France. That is restructuring under its existing cost plan, not a reversal of the story. The rest is trader commentary on insider selling. It carries.
+- IDXX is at 687.99 (-1.5%). Searches found no fresh company headline. It carries.
+- RVTY is at 152.52 (flat). Its newest items are still the Investor Day announcement and older press releases, and nothing reverses the story. It carries.
+- EL, IDXX and RVTY have no recorded thesis or wrong-if, so only a news reversal or the 15% disaster stop can close them.
+
+Movers since the research run:
+- PANW is at 359.00 (+5.7%) on a Q1 revenue beat, a raised annual forecast and the Applied Compute acquisition, reported by Benzinga, Gur
+- No new picks, no closes.
