@@ -1,139 +1,139 @@
 {
-  "as_of": "2026-11-19T18:51:47.251283+00:00",
-  "as_of_et": "2026-11-19 13:51 ET",
+  "as_of": "2026-11-19T19:21:24.870296+00:00",
+  "as_of_et": "2026-11-19 14:21 ET",
   "note": "IEX feed. pct vs previous close and vs today's open; vwap_side = last vs today's VWAP.",
   "symbols": {
     "SPY": {
-      "last": 719.58,
-      "pct_vs_prev_close": -1.47,
-      "pct_vs_open": -2.44,
-      "vwap": 727.468244,
+      "last": 719.78,
+      "pct_vs_prev_close": -1.44,
+      "pct_vs_open": -2.41,
+      "vwap": 727.022259,
       "vwap_side": "below"
     },
     "QQQ": {
-      "last": 648.9,
-      "pct_vs_prev_close": -1.62,
-      "pct_vs_open": -3.33,
-      "vwap": 659.009164,
+      "last": 649.57,
+      "pct_vs_prev_close": -1.52,
+      "pct_vs_open": -3.23,
+      "vwap": 658.690286,
       "vwap_side": "below"
     },
     "IWM": {
-      "last": 265.7,
-      "pct_vs_prev_close": -1.64,
-      "pct_vs_open": -1.99,
-      "vwap": 267.698091,
+      "last": 265.505,
+      "pct_vs_prev_close": -1.72,
+      "pct_vs_open": -2.06,
+      "vwap": 267.617461,
       "vwap_side": "below"
     },
     "SMH": {
-      "last": 451.92,
-      "pct_vs_prev_close": -1.64,
-      "pct_vs_open": -4.45,
-      "vwap": 464.417545,
+      "last": 453.23,
+      "pct_vs_prev_close": -1.35,
+      "pct_vs_open": -4.17,
+      "vwap": 463.883746,
       "vwap_side": "below"
     },
     "TLT": {
-      "last": 80.29,
-      "pct_vs_prev_close": 0.1,
-      "pct_vs_open": 0.24,
-      "vwap": 80.156999,
+      "last": 80.235,
+      "pct_vs_prev_close": 0.03,
+      "pct_vs_open": 0.17,
+      "vwap": 80.163579,
       "vwap_side": "above"
     },
     "VIXY": {
-      "last": 22.14,
-      "pct_vs_prev_close": 8.32,
-      "pct_vs_open": 11.37,
-      "vwap": 21.187279,
+      "last": 22.18,
+      "pct_vs_prev_close": 8.51,
+      "pct_vs_open": 11.57,
+      "vwap": 21.234603,
       "vwap_side": "above"
     },
     "EL": {
-      "last": 103.11,
-      "pct_vs_prev_close": -0.9,
-      "pct_vs_open": -0.42,
-      "vwap": 103.376704,
+      "last": 103.125,
+      "pct_vs_prev_close": -0.88,
+      "pct_vs_open": -0.4,
+      "vwap": 103.361404,
       "vwap_side": "below"
     },
     "IDXX": {
-      "last": 690.02,
+      "last": 690.03,
       "pct_vs_prev_close": -1.22,
-      "pct_vs_open": -0.6,
-      "vwap": 690.581675,
+      "pct_vs_open": -0.59,
+      "vwap": 690.634022,
       "vwap_side": "below"
     },
     "RVTY": {
-      "last": 152.535,
-      "pct_vs_prev_close": 0.02,
-      "pct_vs_open": -0.71,
-      "vwap": 154.208966,
+      "last": 152.235,
+      "pct_vs_prev_close": -0.17,
+      "pct_vs_open": -0.9,
+      "vwap": 154.034068,
       "vwap_side": "below"
     },
     "SANM": {
-      "last": 155.8,
-      "pct_vs_prev_close": -1.08,
-      "pct_vs_open": -3.84,
-      "vwap": 159.551416,
+      "last": 155.59,
+      "pct_vs_prev_close": -1.22,
+      "pct_vs_open": -3.97,
+      "vwap": 159.382021,
       "vwap_side": "below"
     },
     "PANW": {
-      "last": 359.21,
-      "pct_vs_prev_close": 5.75,
-      "pct_vs_open": 1.0,
-      "vwap": 359.901408,
-      "vwap_side": "below"
+      "last": 360.03,
+      "pct_vs_prev_close": 5.99,
+      "pct_vs_open": 1.23,
+      "vwap": 359.789255,
+      "vwap_side": "above"
     },
     "WMT": {
-      "last": 126.24,
-      "pct_vs_prev_close": -0.84,
-      "pct_vs_open": 2.0,
-      "vwap": 125.291221,
+      "last": 126.29,
+      "pct_vs_prev_close": -0.8,
+      "pct_vs_open": 2.04,
+      "vwap": 125.318096,
       "vwap_side": "above"
     },
     "BE": {
-      "last": 169.97,
-      "pct_vs_prev_close": -0.52,
-      "pct_vs_open": -5.98,
-      "vwap": 177.693665,
+      "last": 170.34,
+      "pct_vs_prev_close": -0.3,
+      "pct_vs_open": -5.77,
+      "vwap": 177.514663,
       "vwap_side": "below"
     },
     "PDD": {
-      "last": 85.865,
-      "pct_vs_prev_close": 10.91,
-      "pct_vs_open": 4.29,
-      "vwap": 86.150892,
+      "last": 86.035,
+      "pct_vs_prev_close": 11.13,
+      "pct_vs_open": 4.5,
+      "vwap": 86.14938,
       "vwap_side": "below"
     },
     "NVDA": {
-      "last": 148.3,
-      "pct_vs_prev_close": -1.7,
-      "pct_vs_open": -3.01,
-      "vwap": 152.881355,
+      "last": 148.665,
+      "pct_vs_prev_close": -1.45,
+      "pct_vs_open": -2.77,
+      "vwap": 152.708178,
       "vwap_side": "below"
     },
     "TJX": {
-      "last": 139.95,
-      "pct_vs_prev_close": -0.28,
-      "pct_vs_open": 2.15,
-      "vwap": 140.033684,
-      "vwap_side": "below"
+      "last": 140.12,
+      "pct_vs_prev_close": -0.16,
+      "pct_vs_open": 2.28,
+      "vwap": 140.020621,
+      "vwap_side": "above"
     },
     "TGT": {
-      "last": 166.81,
-      "pct_vs_prev_close": 0.58,
-      "pct_vs_open": -0.31,
-      "vwap": 167.626478,
+      "last": 166.46,
+      "pct_vs_prev_close": 0.37,
+      "pct_vs_open": -0.52,
+      "vwap": 167.600957,
       "vwap_side": "below"
     },
     "ACM": {
-      "last": 80.535,
-      "pct_vs_prev_close": -2.18,
-      "pct_vs_open": -1.99,
-      "vwap": 80.643139,
-      "vwap_side": "below"
+      "last": 80.665,
+      "pct_vs_prev_close": -2.02,
+      "pct_vs_open": -1.83,
+      "vwap": 80.647481,
+      "vwap_side": "above"
     },
     "CBRS": {
-      "last": 89.72,
-      "pct_vs_prev_close": -4.7,
-      "pct_vs_open": -5.76,
-      "vwap": 93.136854,
+      "last": 88.94,
+      "pct_vs_prev_close": -5.53,
+      "pct_vs_open": -6.58,
+      "vwap": 92.84499,
       "vwap_side": "below"
     }
   }
