@@ -31,6 +31,7 @@ jobs:
     steps:
       # Start from the latest main, not the commit that triggered the run: a run queued behind
       # another one (same concurrency group) must see the state and ledger that run just saved.
+      # So this workflow always runs main's code, whatever ref it is dispatched from.
       - uses: actions/checkout@v4
         with:
           ref: main

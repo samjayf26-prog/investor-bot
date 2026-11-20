@@ -13,6 +13,7 @@ Only the knobs in bot/tuning.py BOUNDS can change. Safety limits are never touch
 import csv
 import itertools
 import json
+import math
 from collections import defaultdict
 from datetime import datetime, time as dtime, timedelta, timezone
 
@@ -127,11 +128,12 @@ def read_csv(path):
 
 
 def _num(value):
-    """A ledger number, or None when the cell is blank or not a number."""
+    """A ledger number, or None when the cell is blank or not a finite number."""
     try:
-        return float(value)
+        x = float(value)
     except (TypeError, ValueError):
         return None
+    return x if math.isfinite(x) else None
 
 
 def summarize(rows, key):

@@ -136,6 +136,7 @@ def test_scorecard_survives_a_row_without_a_pnl(tmp_path):
     assert "| 2026-11-20 | 2026-11-10-SANM | n/a | n/a | closed outside the bot |" in card
     assert "Picks: 2 closed, 0 winners, $-0.32 total." in card
     assert "1 closed outside the bot with no P&L recorded" in card
+    assert learn._num("nan") is None and learn._num("inf") is None and learn._num("-1.07") == -1.07
 
 
 def test_trading_workflows_start_from_the_latest_main():
@@ -146,8 +147,7 @@ def test_trading_workflows_start_from_the_latest_main():
     root = Path(__file__).resolve().parent.parent
     for name in ("trade.yml", "scan.yml"):
         text = (root / ".github" / "workflows" / name).read_text()
-        step = text.split("uses: actions/checkout@v4", 1)[1].split("- uses:", 1)[0]
-        assert "ref: main" in step, name
+        assert "      - uses: actions/checkout@v4\n        with:\n          ref: main\n" in text, name
 
 
 def test_run_with_learning_off_changes_nothing(tmp_path):
