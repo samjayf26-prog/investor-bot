@@ -78,7 +78,8 @@ shows its value under "core". The kill switch and `flatten` sell it like everyth
   stays until a pick needs it. This is the shape that has run since 2026-10-20. Any TQQQ left
   from the leveraged mode is sold back into SPY.
 - `"leverage": true`: the rule from review/profit-overhaul.md (bot/core.py). Once a day, in the
-  15:35-15:58 ET window, core money is split between TQQQ and SPY: TQQQ weight = min(1,
+  15:35-15:58 ET window (12:35-12:58 ET on a day the exchange closes at 13:00; the window
+  moves with the close), core money is split between TQQQ and SPY: TQQQ weight = min(1,
   vol_target / (3 x QQQ 20-day volatility)) while QQQ closes above its 200-day average, else 0.
   After three lower QQQ closes in a row the core goes 100% TQQQ until the first higher close (at
   most 5 sessions). It only trades when the target moved more than `band` (10 points) from what

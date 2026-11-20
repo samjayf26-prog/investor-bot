@@ -275,6 +275,17 @@ def rebalance_needed(held_weight, target_weight, band=0.10):
     return abs(target_weight - held_weight) > band
 
 
+def core_window(lo, hi, normal_close, session_close=None):
+    """The core's window (lo, hi) for one session. On a day the exchange closes early (13:00 ET
+    after Thanksgiving and on Christmas Eve) the window moves earlier by as much as the close
+    does, so the core still acts on that close the same afternoon. A close that is unknown,
+    or not earlier than normal, leaves the window where config puts it."""
+    if session_close is not None and session_close < normal_close:
+        early = normal_close - session_close
+        return lo - early, hi - early
+    return lo, hi
+
+
 def core_target(idle, weight, in_dip):
     """Dollars for (3x fund, rest) out of `idle` core dollars: the overlay means 100% 3x."""
     idle = max(0.0, idle)

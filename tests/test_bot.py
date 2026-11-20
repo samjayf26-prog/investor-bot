@@ -148,9 +148,13 @@ class FakeAlpaca:
         self.prices = {"NVDA": 180.0, "F": 11.0, "BRK.A": 700000.0, "PENNY": 0.5, "TQQQ": 80.0, "WHOLE": 10.0,
                        "SPY": 700.0, "QQQ": 600.0}
         self.closes = []   # QQQ daily closes for the leveraged core, oldest first
+        self.close_et = "16:00"   # today's closing time in the exchange calendar ("13:00" = early close)
 
     def clock(self):
         return {"is_open": self.open_}
+
+    def calendar(self, start, end):
+        return [{"date": start, "open": "09:30", "close": self.close_et}]
 
     def account(self):
         return {"equity": "100", "last_equity": "100", "cash": str(self.cash), "status": "ACTIVE",
