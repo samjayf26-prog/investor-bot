@@ -1,19 +1,19 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-19T19:23:42Z",
-  "expires_at": "2026-11-19T20:30:00Z",
+  "generated_at": "2026-11-20T13:54:01Z",
+  "expires_at": "2026-11-20T20:30:00Z",
   "picks": [],
   "close": [],
   "watch": [
     "PANW",
     "P",
     "BE",
-    "PDD",
-    "NVDA",
-    "SANM",
     "TJX",
     "TGT",
     "ACM",
-    "CBRS"
+    "CBRS",
+    "INTU",
+    "GAP",
+    "TSLA"
   ]
 }
