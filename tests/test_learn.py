@@ -1,6 +1,7 @@
 import csv
 import json
 from datetime import date, timedelta
+from pathlib import Path
 
 from bot import learn, scalper, tuning
 from bot.trader import load_config
@@ -123,6 +124,30 @@ def test_run_writes_tuning_log_and_scorecard_once_a_day(tmp_path):
     card = (tmp_path / "research" / "scorecard.md").read_text()
     assert "2026-10-09-HUM" in card and "| SPY | 1 | 1 | 0.02 |" in card and "Changed to" in card
     assert learn.run(FakeData(), CFG, TODAY, tmp_path) == "already-done"
+
+
+def test_scorecard_survives_a_row_without_a_pnl(tmp_path):
+    """A position closed outside the bot is logged with blank cost and P&L; the scorecard
+    lists it as n/a and leaves it out of the total instead of failing."""
+    setup_root(tmp_path)
+    with open(tmp_path / "ledger" / "trades.csv", "a") as f:
+        f.write("2026-11-20,2026-11-10-SANM,SANM,buy,2026-11-10,,,,closed outside the bot,live\n")
+    card = "\n".join(learn.scorecard(TODAY, tmp_path))
+    assert "| 2026-11-20 | 2026-11-10-SANM | n/a | n/a | closed outside the bot |" in card
+    assert "Picks: 2 closed, 0 winners, $-0.32 total." in card
+    assert "1 closed outside the bot with no P&L recorded" in card
+    assert learn._num("nan") is None and learn._num("inf") is None and learn._num("-1.07") == -1.07
+
+
+def test_trading_workflows_start_from_the_latest_main():
+    """trade.yml and scan.yml share one concurrency group, so a run can wait behind another
+    that sells or buys. It must check out main as it is when it starts, or it works from
+    stale state (2026-11-20: a queued cycle logged SANM as closed outside the bot and its
+    save replaced the stop-loss row)."""
+    root = Path(__file__).resolve().parent.parent
+    for name in ("trade.yml", "scan.yml"):
+        text = (root / ".github" / "workflows" / name).read_text()
+        assert "      - uses: actions/checkout@v4\n        with:\n          ref: main\n" in text, name
 
 
 def test_run_with_learning_off_changes_nothing(tmp_path):

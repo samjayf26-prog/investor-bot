@@ -13,6 +13,7 @@ Only the knobs in bot/tuning.py BOUNDS can change. Safety limits are never touch
 import csv
 import itertools
 import json
+import math
 from collections import defaultdict
 from datetime import datetime, time as dtime, timedelta, timezone
 
@@ -126,6 +127,15 @@ def read_csv(path):
         return []
 
 
+def _num(value):
+    """A ledger number, or None when the cell is blank or not a finite number."""
+    try:
+        x = float(value)
+    except (TypeError, ValueError):
+        return None
+    return x if math.isfinite(x) else None
+
+
 def summarize(rows, key):
     groups = defaultdict(list)
     for r in rows:
@@ -150,12 +160,18 @@ def scorecard(today, root=ROOT):
         lines.append(f"| {s} | {n} | {w} | {pnl} |")
     lines += ["", "## Research picks, all closed", "| closed | pick | P&L $ | P&L % | why closed |",
               "|---|---|---|---|---|"]
+    known = []   # rows with a P&L; a position closed outside the bot has none (bot/trader.py)
     for r in picks:
-        lines.append(f"| {r['closed']} | {r['id']} | {r['pnl_approx']} | "
-                     f"{float(r['pnl_pct']):.1%} | {r['reason']} |")
-    total = sum(float(r["pnl_approx"]) for r in picks)
-    wins = sum(1 for r in picks if float(r["pnl_approx"]) > 0)
+        pnl, pct = _num(r.get("pnl_approx")), _num(r.get("pnl_pct"))
+        if pnl is not None:
+            known.append(pnl)
+        lines.append(f"| {r['closed']} | {r['id']} | {'n/a' if pnl is None else r['pnl_approx']} | "
+                     f"{'n/a' if pct is None else format(pct, '.1%')} | {r['reason']} |")
+    total = sum(known)
+    wins = sum(1 for x in known if x > 0)
     lines.append(f"\nPicks: {len(picks)} closed, {wins} winners, ${total:.2f} total.")
+    if len(known) < len(picks):
+        lines.append(f"({len(picks) - len(known)} closed outside the bot with no P&L recorded; not in the total.)")
     return lines
 
 
