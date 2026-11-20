@@ -29,7 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # Start from the latest main, not the commit that triggered the run: a run queued behind
+      # another one (same concurrency group) must see the state and ledger that run just saved.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
