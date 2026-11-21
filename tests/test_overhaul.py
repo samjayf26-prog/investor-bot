@@ -195,6 +195,58 @@ def test_leveraged_core_does_nothing_outside_the_window(tmp_path):
         assert not api.orders, start
 
 
+def test_core_window_moves_with_an_early_close():
+    def et(h, m):
+        return datetime(2026, 11, 27, h, m)
+    normal = (et(15, 35), et(15, 58))
+    assert risk.core_window(*normal, et(16, 0)) == normal                       # close unknown
+    assert risk.core_window(*normal, et(16, 0), et(16, 0)) == normal            # a normal close
+    assert risk.core_window(*normal, et(16, 0), et(17, 0)) == normal            # never later than config
+    assert risk.core_window(*normal, et(16, 0), et(13, 0)) == (et(12, 35), et(12, 58))
+
+
+def test_leveraged_core_acts_before_an_early_close(tmp_path):
+    """The exchange closes at 13:00 ET: the window is 12:35-12:58, so the dip overlay still
+    buys on the third lower close that afternoon instead of at the next session."""
+    write_picks(tmp_path, [])
+    qqq = closes(260, 0.002)
+    qqq[-3:] = [qqq[-4] * 0.99, qqq[-4] * 0.98, qqq[-4] * 0.97]   # three lower closes (the last is today)
+    api = FakeAlpaca(cash=2.0)
+    api.close_et = "13:00"
+    hold(api, "SPY", 98.0)
+    t, api, clock = make(tmp_path, api=api, start=NOW, qqq=qqq[:-1])            # 10:50 ET: too early
+    api.prices["QQQ"] = qqq[-1]
+    (tmp_path / "state").mkdir(exist_ok=True)
+    (tmp_path / "state" / "core.json").write_text(json.dumps({"date": "2026-10-07", "dip_state": 0}))  # last close seen
+    t.cycle()
+    assert not api.orders and not api.closed
+    clock.t = datetime(2026, 10, 8, 16, 40, tzinfo=timezone.utc)                # 12:40 ET, inside 12:35-12:58
+    t.cycle()
+    assert "SPY" in api.closed
+    tqqq = [o for o in api.orders.values() if o["side"] == "buy" and o["symbol"] == "TQQQ"]
+    assert len(tqqq) == 1 and float(tqqq[0]["notional"]) == pytest.approx(98.0, abs=0.02)
+    state = json.loads((tmp_path / "state" / "core.json").read_text())
+    assert state["date"] == "2026-10-08" and state["dip_state"] == 1 and state["ordered"]
+    assert "catch-up" not in (tmp_path / "ledger" / "core.csv").read_text()
+
+
+def test_an_unreadable_calendar_keeps_the_normal_window(tmp_path):
+    from bot.alpaca import AlpacaError
+
+    def refuse(start, end):
+        raise AlpacaError(500, "calendar down")
+
+    write_picks(tmp_path, [])
+    for broken in (refuse, lambda start, end: [], lambda start, end: [{"date": start, "close": "soon"}]):
+        for start, acts in ((datetime(2026, 10, 8, 16, 40, tzinfo=timezone.utc), False), (WINDOW, True)):
+            t, api, _ = make(tmp_path, start=start)
+            api.calendar = broken
+            (tmp_path / "state").mkdir(exist_ok=True)
+            (tmp_path / "state" / "core.json").write_text(json.dumps({"date": "2026-10-07", "dip_state": 0}))
+            t.cycle()
+            assert bool(api.orders) is acts, (broken, start)
+
+
 def test_dip_replay_is_self_healing():
     assert risk.dip_replay([10, 9, 8, 7]) == 1
     assert risk.dip_replay([10, 9, 8, 7, 6]) == 2

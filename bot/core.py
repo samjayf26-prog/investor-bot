@@ -8,7 +8,9 @@ Two modes, chosen by config "core":
       QQQ 20-day volatility)) while QQQ closes above its 200-day average, else 0; after three
       lower QQQ closes in a row the core goes 100% TQQQ until the first higher close (at most
       5 sessions). It trades only when the target moved more than `band` from what is held
-      (or new cash arrived). The window run uses QQQ's last trade as today's close; if that
+      (or new cash arrived). On a day the exchange closes early the window moves earlier with
+      the close (12:35-12:58 ET for a 13:00 close), so the core never waits for the next
+      session. The window run uses QQQ's last trade as today's close; if that
       run is skipped, the next run of any kind acts on the completed close at once (the dip
       overlay's edge is the first session after the signal). "weight_live_close": false makes
       the SMA/vol weight wait for completed sessions (the overlay still uses the live price).
@@ -206,9 +208,22 @@ class Core:
                 except AlpacaError as e:
                     log(f"Core: could not cancel {o.get('client_order_id')}: {e}")
 
+    def session_close(self, today):
+        """Today's closing time from the exchange calendar (13:00 ET on an early-close day), or
+        None when it cannot be read: the window then stays where config puts it."""
+        try:
+            day = next(d for d in self.api.calendar(today.isoformat(), today.isoformat())
+                       if d["date"] == today.isoformat())
+            return datetime.combine(today, datetime.strptime(str(day["close"]), "%H:%M").time(), ET)
+        except (AlpacaError, OSError, StopIteration, KeyError, TypeError, ValueError) as e:
+            log(f"Core: could not read today's closing time ({type(e).__name__}); assuming a normal close.")
+            return None
+
     def in_window(self, now, today):
-        lo = datetime.combine(today, datetime.strptime(self.c.get("rebalance_from_et", "15:35"), "%H:%M").time(), ET)
-        hi = datetime.combine(today, datetime.strptime(self.c.get("rebalance_until_et", "15:58"), "%H:%M").time(), ET)
+        def at(key, default):
+            return datetime.combine(today, datetime.strptime(self.c.get(key, default), "%H:%M").time(), ET)
+        lo, hi = risk.core_window(at("rebalance_from_et", "15:35"), at("rebalance_until_et", "15:58"),
+                                  at("normal_close_et", "16:00"), self.session_close(today))
         return lo <= now <= hi
 
     def completed_closes(self, today):
@@ -239,8 +254,8 @@ class Core:
                 "dip_state": dip_now, "index_close": closes[-1] if closes else None, "enough_history": enough}
 
     def rebalance(self, now, today, halted):
-        """One evaluation per close. Inside the window (15:35-15:58 ET) today's last trade is
-        the close. Outside it, a close the window run never acted on (the run was skipped)
+        """One evaluation per close. Inside the window (15:35-15:58 ET, earlier by as much as
+        the close on an early-close day) today's last trade is the close. Outside it, a close the window run never acted on (the run was skipped)
         is acted on at the next run of any kind: the dip overlay's edge lives in the first
         session after the signal, so it never waits for the next window."""
         state = self.load_state()
