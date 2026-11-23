@@ -1,9 +1,9 @@
 {
-  "2026-11-10-SANM": {
-    "at": "2026-11-10T15:21:59.646762+00:00",
-    "confidence": 0.93,
-    "date": "2026-11-10",
+  "2026-11-23-1020-NVDA": {
+    "at": "2026-11-23T15:25:12.810167+00:00",
+    "confidence": 0.9,
+    "date": "2026-11-23",
     "decision": "confirm",
-    "reason": "The Benzinga headlines 'Sanmina Q4 Adj. EPS $4.43 Beats $3.27 Estimate' and 'Sanmina Sees FY2027 Adj EPS $15.50-$17.50 vs $14.06 Est' confirm the catalyst, nothing reverses it or cuts the outlook, and at $166.93 the stock is above the $150 wrong-if level; the fade from about 20% to 11% is price acti"
+    "reason": "The 14:31Z headline 'NVIDIA Reinstates Jensen Huang as President and CEO' confirms the catalyst, and no wrong-if condition has occurred: the price is $170.65, well above $146, and Huang has not left again. The California AG and Congressional probes are pre-existing inquiries the thesis already accou"
   }
 }
