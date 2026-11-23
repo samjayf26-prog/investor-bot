@@ -1,14 +1,14 @@
 {
-  "as_of": "2026-11-23T19:21:01.010709+00:00",
+  "as_of": "2026-11-23T19:23:56.646430+00:00",
   "mode": "live",
-  "equity": "69.45",
+  "equity": "69.41",
   "cash": "0.16",
   "core": {
     "symbol": "SPY",
-    "value": 17.27,
+    "value": 17.25,
     "leverage": true,
     "held": {
-      "SPY": 17.27,
+      "SPY": 17.25,
       "TQQQ": 0.0
     },
     "signals": {
@@ -28,41 +28,41 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "104.24",
-      "unrealized_pl": "-0.435575",
-      "unrealized_plpc": "-0.03967"
+      "current_price": "104.21",
+      "unrealized_pl": "-0.438609",
+      "unrealized_plpc": "-0.03995"
     },
     {
       "symbol": "IDXX",
       "qty": "0.028072574",
       "avg_entry_price": "652.238",
-      "current_price": "689.29",
-      "unrealized_pl": "1.040145",
-      "unrealized_plpc": "0.05681"
+      "current_price": "689.335",
+      "unrealized_pl": "1.041408",
+      "unrealized_plpc": "0.05688"
     },
     {
       "symbol": "NVDA",
       "qty": "0.034485181",
       "avg_entry_price": "170.798",
-      "current_price": "164.87",
-      "unrealized_pl": "-0.204428",
-      "unrealized_plpc": "-0.03471"
+      "current_price": "164.7499",
+      "unrealized_pl": "-0.20857",
+      "unrealized_plpc": "-0.03541"
     },
     {
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "152.67",
-      "unrealized_pl": "-1.777866",
-      "unrealized_plpc": "-0.09758"
+      "current_price": "152.47",
+      "unrealized_pl": "-1.799405",
+      "unrealized_plpc": "-0.09876"
     },
     {
       "symbol": "SPY",
       "qty": "0.023860858",
       "avg_entry_price": "719.577559",
-      "current_price": "723.62",
-      "unrealized_pl": "0.096456",
-      "unrealized_plpc": "0.00562"
+      "current_price": "723.15",
+      "unrealized_pl": "0.085241",
+      "unrealized_plpc": "0.00496"
     }
   ]
 }
