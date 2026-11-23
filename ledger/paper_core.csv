@@ -20,3 +20,4 @@ time,side,symbol,notional,price,reason,mode
 2026-11-18T20:41:37.556265+00:00,buy,SPY,75.00,730.64,rebalance trend=0 vol=0.3574 w=0.00 dip=0,paper
 2026-11-19T20:41:41.593754+00:00,buy,SPY,1.41,717.05,rebalance trend=0 vol=0.3509 w=0.00 dip=0,paper
 2026-11-20T20:41:28.143061+00:00,buy,SPY,2.70,691.315,rebalance trend=0 vol=0.392 w=0.00 dip=0,paper
+2026-11-23T20:40:52.819882+00:00,sell,SPY,3.58,,rebalance trend=0 vol=0.4875 w=0.00 dip=0,paper
