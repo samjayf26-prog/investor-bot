@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-23T19:23:56.646430+00:00",
+  "as_of": "2026-11-23T19:24:15.966362+00:00",
   "mode": "live",
   "equity": "69.41",
   "cash": "0.16",
@@ -44,9 +44,9 @@
       "symbol": "NVDA",
       "qty": "0.034485181",
       "avg_entry_price": "170.798",
-      "current_price": "164.7499",
-      "unrealized_pl": "-0.20857",
-      "unrealized_plpc": "-0.03541"
+      "current_price": "164.715",
+      "unrealized_pl": "-0.209773",
+      "unrealized_plpc": "-0.03562"
     },
     {
       "symbol": "RVTY",
@@ -60,8 +60,8 @@
       "symbol": "SPY",
       "qty": "0.023860858",
       "avg_entry_price": "719.577559",
-      "current_price": "723.15",
-      "unrealized_pl": "0.085241",
+      "current_price": "723.145",
+      "unrealized_pl": "0.085122",
       "unrealized_plpc": "0.00496"
     }
   ]
