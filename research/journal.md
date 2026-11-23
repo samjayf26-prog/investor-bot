@@ -1645,3 +1645,13 @@ Sources: https://www.sec.gov/Archives/edgar/data/1045810/000104581026000090/nov2
 ### 10:51 ET hourly scan (Claude API, bot/scan.py)
 10:51 ET scan: no new pick and nothing to close. 1) No new pick. STATE shows 0 free slots and $0.00 of room ($52.46 of $69.95 already in picks, 75%). Since I am closing nothing, I cannot add a pick. The day's other big movers (PANW, P, BE, CBRS, ZS, CRNC, LUXE and the chip group) were already looked at and passed or missed for room in the 10:23 run. 2) NVDA (2026-11-23-1020) stays open. My news search since the last run found only reports confirming the reinstatement: Nvidia's own press release, CBS, Reuters via Investing.com, CNN live updates and Calcalist. Nothing says Huang has left again or that an inquiry has found against him. The price is $170.44, well above the $146.00 close level in the wrong-if. 3) EL, IDXX and RVTY stay open. My searches turned up no company news from today. All three are up today (+5.4%, +1.9%, +6.1%), and none of them has a written wrong-if to check. Market mood is not a reason to close.
 - No new picks, no closes.
+
+### 11:51 ET hourly scan (Claude API, bot/scan.py)
+11:51 ET scan: no new picks and no closes.
+
+1) No new pick. STATE shows 0 free slots and $0.00 of room for new picks. I am closing nothing, so no slot or dollars open up and I cannot add a pick under the rulebook. The day's big movers (PANW, P, BE, CBRS, ZS, CRNC, LUXE and the chip group) were already looked at in the 10:23 run. They were either passed or missed for room.
+
+2) NVDA (2026-11-23-1020) stays open. New reports since the last run all confirm the reinstatement and none reverse it: Bloomberg's 'Nvidia Rehires Huang in Stunning Comeback Following Trump Push', CBS, CNN live updates, and Nvidia's own press release filed with the SEC. I found no report that Huang has left again or that an inquiry has found against him. The price is $165.92, still well above the $146.00 close level in the wrong-if.
+
+3) EL, IDXX and RVTY stay open. My searches found no company news from today. The newest RVTY items are from its Q3 report about 20 days ago. All three are up today (EL +5.7%, IDXX +1.9%, RVTY +5.9%), and none has a written wrong-if to check.
+- No new picks, no closes.
