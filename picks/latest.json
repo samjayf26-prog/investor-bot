@@ -1,23 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-23T15:24:56Z",
+  "generated_at": "2026-11-23T19:23:28Z",
   "expires_at": "2026-11-23T20:30:00Z",
-  "picks": [
-    {
-      "id": "2026-11-23-1020-NVDA",
-      "symbol": "NVDA",
-      "action": "buy",
-      "conviction": 1,
-      "max_entry_price": 175,
-      "thesis": "Nvidia's board voted unanimously on 2026-11-23 to reinstate Jensen Huang as President and CEO, effective immediately (press release filed with the SEC), reversing his departure last week, when the stock fell from $146.00 (11-19 close) to $125.65 (11-20 close); the shares gapped up about 35% to about $170. A gap of 12% or more on a concrete decision in a mega-cap is the rulebook's best bucket; the size is the smallest because the board committee's investigation and government inquiries continue.",
-      "wrong_if": "closes below $146.00 (the 11-19 close, before Friday's 14% fall; that would mean the reinstatement gap has failed), or Huang leaves or is removed again, or the board's investigating committee or a government inquiry finds against him",
-      "sources": [
-        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000090/nov23pressrelease.htm",
-        "https://investing.com/news/stock-market-news/nasdaq-futures-jump-6-as-nvidia-reinstates-jensen-huang-as-ceo-5045819",
-        "https://www.globenewswire.com/news-release/2026/11/23/3408381/0/en/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director.html"
-      ]
-    }
-  ],
+  "picks": [],
   "close": [],
   "watch": [
     "PANW",
@@ -27,8 +12,8 @@
     "TGT",
     "ACM",
     "CBRS",
-    "CRNC",
-    "ZS",
-    "LUXE"
+    "HPE",
+    "ZM",
+    "A"
   ]
 }
