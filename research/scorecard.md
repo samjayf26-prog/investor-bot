@@ -1,13 +1,12 @@
-# Scorecard 2026-11-23
+# Scorecard 2026-11-24
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $69.47 (-7.37%) vs S&P 500 $69.77 (-6.97%): the bot is behind by $0.30.**
-Same money in the Nasdaq 100 (QQQ): $65.74 (-12.35%).
-Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $56.24 (-25.02%). The gap between this and the account is the picks plus execution slippage.
+**Bot $69.99 (-6.68%) vs S&P 500 $69.21 (-7.73%): the bot is ahead by $0.78.**
+Same money in the Nasdaq 100 (QQQ): $64.33 (-14.23%).
+Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $55.78 (-25.62%). The gap between this and the account is the picks plus execution slippage.
 
 | day | bot $ | $ in S&P 500 (SPY) | $ in QQQ | core rule $ |
 |---|---|---|---|---|
-| 2026-11-10 | 72.76 | 72.32 | 68.11 | 58.81 |
 | 2026-11-11 | 73.01 | 73.31 | 69.63 | 59.61 |
 | 2026-11-12 | 72.70 | 73.04 | 69.55 | 59.38 |
 | 2026-11-13 | 72.20 | 72.52 | 67.99 | 58.09 |
@@ -17,6 +16,7 @@ Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's clos
 | 2026-11-19 | 69.46 | 69.09 | 65.08 | 55.69 |
 | 2026-11-20 | 67.07 | 66.92 | 61.98 | 53.94 |
 | 2026-11-23 | 69.47 | 69.77 | 65.74 | 56.24 |
+| 2026-11-24 | 69.99 | 69.21 | 64.33 | 55.78 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
@@ -64,7 +64,6 @@ Picks: 18 closed, 8 winners, $-0.69 total.
 ## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)
 | day | bias | QQQ move | right? |
 |---|---|---|---|
-| 2026-11-10 | neutral | -0.02% | - |
 | 2026-11-11 | neutral | +0.64% | - |
 | 2026-11-12 | neutral | +0.36% | - |
 | 2026-11-13 | neutral | -1.03% | - |
@@ -74,6 +73,7 @@ Picks: 18 closed, 8 winners, $-0.69 total.
 | 2026-11-19 | neutral | -4.29% | - |
 | 2026-11-20 | neutral | -3.44% | - |
 | 2026-11-23 | neutral | +0.53% | - |
+| 2026-11-24 | neutral | -0.36% | - |
 
 Bull/bear calls: 8 of 10 right.
 
