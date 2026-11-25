@@ -1814,3 +1814,20 @@ Sources: state/account.json and state/market.json (10:21 ET) ; ledger/trades.csv
 ### 10:51 ET hourly scan (Claude API, bot/scan.py)
 10:51 ET scan: no new picks and no closes. The search tool hit its usage limit partway through, so this check was shorter than usual. New picks: none qualified. There is room for one: 1 slot free and $4.70 left. A conviction-1 pick is 10% of the account, about $6.80, so $4.70 is more than half and a trimmed pick would still fit. Nothing has been found that broke after the 10:23 ET research run and meets rule 2 (up 6% or more on its own estimate change, confirmed by two outlets). Several stories in the results are older than this run or are next-day moves. Dollar Tree (DLTR) beat and raised its forecast on Tuesday (Benzinga, Kalkine); it is day 1 today and down 1.55%, and rule 5 says not to buy the next morning. Cogent Biosciences got FDA approval of Ekitna a day ago (Investing.com, TipRanks), so it is also day 1. BridgeBio (BBIO) got FDA approval of Welgemda (AskTraders, Yahoo Finance). I could not confirm when the news broke or that the stock is up 6% or more today before the search limit hit, so it is logged for the next run, not picked. No mega-cap gapped down today on an earnings or guidance miss (rule 9); DELL is falling after beating estimates, which the research run already ruled out. Open positions: EL is 105.82 (-2.2%), IDXX 704.03 (-1.2%) and RVTY 147.23 (-3.9%; its stop near $143.80 is about 2.3% below). Searches found no company news that reverses their stories. The only EL story found is the Nov 2 Bloomberg report that Estee Lauder raised its outlook, which is th
 - No new picks, no closes.
+
+### 11:51 ET hourly scan (Claude API, bot/scan.py)
+11:51 ET scan: no new picks and no closes. The search tool hit its usage limit again partway through, so this was a short check.
+
+New picks: none. There is room for one: 1 slot is free and $4.68 is left. That is more than half of a conviction-1 pick (about $6.82), so a trimmed pick would fit.
+- BridgeBio (BBIO): Benzinga says the FDA approved Welgemda on Monday. Today is day 2, so it does not count as news after the research run, and rule 5 rules it out. This settles the item the 10:51 scan carried over.
+- Dollar Tree (DLTR): it raised guidance on Tuesday (Benzinga, Kalkine), so today is day 1 and it is down 1.2%. Not a pick.
+- Kohl's: up 12.6% on its results a day ago, so it is not day 0. Not a pick.
+- Indra: up on its mid-term targets, but it is not US-listed. Not a pick.
+- I found nothing that broke after the research run at 15:23 UTC (10:23 ET) and is up 6% or more today on its own change to estimates. The broad market is falling (QQQ -4.3%, SMH -7.1%), and no names in the bot's market data are up 6%.
+- No mega-cap fell sharply today on an earnings or guidance miss (rule 9). DELL is falling after beating estimates, which the research run already ruled out.
+
+Open positions:
+- EL 107.51 (-0.7%), IDXX 701.18 (-1.6%), RVTY 147.68 (-3.6%).
+- None has a stated wrong-if. RVTY is about 2.6% above the roughly $143.80 stop given in the last scan.
+- Searches for Estee Lauder, IDEXX and Revvity turned up no recent company news (company pages and quote pages only), so nothing reverses
+- No new picks, no closes.
