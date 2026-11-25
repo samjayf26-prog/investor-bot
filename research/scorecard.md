@@ -1,13 +1,12 @@
-# Scorecard 2026-11-24
+# Scorecard 2026-11-25
 
 ## Bot vs S&P 500 ($75 since 2026-10-13 12:40 ET)
-**Bot $69.99 (-6.68%) vs S&P 500 $69.21 (-7.73%): the bot is ahead by $0.78.**
-Same money in the Nasdaq 100 (QQQ): $64.33 (-14.23%).
-Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $55.78 (-25.62%). The gap between this and the account is the picks plus execution slippage.
+**Bot $69.37 (-7.51%) vs S&P 500 $69.12 (-7.84%): the bot is ahead by $0.25.**
+Same money in the Nasdaq 100 (QQQ): $63.96 (-14.72%).
+Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's close, no picks): $55.71 (-25.72%). The gap between this and the account is the picks plus execution slippage.
 
 | day | bot $ | $ in S&P 500 (SPY) | $ in QQQ | core rule $ |
 |---|---|---|---|---|
-| 2026-11-11 | 73.01 | 73.31 | 69.63 | 59.61 |
 | 2026-11-12 | 72.70 | 73.04 | 69.55 | 59.38 |
 | 2026-11-13 | 72.20 | 72.52 | 67.99 | 58.09 |
 | 2026-11-16 | 70.67 | 71.37 | 66.80 | 57.41 |
@@ -17,6 +16,7 @@ Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's clos
 | 2026-11-20 | 67.07 | 66.92 | 61.98 | 53.94 |
 | 2026-11-23 | 69.47 | 69.77 | 65.74 | 56.24 |
 | 2026-11-24 | 69.99 | 69.21 | 64.33 | 55.78 |
+| 2026-11-25 | 69.37 | 69.12 | 63.96 | 55.71 |
 (Deposits or withdrawals would distort this; reset benchmark.since in config.json after one.)
 
 ## Scalper, last 5 sessions
@@ -58,13 +58,13 @@ Core rule on paper (TQQQ/SPY rule at official closes from the go-live day's clos
 | 2026-10-30 | 2026-10-27-1020-CLS | -0.76 | -6.9% | Claude asked to close |
 | 2026-11-03 | 2026-10-26-1020-TSLA | 0.2 | 1.8% | max hold of 8 days |
 | 2026-11-20 | 2026-11-10-SANM | -1.07 | -15.6% | stop loss (-15.6%) |
+| 2026-11-25 | 2026-11-23-1020-NVDA | -1.0 | -17.1% | stop loss (-17.0%) |
 
-Picks: 18 closed, 8 winners, $-0.69 total.
+Picks: 19 closed, 8 winners, $-1.69 total.
 
 ## Claude's direction calls (scalp_bias vs QQQ 9:35-15:15)
 | day | bias | QQQ move | right? |
 |---|---|---|---|
-| 2026-11-11 | neutral | +0.64% | - |
 | 2026-11-12 | neutral | +0.36% | - |
 | 2026-11-13 | neutral | -1.03% | - |
 | 2026-11-16 | neutral | -0.99% | - |
@@ -74,6 +74,7 @@ Picks: 18 closed, 8 winners, $-0.69 total.
 | 2026-11-20 | neutral | -3.44% | - |
 | 2026-11-23 | neutral | +0.53% | - |
 | 2026-11-24 | neutral | -0.36% | - |
+| 2026-11-25 | neutral | +3.26% | - |
 
 Bull/bear calls: 8 of 10 right.
 
