@@ -1,34 +1,19 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-11-24T19:24:19Z",
-  "expires_at": "2026-11-24T20:30:00Z",
-  "picks": [
-    {
-      "id": "2026-11-24-1020-DLTR",
-      "symbol": "DLTR",
-      "action": "buy",
-      "conviction": 1,
-      "max_entry_price": 158,
-      "thesis": "Dollar Tree's third quarter (release filed with the SEC 2026-11-24) beat on sales ($5.07B, +6.9%), comparable sales (+4.6%, traffic +3.8%) and adjusted EPS ($1.16 against about $0.91 expected), and it raised its fiscal 2026 adjusted EPS outlook to $8.05-$8.25 from $7.70-$8.05 (consensus about $7.94). The stock gapped up 11% to about $154.66 and held above its open and VWAP at 10:21 ET: a 6%+ gap on a guidance raise (rule 2). Smallest size: the Q4 EPS guide's midpoint is just under consensus and about $0.65 of the outlook is tariff refunds. Waits for room under the 75% cap.",
-      "wrong_if": "closes below $147.00 (more than half of today's gap given back), or the company cuts or withdraws the fiscal 2026 outlook it raised today",
-      "sources": [
-        "https://www.sec.gov/Archives/edgar/data/0000935703/000093570326000136/ex991q3-26earningspressrel.htm",
-        "https://blockonomi.com/dollar-tree-dltr-stock-jumps-11-as-customer-traffic-rebounds-outlook-rises",
-        "https://247wallst.com/cards/dollar-tree-q3-2026-earnings-dltr-01m86ngv75a3gxhxy1se79890y"
-      ]
-    }
-  ],
+  "generated_at": "2026-11-25T13:54:12Z",
+  "expires_at": "2026-11-25T20:30:00Z",
+  "picks": [],
   "close": [],
   "watch": [
+    "DLTR",
     "ADI",
     "ANF",
     "DKS",
-    "KSS",
+    "DELL",
     "PANW",
     "P",
     "BE",
     "CBRS",
-    "TJX",
-    "TGT"
+    "TJX"
   ]
 }
