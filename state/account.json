@@ -1,25 +1,25 @@
 {
-  "as_of": "2026-11-25T19:52:11.161947+00:00",
+  "as_of": "2026-11-25T20:41:38.057974+00:00",
   "mode": "live",
-  "equity": "69.43",
-  "cash": "5.03",
+  "equity": "69.29",
+  "cash": "2.02",
   "core": {
     "symbol": "SPY",
-    "value": 17.09,
+    "value": 20.05,
     "leverage": true,
     "held": {
-      "SPY": 17.09,
+      "SPY": 20.05,
       "TQQQ": 0.0
     },
     "signals": {
-      "date": "2026-11-24",
+      "date": "2026-11-25",
       "trend": 0,
-      "vol": 0.4807,
+      "vol": 0.4774,
       "weight": 0.0,
       "dip_state": 0,
-      "index_close": 635.34,
+      "index_close": 630.05,
       "lev_target": 0.0,
-      "rest_target": 17.09,
+      "rest_target": 20.07,
       "halted": false
     }
   },
@@ -28,33 +28,33 @@
       "symbol": "EL",
       "qty": "0.10115527",
       "avg_entry_price": "108.546",
-      "current_price": "109.61",
-      "unrealized_pl": "0.107629",
-      "unrealized_plpc": "0.0098"
+      "current_price": "109.5",
+      "unrealized_pl": "0.096502",
+      "unrealized_plpc": "0.00879"
     },
     {
       "symbol": "IDXX",
       "qty": "0.028072574",
       "avg_entry_price": "652.238",
-      "current_price": "712.1",
-      "unrealized_pl": "1.68048",
-      "unrealized_plpc": "0.09178"
+      "current_price": "710.095",
+      "unrealized_pl": "1.624194",
+      "unrealized_plpc": "0.08871"
     },
     {
       "symbol": "RVTY",
       "qty": "0.107697218",
       "avg_entry_price": "169.178",
-      "current_price": "150.71",
-      "unrealized_pl": "-1.988952",
-      "unrealized_plpc": "-0.10916"
+      "current_price": "150.51",
+      "unrealized_pl": "-2.010492",
+      "unrealized_plpc": "-0.11035"
     },
     {
       "symbol": "SPY",
-      "qty": "0.023860858",
-      "avg_entry_price": "716.99749",
-      "current_price": "716.45",
-      "unrealized_pl": "-0.013063",
-      "unrealized_plpc": "-0.00076"
+      "qty": "0.028074856",
+      "avg_entry_price": "716.590499",
+      "current_price": "714.29",
+      "unrealized_pl": "-0.064586",
+      "unrealized_plpc": "-0.00321"
     }
   ]
 }
