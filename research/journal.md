@@ -1831,3 +1831,20 @@ Open positions:
 - None has a stated wrong-if. RVTY is about 2.6% above the roughly $143.80 stop given in the last scan.
 - Searches for Estee Lauder, IDEXX and Revvity turned up no recent company news (company pages and quote pages only), so nothing reverses
 - No new picks, no closes.
+
+### 12:51 ET hourly scan (Claude API, bot/scan.py)
+12:51 ET scan: no new picks and no closes. The search tool hit its usage limit again, so this was a short check.
+
+New picks: none. There is room for one: 1 slot is free and $4.68 is left. That is more than half of a conviction-1 pick (about $6.90), so a trimmed pick would fit. I found nothing that broke after the 10:23 ET research run and is up 6% or more today on its own change to estimates. The midday market reports (Motley Fool 11:31 ET, StockTitan, TechFlow) are all about the AI and chip selloff: Nasdaq about -4%, SOX about -7.9%, NVDA -6.8%. They name no qualifying gainers.
+- DKS (+4.2%) and BJ's: Kalkine reports a beat and a raised EPS forecast for Dick's, but the stock is below the 6% gap rule, and the news is from earlier than this run.
+- DLTR: it raised guidance on Tuesday, so today is day 1 and it is down 0.6%. Not a pick (rule 5).
+- BridgeBio (BBIO): FDA approval on Monday, so it is past day 0.
+- Novo Nordisk: Sogroya won FDA approval for Turner syndrome. This is a small label expansion for a mega-cap, not a 6% estimate change. I could not confirm it from a second outlet or find a 6% move.
+- Cipla: it is not US-listed.
+- Vertex: its FDA decision is due Nov 30, so there is no decision yet.
+- No mega-cap fell sharply today on its own earnings or guidance miss (rule 9). NVDA and the chip names are down on sector mood, not on their own results, and DELL is down after beating estimates (already ruled out).
+
+Open positions (bot prices):
+- EL 108.97 (+0.7%)
+- IDXX 710.75
+- No new picks, no closes.
