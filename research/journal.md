@@ -1932,3 +1932,25 @@ Sources: state/account.json and state/market.json (10:45 ET) ; https://chipdispa
 ### 11:51 ET hourly scan (Claude API, bot/scan.py)
 11:51 ET scan, about 65 minutes after the 10:46 ET research run. No new pick and no close. Room for new picks is $4.90 with 1 free slot. A conviction-1 pick is 10% of $69.90, about $6.99, so less than half of one fits. The bot would trim it and make it wait. I am not closing anything to make room. The market news is still the broad Black Friday rebound led by tech and chips (KuCoin, 24/7 Wall St, Proactive, all today). It is not a company-specific estimate change. None of the listed movers is up 6% or more on a concrete catalyst: MRVL +5.3% (chip rebound, results due Tuesday), BE +4.9%, ANF +4.5%, CBRS +4.3%, DKS +2.6%, ADI +2.5%. VRTX is -6.0% on the FDA review delay, which is not an earnings or guidance miss, so rule 9 does not apply. My searches found no company-specific story since 10:46 ET that meets the 6% gap and two-source test. Open positions: EL 111.44 (+1.7%), IDXX 715.01 (+0.8%) and RVTY 150.61 (-0.1%). Searches found no fresh company news on any of them; the newest RVTY item is the Benzinga story from early November on its 52-week high. None has a written wrong-if that could have triggered, and none is near the 15% disaster stop. Carry all three. Sources: https://www.kucoin.com/news/flash/us-stocks-rally-on-black-friday-as-s-p-500-nasdaq-and-dow-jones-rise ; https://247wallst.com/investing/2026/11/27/stock-market-today-markets-off-to-a-strong-black-friday-start/ ; https://www.proactiveinvestors.com/companies/news/1102556/markets-live-us-stock-futures-jump-ahead-o
 - No new picks, no closes.
+
+### 12:51 ET hourly scan (Claude API, bot/scan.py)
+12:51 ET scan, about 64 minutes after the 11:46 ET research run (15:46Z). No new pick and no close.
+
+Why no new pick: there is $4.88 of room and 1 free slot. A conviction-1 pick is 10% of $70.10, about $7.01, so less than half of one fits. The bot would trim it and make it wait, and I am not closing anything to make room. The session also ends early at 13:00 ET today.
+
+Market news: still the broad Black Friday rally led by chip stocks (Yahoo Finance AlphaCheck and Quartz, both today). That is not a company-specific estimate change.
+
+Movers on the list: none is up 6% or more on a concrete catalyst. BE is +5.1%, MRVL +4.2% (results due Tuesday), ANF +3.5%, CBRS +3.5% and DKS +3.2%. VRTX is -5.9% on the FDA review delay. That is not an earnings or guidance miss, so rule 9 does not apply.
+
+Open positions:
+- EL 112.08 (+2.3%)
+- IDXX 716.64 (+1.0%)
+- RVTY 151.06 (+0.2%)
+
+Searches found no fresh company news on any of the three. The newest items are EL's guidance raise on Nov 2 (Bloomberg) and RVTY's investor-day notice from October. None has a written wrong-if that could have triggered, and none is near the 15% disaster stop. Carry all three.
+
+Sources:
+- https://finance.yahoo.com/markets/article/chip-stocks-lead-a-black-friday-rally-but-nvidia-misses-out-alphacheck-145727185.html
+- https://qz.com/stocks-rise-black-friday-shortened-volatile-week-112726
+- https://www.bloomberg.com/news/articles/2026-11-02/estee-lauder-raises-outlook-buoyed-by-perfume-demand
+- No new picks, no closes.
